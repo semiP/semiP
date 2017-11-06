@@ -3,4 +3,4 @@
 <%
 	request.setAttribute("greeting", "안녕하세요");
 %>
-<tiles:insertDefinition name="hello" />
+<tiles:insertDefinition name="main" />

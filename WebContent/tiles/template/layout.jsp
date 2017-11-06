@@ -3,20 +3,14 @@
 <html>
 <head>
 <title><tiles:getAsString name="title" /></title>
+	<link rel="stylesheet" href="/semiP/assets/css/common.css" type="text/css">
+	<script type="text/javascript" src="/semiP/assets/js/menuscroll.js"></script>
 </head>
 <body>
-
-	<table width="100%" border="1" cellpadding="0" cellspacing="0">
-		<tr>
-			<td colspan="2"><tiles:insertAttribute name="header" /></td>
-		</tr>
-		<tr>
-			<td valign="top"><tiles:insertAttribute name="menu" /></td>
-			<td valign="top"><tiles:insertAttribute name="body" /></td>
-		</tr>
-		<tr>
-			<td colspan="2"><tiles:insertAttribute name="footer" /></td>
-		</tr>
-	</table>
+	<tiles:insertAttribute name="sidebar" />
+	<tiles:insertAttribute name="header" />
+	<tiles:insertAttribute name="body" />
+	<tiles:insertAttribute name="footer" />
+	
 </body>
 </html>
