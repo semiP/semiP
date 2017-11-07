@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <script defer
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="/semiP/assets/js/menuscroll.js"></script>
 <div id="blog-header-container">
 	<h1>MIGNON COPINE</h1>
 </div>

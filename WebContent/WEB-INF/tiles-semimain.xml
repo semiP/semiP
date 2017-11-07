@@ -5,13 +5,41 @@
 
 <tiles-definitions>
 
-	<definition name="main" template="/tiles/template/layout.jsp">
+	<definition name="default" template="/template/layout.jsp">
 		<put-attribute name="title" value="MIGNON COPINE" />
-		<put-attribute name="header" value="/tiles/template/header.jsp" />
-		<put-attribute name="sidebar" value="/tiles/template/sidebar.jsp" />
-		<put-attribute name="body" value="/tiles/body.jsp" />
-		<put-attribute name="footer" value="/tiles/template/footer.jsp" />
+		<put-attribute name="header" value="/template/header.jsp" />
+		<put-attribute name="sidebar" value="/template/sidebar.jsp" />
+		<put-attribute name="body" value="/main/mainbody.jsp" />
+		<put-attribute name="footer" value="/template/footer.jsp" />
 	</definition>
+	
+	<definition name="main" extends="default"> 
+		<put-attribute name="header" value="/template/header_main.jsp" />
+		<put-attribute name="sidebar" value="/template/sidebar.jsp" />
+		<put-attribute name="body" value="/main/mainbody.jsp" />
+		<put-attribute name="footer" value="/template/footer.jsp" />
+	</definition>
+	
+	<definition name="loginForm" extends="default"> 
+        <put-attribute name="body" value="/member/loginForm.jsp" />
+    </definition>
+    
+    <definition name="search" extends="default"> 
+        <put-attribute name="body" value="/main/search.jsp" />
+    </definition>
+    
+    <definition name="idPassInquire" extends="default"> 
+        <put-attribute name="body" value="/member/idPassInquire.jsp" />
+    </definition>
+    
+    <definition name="joinTerm" extends="default"> 
+        <put-attribute name="body" value="/member/joinTerm.jsp" />
+    </definition>
+    
+    <definition name="joinForm" extends="default"> 
+        <put-attribute name="body" value="/member/joinForm.jsp" />
+    </definition>
+    
 	<!--
 	<definition name="hello2" template="/tiles/template/layout.jsp">
 		<put-attribute name="title" value="헬로우 월드2" />
