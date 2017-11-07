@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=utf-8" %>
+<%@ page contentType="text/html; charset=utf-8" trimDirectiveWhitespaces="true"%>
 <div class="footer">
 		<table width="100%" border="0">
 		<tr bgcolor="#777777">

@@ -32,12 +32,16 @@
         <put-attribute name="body" value="/member/idPassInquire.jsp" />
     </definition>
     
-    <definition name="joinTerm" extends="default"> 
-        <put-attribute name="body" value="/member/joinTerm.jsp" />
-    </definition>
-    
     <definition name="joinForm" extends="default"> 
         <put-attribute name="body" value="/member/joinForm.jsp" />
+    </definition>
+    
+    <definition name="goodsList" extends="default"> 
+        <put-attribute name="body" value="/goods/goodsList.jsp" />
+    </definition>
+    
+    <definition name="goodsDetail" extends="default"> 
+        <put-attribute name="body" value="/goods/goodsDetail.jsp" />
     </definition>
     
 	<!--
