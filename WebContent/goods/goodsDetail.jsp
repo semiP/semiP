@@ -4,7 +4,7 @@
 
 
 <div id="content-container">
-	<table width="100%" border="1" style="margin:auto; max-width:1000px;">
+	<table width="100%" border="0" style="margin:auto; max-width:1000px;">
 		<tr>			
 			<td height="10">				
 				
