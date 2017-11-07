@@ -4,7 +4,7 @@
 
 
 <div id="content-container">
-	<table width="100%" border="0" style="margin:auto; max-width:1000px;">
+	<table width="100%" border="1" style="margin:auto; max-width:1000px;">
 		<tr>			
 			<td height="10">				
 				
@@ -12,9 +12,7 @@
 		</tr>
 
 		<tr>
-			
 			<td height="1" bgcolor="#777777"></td>
-			
 		</tr>
 
 		<tr>
@@ -88,11 +86,37 @@
 									<td width="100" height="40">&nbsp;배송 가능 지역</td>
 									<td>전국</td>
 								</tr>
+								<tr height="30">
+								</tr>
+								<tr>
+									<td colspan="2" align="center" >
+										<input type="button" class="btn-custom" value="장바구니 담기" style="width:150px;">
+										&nbsp;&nbsp;&nbsp;
+										<input type="button" class="btn-custom1" value="구매하기" style="width:150px;">
+									</td>
+								</tr>
 							</table>
 						</td>
 					</tr>
 				</table>
 			</td>
+		</tr>
+		<tr>
+			<td height="1" bgcolor="#777777"></td>
+		</tr>
+		<tr>
+			<td align="center">
+				이미지 1 <br>
+				이미지 2 <br>
+				이미지 3 <br>
+				등등 <br>
+			</td>
+		</tr>
+		<tr>
+			<td height="1" bgcolor="#777777"></td>
+		</tr>
+		<tr>
+			<td></td>
 		</tr>
 	</table>
 </div>
