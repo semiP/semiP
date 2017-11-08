@@ -1,6 +1,19 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"
 	trimDirectiveWhitespaces="true"%>
 
+<script type="text/javascript">
+	<!--
+	function imagePopup(opage, x, y){
+		farwindow = window.open('', 'Images', 'width=' + x + ', height=' + y + ', toolbar=0, scrollbars=0, resizable=no');
+		if (farwindow != null) {
+			if (farwindow.opener == null) {
+				farwindow.opener = self;
+			}
+			farwindow.location.href = opage;
+		}
+	}
+	//--> 
+</script>
 
 
 <div id="content-container">
@@ -26,7 +39,13 @@
 									<td><img src="/semiP/assets/images/best1.jpg" style="width:100%;"></td>
 								</tr>
 								<tr>
-									<td align="center"><img src="/semiP/assets/images/icons/enlarge.png" width="50" height="50" onmouseover="this.src='/semiP/assets/images/icons/enlarge_on.png'" onmouseout="this.src='/semiP/assets/images/icons/enlarge.png'"></td>
+									<td align="center">
+										<img 
+										src="/semiP/assets/images/icons/enlarge.png" width="50" height="50" 
+										onmouseover="this.src='/semiP/assets/images/icons/enlarge_on.png'" 
+										onmouseout="this.src='/semiP/assets/images/icons/enlarge.png'"
+										onclick="imagePopup('/semiP/assets/images/best1.jpg',100,100)">
+									</td>
 								</tr>
 							</table>
 						</td>
