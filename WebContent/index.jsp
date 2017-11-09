@@ -17,10 +17,16 @@
 [ goods 폴더 ]<br> 
 <a href="/semiP/goodsList.tiles" target="_blank">goodsList</a><br>
 <a href="/semiP/goodsDetail.tiles" target="_blank">goodsDetail</a><br>
-
-
-
-
+<br>
+[ common 폴더 ]<br>
+<a href="/semiP/common/checkPassword.jsp" target="_blank">checkPassword</a><br>
+&nbsp;&nbsp; --> 창 사이즈 지정해서 팝업으로 띄워서 처리합니다. 게시판의 경우 게시판 창과 같은 사이즈로 띄워주세요<br>
+<br>
+[ board 폴더 ]<br>
+** 보드에서 사용하는 아이콘들은 /assets/images/board/ 폴더 안에 있습니다<br>
+<a href="/semiP/board/qnaView.jsp" target="_blank">qnaView</a><br>&nbsp;&nbsp; --> 게시판 보기 및 작성하기 페이지도 새창으로 띄웁니다<br>
+<a href="/semiP/board/qnaWrite.jsp" target="_blank">qnaWrite</a><br>&nbsp;&nbsp; --> 게시판 보기 및 작성하기 페이지도 새창으로 띄웁니다<br>
+<br>
 
 
 

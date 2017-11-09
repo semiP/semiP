@@ -311,3 +311,32 @@ html, body {
   width:150px;
   height:50px;
 }
+
+.content-cellstyle-selected{
+	border:1px solid #000000;
+	background-color:#eff5ff;
+	width:25%;
+	height:50px;
+	text-align:center;
+	font-weight:bold;
+}
+.content-cellstyle-selected A:link {
+	text-decoration:none; color:#000000;
+}
+
+.content-cellstyle-noSelect{
+	border:1px solid #cccccc;
+	width:25%;
+	height:50px;
+	text-align:center;
+}
+.content-cellstyle-noSelect A:link {
+	text-decoration:none; color:#000000;
+}
+.content-notice-cellstyle {
+	width:25%;
+	padding:5px;
+	font-size:0.8em;
+	vertical-align:top;
+	text-align:left;
+}
