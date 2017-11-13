@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div style="margin:20% 20% 20% 20%; width:60%; padding:50px 0 50px 0; text-align:center; border:1px solid black;">
+<div style="margin:10% auto auto auto; width:80%; padding:50px 0 50px 0; text-align:center; border:1px solid black;">
 	비밀번호를 입력해 주시기 바랍니다<br><br>
 	<input type="text" style="width:200px;">
 	<input type="submit" value="확인">
