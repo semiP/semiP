@@ -43,6 +43,14 @@
 					<td><input type="password" style="width:90%; height:30px;"></td>
 				</tr>
 				<tr>
+					<td width="100"><br>&nbsp;&nbsp;주  소<br><br></td>
+					<td>
+						<input type="text" style="width:100px; height:30px;">&nbsp;<input type="button" value="우편번호" ><br>
+						<input type="text" style="width:90%; height:30px;"><br>
+						<input type="text" style="width:90%; height:30px;" placeholder="나머지 주소">
+					</td>
+				</tr>
+				<tr>
 					<td width="100"><br>&nbsp;&nbsp;이메일<br><br></td>
 					<td><input type="text" style="width:100px; height:30px;">&nbsp;@&nbsp;<input type="text" id="email2" style="width:100px; height:30px;">
 					<select name="select" onchange="document.getElementById('email2').value=this.value;if(this.value==''){document.getElementById('email2').focus();}">

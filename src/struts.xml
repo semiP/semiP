@@ -8,19 +8,20 @@
 	<constant name="struts.multipart.maxSize" value="104857600" />
 	<constant name="struts.multipart.saveDir" value="C:\upload2\temp" />
 	
-	<package name="SendMail" extends="struts-default">
-<!--  	글로벌 예외처리 화면설정
-		<global-results>
-			<result name="error">/board/pageError.jsp</result>
-		</global-results>
-		<global-exception-mappings>
-			<exception-mapping result="error" exception="java.lang.Exception" />
-		</global-exception-mappings>
--->
- 		<!-- 게시판 리스트 액션 -->
-
+	<package name="tiles" extends="struts-default">
+		<result-types>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+<!-- 메인 페이지 호출하는 액션 -->		
+		<action name="mainAction" class="tiles.MainAction">
+			<result name="success" type="tiles">main</result>
+		</action>
+<!-- 로그인 페이지 호출하는 액션 -->		
+		<action name="loginForm" class="tiles.LoginForm">
+			<result name="success" type="tiles">loginForm</result>
+		</action>
 	</package>
-	
+
 </struts>
 
 
