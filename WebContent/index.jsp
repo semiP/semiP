@@ -16,7 +16,7 @@
 <br>
 [ common 폴더 ]<br>
 <a href="/semiP/common/checkPassword.jsp" onClick="window.open(this.href, '', 'width=400, height=250'); return false;">checkPassword</a><br>
-&nbsp;&nbsp; --> 창 사이즈 지정해서 팝업으로 띄워서 처리합니다. 게시판의 경우 게시판 창과 같은 사이즈로 띄워주세요(400*250)<br>
+&nbsp;&nbsp; --> 창 사이즈 지정해서 팝업으로 띄워서 처리합니다. (400*250)<br>
 <br>
 [ goods 폴더 ]<br> 
 <a href="/semiP/goodsList.tiles" target="_blank">goodsList</a><br>

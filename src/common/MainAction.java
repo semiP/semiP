@@ -1,4 +1,4 @@
-package tiles;
+package common;
 
 import com.opensymphony.xwork2.ActionSupport;
 

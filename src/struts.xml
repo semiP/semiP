@@ -13,14 +13,25 @@
 			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
 <!-- 메인 페이지 호출하는 액션 -->		
-		<action name="mainAction" class="tiles.MainAction">
+		<action name="mainAction" class="common.MainAction">
 			<result name="success" type="tiles">main</result>
 		</action>
 <!-- 로그인 페이지 호출하는 액션 -->		
-		<action name="loginForm" class="tiles.LoginForm">
+		<action name="loginForm" class="common.LoginAction" method="loginForm">
 			<result name="success" type="tiles">loginForm</result>
 		</action>
+<!-- ID/pass 페이지 호출하는 액션 -->		
+		<action name="idPassInquire" class="member.IdPassInquire" method="inquireForm">
+			<result name="success" type="tiles">idPassInquire</result>
+		</action>
+		
+		
+		
 	</package>
+
+	<!-- 회원가입 :  -->
+	<include file="/config/member.xml" />
+
 
 </struts>
 
