@@ -8,12 +8,26 @@
 <div id="menu-container">
 	<div class="menu-icon" style="display: none;">MC</div>
 	<div class="menu-item">
-		OUTER&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-		TOP&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-		PANTS&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-		SKIRT&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-		DRESS&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-		SHOES&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-		BAGS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/semiP/goodsDetail.action?category=outer" style="color:#FFFFFF; text-decoration:none;">
+		OUTER</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/semiP/goodsDetail.action?category=outer" style="color:#FFFFFF; text-decoration:none;">
+		TOP</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/semiP/goodsDetail.action?category=outer" style="color:#FFFFFF; text-decoration:none;">
+		PANTS</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/semiP/goodsDetail.action?category=outer" style="color:#FFFFFF; text-decoration:none;">
+		SKIRT</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/semiP/goodsDetail.action?category=outer" style="color:#FFFFFF; text-decoration:none;">
+		DRESS</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/semiP/goodsDetail.action?category=outer" style="color:#FFFFFF; text-decoration:none;">
+		SHOES</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/semiP/goodsDetail.action?category=outer" style="color:#FFFFFF; text-decoration:none;">
+		BAGS</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	</div>
 </div>
