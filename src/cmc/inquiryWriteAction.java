@@ -1,9 +1,8 @@
 package cmc;
-
+//답변달기. 답변수정.삭제. 차후 관리자 구현할 때 기능 추가(현재 프론트 기능만)
 import com.opensymphony.xwork2.ActionSupport;
 
 //import cmc.inquiryVO; 경로 같아서 굳이 필요없음
-//미완성
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -30,7 +29,6 @@ public class inquiryWriteAction extends ActionSupport implements SessionAware {
 	private String inquiry_content;
 	private String inquiry_email;
 	private String inquiry_addfile;
-	//나중에 관리자 할떄(메모장에 소스 넣어둠)
 	private Map session;
 	
 	public inquiryWriteAction() throws IOException{
@@ -45,7 +43,31 @@ public class inquiryWriteAction extends ActionSupport implements SessionAware {
 		}
 		return SUCCESS;
 	}
+	public String deletet()throws Exception {
+		 paramClass=new inquiryVO();
+		 resultClass=(inquiryVO)sqlMapper.queryForObject("inquiry.selectOne",getInquiry_no());
+		 paramClass.setInquiry_no(getInquiry_no());
+		 sqlMapper.update("inquiry.delete",paramClass);
+		 
+		 return SUCCESS;
+	 }
 	
+	public String execute() throws Exception {
+
+
+		paramClass = new inquiryVO();
+		resultClass = new inquiryVO();
+
+		paramClass.setInquiry_category(getInquiry_category());
+		paramClass.setInquiry_subject(getInquiry_subject());
+		paramClass.setInquiry_content(getInquiry_content());
+		paramClass.setInquiry_email(getInquiry_email());
+		paramClass.setInquiry_addfile(getInquiry_addfile());		
+
+		sqlMapper.insert("inquiry.insert", paramClass);
+		
+		return SUCCESS;
+	}
 	public inquiryVO getParamClass() {
 		return paramClass;
 	}
@@ -106,5 +128,6 @@ public class inquiryWriteAction extends ActionSupport implements SessionAware {
 	public void setSession(Map session) {
 		this.session = session;
 	}
+	
 	
 }
