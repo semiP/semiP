@@ -1,38 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE struts PUBLIC 
-	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
-	"http://struts.apache.org/dtds/struts-2.0.dtd">
-	
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<!-- 용량제한 100MB 로 설정 -->
-	<constant name="struts.multipart.maxSize" value="104857600" />
-	<constant name="struts.multipart.saveDir" value="C:\upload2\temp" />
-	
-	<package name="tiles" extends="struts-default">
-		<result-types>
-			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
-		</result-types>
-<!-- 메인 페이지 호출하는 액션 -->		
-		<action name="mainAction" class="common.MainAction">
-			<result name="success" type="tiles">main</result>
+	<package name="cmc" extends="struts-default">
+		<!-- 공지사항 액션. -->
+		<!-- faq까지 같은 패키지 안에 넣고 액션명만 따로 주면 될거 같음 -->
+		<action name="noticeList" class="cmc.noticeList">
+			<result>/cmc/noticeList.jsp</result>
 		</action>
-<!-- 로그인 페이지 호출하는 액션 -->		
-		<action name="loginForm" class="common.LoginAction" method="loginForm">
-			<result name="success" type="tiles">loginForm</result>
+		<!-- 자주묻는질문 액션 -->
+		<action name="faqList" class="cmc.faqList">
+			<result>/cmc/faqList.jsp</result>
 		</action>
-<!-- ID/pass 페이지 호출하는 액션 -->		
-		<action name="idPassInquire" class="member.IdPassInquire" method="inquireForm">
-			<result name="success" type="tiles">idPassInquire</result>
-		</action>
-		
-		
-		
 	</package>
-
-	<!-- 회원가입 :  -->
-	<include file="/config/member.xml" />
-
-
 </struts>
-
-
