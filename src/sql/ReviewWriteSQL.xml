@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="mypage">
+	<typeAlias alias="member" type="mypage.memberBean"/>
+	<typeAlias alias="goods" type="mypage.goodsBean"/>
+	<typeAlias alias="goods_qa" type="mypage.goods_qaBean"/>
+	
+	<!-- result map 정의 -->
+	<resultMap id="memberRes" class="memberModify">
+		<result property="member_no" column="member_no"/>
+		<result property="member_name" column="member_name"/>
+		<result property="member_id" column="member_id"/>
+		<result property="member_pw" column="member_pw"/>
+		<result property="member_zipcode" column="member_zipcode"/>
+		<result property="member_address1" column="member_address1"/>
+		<result property="member_address2" column="member_address2"/>
+		<result property="member_phone" column="member_phone"/>
+		<result property="member_email" column="member_email"/>
+		<result property="memeber_regdate" column="member_regdate"/>
+		<result property="member_level" column="member_level"/>
+		<result property="mebmer_deleteReason" column="member_deleteReason"/> <!-- member table에 reason column추가 -->
+	</resultMap>
+	
+	<resultMap id="goodsRes" class="goods">
+		<result property="goods_no" column="goods_no"/>
+		<result property="goods_name" column="goods_name"/>
+		<result property="goods_category" column="goods_category"/>
+		<result property="goods_size" column="goods_size"/>
+		<result property="goods_color" column="goods_color"/>
+		<result property="goods_content" column="good_content"/>
+		<result property="goods_amount" column="goods_amount"/>
+		<result property="goods_price" column="good_price"/>
+		<result property="goods_image" column="goods_image"/>
+		<result property="goods_regdate" column="goods_regdate"/>
+	</resultMap>
+	
+	<resultMap id="goods_QARes" class="goods_qa">
+		<result property="QA_NO" column="QA_NO"/>
+		<result property="GOODS_NO" column="GOODS_NO"/>
+		<result property="MEMBER_NO" column="MEMBER_NO"/>
+		<result property="QA_SUBJECT" column="QA_SUBJECT"/>
+		<result property="QA_CONTENT" column="QA_CONTENT"/>
+		<result property="QA_PW" column="QA_PW"/>
+		<result property="SECRET_FLAG" column="SECRET_FLAG"/>
+		<result property="REGDATE" column="REGDATE"/>
+		<result property="QA_ADDFILE" column="QA_ADDFILE"/>
+		<result property="QARE_FLAG" column="QARE_FLAG"/>
+		<result property="REF" column="REF"/>
+		<result property="RE_STEP" column="RE_STEP"/>
+		<result property="RE_LEVEL" column="RE_LEVEL"/>
+		<result property="START" column="START"/>
+	</resultMap>
+	
+	<!-- select-all -->
+		<select id="selectAllMember_ReviewWrite" resultMap="memberRes" parameterClass="int">
+			<include refid="select-all-member_ReviewWrite" />
+			ORDER BY member_no DESC
+		</select>
+		
+		<select id="selectAllGoods_ReviewWrite" resultMap="goodsRes" parameterClass="int">
+			<include refid="select-all-goods_ReviewWrite" />
+			ORDER BY GOODS_NO DESC
+		</select>
+		
+		<select id="selectAllGoods_QA_ReviewWrite" resultMap="goods_QARes" parameterClass="int">
+			<include refid="select-all-goods_QA_ReviewWrite"/>
+			ORDER BY QA_NO DESC
+		</select>
+		
+	<!-- select-one -->
+		<select id="selectOneMember_ReviewWrite" resultMap="memberRes" parameterClass="int">
+			<include refid="select-all-member_ReviewWrite"/>
+		</select>
+		
+		<select id="selectOneGoods_ReviewWrite" resultMap="goodsRes" parameterClass="int">
+			<include refid="select-all-member_ReviewWrite" />
+		</select>
+		
+		<select id="selectOneGoods_QA_ReviewWrite" resultMap="goods_QARes" parameterClass="int">
+			<include refid="select-all-goods_QA_ReviewWrite" />
+		</select>
+		
+	<!--
+		- 회원정보 목록 출력
+    	> goods table에서 
+     	  goods_no을 이용하여 goods_name, goods_color, goods_size 컬럼과
+     	  member table에서
+      	  member_no을 이용하여member_name 컬럼의 값을 불러옴
+ 		- 등록날짜 설정  
+    	> goods_qa table에서 
+          regdate를 오늘 날짜를
+      	  insert를 이용하여 값 설정
+	 	- 등록하기 
+    	> goods_qa에
+      	  qa_subject, qa_content, qa_addfile,star을 
+      	  insert를 통해 새로운 작성된 내용 저장 -->
+      
+     <!-- 회원정보 목록 출력 -->
+     	<select id="member_no" resultMap="memberRes">
+			<include refid="select-all-member"/>
+			select member_no from member
+		</select>
+     
+     	<select id="goods_no" resultMap="goodsRes">
+			<include refid="select-all-goods"/>
+			select goods_no from GOODS
+		</select>
+		
+		<select id="goods_name" resultMap="goodsRes">
+			<include refid="select-all-goods"/>
+			select goods_name from GOODS
+		</select>
+		
+		<select id="goods_color" resultMap="goodsRes">
+			<include refid="select-all-goods"/>
+			select goods_color from GOODS
+		</select>
+		
+		<select id="goods_size" resultMap="goodsRes">
+			<include refid="select-all-goods"/>
+			select goods_size from GOODS
+		</select>
+		
+	<!-- 등록날짜 설정 -->
+		<insert id="regdate" parameterClass="goods_qa">
+			insert into GOODS_QA (
+								REGDATE,
+								QA_SUBJECT,
+								QA_CONTENT,
+								QA_ADDFILE)
+						 values (
+						 		sysdate,
+						 		#QA_SUBJECT#,
+						 		#QA_CONTENT#,
+						 		#QA_ADDFILE#)
+		</insert>
+</sqlMap>
