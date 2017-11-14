@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC 
+	'-//ibatis.apache.org//DTD Sql Map 2.0//EN' 
+	'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+	
+<sqlMap namespace="order">
+
+	<typeAlias alias="order" type="order.orderVO"/>
+	
+	<!-- 주문 테이블 리절트 맵 정의 -->
+	<resultMap id="orderRes" class="order">
+		<result property="order_no" column="order_no"/>
+		<result property="order_goods_no" column="order_goods_no"/>
+		<result property="order_member_no" column="order_member_no"/>
+		<result property="order_member_id" column="order_member_id"/>
+		<result property="order_goods_name" column="order_goods_name"/>
+		<result property="order_goods_amount" column="order_goods_amount"/>
+		<result property="order_goods_size" column="order_goods_size"/>
+		<result property="order_goods_color" column="order_goods_color"/>
+		<result property="order_goods_price" column="order_goods_price"/>
+		<result property="order_goods_image_file" column="order_goods_image_file"/>
+		<result property="order_receive_name" column="order_receive_name"/>
+		<result property="order_receive_zipcode" column="order_receive_zipcode"/>
+		<result property="order_receive_addr1" column="order_receive_addr1"/>
+		<result property="order_receive_addr2" column="order_receive_addr2"/>
+		<result property="order_receive_phone" column="order_receive_phone"/>
+		<result property="order_memo" column="order_memo"/>
+		<result property="order_pay_type" column="order_pay_type"/>
+		<result property="order_pay_name" column="order_pay_name"/>
+		<result property="order_date" column="order_date"/>
+		<result property="order_trade_date" column="order_trade_date"/>
+		<result property="order_list_amount" column="order_list_amount"/>
+		<result property="order_status" column="order_status"/>
+		<result property="order_total_pay" column="order_total_pay"/>
+		<result property="order_invoice_no" column="order_invoice_no"/>
+	</resultMap>
+	
+	<!-- 주문 insert 쿼리문 정의 -->
+	<insert id="orderInsert" parameterClass="order">
+	
+	INSERT INTO GOODSORDER (ORDER_NO,
+							ORDER_GOODS_NO,
+							ORDER_MEMBER_NO,
+							ORDER_GOODS_NAME,
+							ORDER_GOODS_AMOUNT, //주문수량
+							ORDER_GOODS_SIZE,   //주문한 사이즈
+							ORDER_GOODS_COLOR,  //주문한색상
+							ORDER_GOODS_PRICE,  
+							ORDER_RECEIVE_NAME,
+							ORDER_RECEIVE_ZIPCODE,
+							ORDER_RECEIVE_ADDR1,
+							ORDER_RECEIVE_ADDR2,
+							ORDER_RECEIVE_PHONE,
+							ORDER_MEMO,
+							ORDER_PAY_TYPE,
+							ORDER_PAY_NAME,
+							ORDER_DATE,
+							ORDER_TRADE_DATE,
+							ORDER_LIST_AMOUNT,
+							ORDER_STATUS,
+							ORDER_TOTAL_PAY,
+							ORDER_INVOICE_NO)
+	VALUES (ORDER_NO_seq.NEXTVAL,
+							#ORDER_GOODS_NO#,
+							#ORDER_MEMBER_NO#,
+							#ORDER_GOODS_NAME#,
+							#ORDER_GOODS_AMOUNT#,
+							#ORDER_GOODS_SIZE#,
+							#ORDER_GOODS_COLOR#,
+							#ORDER_GOODS_PRICE#,
+							#ORDER_RECEIVE_NAME#,
+							#ORDER_RECEIVE_ZIPCODE#,
+							#ORDER_RECEIVE_ADDR1#,
+							#ORDER_RECEIVE_ADDR2#,
+							#ORDER_RECEIVE_PHONE#,
+							#ORDER_MEMO#,
+							#ORDER_PAY_TYPE#,
+							#ORDER_PAY_NAME#,
+							#ORDER_DATE#,
+							#ORDER_TRADE_DATE#,
+							#ORDER_LIST_AMOUNT#,
+							#ORDER_STATUS#,
+							#ORDER_TOTAL_PAY#,
+							#ORDER_INVOICE_NO#
+			ORDER_NO_SEQ.CURRVAL)
+	</insert>
+	
+	<!-- 공통으로 사용할 select 절 정의 -->
+	<sql id="select-all">
+		SELECT * FROM ORDER
+	</sql>
+		
+	<select id="selectAll" resultMap="orderRes" parameterClass="int">
+		<include refid="select-all"/>
+	</select>
+
+	<!-- 주문하기 Join (goods, member, order) -->
+	<select id="select-join" resultMap="orderRes" parameterClass="int">
+		SELECT g.goods_no, g.goods_name, g.goods_size, g.goods_color, g.goods_price, g.goods_image_file,
+		       m.member_no, m.member_id,
+		       o.order_no, o.order_goods_no, o.member_no, o.order_date, o.order_trade_date, o.order_list_amount,
+		       o.status, o.order_total_pay, o.invoice_no, 
+		       o.order_receive_name, o.order_receive_zipcode, o.order_receive_addr1, o.order_receive_addr2, o.order_receive_phone,
+		       o.order_memo, o.order_pay_type, o.order_pay_name, o.order_total_pay, o.order_invoice_no
+		FROM  order o, goods g, member m,
+		WHERE o.order_goods_no = #g.goods_no# and o.order_member_no = #m.member_no# 
+	</select>
+		
+	<!-- 수경-주문내역 -->
+	<select id="select-order" resultMap="orderRes" parameterClass="int">
+		<include refid="select-all"/>
+		WHERE ORDER_NO = #ORDER_NO#
+	</select>
+	
+	<!-- 주문내역 (주문 번호)-->
+	<select id="select-order-no" resultMap="orderRes" parameterClass="int">
+		SELECT ORDER_DATE, ORDER_NO
+		FROM ORDER
+		WHERE ORDER_NO = #ORDER_NO#
+	</select>
+	
+	<!-- 주문내역 (주문 상품 정보)-->
+	<select id="select-order-goods" resultMap="orderRes" parameterClass="int">
+		SELECT ORDER_GOODS_IMAGE_FILE, ORDER_GOODS_NAME, ORDER_GOODS_PRICE,
+			   ORDER_GOODS_AMOUNT, ORDER_GOODS_SIZE, ORDER_GOODS_COLOR
+		FROM ORDER
+		WHERE ORDER_GOODS_NO = #ORDER_GOODS_NO#
+	</select>
+	
+	<!-- 주문내역 (배송지 정보)-->
+	<select id="select-order-trade" resultMap="orderRes" parameterClass="int">
+		SELECT ORDER_RECEIVE_NAME, ORDER_RECEIVE_ZIPCODE, ORDER_RECEIVE_ADDR1, ORDER_RECEIVE_ADDR2,
+			   ORDER_RECEIVE_PHONE, ORDER_MEMO
+		FROM ORDER
+		WHERE ORDER_GOODS_NO = #ORDER_GOODS_NO#
+	</select>
+
+</sqlMap>
