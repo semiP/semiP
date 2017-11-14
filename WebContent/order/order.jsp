@@ -190,7 +190,7 @@
 					<tr>
 						<td width="12%"/>
 						<td>
-							<table width="100%" border="1" style="border:1px solid black; border-collapse:collapse;text-align:center;font-size:2em;">
+							<table width="100%" border="1" style="border:1px solid black; border-collapse:collapse;text-align:center;font-size:1.5em;">
 								<tr>
 									<td width="33%" height="50">총 주문금액
 									</td>
