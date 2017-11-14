@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
-
 <sqlMap namespace="mypage">
 	<typeAlias alias="member" type="mypage.memberBean"/>
 	<typeAlias alias="inquiry" type="mypage.inquiryBean"/>
@@ -16,12 +15,11 @@
 		<result property="member_address2" column="member_address2"/>
 		<result property="member_phone" column="member_phone"/>
 		<result property="member_email" column="member_email"/>
-		<result property="member_regdate" column="member_regdate"/>
+		<result property="memeber_regdate" column="member_regdate"/>
 		<result property="member_level" column="member_level"/>
 		<result property="mebmer_deleteReason" column="member_deleteReason"/> <!-- member table에 reason column추가 -->
 	</resultMap>
 	
-	<!-- result map 정의 -->
 	<resultMap id="inquiryRes" class="inquiry">
 		<result property="inquiry_no" column="inquiry_no"/>
 		<result property="MEMBER_NO" column="MEMBER_NO"/>
@@ -37,92 +35,74 @@
 	</resultMap>
 	
 	<!-- select-all -->
-		<sql id="select-all-member_inquiry">
+		<sql id="select-all-member_inquiryDetail">
 			SELECT * FROM MEMBER
 		</sql>
 	
-		<sql id="select-all-inquiry">
+		<sql id="select-all-inquiryDetail">
 			SELECT * FROM INQUIRY
 		</sql>
-	
+		
 		<!-- select 쿼리문 정의 -->
-		<select id="selectAllmember_inquiry" resultMap="memberRes" parameterClass="int">
-			<include refid="select-all-member_inquiry"/>
+		<select id="selectAllmember_inquiryDetail" resultMap="memberRes" parameterClass="int">
+			<include refid="select-all-member_inquiry_detail"/>
 			ORDER BY member_no DESC
 		</select>
 		
-		<select id="selectAllInquiry" resultMap="inquiryRes" parameterClass="int">
-			<include refid="select-all-inquiry" />
+		<select id="selectAllInquiryDetail" resultMap="inquiryRes" parameterClass="int">
+			<include refid="select-all-inquiry_detail" />
 			ORDER BY inquiry_no DESC
 		</select>
-		
+	
 	<!-- select-one -->	
-		<select id="selectOnemember_inquiry" resultMap="memberRes" parameterClass="int">
-			<include refid="select-all-member_inquiry" />
+		<select id="selectOnemember_inquiryDetail" resultMap="memberRes" parameterClass="int">
+			<include refid="select-all-member_inquiry_detail" />
 		</select>
 		
-		<select id="selectOneInquiry" resultMap="inquiryRes" parameterClass="int">
-			<include refid="select-all-inquiry" />
+		<select id="selectOneInquiryDetail" resultMap="inquiryRes" parameterClass="int">
+			<include refid="select-all-inquiry_detail" />
 		</select>
 		
 	<!--
-	 - 화면에 문의내역 list가져옴
+		- 화면에 문의내역 list가져옴
   		 > 문의내역에 해당하는 list를
      	   inquiry table에서 
-    	   inquiry_no, inquiry_category, inquiry_subject, inquiry_regdate를
-           select 를 이용하여 첫 화면 목록에서 보여줌 -->	
-        
-        <!-- 각각의 list를 불러옴 -->
-           
-    	<select id="inquiry_no" resultMap="inquiryRes">
-				<include refid="select-all-member_inquiry"/>
+     	   inquiry_no, inquiry_category, inquiry_subject, inquiry_regdate를
+     	   select 를 이용하여 첫 화면 목록에서 보여줌 -->
+     	   
+		<!-- 각각의 list를 불러옴 -->
+			<select id="inquiry_no" resultMap="inquiryRes">
+				<include refid="select-all-member_inquiry_detail"/>
 				select inquiry_no from INQUIRY
-		</select>
+			</select>
 	
-		<select id="inquiry_category" resultMap="inquiryRes">
+			<select id="inquiry_email" resultMap="inquiryRes">
+				<include refid="select-all-member_inquiry_detail"/>
+				select inquiry_email from INQUIRY
+			</select>
+	
+			<select id="inquiry_category" resultMap="inquiryRes">
 				<include refid="select-all-member_inquiry"/>
 				select inquiry_category from INQUIRY
-		</select>
+			</select>
 	
-		<select id="inquiry_subject" resultMap="inquiryRes">
-				<include refid="select-all-member_inquiry"/>
+			<select id="inquiry_subject" resultMap="inquiryRes">
+				<include refid="select-all-member_inquiry_detail"/>
 				select inquiry_subject from INQUIRY
-		</select>
+			</select>
 	
-		<select id="inquiry_content" resultMap="inquiryRes">
-				<include refid="select-all-member_inquiry"/>
+			<select id="inquiry_content" resultMap="inquiryRes">
+				<include refid="select-all-member_inquiry_detail"/>
 				select inquiry_content from INQUIRY
-		</select>
+			</select>
 	
-		<select id="inquiry_regdate" resultMap="inquiryRes">
-				<include refid="select-all-member_inquiry"/>
+			<select id="inquiry_regdate" resultMap="inquiryRes">
+				<include refid="select-all-member_inquiry_detail"/>
 				select inquiry_regdate from INQUIRY
-		</select>
-	
-		<select id="inquiry_addfile" resultMap="inquiryRes">
-				<include refid="select-all-member_inquiry"/>
-				select inquiry_addfile from INQUIRY
-		</select>
+			</select>
 		
-	<!-- 문의내역 답글보기 -->
-		<select id="inquiry_ref" resultMap="inquiryRes">
-			<include refid="select-all-member_inquiry"/>
-			select inquiry_ref from INQUIRY
-		</select>
-	
-		<select id="inquiry_re_step" resultMap="inquiryRes">
-			<include refid="select-all-member_inquiry"/>
-			select inquiry_re_step from INQUIRY
-		</select>
-	
-		<select id="inquiry_level" resultMap="inquiryRes">
-			<include refid="select-all-member_inquiry"/>
-			select inquiry_level from INQUIRY
-		</select>
-	
-	<!-- 기간조회 -->
-		<select id="inquiry_regdate" resultMap="inquiryRes">
-			<include refid="select-all-member_inquiry"/>
-			select inquiry_regdate from INQUIRY_REGDATE BETWEEN #inquiry_regdate# and #inquiry_regdate#
-		</select>
+			<select id="inquiry_addfile" resultMap="inquiryRes">
+				<include refid="select-all-member_inquiry_detail"/>
+				select inquiry_addfile from INQUIRY
+			</select>
 </sqlMap>
