@@ -5,6 +5,7 @@
 
 <html>
 <head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- 익스에서 문서보드 IE7 로 고정하는것 방지 -->
 <title>비밀번호 확인</title>
 </head>
 <body>

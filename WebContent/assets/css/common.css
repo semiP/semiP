@@ -340,3 +340,12 @@ html, body {
 	vertical-align:top;
 	text-align:left;
 }
+
+.myPageMenuItem {
+	width:25%;
+	height:30px;
+}
+.myPageMenuItem A {
+	text-decoration:none;
+	color: #FFFFFF;
+}
