@@ -26,10 +26,10 @@
 					<tr><td colspan="2" bgcolor="#cccccc" height="1"></td></tr>
 
 					<tr bgcolor="#455b59" align="center">
-						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="./notice.tiles" >
-							공지사항</a></strong></td>
-						<td class="myPageMenuItem" ><a href="./faq.tiles" >
-							자주하는 질문</a></td>
+						<td class="myPageMenuItem"><a href="./notice.tiles" >
+							공지사항</a></td>
+						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="./faq.tiles" >
+							자주하는 질문</a></strong></td>
 					</tr>
 					<tr><td colspan="2" bgcolor="#cccccc" height="1"></td></tr>
 					<tr>	<td height="30"></td>	</tr>
@@ -45,7 +45,7 @@
 		<table width="80%" border="0" align="center">
 			<tr>
 				<td align="left" colspan="2">
-					<h2>> 공지사항</h2>
+					<h2>> 자주하는 질문</h2>
 				</td>
 			</tr>
 			<tr>

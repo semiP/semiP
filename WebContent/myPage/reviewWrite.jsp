@@ -30,7 +30,7 @@
 	</tr>
 	<tr align="center">
 		<td>
-			<input type="range" name="range" value="50" step="1" min="0" max="100" onchange='document.getElementById("rangeText").value=value'>
+			<input type="range" name="range" value="50" step="1" min="0" max="100" style="width:60%;" onchange='document.getElementById("rangeText").value=value'>
 			&nbsp;&nbsp;
 			<input type="text" id="rangeText" name="rangeText" style="width:30px">
 		</td>
