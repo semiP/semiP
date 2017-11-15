@@ -111,7 +111,7 @@
 			select goods_name from GOODS where goods_no = #goods_no#
 		</select>
 		
-		<select id="goods_color" resultMap="goodsRes">
+		<!-- <select id="goods_color" resultMap="goodsRes">
 			<include refid="select-all-goods"/>
 			select goods_color from GOODS where goods_no = #goods_no#
 		</select>
@@ -119,10 +119,10 @@
 		<select id="goods_size" resultMap="goodsRes">
 			<include refid="select-all-goods"/>
 			select goods_size from GOODS where goods_no = #goods_no#
-		</select>
+		</select> -->
 		
 	<!-- 등록날짜 설정 -->
-		<insert id="regdate" parameterClass="goods_qa">
+		<insert id="updateReviewWrite" parameterClass="goods_qa">
 			insert into GOODS_QA (
 								REGDATE,
 								QA_SUBJECT,

@@ -1,8 +1,11 @@
 package mypage.ReviewWrite;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Date;
+
+import org.apache.commons.io.FileUtils;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -64,6 +67,11 @@ public class writeAction extends ActionSupport{
 	private int re_level;
 	private String start;
 	
+	private File upload; // 파일 객체
+	private String uploadContentType; // 컨턴츠 타입
+	private String uploadFileName; // 파일 이름
+	private String fileUploadPath = "C://java//upload"; // 업로드 경로
+	
 	//생성자
 	public writeAction() throws IOException{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
@@ -76,6 +84,7 @@ public class writeAction extends ActionSupport{
 	}
 	
 	public String execute() throws Exception{
+		//파라미터와 리절트 객체 생성
 		paramClass1 = new memberBean();
 		resultClass1 = new memberBean();
 		
@@ -85,14 +94,45 @@ public class writeAction extends ActionSupport{
 		paramClass3 = new goods_qaBean();
 		resultClass3 = new goods_qaBean();
 		
+		// 기본 정보 불러올 목록
 		paramClass1.setMember_name(getMember_name());
 		paramClass2.setGoods_no(getGoods_no());
-		paramClass2.setGoods_color(getGoods_color());
-		paramClass2.setGoods_size(getGoods_size());
+		/*paramClass2.setGoods_color(getGoods_color());
+		paramClass2.setGoods_size(getGoods_size());*/
 		
 		resultClass1 = (memberBean)sqlMapper.queryForObject("Member_no",paramClass1);
 		resultClass2 = (goodsBean)sqlMapper.queryForObject("goods_no",paramClass2);
 		
+		// 등록할 내용
+		paramClass3.setRegdate(getGoods_regdate());
+		paramClass3.setQa_subject(getQa_subject());
+		paramClass3.setQa_content(getGoods_content());
+		paramClass3.setQa_addfile(getQa_addfile());
+		
+		// 등록 쿼리 수행
+		sqlMapper.insert("updateReviewWrite",paramClass3);
+		
+		//첨부파일을 선택헀다면 파일을 업로드 한다.
+		if(getUpload() != null) {
+			// 등록한 상품 번호 가져오기
+			resultClass3 = (goods_qaBean)sqlMapper.queryForObject("goods_no");
+			
+			// 실제 서버에 저장될 파일 이름과 확장자 설정
+			String file_name = "Review_" + resultClass3.getGoods_no();
+			String file_ext = getUploadFileName().substring(
+							getUploadFileName().lastIndexOf('.') + 1,
+							getUploadFileName().length());
+			
+			//서버에 파일 저장
+			File destFile = new File(fileUploadPath + file_name + "." + file_ext);
+			FileUtils.copyFile(getUpload(), destFile);
+			
+			// 파일 정보 파라미터 설정
+			paramClass3.setGoods_no(resultClass3.getGoods_no());
+			paramClass3.setQa_addfile(file_name + "." + file_ext); // 서버에 저장할 파일 이름
+			
+			sqlMapper.update("updateReviewWrite",paramClass3);
+		}
 		return SUCCESS;
 	}
 
@@ -422,6 +462,38 @@ public class writeAction extends ActionSupport{
 
 	public void setStart(String start) {
 		this.start = start;
+	}
+
+	public File getUpload() {
+		return upload;
+	}
+
+	public void setUpload(File upload) {
+		this.upload = upload;
+	}
+
+	public String getUploadContentType() {
+		return uploadContentType;
+	}
+
+	public void setUploadContentType(String uploadContentType) {
+		this.uploadContentType = uploadContentType;
+	}
+
+	public String getUploadFileName() {
+		return uploadFileName;
+	}
+
+	public void setUploadFileName(String uploadFileName) {
+		this.uploadFileName = uploadFileName;
+	}
+
+	public String getFileUploadPath() {
+		return fileUploadPath;
+	}
+
+	public void setFileUploadPath(String fileUploadPath) {
+		this.fileUploadPath = fileUploadPath;
 	}
 
 	
