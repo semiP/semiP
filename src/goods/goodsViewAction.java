@@ -25,8 +25,8 @@ public class goodsViewAction extends ActionSupport{
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
-	private goodsVO paramClass = new goodsVO(); //ÆÄ¶ó¹ÌÅÍ¸¦ ÀúÀåÇÒ °´Ã¼
-	private goodsVO resultClass = new goodsVO(); //Äõ¸® °á°ú °ªÀ» ÀúÀåÇÒ °´Ã¼
+	private goodsVO paramClass = new goodsVO(); //ï¿½Ä¶ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
+	private goodsVO resultClass = new goodsVO(); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
 	
 	private goodsCmtVO cmt_paramClass = new goodsCmtVO();
 	private goodsCmtVO cmt_resultClass = new goodsCmtVO();
@@ -51,22 +51,22 @@ public class goodsViewAction extends ActionSupport{
 	private int goods_cmt_no;
 	private String goods_cmt_pw;
 	
-	//»ý¼ºÀÚ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public goodsViewAction() throws IOException
 	{
-		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ÆÄÀÏÀÇ ¼³Á¤³»¿ëÀ» °¡Á®¿Â´Ù.
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xmlÀÇ ³»¿ëÀ» Àû¿ëÇÑ sqlMapper °´Ã¼ »ý¼º
+		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xmlï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 		reader.close();
 	}
 	
-	//»ó¼¼º¸±â
+	//ï¿½ó¼¼ºï¿½ï¿½ï¿½
 	public String execute() throws Exception
 	{
-		//ÇØ´ç ±ÛÀÇ Á¶È¸¼ö +1.
+		//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ +1.
 		//paramClass.setNo(getNo());
 		//sqlMapper.update("updateReadHit", paramClass);
 		
-		//ÇØ´ç ¹øÈ£ÀÇ »óÇ° ¸ñ·ÏÀ» °¡Á®¿Â´Ù.
+		//ï¿½Ø´ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
 		resultClass = (goodsVO) sqlMapper.queryForObject("select-goods", getGoods_no());
 		//cmt_resultClass = (goodsCmtVO) sqlMapper.queryForObject("select-goods", getGoods_cmt_no());
 		
@@ -74,19 +74,7 @@ public class goodsViewAction extends ActionSupport{
 		
 		return SUCCESS;
 	}
-	
-	//»óÇ°Æò °Ô½Ã¹° list
-	public String cmtlist() throws Exception
-	{
-		list = sqlMapper.queryForList("select-goods-cmt");
-		
-		totalCount = list.size();
-//		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, num, "");
-//		pagingHtml = page.getPagingHtml().toString();
-		
-		return SUCCESS;
-	}
-	
+
 	public int getGoods_no() { return goods_no; }
 	public void setGoods_no (int goods_no) { this.goods_no = goods_no; }
 	

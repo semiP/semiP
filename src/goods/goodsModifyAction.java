@@ -13,13 +13,13 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 
 public class goodsModifyAction extends ActionSupport{
-	public static Reader reader; //ÆÄÀÏ ½ºÆ®¸²À» À§ÇÑ reader.
-	public static SqlMapClient sqlMapper; //SqlMapClient API¸¦ »ç¿ëÇÏ±â À§ÇÑ sqlMapper °´Ã¼.
+	public static Reader reader; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ reader.
+	public static SqlMapClient sqlMapper; //SqlMapClient APIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼.
 	
-	private goodsVO paramClass; //ÆÄ¶ó¹ÌÅÍ¸¦ ÀúÀåÇÒ °´Ã¼
-	private goodsVO resultClass; //Äõ¸® °á°ú °ªÀ» ÀúÀåÇÒ °´Ã¼
+	private goodsVO paramClass; //ï¿½Ä¶ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
+	private goodsVO resultClass; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
 	
-	private int currentPage; //ÇöÀç ÆäÀÌÁö
+	private int currentPage; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
 	private int goods_no;
 	private String goods_name;
@@ -31,66 +31,59 @@ public class goodsModifyAction extends ActionSupport{
 	private int goods_price;
 	private String goods_image_file;
 	private String old_file;
-	Calendar today = Calendar.getInstance(); //¿À´Ã ³¯Â¥ ±¸ÇÏ±â.
+	Calendar today = Calendar.getInstance(); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½Ï±ï¿½.
 	
-	private File upload; //ÆÄÀÏ °´Ã¼
-	private String uploadContentType; //ÄÁÅÙÃ÷ Å¸ÀÔ
-	private String uploadFileName; //ÆÄÀÏ ÀÌ¸§
-	private String fileUploadPath = "E:\\java\\upload\\"; //¾÷·Îµå °æ·Î.
+	private File upload; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
+	private String uploadContentType; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
+	private String uploadFileName; //ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+	private String fileUploadPath = "E:\\java\\upload\\"; //ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½.
 	
-	//»ı¼ºÀÚ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public goodsModifyAction() throws IOException
 	{
-		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ÆÄÀÏÀÇ ¼³Á¤³»¿ëÀ» °¡Á®¿Â´Ù.
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ³»¿ëÀ» Àû¿ëÇÑ sqlMapper °´Ã¼ »ı¼º.
+		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½.
 		reader.close();
 	}
 	
-	//°Ô½Ã±Û ¼öÁ¤
+	//ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public String execute() throws Exception
 	{
-		//ÆÄ¶ó¹ÌÅÍ¿Í ¸®ÀıÆ® °´Ã¼ »ı¼º.
+		//ï¿½Ä¶ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½.
 		paramClass = new goodsVO();
 		resultClass = new goodsVO();
 		
-		//¼öÁ¤ÇÒ Ç×¸ñ ¼³Á¤.
-		paramClass.setGoods_no(getGoods_no());      //»óÇ° ¹øÈ£
-		paramClass.setGoods_name(getGoods_name());  //»óÇ° ÀÌ¸§
-		paramClass.setGoods_category(getGoods_category());  //»óÇ° Ä«Å×°í¸®
-		paramClass.setGoods_size(getGoods_size());       //»óÇ° »çÀÌÁî
-		paramClass.setGoods_color(getGoods_color());     //»óÇ° ÄÃ·¯
-		paramClass.setGoods_amount(getGoods_amount());   //»óÇ° ¼ö·®
-		paramClass.setGoods_content(getGoods_content()); //»óÇ° ¼³¸í
-		paramClass.setGoods_price(getGoods_price());     //»óÇ° °¡°İ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ï¿½ï¿½.
+		paramClass.setGoods_no(getGoods_no());      //ï¿½ï¿½Ç° ï¿½ï¿½È£
+		paramClass.setGoods_name(getGoods_name());  //ï¿½ï¿½Ç° ï¿½Ì¸ï¿½
+		paramClass.setGoods_category(getGoods_category());  //ï¿½ï¿½Ç° Ä«ï¿½×°ï¿½
+		paramClass.setGoods_size(getGoods_size());       //ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		paramClass.setGoods_color(getGoods_color());     //ï¿½ï¿½Ç° ï¿½Ã·ï¿½
+		paramClass.setGoods_amount(getGoods_amount());   //ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½
+		paramClass.setGoods_content(getGoods_content()); //ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½
+		paramClass.setGoods_price(getGoods_price());     //ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½
 		
-		//ÀÏ´Ü Ç×¸ñ¸¸ ¼öÁ¤ÇÑ´Ù.
-		sqlMapper.update("updateBoard", paramClass);
+		sqlMapper.update("goodsUpdate", paramClass);
 		
-		//¼öÁ¤ÇÒ ÆÄÀÏÀÌ ¾÷·Îµå µÇ¾ú´Ù¸é ÆÄÀÏÀ» ¾÷·ÎµåÇÏ°í DBÀÇ file Ç×¸ñÀ» ¼öÁ¤ÇÔ.
+		//íŒŒì¼ ì—…ë¡œë“œ
 		if(getUpload() != null)
 		{
-			//½ÇÁ¦ ¼­¹ö¿¡ ÀúÀåµÉ ÆÄÀÏ ÀÌ¸§°ú È®ÀåÀÚ ¼³Á¤.
 			String file_name = "file_" + getGoods_no();
 			String file_ext = getUploadFileName().substring(getUploadFileName().lastIndexOf('.')+1,getUploadFileName().length());
 			
-			//ÀÌÀü ÆÄÀÏ »èÁ¦
 			File deleteFile = new File(fileUploadPath + getOld_file());
 			deleteFile.delete();
 			
-			//»õ ÆÄÀÏ ¾÷·Îµå
 			File destFile = new File(fileUploadPath + file_name + "." + file_ext);
 			FileUtils.copyFile(getUpload(), destFile);
 			
-			//ÆÄÀÏ Á¤º¸ ÆÄ¶ó¹ÌÅÍ ¼³Á¤.
 			paramClass.setGoods_image_file(getUploadFileName());
 			paramClass.setGoods_image_file(file_name + "." + file_ext);
 			
-			//ÆÄÀÏ Á¤º¸ ¾÷µ¥ÀÌÅÍ.
 			sqlMapper.update("updateFile", paramClass);
 		}
 		
-		//¼öÁ¤ÀÌ ³¡³ª¸é view ÆäÀÌÁö·Î ÀÌµ¿.
-		resultClass = (goodsVO) sqlMapper.queryForObject("selectOne", getGoods_no());
+		resultClass = (goodsVO) sqlMapper.queryForObject("select-goods", getGoods_no());
 		
 		return SUCCESS;
 	}

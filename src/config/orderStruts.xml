@@ -19,18 +19,35 @@
 -->
 
 		<!-- 주문하기전 등록된 상품의 리스트 액션 -->
- 		<action name="orderWriteAction" class="order.orderWriteAction">
- 			<result>/order/orderWrite.jsp</result>
+ 		<action name="orderGoodsListAction" class="order.orderGoodsListAction">
+ 			<result>/order/orderList.jsp</result>
  		</action>
  		
  		<!-- 주문하기전 등록된 상품의 삭제액션 -->
 		<action name="orderGoodsDeleteAction" class="order.orderGoodsDeleteAction">
-		 	<result type="chain">orderWriteAction</result>
+		 	<result type="chain">orderGoodsListAction</result>
 		</action>
 		<action name="orderGoodsDeleteAction" class="order.orderGoodsDeleteAction" method="execute">
 		 	<result type="chain">
 		 	orderWriteAction
 		 	</result>
+		</action>
+		
+		<!-- 주문 등록 게시판 글쓰기 액션 -->
+		<action name="orderWriteForm" class="order.orderWriteAction" method="form">
+	 		<result>/order/orderWrite.jsp</result>
+		</action>
+		<action name="orderWriteAction" class="order.orderWriteAction">
+			<result type="redirect-action">
+				<param name="actionName">orderListAction</param>
+			</result>
+		</action>
+ 	
+ 		<!-- 주문 내역 가져오기 (List) 액션 -->
+		<action name="orderListAction" class="order.orderListAction">
+			<result>
+				/order/orderView.jsp
+			</result>
 		</action>
  	
  		<!-- (admin) 주문완료된 정보 수정액션 (배송상태 수정할때)-->
@@ -49,16 +66,6 @@
 		 	<result type="chain">
 		 	orderListAction
 		 	</result>
-		</action>
-
- 		<!-- 주문 등록 게시판 글쓰기 액션 -->
-		<action name="orderWriteForm" class="order.orderWriteAction" method="form">
-	 		<result>/order/orderWrite.jsp</result>
-		</action>
-		<action name="orderWriteAction" class="order.orderWriteAction">
-			<result type="redirect-action">
-				<param name="actionName">orderListAction</param>
-			</result>
 		</action>
 
 	</package>

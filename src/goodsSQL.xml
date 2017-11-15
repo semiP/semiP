@@ -108,7 +108,7 @@
 	</update>
 	
 	<!-- 상품 (상품평) update 쿼리문 정의 -->
-	<update id="goodsCmtUpdate" parameterClass="goodsCmt">
+	<update id="goodsCmtUpdate" parameterClass="goodsCmtVO">
 	
 	update GOODSCMT set
 		   goods_cmt_pw = #goods_cmt_pw#,
@@ -121,8 +121,15 @@
 	
 	</update>
 	
+	<!-- 등록된 상품 delete 쿼리문 정의 -->
+	<delete id="goodsDelete" parameterClass="goodsVO">
+	
+	delete from goods where goods_no = #goods_no#
+	
+	</delete>
+	
 	<!-- 상품 (상품평) delete 쿼리문 정의 -->
-	<delete id="goodsCmtDelete" parameterClass="goodsCmt">
+	<delete id="goodsCmtDelete" parameterClass="goodsCmtVO">
 	
 	delete from goodscmt where goods_cmt_no = #goods_cmt_no#
 	
@@ -130,30 +137,35 @@
 
 	<!-- 공통으로 사용할 select 절 정의 -->
 	<sql id="select-all">
-		SELECT * FROM GOODS
+		SELECT * FROM goods
 	</sql>
 	
 	<sql id="select-cmt-all">
-		SELECT * FROM GOODS_CMT
+		SELECT * FROM goods_cmt
 	</sql>
 	
-	<!-- 상세보기 -->
-	<sql id="select-goods">
-		SELECT * FROM GOODS
+	<!-- 상품 리스트 (goodsList) (admin) -->
+	<select id="select-goods-all" resultMap="goodsRes" parameterClass="int">
+		<include refid="select-all"/>
+		ORDER BY goods_no DESC
+	</select>
+	
+	<!-- 상품 상세보기 (goodsView) -->
+	<select id="select-goods" resultMap="goodsRes" parameterClass="int">
+		<include refid="select-all"/>
 		WHERE goods_no = #goods_no#
-	</sql>
+	</select>
 	
-	<!-- 고객상품평 리스트 출력 -->
+	<!-- 고객상품평 리스트 출력 (cmtList)-->
+	<select id="select-goods-cmt-all" resultMap="goodsCmtRes" parameterClass="int">
+		<include refid="select-cmt-all"/>
+		ORDER BY goods_cmt_no DESC
+	</select>
+	
+	<!-- 고객상품평 리스트 보기 (cmtView)-->
 	<select id="select-goods-cmt" resultMap="goodsCmtRes" parameterClass="int">
 		<include refid="select-cmt-all"/>
-		WHERE goods_cmt_memberno = #goods_cmt_memberno#
-	</select>
-
-	<!-- 주문하기 (1/4) 배송상품 주문내역-->
-	<select id="select-goods" resultMap="goodsRes" parameterClass="int">
-		SELECT goods_no, goods_name, goods_size, goods_color, goods_price, goods_image_file
-		FROM GOODS
-		WHERE GOODS_NO = #GOODS_NO#
+		WHERE goods_cmt_no = #goods_cmt_no#
 	</select>
 
 </sqlMap>

@@ -2,6 +2,8 @@ package order;
 
 import java.util.Date;
 
+import goods.goodsVO;
+
 public class orderVO {
 	
 	private int order_no;
@@ -25,8 +27,11 @@ public class orderVO {
 	private String order_pay_name;
 	private int order_total_pay;
 	
-	public int getOrder_no() { return order_no; }
-	public void setOrder_no(int order_no) { this.order_no = order_no; }
+	goodsVO goods_vo = new goodsVO();        //goods테이블의 클래스 객체
+	//memeberVO member_vo = new memberVO(); 
+	
+	public int getOrder_no() { return order_no; }  //get 매소드 => 컬럼값을 리턴
+	public void setOrder_no(int order_no) { this.order_no = order_no; }  //set 매소드 => DB컬럼의 값을 java상의 값으로 대입
 	
 	public int getOrder_goods_no() { return order_goods_no; }
 	public void setOrder_goods_no(int order_goods_no) { this.order_goods_no = order_goods_no; }
