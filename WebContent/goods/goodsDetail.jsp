@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"
 	trimDirectiveWhitespaces="true"%>
+<<<<<<< HEAD
 <link rel="stylesheet" href="/semiP/assets/css/board.css" type="text/css">
 <script type="text/javascript">
 	<!--
@@ -15,6 +16,8 @@
 	//--> 
 </script>
 
+=======
+>>>>>>> yjunlim
 
 <div id="content-container">
 	<table width="100%" border="0" style="margin:auto; max-width:1000px;">
@@ -53,11 +56,11 @@
 						<td style="vertical-align:top;">
 							<table width="100%" border="0">
 								<tr>
-									<td colspan="2" style="font-size:1.5em;">상품제목을 입력합니다<br><br></td>
+									<td colspan="2" style="font-size:1.5em;"><s:property value="resultClass.name" /><br><br></td>
 								</tr>
 								<tr>
 									<td width="100" height="40">&nbsp;가격</td>
-									<td style="font-size:1.2em;"><strong>상품가격을 입력합니다</strong></td>
+									<td style="font-size:1.2em;"><strong><s:property value="resultClass.price" /></strong></td>
 								</tr>
 								<tr>
 									<td width="100" height="40">&nbsp;수량</td>

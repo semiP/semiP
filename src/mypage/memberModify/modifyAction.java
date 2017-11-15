@@ -59,5 +59,8 @@ public class modifyAction extends ActionSupport{
 		// 일단 항목만 수정한다.
 		sqlMapper.update("updateMember",paramClass);
 		
+		
+		
+		return null; //빨간줄 없애려고 임의로 넣은 return 입니다.
 	}
 }
