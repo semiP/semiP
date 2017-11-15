@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<<<<<<< HEAD
 <sqlMap namespace="mypage">
+=======
+
+<sqlMap>
+>>>>>>> 명준
 	<typeAlias alias="member" type="mypage.memberBean"/>
 	<typeAlias alias="inquiry" type="mypage.inquiryBean"/>
 	
@@ -28,7 +33,6 @@
 		<result property="inquiry_subject" column="inquiry_subject"/>
 		<result property="inquiry_content" column="inquiry_content"/>
 		<result property="inquiry_regdate" column="inquiry_regdate"/>
-		<result property="inquiry_email" column="inquiry_email"/>
 		<result property="inquiry_addfile" column="inquiry_addfile"/>
 		<result property="inquiry_ref" column="inquiry_ref"/>
 		<result property="inquiry_re_step" column="inquiry_re_step"/>

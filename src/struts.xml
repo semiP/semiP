@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<package name="cmc" extends="struts-default">
+	<package name="support" extends="struts-default">
 		<!-- 공지사항 액션. -->
 		<!-- faq까지 같은 패키지 안에 넣고 액션명만 따로 주면 될거 같음 -->
-		<action name="noticeList" class="cmc.noticeList">
-			<result>/cmc/noticeList.jsp</result>
+		<action name="noticeAction" class="support.noticeAction">
+			<result>/support/notice.jsp</result>
 		</action>
 		<!-- 자주묻는질문 액션 -->
-		<action name="faqList" class="cmc.faqList">
-			<result>/cmc/faqList.jsp</result>
+		<action name="faqListAction" class="support.faqListAction">
+			<result>/support/faq.jsp</result>
 		</action>
 	</package>
 	
