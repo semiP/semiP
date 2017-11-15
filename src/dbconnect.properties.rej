@@ -1,0 +1,8 @@
+diff a/src/dbconnect.properties b/src/dbconnect.properties	(rejected hunks)
+@@ -1,5 +1,4 @@
+ driver=oracle.jdbc.driver.OracleDriver
+-username=kh18
+ url=jdbc:oracle:thin:@istudy.iptime.org:7000:ORCL
+ username=Park
+ password=oracle
+\ No newline at end of file

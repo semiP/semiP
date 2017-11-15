@@ -1,0 +1,77 @@
+[/src/sql/MemberModifySQL.xml]
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap>
+	<typeAlias alias="memberModify" type=mypage.memberModifyVO" />
+
+	<!-- result map 정의 -->
+	<resultMap id="memberModifyRes" class="memberModify">
+		<result property="name" column="name"/>
+		<result property="id" column="id"/>
+		<result property="password" column="password"/>
+		<result property="zipcode" column="zipcode"/>
+		<result property="address1" column="address1"/>
+		<result property="address2" column="address2"/>
+		<result property="phone" column="phone"/>
+		<result property="email" column="email"/>
+		<result property="regdate" column="regdate"/>
+		<result property="level" column="level"/>
+		<result property="member_number" column="member_number"/>
+	</resultMap>
+
+	<!-- 공통으로 사용할 select 절 정의 -->
+	<sql id="select-all">
+		SELECT * FROM MEMBER
+	</sql>
+
+	<!-- 공통으로 사용할 where-no 절 정의 -->
+	<sql id="where-no">
+		WHERE member_number = #member_number#
+	</sql>
+
+	<!-- select 쿼리문 정의 -->
+	
+		<select id="selectAll" resultMap="memberModifyRes" parameterClass="int">
+			<include refid="select-all" />
+			ORDER BY member_number DESC
+		</select>
+		
+		<select id="selectOne" resultMap="memberModifyRes" parameterClass="int">
+			<include refid="select-all" />
+			<include refid="where-no" />
+		</select>
+		
+		<select id="selectLastNo" resultClass="memberModify" parameterClass="int">
+			SELECT max(member_number) as member_number FROM MEMBER
+		</select>
+		
+		<select id="selectPassword" resultMap="memberModifyRes" >
+			<include refid="select-all" />
+			<include refid="where-no" />
+			AND password = #password#
+		</select>
+		
+		<select id="selectZipcode" resultMap="memberModifyRes" >
+			<include refid="select-all" />
+			<include refid="where-no" />
+			AND zipcode = #zipcode#
+		</select>
+
+	<!-- update 쿼리문 정의 -->
+		<update id="updateMemberModify" parameterClass="memberModify">
+		UPDATE MEMBER SET EMAIL = #email#,
+				ZIPCODE = #zipcode#,
+				ADDRESS1 = #ADDRESS1#,
+				ADDRESS2 = #ADDRESS2#,
+				PHONE = #phone#,
+				PASSWORD = #password#
+		<include refid="where-no"/>
+		</update>
+
+		
+	<!-- delete 쿼리문 정의 -->
+		<delete id="deleteMemberModify" parameterClass="memberModify">
+		DELETE FROM MEMBER
+		<include refid="where-no"/>
+		</delete>
+</sqlMap>

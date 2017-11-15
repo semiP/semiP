@@ -71,7 +71,7 @@
 									<td colspan="9" align="left" style="font-size:1.5em;">
 										선택상품을&nbsp;
 										<input type="button" value="주문하기" style="width:150px;">&nbsp;
-										<input type="button" value="주문하기" style="width:150px;">
+										<input type="button" value="삭제하기" style="width:150px;">
 									</td>
 								</tr>
 								<tr>	<td height="50"></td>	</tr>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+	<package name="basket" extends="struts-default, tiles-default">
+		<action name="basketList" class="basket.basketListAction">
+			<result type="tiles">basketList</result>
+		</action>
+		<action name="basketDelete" class="basket.basketDeleteAction">
+			<result type="tiles">basketList</result>
+		</action>
+	
+	</package>

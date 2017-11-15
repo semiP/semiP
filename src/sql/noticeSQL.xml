@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="notice">
+	<typeAlias alias="notice" type="cmc.noticeVO" />
+	<!-- noticeList.jsp에서 관리자 / 일반회원 구분 구문 넣기!! -->
+	<!-- 리절트 맵 정의 -->
+	<!-- create notice table / sequence -->
+	<resultMap id="noticeRes" class="notice">
+		<result property="notice_no" column="notice_no" />
+		<result property="notice_subject" column="notice_subject" />
+		<result property="notice_content" column="notice_content" />
+		<result property="notice_regdate" column="notice_regdate" />
+	</resultMap>
+	<!-- 공통 절(select *) 정의 -->
+	<sql id="select-all">
+		select * from notice
+	</sql>
+
+	<select id="selectAll" resultMap="noticeRes" parameterClass="int">
+		<include refid="select-all" />
+		ORDER BY notice_no DESC
+	</select>
+	<!-- 상세보기 시 사용 -->
+	<select id="selectOne" resultMap="noticeRes" parameterClass="int">
+		<include refid="select-all" />
+		WHERE notice_no = #notice_no#
+	</select>
+
+	<select id="selectLastNo" resultClass="notice" parameterClass="int">
+		SELECT max(notice_no) as notice_no FROM notice
+	</select>
+
+	<!-- 관리자 기능 -->
+	<!-- insert 쿼리문 정의 -->
+	<insert id=
+	"insert" parameterClass="notice">
+		insert into notice(
+		notice_no,
+		notice_subject,
+		notice_content,
+		notice_regdate,
+		)
+		values(notice_no_seq.nextval,
+		#notice_no#,
+		#notice_subject#,
+		#notice_content#,
+		#notice_regdate#,
+		)
+	</insert>
+	<!-- update 쿼리문 정의 -->
+	<update id="update" parameterClass="notice">
+		UPDATE notice SET
+		notice_subject = #notice_subject#,
+		notice_content = #notice_content#
+		WHERE notice_no = #notice_no# />
+	</update>
+
+	<!-- delete 쿼리문 정의 -->
+	<delete id="delete" parameterClass="notice">
+		DELETE FROM notice
+		WHERE notice_no = #notice_no#
+	</delete>
+	<!-- 여기까지 -->
+
+	<!-- search 쿼리문 정의 -->
+	<select id="selectSearch-subject" resultMap="noticeRes" parameterClass="string">
+		<include refid="select-all" />
+		WHERE notice_subject like #searchS#
+		ORDER BY notice_no DESC
+	</select>
+
+</sqlMap>

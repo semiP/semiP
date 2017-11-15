@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- 익스에서 문서보드 IE7 로 고정하는것 방지 -->
 <title>Q&A 등록하기</title>
 	<link rel="stylesheet" href="/semiP/assets/css/common.css" type="text/css">
 	<link rel="stylesheet" href="/semiP/assets/css/board.css" type="text/css">
