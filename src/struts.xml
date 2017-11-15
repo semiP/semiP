@@ -12,4 +12,17 @@
 			<result>/cmc/faqList.jsp</result>
 		</action>
 	</package>
+	<!-- Login-->
+	<package name="login" namespace="/" extends="struts-default">
+		<action name="login" class="member.loginAction">
+			<result name="success">/main/mainbody.jsp</result> 
+			<result name="login">/member/loginForm.jsp</result> 
+	 		<result name="error">/common/loginError.jsp</result>
+		</action>
+		<action name="logout" class="member.loginAction" method="logout"> 
+	 		<result type="redirect-action">
+				<param name="actionName">main</param>
+			</result> 
+		</action>
+	</package>
 </struts>

@@ -11,7 +11,7 @@
 		<tr> <!-- 폼 테이블 넣기 -->
 			<td width="25%"/>
 			<td>
-				<form method="post" action="#">
+				<form action="login.action" method="post">
 					<table width="100%" height="200" border="0" class="inputForm" style="border:3px solid black;">
 						<tr>
 							<td align="right" width="100">아이디&nbsp;&nbsp;&nbsp;</td>
