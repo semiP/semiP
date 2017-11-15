@@ -9,7 +9,7 @@
 	<typeAlias alias="goodsCmt" type="goods.goodsCmtVO" />
 	
 	<!-- 상품 테이블 리절트 맵 정의 -->
-	<resultMap id="goodsRes" class="goods">
+	<resultMap id="goodsRes" class="goodsVO">
 		<result property="goods_no" column="goods_no"/>
 		<result property="goods_name" column="goods_name"/>
 		<result property="goods_category" column="goods_category"/>
@@ -23,7 +23,7 @@
 	</resultMap>
 
 	<!-- 상품 (고객상품평) 리절트 맵 정의 -->
-	<resultMap id="goodsCmtRes" class="goodsCmt">
+	<resultMap id="goodsCmtRes" class="goodsCmtVO">
 		<result property="goods_cmt_no" column="goods_cmt_no"/>
 		<result property="goods_cmt_pw" column="goods_cmt_pw"/>
 		<result property="goods_cmt_memberno" column="goods_cmt_memberno"/>
@@ -40,7 +40,7 @@
 	</resultMap>
 		
 	<!-- 상품 상세보기 insert 쿼리문 정의 -->
-	<insert id="goodsInsert" parameterClass="goods">
+	<insert id="goodsInsert" parameterClass="goodsVO">
 	
 	INSERT INTO GOODS (goods_no,
 					   goods_name,
@@ -65,7 +65,7 @@
 	</insert>
 	
 	<!-- 상품 (상품평) insert 쿼리문 정의 -->
-	<insert id="goodsCmtInsert" parameterClass="goodsCmt">
+	<insert id="goodsCmtInsert" parameterClass="goodsCmtVO">
 	
 	INSERT INTO GOODSCMT (goods_cmt_no,
 					      goods_cmt_pw,
@@ -90,6 +90,22 @@
 					      #goods_cmt_content#,
 					      #ref#, #re_step#, #re_level#)
 	</insert>
+	
+	<!-- 상품 update 쿼리문 정의 -->
+	<update id="goodsUpdate" parameterClass="goodsVO">
+	
+	update GOODS set
+		   goods_name = #goods_name#,
+		   goods_category = #goods_category#,
+		   goods_size = #goods_size#,
+		   goods_color = #goods_color#,
+		   goods_content = #goods_content#,
+		   goods_price = #goods_price#,
+		   goods_image_file = #goods_image_file#,
+		   goods_date = sysdate
+	where goods_no = #goods_no#
+	
+	</update>
 	
 	<!-- 상품 (상품평) update 쿼리문 정의 -->
 	<update id="goodsCmtUpdate" parameterClass="goodsCmt">

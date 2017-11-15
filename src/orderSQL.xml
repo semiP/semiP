@@ -8,7 +8,7 @@
 	<typeAlias alias="order" type="order.orderVO"/>
 	
 	<!-- 주문 테이블 리절트 맵 정의 -->
-	<resultMap id="orderRes" class="order">
+	<resultMap id="orderRes" class="orderVO">
 		<result property="order_no" column="order_no"/>
 		<result property="order_goods_no" column="order_goods_no"/>
 		<result property="order_member_no" column="order_member_no"/>
@@ -36,7 +36,7 @@
 	</resultMap>
 	
 	<!-- 주문 insert 쿼리문 정의 -->
-	<insert id="orderInsert" parameterClass="order">
+	<insert id="orderInsert" parameterClass="orderVO">
 	
 	INSERT INTO GOODSORDER (ORDER_NO,
 							ORDER_GOODS_NO,
