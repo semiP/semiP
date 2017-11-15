@@ -40,9 +40,9 @@ public class memberPwFindAction extends ActionSupport {
 	public String execute() throws Exception {
 		
 		paramClass = new memberbean();
-		paramClass.setmember_id(id);
-		paramClass.setmember_name(name);
-		paramClass.setmember_email(email);
+		paramClass.setMember_id(id);
+		paramClass.setMember_name(name);
+		paramClass.setMember_email(email);
 		resultClass = new memberbean();
 		
 	
@@ -54,7 +54,7 @@ public class memberPwFindAction extends ActionSupport {
 		}
 		
 		else {
-			if(resultClass.getmember_email()==(email) && resultClass.getmember_name()==(name)) {
+			if(resultClass.getMember_email()==(email) && resultClass.getMember_name()==(name)) {
 			
 				memberPwFindChk = 1; 
 				return SUCCESS;

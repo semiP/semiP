@@ -15,6 +15,7 @@ public class memberbean {
 	private String member_email;
 	private Date member_regdate;
 	private int member_level;
+	private String member_deletereason;
 	
 	
 	public int getMember_no() {
@@ -83,8 +84,11 @@ public class memberbean {
 	public void setMember_level(int member_level) {
 		this.member_level = member_level;
 	}
-	
-	
-	
+	public String getMember_deletereason() {
+		return member_deletereason;
+	}
+	public void setMember_delegereason(String member_deletereason) {
+		this.member_deletereason = member_deletereason;
+	}
 
 }
