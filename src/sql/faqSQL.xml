@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="faq">
+	<typeAlias alias="faq" type="cmc.faqVO" />
+	<!-- faqList.jsp에서 관리자 / 일반회원 구분 구문 까먹지않고 넣기!! -->
+	<!-- 리절트 맵 정의 -->
+	<!-- create faq table / sequence -->
+	<resultMap id="faqRes" class="faq">
+		<result property="faq_no" column="faq_no" />
+		<result property="faq_subject" column="faq_subject" />
+		<result property="faq_content" column="faq_content" />
+		<result property="faq_regdate" column="faq_regdate" />
+		<result property="faq_category" column="faq_category" />
+	</resultMap>
+	<!-- 공통 사용(select *) 절 정의 -->
+	<sql id="select-all">
+		select * from faq
+	</sql>
+
+	<select id="selectAll" resultMap="faqRes" parameterClass="int">
+		<include refid="select-all" />
+		ORDER BY faq_no DESC
+	</select>
+	
+	<!-- 상세보기 위한 한줄가져오기 -->
+	<select id="selectOne" resultMap="faqRes" parameterClass="int">
+		<include refid="select-all" />
+		WHERE faq_no = #faq_no#
+	</select>
+
+	<select id="selectLastNo" resultClass="faq" parameterClass="int">
+		SELECT max(faq_no) as faq_no FROM faq
+	</select>
+	<!-- 관리자기능 -->
+	<!-- insert 쿼리문 정의 -->
+	<insert id="insert" parameterClass="faq">
+		insert into faq(
+		faq_no,
+		faq_subject,
+		faq_content,
+		faq_regdate,
+		faq_category, <!-- 1=주문/2=결제/3=배송/4=교환/반품 (1:1문의에 주문/배송. 반품/교환과 다름) -->
+		)
+		values(faq_no_seq.nextval,
+		#faq_no#,
+		#faq_subject#,
+		#faq_content#,
+		#faq_regdate#,
+		#faq_category#,
+		)
+	</insert>
+	<!-- update 쿼리문 정의 -->
+	<update id="update" parameterClass="faq">
+		UPDATE faq SET faq_subject = #faq_subject#,
+		faq_content = #faq_content#,
+		faq_category = #faq_category#   <!-- 카테고리 수정을 위한 카테고리 칼럼 추가 -->
+		WHERE faq_no = #faq_no#
+	</update>
+
+	<!-- delete 쿼리문 정의 -->
+	<delete id="delete" parameterClass="faq">
+		DELETE FROM faq
+		WHERE faq_no = #faq_no#
+	</delete>
+	<!-- 여기까지 -->
+	<!-- search 쿼리문 정의 -->
+	<select id="selectSearch-subject" resultMap="faqRes"
+		parameterClass="string">
+		<include refid="select-all" />
+		WHERE faq_subject like #search#
+		ORDER BY faq_no DESC
+	</select>
+
+</sqlMap>
