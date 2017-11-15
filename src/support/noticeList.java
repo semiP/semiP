@@ -1,4 +1,4 @@
-package cmc;
+package support;
 
 public class noticeList {
 

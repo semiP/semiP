@@ -1,3 +1,5 @@
+package support;
+/* ������ �۾� �Ҷ� �ּ� Ǯ��
 package cmc;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -8,48 +10,51 @@ import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import java.io.Reader;
 import java.io.IOException;
 
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
+public class noticeDeleteAction extends ActionSupport {
 
-public class faqViewAction extends ActionSupport {
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 
-	private faqVO paramClass = new faqVO();
-	private faqVO resultClass = new faqVO();
+	private noticeVO paramClass;
+	private noticeVO resultClass;
 
 	private int currentPage;
 
-	private int faq_no;
+	private int notice_no;
 
-	public faqViewAction() throws IOException {
+	public noticeDeleteAction() throws IOException {
+
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
 	}
 
 	public String execute() throws Exception {
+		paramClass = new noticeVO();
+		resultClass = new noticeVO();
 
-		paramClass.setFaq_no(getFaq_no());
-		resultClass = (faqVO) sqlMapper.queryForObject("faq.selectOne", getFaq_no());
+		resultClass = (noticeVO) sqlMapper.queryForObject("notice.selectOne", getNotice_no());
+
+		paramClass.setNotice_no(getNotice_no());
+
+		sqlMapper.update("deleteQna", paramClass);
 
 		return SUCCESS;
 	}
 
-	public faqVO getParamClass() {
+	public noticeVO getParamClass() {
 		return paramClass;
 	}
 
-	public void setParamClass(faqVO paramClass) {
+	public void setParamClass(noticeVO paramClass) {
 		this.paramClass = paramClass;
 	}
 
-	public faqVO getResultClass() {
+	public noticeVO getResultClass() {
 		return resultClass;
 	}
 
-	public void setResultClass(faqVO resultClass) {
+	public void setResultClass(noticeVO resultClass) {
 		this.resultClass = resultClass;
 	}
 
@@ -61,12 +66,13 @@ public class faqViewAction extends ActionSupport {
 		this.currentPage = currentPage;
 	}
 
-	public int getFaq_no() {
-		return faq_no;
+	public int getNotice_no() {
+		return notice_no;
 	}
 
-	public void setFaq_no(int faq_no) {
-		this.faq_no = faq_no;
+	public void setNotice_no(int notice_no) {
+		this.notice_no = notice_no;
 	}
 
 }
+*/

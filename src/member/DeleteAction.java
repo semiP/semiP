@@ -35,9 +35,9 @@ public class DeleteAction extends ActionSupport {
 		id = ActionContext.getContext().getSession().get("session_member_id").toString();
 		resultClass = (memberbean)sqlMapper.queryForObject("getMember",getId());
 		
-		if(resultClass.getmember_pw().equals(passwd)){
+		if(resultClass.getMember_pw().equals(passwd)){
 			deleteChk = 1;
-			paramClass.setmember_id(getId());
+			paramClass.setMember_id(getId());
 			sqlMapper.update("deleteMember",paramClass);
 			ActionContext.getContext().getSession().clear();
 		}else{

@@ -20,5 +20,5 @@
 	<!-- FAQ -->
 	<sqlMap resource="/sql/faqSQL.xml" />
 	<!-- 1:1문의 -->
-	<sqlMap resource="/sql/inquirySQL.xml" />
+	<!-- <sqlMap resource="/sql/inquirySQL.xml" /> -->
 </sqlMapConfig>
