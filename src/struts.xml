@@ -12,4 +12,16 @@
 			<result>/cmc/faqList.jsp</result>
 		</action>
 	</package>
+	
+	<package name="main" extends="struts-default">
+		<!-- tiles result type 설정 -->
+		<result-types>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+
+		<!-- main 페이지 보여주기 액션 -->
+		<action name="main" class="common.MainAction">
+			<result type="tiles">main</result>
+		</action>
+	</package>
 </struts>
