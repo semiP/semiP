@@ -27,7 +27,7 @@
 		<!-- select 쿼리문 정의 -->
 
 		<!-- 로그인 하기 -->
-		<select id="select-login" resultMap="loginRes" parameterClass="String">
+		<select id="select-login" resultMap="loginRes" parameterClass="login">
 			SELECT member_pw
 			FROM MEMBER
 			WHERE member_id = #member_id#
