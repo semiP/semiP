@@ -35,15 +35,15 @@ public class loginAction extends ActionSupport implements SessionAware {
 		}
 	}
 	public String execute() throws Exception{
-		paramClass.setmember_id(id);
-		paramClass.setmember_pw(passwd);
+		paramClass.setMember_id(id);
+		paramClass.setMember_pw(passwd);
 		
 		resultClass = (memberbean)sqlMapper.queryForObject("select-login",paramClass);
 		
 		if(resultClass != null){
-			session.put("session_member_id", resultClass.getmember_id());
-			session.put("session_member_name", resultClass.getmember_name());
-			session.put("session_member_no", resultClass.getmember_no());
+			session.put("session_member_id", resultClass.getMember_id());
+			session.put("session_member_name", resultClass.getMember_name());
+			session.put("session_member_no", resultClass.getMember_no());
 			
 			if(session.get("session_member_id").equals("admin1")){
 				return "adminlog";
