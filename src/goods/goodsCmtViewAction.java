@@ -20,14 +20,14 @@ public class goodsCmtViewAction extends ActionSupport{
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
-	private goodsCmtVO paramClass = new goodsCmtVO(); //ÆÄ¶ó¹ÌÅÍ¸¦ ÀúÀåÇÒ °´Ã¼
-	private goodsCmtVO resultClass = new goodsCmtVO(); //Äõ¸® °á°ú °ªÀ» ÀúÀåÇÒ °´Ã¼
+	private goodsCmtVO paramClass = new goodsCmtVO(); //ï¿½Ä¶ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
+	private goodsCmtVO resultClass = new goodsCmtVO(); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
 	
 	private int currentPage;
 	
-	private int goods_cmt_no;            //±Û¹øÈ£
+	private int goods_cmt_no;            //ï¿½Û¹ï¿½È£
 	
-	private String goods_cmt_pw;         //±Ûºñ¹ø
+	private String goods_cmt_pw;         //ï¿½Ûºï¿½ï¿½
 	
 	private String fileUploadPath = "E:\\Java\\upload\\";
 	
@@ -35,37 +35,35 @@ public class goodsCmtViewAction extends ActionSupport{
 	private String contentDisposition;
 	private long contentLength;
 	
-	//»ı¼ºÀÚ
+	//ìƒì„±ì
 	public goodsCmtViewAction() throws IOException
 	{
-		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); //sqlMapConfig.xml ÆÄÀÏÀÇ ¼³Á¤³»¿ëÀ» °¡Á®¿Â´Ù.
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xmlÀÇ ³»¿ëÀ» Àû¿ëÇÑ sqlMapper °´Ã¼ »ı¼º
+		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xmlï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 		reader.close();
 	}
 	
-	//»ó¼¼º¸±â
 	public String execute() throws Exception
 	{
-		//ÇØ´ç ¹øÈ£ÀÇ ±ÛÀ» °¡Á®¿Â´Ù.
-		resultClass = (goodsCmtVO) sqlMapper.queryForObject("selectOne", getGoods_cmt_no());
+		//ê¸€ë²ˆí˜¸ì— ë§ëŠ” ê¸€ í•˜ë‚˜ë¥¼ ê°€ì ¸ì™€ì„œ ë³´ì—¬ì¤€ë‹¤
+		resultClass = (goodsCmtVO) sqlMapper.queryForObject("select-goods-cmt", getGoods_cmt_no());
 		
 		return SUCCESS;
 	}
 	
-	//ºñ¹Ğ¹øÈ£ Ã¼Å© Æû
+	//ë¹„ë°€ë²ˆí˜¸ ì²´í¬ í¼
 	public String checkForm() throws Exception { return SUCCESS; }
 	
-	//ºñ¹Ğ¹øÈ£ Ã¼Å© ¾×¼Ç
+	//ë¹„ë°€ë²ˆí˜¸ ì²´í¬ ì•¡ì…˜
 	public String checkAction() throws Exception
 	{
-		//ºñ¹Ğ¹øÈ£ ÀÔ·Â°ª ÆÄ¶ó¹ÌÅÍ ¼³Á¤.
 		paramClass.setGoods_cmt_no(getGoods_cmt_no());
 		paramClass.setGoods_cmt_pw(getGoods_cmt_pw());
 		
-		//ÇöÀç ±ÛÀÇ ºñ¹Ğ¹øÈ£ °¡Á®¿À±â.
+		//ë¹„ë°€ë²ˆí˜¸ ì„±ê³µ
 		resultClass = (goodsCmtVO) sqlMapper.queryForObject("selectPassword", paramClass);
 		
-		//ÀÔ·ÂÇÑ ºñ¹Ğ¹øÈ£°¡ Æ²¸®¸é ERROR ¸®ÅÏ.
+		//ë¹„ë°€ë²ˆí˜¸ ì—ëŸ¬
 		if(resultClass == null) return ERROR;
 		
 		return SUCCESS;

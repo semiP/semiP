@@ -12,43 +12,43 @@ import java.io.IOException;
 import order.orderVO;
 
 public class orderGoodsDeleteAction extends ActionSupport{
-	public static Reader reader; //ÆÄÀÏ ½ºÆ®¸²À» À§ÇÑ reader.
-	public static SqlMapClient sqlMapper; //SqlMapClient API¸¦ »ç¿ëÇÏ±â À§ÇÑ sqlMapper °´Ã¼.
+	public static Reader reader; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ reader.
+	public static SqlMapClient sqlMapper; //SqlMapClient APIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼.
 	
-	private orderVO paramClass; //ÆÄ¶ó¹ÌÅÍ¸¦ ÀúÀåÇÒ °´Ã¼
-	private orderVO resultClass; //Äõ¸® °á°ú °ªÀ» ÀúÀåÇÒ °´Ã¼
+	private orderVO paramClass; //ï¿½Ä¶ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
+	private orderVO resultClass; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
 	
-	private int currentPage; //ÇöÀç ÆäÀÌÁö
+	private int currentPage; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
 	private String fileUploadPath = "E:\\java\\upload\\";
 	
-	private int order_goods_no;         //ÁÖ¹® ¹øÈ£
+	private int order_goods_no;         //ï¿½Ö¹ï¿½ ï¿½ï¿½È£
 	
-	//»ý¼ºÀÚ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public orderGoodsDeleteAction() throws IOException
 	{
-		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); //sqlMapConfig.xml ÆÄÀÏÀÇ ¼³Á¤³»¿ëÀ» °¡Á®¿Â´Ù.
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ³»¿ëÀ» Àû¿ëÇÑ sqlMapper °´Ã¼ »ý¼º.
+		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½.
 		reader.close();
 	}
 	
-	//ÁÖ¹®³»¿ª »èÁ¦ (admin¿ë) - ÁÖ¹®¿Ï·áÈÄ (¼ö°æ - ÁÖ¹®³»¿ª) 
+	//ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (adminï¿½ï¿½) - ï¿½Ö¹ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ - ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½) 
 	public String execute() throws Exception
 	{
-		//ÆÄ¶ó¹ÌÅÍ¿Í ¸®ÀýÆ® °´Ã¼ »ý¼º.
+		//ï¿½Ä¶ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½.
 		paramClass = new orderVO();
 		resultClass = new orderVO();
 		
-		//ÇØ´ç ¹øÈ£ÀÇ ÁÖ¹®À» °¡Á®¿Â´Ù.
+		//ï¿½Ø´ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
 		resultClass = (orderVO) sqlMapper.queryForObject("selectOne", getOrder_goods_no());
 		
 //		File deleteFile = new File(fileUploadPath + resultClass.getFile_savname());
 //		deleteFile.delete();
 		
-		//»èÁ¦ÇÒ Ç×¸ñ ¼³Á¤.
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		paramClass.setOrder_goods_no(getOrder_goods_no());
 		
-		//»èÁ¦ Äõ¸® ¼öÇà.
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		sqlMapper.update("deleteBoard", paramClass);
 		
 		return SUCCESS;

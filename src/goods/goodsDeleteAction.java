@@ -11,45 +11,39 @@ import java.util.Date;
 import java.io.IOException;
 
 public class goodsDeleteAction extends ActionSupport{
-	public static Reader reader; //ÆÄÀÏ ½ºÆ®¸²À» À§ÇÑ reader.
-	public static SqlMapClient sqlMapper; //SqlMapClient API¸¦ »ç¿ëÇÏ±â À§ÇÑ sqlMapper °´Ã¼.
+	public static Reader reader; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ reader.
+	public static SqlMapClient sqlMapper; //SqlMapClient APIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼.
 	
-	private goodsVO paramClass; //ÆÄ¶ó¹ÌÅÍ¸¦ ÀúÀåÇÒ °´Ã¼
-	private goodsVO resultClass; //Äõ¸® °á°ú °ªÀ» ÀúÀåÇÒ °´Ã¼
+	private goodsVO paramClass; //ï¿½Ä¶ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
+	private goodsVO resultClass; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
 	
-	private int currentPage; //ÇöÀç ÆäÀÌÁö
+	private int currentPage; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
 	private String fileUploadPath = "E:\\java\\upload\\";
 	
 	private int goods_no;
 	
-	//»ı¼ºÀÚ
+	//ìƒì„±ì
 	public goodsDeleteAction() throws IOException
 	{
-		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ÆÄÀÏÀÇ ¼³Á¤³»¿ëÀ» °¡Á®¿Â´Ù.
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ³»¿ëÀ» Àû¿ëÇÑ sqlMapper °´Ã¼ »ı¼º.
+		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½.
 		reader.close();
 	}
 	
-	//°Ô½Ã±Û ±Û »èÁ¦
 	public String execute() throws Exception
 	{
-		//ÆÄ¶ó¹ÌÅÍ¿Í ¸®ÀıÆ® °´Ã¼ »ı¼º.
 		paramClass = new goodsVO();
 		resultClass = new goodsVO();
 		
-		//ÇØ´ç ¹øÈ£ÀÇ ±ÛÀ» °¡Á®¿Â´Ù.
-		resultClass = (goodsVO) sqlMapper.queryForObject("selectOne", getGoods_no());
+		resultClass = (goodsVO) sqlMapper.queryForObject("select-goods", getGoods_no());
 		
-		//¼­¹ö ÆÄÀÏ »èÁ¦
 		File deleteFile = new File(fileUploadPath + resultClass.getGoods_image_file());
 		deleteFile.delete();
 		
-		//»èÁ¦ÇÒ Ç×¸ñ ¼³Á¤.
 		paramClass.setGoods_no(getGoods_no());
 		
-		//»èÁ¦ Äõ¸® ¼öÇà.
-		sqlMapper.update("deleteBoard", paramClass);
+		sqlMapper.update("goodsDelete", paramClass);
 		
 		return SUCCESS;
 	}	

@@ -44,6 +44,45 @@
         <put-attribute name="body" value="/goods/goodsDetail.jsp" />
     </definition>
     
+    <definition name="basket" extends="default"> 
+        <put-attribute name="body" value="/basket/basket.jsp" />
+    </definition>
+    
+    <definition name="order" extends="default"> 
+        <put-attribute name="body" value="/order/order.jsp" />
+    </definition>
+    
+    <definition name="orderComplete" extends="default"> 
+        <put-attribute name="body" value="/order/orderComplete.jsp" />
+    </definition>
+    
+    <definition name="orderResult" extends="default"> 
+        <put-attribute name="body" value="/order/orderResult.jsp" />
+    </definition>
+    
+    <definition name="profile" extends="default"> 
+        <put-attribute name="body" value="/myPage/profile.jsp" />
+    </definition>
+    <definition name="orderList" extends="default"> 
+        <put-attribute name="body" value="/myPage/orderList.jsp" />
+    </definition>
+    <definition name="qnaList" extends="default"> 
+        <put-attribute name="body" value="/myPage/qnaList.jsp" />
+    </definition>
+    <definition name="refundList" extends="default"> 
+        <put-attribute name="body" value="/myPage/refundList.jsp" />
+    </definition>
+    <definition name="terminateForm" extends="default"> 
+        <put-attribute name="body" value="/myPage/terminateForm.jsp" />
+    </definition>
+    
+    <definition name="notice" extends="default"> 
+        <put-attribute name="body" value="/support/notice.jsp" />
+    </definition>
+    <definition name="faq" extends="default"> 
+        <put-attribute name="body" value="/support/faq.jsp" />
+    </definition>
+    
 	<!--
 	<definition name="hello2" template="/tiles/template/layout.jsp">
 		<put-attribute name="title" value="헬로우 월드2" />

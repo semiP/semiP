@@ -13,72 +13,47 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 
 public class orderModifyAction extends ActionSupport{
-	public static Reader reader; //ÆÄÀÏ ½ºÆ®¸²À» À§ÇÑ reader.
-	public static SqlMapClient sqlMapper; //SqlMapClient API¸¦ »ç¿ëÇÏ±â À§ÇÑ sqlMapper °´Ã¼.
+	public static Reader reader; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ reader.
+	public static SqlMapClient sqlMapper; //SqlMapClient APIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼.
 	
-	private orderVO paramClass; //ÆÄ¶ó¹ÌÅÍ¸¦ ÀúÀåÇÒ °´Ã¼
-	private orderVO resultClass; //Äõ¸® °á°ú °ªÀ» ÀúÀåÇÒ °´Ã¼
+	private orderVO paramClass; //ï¿½Ä¶ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
+	private orderVO resultClass; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
 	
-	private int currentPage; //ÇöÀç ÆäÀÌÁö
+	private int currentPage; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
 	private int order_no;
 	private int order_status;
 	
 	/*
-	private File upload; //ÆÄÀÏ °´Ã¼
-	private String uploadContentType; //ÄÁÅÙÃ÷ Å¸ÀÔ
-	private String uploadFileName; //ÆÄÀÏ ÀÌ¸§
-	private String fileUploadPath = "E:\\java\\upload\\"; //¾÷·Îµå °æ·Î.
+	private File upload; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
+	private String uploadContentType; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
+	private String uploadFileName; //ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+	private String fileUploadPath = "E:\\java\\upload\\"; //ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½.
 	*/
 	
-	//»ý¼ºÀÚ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public orderModifyAction() throws IOException
 	{
-		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ÆÄÀÏÀÇ ¼³Á¤³»¿ëÀ» °¡Á®¿Â´Ù.
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ³»¿ëÀ» Àû¿ëÇÑ sqlMapper °´Ã¼ »ý¼º.
+		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½.
 		reader.close();
 	}
 	
-	//ÁÖ¹®³»¿ª ¼öÁ¤ (admin)
+	//ì‹¤í–‰ (admin)
 	public String execute() throws Exception
 	{
-		//ÆÄ¶ó¹ÌÅÍ¿Í ¸®ÀýÆ® °´Ã¼ »ý¼º.
+		//ï¿½Ä¶ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½.
 		paramClass = new orderVO();
 		resultClass = new orderVO();
 		
-		//¼öÁ¤ÇÒ Ç×¸ñ ¼³Á¤.
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		paramClass.setOrder_status(getOrder_status());
 
-		//ÀÏ´Ü Ç×¸ñ¸¸ ¼öÁ¤ÇÑ´Ù.
-		sqlMapper.update("updateBoard", paramClass);
+		//ï¿½Ï´ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+		sqlMapper.update("orderUpdate", paramClass);
 		
-		//¼öÁ¤ÇÒ ÆÄÀÏÀÌ ¾÷·Îµå µÇ¾ú´Ù¸é ÆÄÀÏÀ» ¾÷·ÎµåÇÏ°í DBÀÇ file Ç×¸ñÀ» ¼öÁ¤ÇÔ.
-		/*
-		if(getUpload() != null)
-		{
-			//½ÇÁ¦ ¼­¹ö¿¡ ÀúÀåµÉ ÆÄÀÏ ÀÌ¸§°ú È®ÀåÀÚ ¼³Á¤.
-			String file_name = "file_" + getOrder_no();
-			String file_ext = getUploadFileName().substring(getUploadFileName().lastIndexOf('.')+1,getUploadFileName().length());
-			
-			//ÀÌÀü ÆÄÀÏ »èÁ¦
-			File deleteFile = new File(fileUploadPath + getOld_file());
-			deleteFile.delete();
-			
-			//»õ ÆÄÀÏ ¾÷·Îµå
-			File destFile = new File(fileUploadPath + file_name + "." + file_ext);
-			FileUtils.copyFile(getUpload(), destFile);
-			
-			//ÆÄÀÏ Á¤º¸ ÆÄ¶ó¹ÌÅÍ ¼³Á¤.
-			paramClass.setFile_orgname(getUploadFileName());
-			paramClass.setFile_savname(file_name + "." + file_ext);
-			
-			//ÆÄÀÏ Á¤º¸ ¾÷µ¥ÀÌÅÍ.
-			sqlMapper.update("updateFile", paramClass);
-		}
-		*/
-		
-		//¼öÁ¤ÀÌ ³¡³ª¸é view ÆäÀÌÁö·Î ÀÌµ¿.
-		resultClass = (orderVO) sqlMapper.queryForObject("selectOne", getOrder_no());
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ view ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½.
+		resultClass = (orderVO) sqlMapper.queryForObject("select-order", getOrder_no());
 		
 		return SUCCESS;
 	}

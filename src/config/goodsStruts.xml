@@ -22,7 +22,7 @@
  			<result>/goods/goodsList.jsp</result>
  		</action>
  		
- 		<!-- (admin) 상품보기 등록 액션 -->
+ 		<!-- (admin) 상품보기 등록(쓰기) 액션 -->
  		<action name="goodsWriteForm" class="goods.goodsWriteAction" method="form">
  			<result>/goods/goodsWrite.jsp</result>
  		</action>
@@ -32,7 +32,7 @@
  			</result>
  		</action>
  		
- 		<!-- (admin) 등록된 상품 수정액션 -->
+ 		<!-- (admin) 등록된 상품 수정액션 (수정버튼) -->
  		<action name="goodsModifyForm" class="goods.goodsModifyAction">
  			<result type="chain">goodsWriteForm</result>
  		</action>
@@ -40,7 +40,7 @@
  			<result type="chain">goodsViewAction</result>
  		</action>
  		
- 		<!-- (admin) 등록된 상품 삭제액션 -->
+ 		<!-- (admin) 등록된 상품 삭제액션 (삭제버튼)-->
 		<action name="goodsDeleteAction" class="goods.goodsDeleteAction">
 		 	<result type="chain">goodsListAction</result>
 		</action>
@@ -52,7 +52,7 @@
  		
  		<!-- 등록된 상품 상세보기 액션 -->
  		<action name="goodsViewAction" class="goods.goodsViewAction">
- 			<result>/goods/goodsView.jsp</result>
+ 			<result>/goods/goodsDetail.jsp</result>
  		</action>
 
  		<!-- 비밀번호 체크액션 (글 수정/삭제) -->
@@ -79,10 +79,25 @@
 		</action>
 		<action name="goodsCmtWriteAction" class="goods.goodsCmtWriteAction">
 			<result type="redirect-action">
-				<param name="actionName">cmtlist</param>
+				<param name="actionName">goodsCmtListAction</param>
 			</result>
 		</action>
 		
+		<!-- 상품평 게시판 답변글쓰기 액션 -->
+ 		<action name="replyForm" class="goods.goodsCmtWriteAction" method="reply">
+ 			<result type="chain">goodsCmtWriteForm</result>
+ 		</action>
+ 		<action name="replyAction" class="goods.goodsCmtWriteAction">
+ 			<result type="redirect-action">
+ 				<param name="actionName">goodsCmtListAction</param>
+ 			</result>
+ 		</action>
+ 		
+ 		<!-- 상품평 게시판 글읽기 액션 -->
+ 		<action name="goodsCmtViewAction" class="goods.goodsCmtViewAction">
+ 			<result>/goods/goodsCmtView.jsp</result>
+ 		</action>
+ 		
 		<!-- 상품평 게시판 수정 액션 -->
 		<action name="goodsCmtModifyForm" class="goods.goodsCmtViewAction">
 			<result type="chain">goodsCmtWriteForm</result>
@@ -91,25 +106,14 @@
 			<result type="chain">goodsCmtViewAction</result>
 		</action>
 		
-		<!-- 상품평 게시판 삭제 액션. -->
+		<!-- 상품평 게시판 삭제 액션 -->
 		<action name="goodsCmtDeleteAction" class="goods.goodsCmtDeleteAction">
-		 	<result type="chain">cmtlist</result>
+		 	<result type="chain">goodsCmtListAction</result>
 		</action>
 		<action name="goodsCmtDeleteAction" class="goods.goodsCmtDeleteAction" method="execute">
 		 	<result type="chain">
-		 	cmtlist
+		 	goodsViewAction
 		 	</result>
 		</action>
-
- 		<!-- 상품평 게시판 답변글쓰기 액션 -->
- 		<action name="replyForm" class="goods.goodsCmtWriteAction" method="reply">
- 			<result type="chain">goodsCmtWriteForm</result>
- 		</action>
- 		<action name="replyAction" class="goods.goodsCmtWriteAction">
- 			<result type="redirect-action">
- 				<param name="actionName">cmtlist</param>
- 			</result>
- 		</action>
-
 	</package>
 </struts>

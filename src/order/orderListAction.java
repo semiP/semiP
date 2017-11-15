@@ -13,46 +13,33 @@ import java.net.*;
 
 public class orderListAction extends ActionSupport{
 	
-	public static Reader reader;        //ÆÄÀÏ ½ºÆ®¸²À» À§ÇÑ reader.
-	public static SqlMapClient sqlMapper;      //SqlMapClinet API¸¦ »ç¿ëÇÏ±â À§ÇÑ sqlMapper °´Ã¼.
+	public static Reader reader;        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ reader.
+	public static SqlMapClient sqlMapper;      //SqlMapClinet APIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼.
 	
 	private List<orderVO> list = new ArrayList<orderVO>();
 	
-	private int currentPage = 1; //ÇöÀç ÆäÀÌÁö
-	private int totalCount;		 //ÃÑ °Ô½Ã¹°ÀÇ ¼ö
-	private int blockCount = 10; //ÇÑ ÆäÀÌÁöÀÇ °Ô½Ã¹°ÀÇ ¼ö
-	private int blockPage = 5;   //ÇÑ È­¸é¿¡ º¸¿©ÁÙ ÆäÀÌÁö ¼ö
-	private String pagingHtml;   //ÆäÀÌÂ¡À» ±¸ÇöÇÑ HTML
+	private int currentPage = 1; 
+	private int totalCount;		 
+	private int blockCount = 10; 
+	private int blockPage = 5;   
+	private String pagingHtml;   
 	private int num = 0;
 	
-	//»ı¼ºÀÚ
+	//ìƒì„±ì
 	public orderListAction() throws IOException
 	{
-		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ÆÄÀÏÀÇ ¼³Á¤³»¿ëÀ» °¡Á®¿Â´Ù.
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);  //sqlMapConfig.xmlÀÇ ³»¿ëÀ» Àû¿ëÇÑ sqlMapper °´Ã¼ »ı¼º.
+		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml 
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);  //sqlMapConfig.xml
 		reader.close();
 	}
 	
-	//»óÇ° ¸ñ·Ï List ¾×¼Ç
+	//ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ List ï¿½×¼ï¿½
 	public String execute() throws Exception
 	{
-		//¸ğµç ±ÛÀ» °¡Á®¿Í list¿¡ ³Ö´Â´Ù.
-		list = sqlMapper.queryForList("selectAll");
+		//ëª¨ë“  ê¸€ì„ ê°€ì ¸ì™€ listì— ë„£ëŠ”ë‹¤.
+		list = sqlMapper.queryForList("select-order-all");
 		
-		totalCount = list.size(); //ÀüÃ¼ ±Û °¹¼ö¸¦ ±¸ÇÑ´Ù.
-		//pagingAction °´Ã¼ »ı¼º.
-//		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, num, "");
-//		pagingHtml = page.getPagingHtml().toString(); //ÆäÀÌÁö HTML »ı¼º.
-		
-		//ÇöÀç ÆäÀÌÁö¿¡¼­ º¸¿©ÁÙ ¸¶Áö¸· ±ÛÀÇ ¹øÈ£ ¼³Á¤.
-//		int lastCount = totalCount;
-		
-		//ÇöÀç ÆäÀÌÁöÀÇ ¸¶Áö¸· ±ÛÀÇ ¹øÈ£°¡ ÀüÃ¼ÀÇ ¸¶Áö¸· ±Û ¹øÈ£º¸´Ù ÀÛÀ¸¸é
-		//lastCount¸¦ + 1 ¹øÈ£·Î ¼³Á¤.
-//		if(page.getEndCount() < totalCount) lastCount = page.getEndCount() + 1;
-		
-		//ÀüÃ¼ ¸®½ºÆ®¿¡¼­ ÇöÀç ÆäÀÌÁö¸¸Å­ÀÇ ¸®½ºÆ®¸¸ °¡Á®¿Â´Ù.
-//		list = list.subList(page.getStartcount(), lastCount);
+		totalCount = list.size(); //listì˜ í¬ê¸°ë¥¼ êµ¬í•œë‹¤.
 		
 		return SUCCESS;
 	}

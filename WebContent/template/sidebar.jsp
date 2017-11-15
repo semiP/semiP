@@ -15,8 +15,12 @@
 			</tr>
 			<tr>
 				<!-- 로그인 상태봐서  logout  아이콘으로 변경해줄 것 -->
-				<td><img src="/semiP/assets/images/icons/login.png" onmouseover="this.src='/semiP/assets/images/icons/login_on.png'" onmouseout="this.src='/semiP/assets/images/icons/login.png'"><br>
+				<td>
+					<a href="/semiP/loginForm.action">
+						<img src="/semiP/assets/images/icons/login.png" onmouseover="this.src='/semiP/assets/images/icons/login_on.png'" onmouseout="this.src='/semiP/assets/images/icons/login.png'"><br>
+					</a>
 					<font size="1">LOGIN</font>
+					
 				</td>
 			</tr>
 			<tr>
