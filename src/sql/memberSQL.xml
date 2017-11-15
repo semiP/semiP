@@ -28,8 +28,7 @@
 
 		<!-- 로그인 하기 -->
 		<select id="select-login" resultMap="loginRes" parameterClass="login">
-			SELECT member_pw
-			FROM MEMBER
+			<include refid="select-all-login" />
 			WHERE member_id = #member_id#
 		</select>
 
