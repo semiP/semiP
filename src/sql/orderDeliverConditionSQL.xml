@@ -63,6 +63,13 @@
 			SELECT * FROM GOODSORDER
 		</sql>
 	
+		<sql id="select-all-goodsOrder-order">
+			<![CDATA[
+			SELECT * FROM GOODSORDER
+			WHERE ORDER_STATUS < 5
+			]]>
+		</sql>
+		
 		<!-- select 쿼리문 정의 -->
 		<select id="selectAllGoods_orderDeliverCondition" resultMap="goodsRes" parameterClass="int">
 			<include refid="select-all-goods" />

@@ -39,7 +39,6 @@
 	<!-- select-one -->
 		<select id="selectOneMember" resultMap="memberRes" parameterClass="int">
 			<include refid="select-all-member" />
-			where member_no = #member_no#
 		</select>
    
    <!-- 우편 번호 찾기 -->

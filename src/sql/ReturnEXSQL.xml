@@ -148,6 +148,6 @@
 		<!-- 기간조회 -->
 		<select id="order_date" resultMap="goodsOrderRes">
 			<include refid="select-all-goods"/>
-			select order_date from GOODSORDER BETWEEN #order_date# and #order_date#
+			select order_date from GOODSORDER BETWEEN #searchKeyword1# and #searchKeyword2#
 		</select>	
 </sqlMap>

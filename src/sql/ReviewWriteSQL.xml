@@ -96,9 +96,9 @@
       	  insert를 통해 새로운 작성된 내용 저장 -->
       
      <!-- 회원정보 목록 출력 -->
-     	<select id="member_no" resultMap="memberRes">
+     	<select id="member_name" resultMap="memberRes">
 			<include refid="select-all-member"/>
-			select member_no from member
+			select member_name from member where member_no = #member_no#
 		</select>
      
      	<select id="goods_no" resultMap="goodsRes">
@@ -108,17 +108,17 @@
 		
 		<select id="goods_name" resultMap="goodsRes">
 			<include refid="select-all-goods"/>
-			select goods_name from GOODS
+			select goods_name from GOODS where goods_no = #goods_no#
 		</select>
 		
 		<select id="goods_color" resultMap="goodsRes">
 			<include refid="select-all-goods"/>
-			select goods_color from GOODS
+			select goods_color from GOODS where goods_no = #goods_no#
 		</select>
 		
 		<select id="goods_size" resultMap="goodsRes">
 			<include refid="select-all-goods"/>
-			select goods_size from GOODS
+			select goods_size from GOODS where goods_no = #goods_no#
 		</select>
 		
 	<!-- 등록날짜 설정 -->
