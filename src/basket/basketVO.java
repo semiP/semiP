@@ -10,6 +10,7 @@ public class basketVO{
 	private String goods_size;
 	private String goods_color;
 	private int basket_price;
+	private int goods_price;
 	private int bgoods_amount;
 	private Date basket_date;
 	private String goods_name;
@@ -96,6 +97,16 @@ public class basketVO{
 	public void setGoods_image(String image){
 		this.goods_image = goods_image;
 	}
+
+	public int getGoods_price() {
+		return goods_price;
+	}
+
+	public void setGoods_price(int goods_price) {
+		this.goods_price = goods_price;
+	}
+	
+	
 
 
 
