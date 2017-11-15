@@ -3,152 +3,187 @@
 	'-//ibatis.apache.org//DTD Sql Map 2.0//EN' 
 	'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 	
-<sqlMap>
-	<typeAlias alias="board" type="board.BoardVO" />
-	<typeAlias alias="comment" type="board.CboardVO"/>
-	<!-- 리절트 맵 정의 -->
-	<resultMap id="boardRes" class="board">
-		<result property="no" column="no"/>
-		<result property="subject" column="subject"/>
-		<result property="name" column="name"/>
-		<result property="password" column="password"/>
-		<result property="content" column="content"/>
-		<result property="file_orgname" column="file_orgName"/>
-		<result property="file_savname" column="file_savName"/>
-		<result property="readhit" column="readhit"/>
-		<result property="regdate" column="regdate"/>
-		<result property="ref" column="ref"/>
-		<result property="re_step" column="re_step"/>
-		<result property="re_level" column="re_level"/>
-		<result property="ccount" column="ccount" />
-	</resultMap>
-	<!-- 리절트 맵 포 댓글 -->
-	<resultMap id="commentRes" class="comment">
-		<result property="no" column="no"/>
-		<result property="originno" column="originno"/>
-		<result property="name" column="name"/>
-		<result property="password" column="password"/>
-		<result property="content" column="content"/>
-		<result property="regdate" column="regdate"/>
+<sqlMap namespace="board">
+
+	<typeAlias alias="goods" type="goods.goodsVO" />
+	<typeAlias alias="order" type="order.orderVO"/>
+	
+	<!-- 상품 테이블 리절트 맵 정의 -->
+	<resultMap id="goodsRes" class="goods">
+		<result property="goods_no" column="goods_no"/>
+		<result property="goods_name" column="goods_name"/>
+		<result property="goods_category" column="goods_category"/>
+		<result property="goods_size" column="goods_size"/>
+		<result property="goods_color" column="goods_color"/>
+		<result property="goods_content" column="goods_content"/>
+		<result property="goods_amount" column="goods_amount"/>
+		<result property="goods_price" column="goods_price"/>
+		<result property="goods_image_org_file" column="goods_image_org_file"/>
+		<result property="goods_image_sav_file" column="goods_image_sav_file"/>
+		<result property="goods_date" column="goods_date"/>
 	</resultMap>
 	
+	<!-- 주문 테이블 리절트 맵 정의 -->
+	<resultMap id="orderRes" class="order">
+		<result property="order_no" column="order_no"/>
+		<result property="order_goods_no" column="order_goods_no"/>
+		<result property="order_goods_amount" column="order_goods_amount"/>
+		<result property="order_goods_size" column="order_goods_size"/>
+		<result property="order_goods_color" column="order_goods_color"/>
+		<result property="order_member_id" column="order_member_id"/>
+		<result property="order_receive_name" column="order_receive_name"/>
+		<result property="order_receive_addr1" column="order_receive_addr1"/>
+		<result property="order_receive_addr2" column="order_receive_addr2"/>
+		<result property="order_receive_phone" column="order_receive_phone"/>
+		<result property="order_memo" column="order_memo"/>
+		<result property="order_sum_money" column="order_sum_money"/>
+		<result property="order_date" column="order_date"/>
+		<result property="order_trade_date" column="order_trade_date"/>
+		<result property="order_status" column="order_status"/>
+		<result property="order_pay_type" column="order_pay_type"/>
+		<result property="order_pay_name" column="order_pay_name"/>
+	</resultMap>
+		
 	<!-- 공통으로 사용할 select 절 정의 -->
 	<sql id="select-all">
-		SELECT * FROM sboardjp2
+		SELECT * FROM GOODS
 	</sql>
-	<sql id="select-com">
-		SELECT * FROM boardjp2c
-	</sql>
+		
+	<!-- 상품 상세보기 insert 쿼리문 정의 -->
+	<insert id="goodsBoard" parameterClass="board">
 	
-	<!-- 공통으로 사용할 where-no 절 정의 -->
-	<sql id="where-no">
-		WHERE no = #no#
-	</sql>
+	INSERT INTO GOODS (goods_no,
+					   goods_name,
+					   goods_category,
+					   goods_size,
+					   goods_color,
+					   goods_content,
+					   goods_amount,
+					   goods_price,
+					   goods_image_org_file,
+					   goods_image_sav_file,
+					   goods_date)
+	VALUES (goods_no_seq.NEXTVAL,
+						#goods_name#,
+						#goods_category#,
+						#goods_size#,
+						#goods_color#,
+						#goods_content#,
+						#goods_amount#,
+						#goods_price#,
+						#goods_image_org_file#,
+						#goods_image_sav_file#,
+						#goods_date#)
+	</insert>
 	
-	<!-- select 쿼리문 정의 -->
-	<!-- 답변글 로직으로 수정시작(테이블도 바꿔서) -->
-	<select id="selectAll" resultMap="boardRes" parameterClass="int">
-		<include refid="select-all" />
-		ORDER BY ref DESC, re_step ASC
-	</select>
-	<!-- 답변글 로직으로 수정끝 -->
-	<select id="commentSelectAll" resultMap="commentRes" parameterClass="int">
-		<include refid="select-com" />
-		WHERE originno=#no#
-		ORDER BY no DESC
-	</select>
+	<!-- 주문 insert 쿼리문 정의 -->
+	<insert id="orderBoard" parameterClass="board">
+	
+	INSERT INTO GOODSORDER (ORDER_NO,
+							ORDER_GOODS_NO,
+							ORDER_GOODS_AMOUNT,
+							ORDER_GOODS_SIZE,
+							ORDER_GOODS_COLOR,
+							ORDER_MEMBER_ID,
+							ORDER_RECEIVE_NAME,
+							ORDER_RECEIVE_ADDR1,
+							ORDER_RECEIVE_ADDR2,
+							ORDER_RECEIVE_PHONE,
+							ORDER_MEMO,
+							ORDER_SUM_MONEY,
+							ORDER_DATE,
+							ORDER_TRADE_DATE,
+							ORDER_STATUS,
+							ORDER_LIST_AMOUNT,
+							ORDER_GOODS_IMAGE,
+							ORDER_PAY_TYPE,
+							ORDER_PAY_NAME,
+							ORDER_TOTAL_PAY)
+	VALUES (ORDER_NO_seq.NEXTVAL,
+							   #ORDER_GOODS_NO#,
+							   #ORDER_GOODS_AMOUNT#,
+							   #ORDER_GOODS_SIZE#,
+							   #ORDER_GOODS_COLOR#,
+							   #ORDER_MEMBER_ID#,
+							   #ORDER_RECEIVE_NAME#,
+							   #ORDER_RECEIVE_ADDR1#,
+							   #ORDER_RECEIVE_ADDR2#,
+							   #ORDER_RECEIVE_PHONE#,
+							   #ORDER_MEMO#,
+							   #ORDER_SUM_MONEY#,
+							   #ORDER_DATE#,
+							   #ORDER_TRADE_DATE#,
+							   #ORDER_STATUS#,
+							   #ORDER_LIST_AMOUNT#,
+							   #ORDER_GOODS_IMAGE#,
+							   #ORDER_PAY_TYPE#,
+							   #ORDER_PAY_NAME#,
+							   #ORDER_TOTAL_PAY#)
+	</insert>
+		
+		<!-- 상세보기 -->
+		<sql id="select-goods">
+			SELECT * FROM GOODS
+			WHERE goods_no = #goods_no#
+		</sql>
+		
+		<!-- 주문하기 (1/4) -->
+		<sql id="select-order1">
+			SELECT ORDER_GOODS_IMAGE, goods_name, goods_color, goods_size, goods_price, ORDER_LIST_AMOUNT, ORDER_SUM_MONEY, ORDER_TOTAL_PAY
+			FROM GOODS G, GOODSORDER GO
+			WHERE ORDER_NO = #ORDER_NO#
+			ORDER BY ORDER_NO DESC			
+		</sql>
+		
+		<!-- 주문하기 (3/4) -->
+		<sql id="select-order3">
+			SELECT ORDER_TOTAL_PAY
+			FROM GOODSORDER
+			WHERE ORDER_NO = #ORDER_NO#
+		</sql>
+		
+		<!-- 수경-주문내역 (order result)-->
+		<sql id="select-order-result">
+			SELECT ORDER_NO, ORDER_DATE
+			FROM GOODSORDER
+			WHERE ORDER_NO = #ORDER_NO#
+		</sql>
+		
+		<!-- 수경-주문내역 (결제 정보)-->
+		<sql id="select-order-pay">
+			SELECT ORDER_TOTAL_PAY, ORDER_PAY_TYPE, ORDER_PAY_NAME, 계좌번호(?)
+			FROM GOODSORDER
+			WHERE ORDER_NO = #ORDER_NO#
+		</sql>
+		
+		<!-- 수경-주문내역 (주문 상품 정보)-->
+		<sql id="select-order-list">
+			SELECT ORDER_GOODS_IMAGE, goods_name, goods_price, ORDER_LIST_AMOUNT, ORDER_STATUS, ORDER_SUM_MONEY
+			FROM GOODS G, GOODSORDER GO
+			WHERE G.ORDER_NO = #G.ORDER_NO#
+			ORDER BY G.ORDER_NO DESC
+		</sql>
+		
+		<!-- 수경-주문내역 (총 주문 금액)-->
+		<sql id="select-order-sum">
+			SELECT ORDER_TOTAL_PAY
+			FROM GOODSORDER
+			WHERE ORDER_NO = #ORDER_NO#
+		</sql>
+		
+		<!-- 수경-주문내역 (배송지 정보)-->
+		<sql id="select-order-trade"> 
+			SELECT ORDER_RECEIVE_NAME, 우편번호 컬럼(추가?), ORDER_RECEIVE_ADDR1, ORDER_RECEIVE_ADDR2, ORDER_RECEIVE_PHONE, ORDER_MEMO  
+			FROM GOODSORDER
+			WHERE ORDER_NO = #ORDER_NO#
+		</sql>
+		
+		<!-- 주문 완료창-->
+		<sql id="select-order-complet">
+			SELECT ORDER_PAY_NAME, ORDER_PAY_TYPE, 계좌번호(추가?), ORDER_RECEIVE_ADDR1, ORDER_RECEIVE_ADDR2  
+			FROM GOODSORDER
+			WHERE ORDER_NO = #ORDER_NO#
+		</sql>
 
-	<select id="selectOne" resultMap="boardRes" parameterClass="int">
-		<include refid="select-all" />
-		<include refid="where-no" />
-	</select>
-	<!-- 검색로직 추가시작 -->
-	<select id="selectSearchName" resultMap="boardRes" parameterClass="int">
-		<include refid="select-all"/>
-		WHERE name like #searchKeyword#
-		ORDER BY no DESC
-	</select>
-	<select id="selectSearchSubject" resultMap="boardRes" parameterClass="int">
-		<include refid="select-all"/>
-		WHERE content like #searchKeyword#
-		ORDER BY no DESC
-	</select>
-	<select id="selectSearchContent" resultMap="boardRes" parameterClass="int">
-		<include refid="select-all"/>
-		WHERE content like #searchKeyword#
-		ORDER BY no DESC
-	</select>
-	<!-- 검색로직 추가끝 -->
-	<select id="selectLastNo" resultClass="board" parameterClass="int">
-		SELECT MAX(no) as no FROM sboardjp2
-	</select>
-	<select id="selectPassword" resultMap="boardRes">
-		<include refid="select-all" />
-		<include refid="where-no" />
-		AND password = #password#
-	</select>
-	<select id="selectPasswordForComment" resultMap="commentRes">
-		<include refid="select-com"/>
-		<include refid="where-no"/>
-		AND password = #password#
-	</select>
-	
-	<!-- insert 쿼리문 정의 -->
-	<insert id="insertBoard" parameterClass="board">
-		INSERT INTO sboardjp2			(no, subject, name, password, content, regdate, re_step, re_level, ref)
-		VALUES	(SBOARDJP2_NO_SEQ.NEXTVAL,#subject#,#name#,#password#,#content#,#regdate#,#re_step#,#re_level#,SBOARDJP2_NO_SEQ.CURRVAL)
-	</insert>
-	<insert id="insertReply" parameterClass="board">
-		INSERT INTO sboardjp2			(no, subject, name, password, content, regdate, re_step, re_level, ref)
-		VALUES	(SBOARDJP2_NO_SEQ.NEXTVAL,#subject#,#name#,#password#,#content#,#regdate#,#re_step#,#re_level#,#ref#)
-	</insert>
-	<insert id="insertComment" parameterClass="comment">
-		INSERT INTO boardjp2c			(no,originno,name,password,content,regdate)
-		VALUES	(BOARDJP2C_NO_SEQ.NEXTVAL,#originno#,#name#,#password#,#content#,#regdate#)
-	</insert>
-	
-	<!-- update 쿼리문 정의 -->
-	<update id="updateBoard" parameterClass="board">
-		UPDATE sboardjp2 SET	subject		= #subject#,
-								name		= #name#,
-								password	= #password#,
-								content		= #content#
-		<include refid="where-no" />
-	</update>
-	<update id="updateFile" parameterClass="board">
-		UPDATE sboardjp2 SET 	file_orgname = #file_orgname#,
-								file_savname = #file_savname#
-		<include refid="where-no" />
-	</update>
-	<update id="updateReadHit" parameterClass="board">
-		UPDATE sboardjp2 SET readhit = readhit+1
-		<include refid="where-no" />
-	</update>
-	<update id="updateReplyStep" parameterClass="board">
-		UPDATE sboardjp2 SET re_step = re_step + 1
-		WHERE ref = #ref# AND re_step>#re_step#
-	</update>
-	<!-- 댓글쓸때 BoardVO.ccount 늘리기 -->
-	<update id="increaseCcount" parameterClass="board">
-		UPDATE sboardjp2 SET ccount = ccount + 1
-		<include refid="where-no"/>
-	</update>
-	<update id="decreaseCcount" parameterClass="board">
-		UPDATE sboardjp2 SET ccount = ccount - 1
-		<include refid="where-no"/>
-	</update>
-	
-	<!-- delete 쿼리문 정의 -->
-	<delete id="deleteBoard" parameterClass="board">
-		DELETE FROM sboardjp2
-		<include refid="where-no" />
-	</delete>
-	<delete id="deleteComment" parameterClass="comment">
-		DELETE FROM boardjp2c
-		<include refid="where-no" />
-	</delete>
+
 </sqlMap>
-
-
-
-

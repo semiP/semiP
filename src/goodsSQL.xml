@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC 
+	'-//ibatis.apache.org//DTD Sql Map 2.0//EN' 
+	'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+	
+<sqlMap namespace="goods">
+
+	<typeAlias alias="goods" type="goods.goodsVO" />
+	<typeAlias alias="goodsCmt" type="goods.goodsCmtVO" />
+	
+	<!-- 상품 테이블 리절트 맵 정의 -->
+	<resultMap id="goodsRes" class="goodsVO">
+		<result property="goods_no" column="goods_no"/>
+		<result property="goods_name" column="goods_name"/>
+		<result property="goods_category" column="goods_category"/>
+		<result property="goods_size" column="goods_size"/>
+		<result property="goods_color" column="goods_color"/>
+		<result property="goods_content" column="goods_content"/>
+		<result property="goods_amount" column="goods_amount"/>
+		<result property="goods_price" column="goods_price"/>
+		<result property="goods_image_file" column="goods_image_file"/>
+		<result property="goods_date" column="goods_date"/>
+	</resultMap>
+
+	<!-- 상품 (고객상품평) 리절트 맵 정의 -->
+	<resultMap id="goodsCmtRes" class="goodsCmtVO">
+		<result property="goods_cmt_no" column="goods_cmt_no"/>
+		<result property="goods_cmt_pw" column="goods_cmt_pw"/>
+		<result property="goods_cmt_memberno" column="goods_cmt_memberno"/>
+		<result property="goods_cmt_org_image" column="goods_cmt_org_image"/>
+		<result property="goods_cmt_sav_image" column="goods_cmt_sav_image"/>
+		<result property="goods_cmt_score" column="goods_cmt_score"/>
+		<result property="goods_cmt_subject" column="goods_cmt_subject"/>
+		<result property="goods_cmt_name" column="goods_cmt_name"/>
+		<result property="goods_cmt_date" column="goods_cmt_date"/>
+		<result property="goods_cmt_content" column="goods_cmt_content"/>
+		<result property="ref" column="ref"/>
+		<result property="re_step" column="re_step"/>
+		<result property="re_level" column="re_level"/>
+	</resultMap>
+		
+	<!-- 상품 상세보기 insert 쿼리문 정의 -->
+	<insert id="goodsInsert" parameterClass="goodsVO">
+	
+	INSERT INTO GOODS (goods_no,
+					   goods_name,
+					   goods_category,
+					   goods_size,
+					   goods_color,
+					   goods_content,
+					   goods_amount,
+					   goods_price,
+					   goods_image_file,
+					   goods_date)
+	VALUES (goods_no_seq.NEXTVAL,
+					   #goods_name#,
+					   #goods_category#,
+					   #goods_size#,  
+					   #goods_color#, 
+					   #goods_content#,
+					   #goods_amount#,
+					   #goods_price#,  
+					   #goods_image_file#,
+					   #goods_date#)
+	</insert>
+	
+	<!-- 상품 (상품평) insert 쿼리문 정의 -->
+	<insert id="goodsCmtInsert" parameterClass="goodsCmtVO">
+	
+	INSERT INTO GOODSCMT (goods_cmt_no,
+					      goods_cmt_pw,
+					      goods_cmt_memberno,
+					      goods_cmt_org_image,
+					      goods_cmt_sav_image,
+					      goods_cmt_score,
+					      goods_cmt_subject,
+					      goods_cmt_name,
+					      goods_cmt_date,
+					      goods_cmt_content,
+					      ref, re_step, re_level)
+	VALUES (goods_no_seq.NEXTVAL,
+					      #goods_cmt_pw#,
+					      #goods_cmt_memberno#,
+					      #goods_cmt_org_image#,
+					      #goods_cmt_sav_image#,
+					      #goods_cmt_score#,
+					      #goods_cmt_subject#,
+					      #goods_cmt_name#,
+					      #goods_cmt_date#,
+					      #goods_cmt_content#,
+					      #ref#, #re_step#, #re_level#)
+	</insert>
+	
+	<!-- 상품 update 쿼리문 정의 -->
+	<update id="goodsUpdate" parameterClass="goodsVO">
+	
+	update GOODS set
+		   goods_name = #goods_name#,
+		   goods_category = #goods_category#,
+		   goods_size = #goods_size#,
+		   goods_color = #goods_color#,
+		   goods_content = #goods_content#,
+		   goods_price = #goods_price#,
+		   goods_image_file = #goods_image_file#,
+		   goods_date = sysdate
+	where goods_no = #goods_no#
+	
+	</update>
+	
+	<!-- 상품 (상품평) update 쿼리문 정의 -->
+	<update id="goodsCmtUpdate" parameterClass="goodsCmt">
+	
+	update GOODSCMT set
+		   goods_cmt_pw = #goods_cmt_pw#,
+		   goods_cmt_org_image = #goods_cmt_org_image#,
+		   goods_cmt_sav_image = #goods_cmt_sav_image#,
+		   goods_cmt_subject = #goods_cmt_subject#,
+		   goods_cmt_content = #goods_cmt_content#
+		   goods_cmt_date = sysdate
+	where goods_cmt_memberno = #goods_cmt_memberno#
+	
+	</update>
+	
+	<!-- 상품 (상품평) delete 쿼리문 정의 -->
+	<delete id="goodsCmtDelete" parameterClass="goodsCmt">
+	
+	delete from goodscmt where goods_cmt_no = #goods_cmt_no#
+	
+	</delete>
+
+	<!-- 공통으로 사용할 select 절 정의 -->
+	<sql id="select-all">
+		SELECT * FROM GOODS
+	</sql>
+	
+	<sql id="select-cmt-all">
+		SELECT * FROM GOODS_CMT
+	</sql>
+	
+	<!-- 상세보기 -->
+	<sql id="select-goods">
+		SELECT * FROM GOODS
+		WHERE goods_no = #goods_no#
+	</sql>
+	
+	<!-- 고객상품평 리스트 출력 -->
+	<select id="select-goods-cmt" resultMap="goodsCmtRes" parameterClass="int">
+		<include refid="select-cmt-all"/>
+		WHERE goods_cmt_memberno = #goods_cmt_memberno#
+	</select>
+
+	<!-- 주문하기 (1/4) 배송상품 주문내역-->
+	<select id="select-goods" resultMap="goodsRes" parameterClass="int">
+		SELECT goods_no, goods_name, goods_size, goods_color, goods_price, goods_image_file
+		FROM GOODS
+		WHERE GOODS_NO = #GOODS_NO#
+	</select>
+
+</sqlMap>
