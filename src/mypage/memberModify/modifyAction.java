@@ -46,17 +46,7 @@ public class modifyAction extends ActionSupport{
 		paramClass = new memberBean();
 		resultClass = new memberBean();
 		
-<<<<<<< HEAD
 		//수정할 항목 설정
-		paramClass.setMember_email(getMember_email());
-		paramClass.setMember_zipcode(getMember_zipcode());
-		paramClass.setMember_address1(getMember_address1());
-		paramClass.setMember_address2(getMember_address2());
-		paramClass.setMember_phone(getMember_phone());
-		paramClass.setMember_pw(getMember_pw());
-		paramClass.setMember_no(getMember_no());
-=======
-		//�닔�젙�븷 �빆紐� �꽕�젙
 		paramClass.setMember_no(member_no);
 		paramClass.setMember_name(member_name);
 		paramClass.setMember_email(member_email);
@@ -65,17 +55,10 @@ public class modifyAction extends ActionSupport{
 		paramClass.setMember_address2(member_address2);
 		paramClass.setMember_phone(member_phone);
 		paramClass.setMember_pw(member_pw);
->>>>>>> 명준
 		
 		// �씪�떒 �빆紐⑸쭔 �닔�젙�븳�떎.
 		sqlMapper.update("updateMember",paramClass);
-<<<<<<< HEAD
-		
-<<<<<<< HEAD
-		
-		
-		return null; //빨간줄 없애려고 임의로 넣은 return 입니다.
-=======
+
 		//수정이 끝나면 view페이지로 이동
 		resultClass = (memberBean) sqlMapper.queryForObject("selectOneMember", getMember_no());
 		
@@ -145,9 +128,6 @@ public class modifyAction extends ActionSupport{
 
 	public void setMember_pw(String member_pw) {
 		this.member_pw = member_pw;
-=======
-		return SUCCESS;
->>>>>>> 명준
 	}
 
 	public String getMember_zipcode() {
@@ -213,6 +193,4 @@ public class modifyAction extends ActionSupport{
 	public void setSession(Map session) {
 		this.session = session;
 	}
-	
-	
 }
