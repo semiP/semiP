@@ -67,7 +67,6 @@
 	INSERT INTO GOODSORDER (ORDER_NO,
 							ORDER_GOODS_NO,   //jsp 에서
 							ORDER_MEMBER_NO,  // jsp 
-					
 							ORDER_GOODS_AMOUNT, //주문수량 (jsp)
 							ORDER_GOODS_SIZE,   //주문한 사이즈
 							ORDER_GOODS_COLOR,  //주문한색상
@@ -89,7 +88,6 @@
 	VALUES (ORDER_NO_seq.NEXTVAL,
 							#ORDER_GOODS_NO#,
 							#ORDER_MEMBER_NO#,
-					
 							#ORDER_GOODS_AMOUNT#,
 							#ORDER_GOODS_SIZE#,
 							#ORDER_GOODS_COLOR#,

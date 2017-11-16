@@ -111,6 +111,7 @@ public class orderWriteAction extends ActionSupport{
 		return SUCCESS;
 	}
 	
+	//jsp 에 있는 값을 Action에 넣는 과정
 	public List<orderVO> getList() { return list; }
 	public void setList(List<orderVO> list) { this.list = list; }
 	

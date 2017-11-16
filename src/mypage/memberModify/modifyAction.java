@@ -59,5 +59,6 @@ public class modifyAction extends ActionSupport{
 		// 일단 항목만 수정한다.
 		sqlMapper.update("updateMember",paramClass);
 		
+		return SUCCESS;
 	}
 }
