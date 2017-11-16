@@ -13,6 +13,7 @@ public class goodsBean {
 	private int goods_price;
 	private String goods_image;
 	private Date goods_regdate;
+	
 	public int getGoods_no() {
 		return goods_no;
 	}
