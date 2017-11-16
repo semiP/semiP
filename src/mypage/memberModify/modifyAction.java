@@ -33,31 +33,32 @@ public class modifyAction extends ActionSupport{
 	
 	private Map session;
 	
-	//생성자
+	//�깮�꽦�옄
 	public modifyAction() throws IOException{
-		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml 파일의 설정내용을 가져온다.
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml �뙆�씪�쓽 �꽕�젙�궡�슜�쓣 媛��졇�삩�떎.
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
 	}
 	
-	// 회원정보 수정
+	// �쉶�썝�젙蹂� �닔�젙
 	public String execute() throws Exception{
-		// 파라미터와 리절트 객체 생성
+		// �뙆�씪誘명꽣�� 由ъ젅�듃 媛앹껜 �깮�꽦
 		paramClass = new memberBean();
 		resultClass = new memberBean();
 		
 		//수정할 항목 설정
-		paramClass.setMember_email(getMember_email());
-		paramClass.setMember_zipcode(getMember_zipcode());
-		paramClass.setMember_address1(getMember_address1());
-		paramClass.setMember_address2(getMember_address2());
-		paramClass.setMember_phone(getMember_phone());
-		paramClass.setMember_pw(getMember_pw());
-		paramClass.setMember_no(getMember_no());
+		paramClass.setMember_no(member_no);
+		paramClass.setMember_name(member_name);
+		paramClass.setMember_email(member_email);
+		paramClass.setMember_zipcode(member_zipcode);
+		paramClass.setMember_address1(member_address1);
+		paramClass.setMember_address2(member_address2);
+		paramClass.setMember_phone(member_phone);
+		paramClass.setMember_pw(member_pw);
 		
-		// 일단 항목만 수정한다.
+		// �씪�떒 �빆紐⑸쭔 �닔�젙�븳�떎.
 		sqlMapper.update("updateMember",paramClass);
-		
+
 		//수정이 끝나면 view페이지로 이동
 		resultClass = (memberBean) sqlMapper.queryForObject("selectOneMember", getMember_no());
 		
@@ -191,6 +192,4 @@ public class modifyAction extends ActionSupport{
 	public void setSession(Map session) {
 		this.session = session;
 	}
-	
-	
 }

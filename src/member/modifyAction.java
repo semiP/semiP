@@ -49,13 +49,13 @@ public class modifyAction extends ActionSupport implements SessionAware{
 			String id = (String)session.get("id");
 			resultClass = (memberbean)sqlMapper.queryForObject("getMember",id);
 			//System.out.println(getId()+ getName() + getZipcode() + getAddr1() + 123);
-			paramClass.setmember_id(getId());
-			paramClass.setmember_name(getName());
-			paramClass.setmember_zipcode(getzipcode());
-			paramClass.setmember_address1(getAddr1());
-			paramClass.setmember_address2(getAddr2());
-			paramClass.setmember_phone(getPhone());
-			paramClass.setmember_pw(getPasswd());
+			paramClass.setMember_id(getId());
+			paramClass.setMember_name(getName());
+			paramClass.setMember_zipcode(getzipcode());
+			paramClass.setMember_address1(getAddr1());
+			paramClass.setMember_address2(getAddr2());
+			paramClass.setMember_phone(getPhone());
+			paramClass.setMember_pw(getPasswd());
 			
 			sqlMapper.update("updateMember",paramClass);
 			return SUCCESS;

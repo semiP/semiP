@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="notice">
-	<typeAlias alias="notice" type="cmc.noticeVO" />
+	<typeAlias alias="notice" type="support.noticeVO" />
 	<!-- noticeList.jsp에서 관리자 / 일반회원 구분 구문 넣기!! -->
 	<!-- 리절트 맵 정의 -->
 	<!-- create notice table / sequence -->
