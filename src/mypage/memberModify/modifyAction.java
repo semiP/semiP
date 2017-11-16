@@ -95,7 +95,6 @@ public class modifyAction extends ActionSupport{
 
 	public void setResultClass(memberBean resultClass) {
 		this.resultClass = resultClass;
->>>>>>> 나은이
 	}
 
 	public int getMember_no() {
