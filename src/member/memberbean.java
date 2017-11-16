@@ -13,7 +13,7 @@ public class memberbean {
 	private String member_address2;
 	private String member_phone;
 	private String member_email;
-	Date member_regdate;
+	private Date member_regdate;
 	private int member_level;
 	
 	public int getmember_no() {
