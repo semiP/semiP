@@ -15,12 +15,14 @@
 			<property name="JDBC.Password" value="${password}" />
 		</dataSource>
 	</transactionManager>
-	<!-- 로그인 -->
+	<!-- main & search : 동민 -->
+	<sqlMap resource="/sql/mainSearch.xml" />
+	<!-- 로그인
 	<sqlMap resource="/sql/memberSQL.xml" />
-	<!-- 공지사항 -->
+	 공지사항
 	<sqlMap resource="/sql/noticeSQL.xml" />
-	<!-- FAQ -->
+	 FAQ 
 	<sqlMap resource="/sql/faqSQL.xml" />
-	<!-- 1:1문의 -->
-	<!-- <sqlMap resource="/sql/inquirySQL.xml" /> -->
+	 1:1문의 
+	 <sqlMap resource="/sql/inquirySQL.xml" /> -->
 </sqlMapConfig>
