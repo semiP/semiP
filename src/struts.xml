@@ -16,4 +16,29 @@
 			<result>/support/faqView.jsp</result>
 		</action>
 	</package>
+	
+	<package name="main" extends="struts-default">
+		<!-- tiles result type 설정 -->
+		<result-types>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+
+		<!-- main 페이지 보여주기 액션 -->
+		<action name="main" class="common.MainAction">
+			<result type="tiles">main</result>
+		</action>
+	</package>
+	<!-- Login-->
+	<package name="login" namespace="/" extends="struts-default">
+		<action name="login" class="member.loginAction">
+			<result name="success">/main/mainbody.jsp</result> 
+			<result name="login">/member/loginForm.jsp</result> 
+	 		<result name="error">/common/loginError.jsp</result>
+		</action>
+		<action name="logout" class="member.loginAction" method="logout"> 
+	 		<result type="redirect-action">
+				<param name="actionName">main</param>
+			</result> 
+		</action>
+	</package>
 </struts>

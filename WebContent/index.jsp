@@ -46,6 +46,7 @@
 <br>
 [ support 폴더 ]<br>
 <a href="/semiP/support/1on1Write.jsp" onClick="window.open(this.href, '', 'width=600, height=430'); return false;">1on1Write.jsp</a><br>&nbsp;&nbsp; --> 새창으로 띄웁니다(600*430)<br>
+<a href="/semiP/faq.tiles" target="_blank">faq</a><br>
 <a href="/semiP/notice.tiles" target="_blank">notice</a><br>
 <br>
 

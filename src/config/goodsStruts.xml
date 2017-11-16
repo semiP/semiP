@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+	
+<struts>
+	<!-- 용량제한 100MB 로 설정 -->
+	<constant name="struts.multipart.maxSize" value="104857600" />
+	<constant name="struts.multipart.saveDir" value="C:\upload2\temp" />
+	
+	<package name="goods" extends="struts-default">
+<!--  	글로벌 예외처리 화면설정
+		<global-results>
+			<result name="error">/board/pageError.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception" />
+		</global-exception-mappings>
+-->
+ 		<!-- (admin) 상품보기 리스트 액션 -->
+ 		<action name="goodsListAction" class="goods.goodsListAction">
+ 			<result>/goods/goodsList.jsp</result>
+ 		</action>
+ 		
+ 		<!-- (admin) 상품보기 등록(쓰기) 액션 -->
+ 		<action name="goodsWriteForm" class="goods.goodsWriteAction" method="form">
+ 			<result>/goods/goodsWrite.jsp</result>
+ 		</action>
+ 		<action name="goodsWriteAction" class="goods.goodsWriteAction">
+ 			<result type="redirect-action">
+ 				<param name="actionName">goodsListAction</param>
+ 			</result>
+ 		</action>
+ 		
+ 		<!-- (admin) 등록된 상품 수정액션 (수정버튼) -->
+ 		<action name="goodsModifyForm" class="goods.goodsModifyAction">
+ 			<result type="chain">goodsWriteForm</result>
+ 		</action>
+ 		<action name="goodsModifyAction" class="goods.goodsModifyAction">
+ 			<result type="chain">goodsViewAction</result>
+ 		</action>
+ 		
+ 		<!-- (admin) 등록된 상품 삭제액션 (삭제버튼)-->
+		<action name="goodsDeleteAction" class="goods.goodsDeleteAction">
+		 	<result type="chain">goodsListAction</result>
+		</action>
+		<action name="goodsDeleteAction" class="goods.goodsDeleteAction" method="execute">
+		 	<result type="chain">
+		 	goodsViewAction
+		 	</result>
+		</action>
+ 		
+ 		<!-- 등록된 상품 상세보기 액션 -->
+ 		<action name="goodsViewAction" class="goods.goodsViewAction">
+ 			<result>/goods/goodsDetail.jsp</result>
+ 		</action>
+
+ 		<!-- 비밀번호 체크액션 (글 수정/삭제) -->
+ 		<action name="checkForm" class="board.ViewAction" method="checkForm">
+ 			<result>/board/checkPassword.jsp</result>
+ 		</action>
+ 		<action name="checkAction" class="board.ViewAction" method="checkAction">
+ 			<result name="error">/board/checkError.jsp</result>
+ 			<result>/board/checkSuccess.jsp</result>
+ 		</action>
+ 		
+ 		<!-- 비밀번호 체크액션 (댓글 삭제) -->
+ 		<action name="checkForm2" class="board.ViewAction" method="checkForm">
+ 			<result>/board/checkPassword2.jsp</result>
+ 		</action>
+ 		<action name="checkAction2" class="board.ViewAction" method="checkAction2">
+ 			<result name="error">/board/checkError.jsp</result>
+ 			<result>/board/checkSuccess.jsp</result>
+ 		</action>
+
+ 		<!-- 상품평 게시판 글쓰기 액션 -->
+		<action name="goodsCmtWriteForm" class="goods.goodsCmtWriteAction" method="form">
+	 		<result>/goods/goodsCmtWrite.jsp</result>
+		</action>
+		<action name="goodsCmtWriteAction" class="goods.goodsCmtWriteAction">
+			<result type="redirect-action">
+				<param name="actionName">goodsCmtListAction</param>
+			</result>
+		</action>
+		
+		<!-- 상품평 게시판 답변글쓰기 액션 -->
+ 		<action name="replyForm" class="goods.goodsCmtWriteAction" method="reply">
+ 			<result type="chain">goodsCmtWriteForm</result>
+ 		</action>
+ 		<action name="replyAction" class="goods.goodsCmtWriteAction">
+ 			<result type="redirect-action">
+ 				<param name="actionName">goodsCmtListAction</param>
+ 			</result>
+ 		</action>
+ 		
+ 		<!-- 상품평 게시판 글읽기 액션 -->
+ 		<action name="goodsCmtViewAction" class="goods.goodsCmtViewAction">
+ 			<result>/goods/goodsCmtView.jsp</result>
+ 		</action>
+ 		
+		<!-- 상품평 게시판 수정 액션 -->
+		<action name="goodsCmtModifyForm" class="goods.goodsCmtViewAction">
+			<result type="chain">goodsCmtWriteForm</result>
+		</action>
+		<action name="goodsCmtModifyAction" class="goods.goodsCmtModifyAction">
+			<result type="chain">goodsCmtViewAction</result>
+		</action>
+		
+		<!-- 상품평 게시판 삭제 액션 -->
+		<action name="goodsCmtDeleteAction" class="goods.goodsCmtDeleteAction">
+		 	<result type="chain">goodsCmtListAction</result>
+		</action>
+		<action name="goodsCmtDeleteAction" class="goods.goodsCmtDeleteAction" method="execute">
+		 	<result type="chain">
+		 	goodsViewAction
+		 	</result>
+		</action>
+	</package>
+</struts>

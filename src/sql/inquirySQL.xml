@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
-
 <sqlMap>
+
 	<typeAlias alias="member" type="mypage.memberBean"/>
 	<typeAlias alias="inquiry" type="mypage.inquiryBean"/>
 	
@@ -75,7 +75,7 @@
            
     	<select id="inquiry_no" resultMap="inquiryRes">
 				<include refid="select-all-member_inquiry"/>
-				select inquiry_no from INQUIRY
+				select inquiry_no from INQUIRY 
 		</select>
 	
 		<select id="inquiry_category" resultMap="inquiryRes">
@@ -122,6 +122,6 @@
 	<!-- 기간조회 -->
 		<select id="inquiry_regdate" resultMap="inquiryRes">
 			<include refid="select-all-member_inquiry"/>
-			select inquiry_regdate from INQUIRY_REGDATE BETWEEN #inquiry_regdate# and #inquiry_regdate#
+			select inquiry_regdate from INQUIRY_REGDATE BETWEEN #inquiry_regdate1# and #inquiry_regdate2#
 		</select>
 </sqlMap>
