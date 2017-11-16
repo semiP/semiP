@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"
 	trimDirectiveWhitespaces="true"%>
-
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <div id="content-container">
 	<table width="100%" border="0" style="margin:auto; max-width:1000px;">
 		<tr>			
@@ -26,9 +26,9 @@
 					<tr><td colspan="2" bgcolor="#cccccc" height="1"></td></tr>
 
 					<tr bgcolor="#455b59" align="center">
-						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="./notice.tiles" >
+						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="support/noticeAction.action" >
 							공지사항</a></strong></td>
-						<td class="myPageMenuItem" ><a href="./faq.tiles" >
+						<td class="myPageMenuItem" ><a href="support/faqListAction.action" >
 							자주하는 질문</a></td>
 					</tr>
 					<tr><td colspan="2" bgcolor="#cccccc" height="1"></td></tr>
@@ -38,7 +38,6 @@
 			</td>
 			<td width="15%"/>
 		</tr>
-		
 		
 		
 		
@@ -77,24 +76,50 @@
 						</tr>
 						<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 	<!-- 게시물 하나씩 iterator 시작 -->
-						<tr>
-							<td class="board-titlebar" width="15%" height="30">2017/11/10</td>
-							<td class="board-titlebar" width="15%" height="30">[주문/배송]</td>
-							<td class="board-titlebar" width="55%" height="30">이거 배송 하루만에 되나요</td>
-							<td class="board-titlebar" width="15%" height="30">돈쓴사람</td>
-						</tr>
-						<tr><td colspan="4" bgcolor="#f2f2f2" height="1"></td></tr>
-						<tr>
-							<td class="board-titlebar" width="15%" height="30">2017/11/10</td>
-							<td class="board-titlebar" width="15%" height="30"></td>
-							<td class="board-titlebar" width="55%" height="30"><img src="/semiP/assets/images/board-icon/reply.gif">그럴 수도 있겠네요</td>
-							<td class="board-titlebar" width="15%" height="30">관리자</td>
-						</tr>
+		<s:iterator value="list" status="stat">
+		<s:url id="viewURL" action="noticeVieweAction" >
+			<s:param name="notice_no">
+				<s:property value="notice_no" />
+			</s:param>
+			<s:param name="currentPage">
+				<s:property value="currentPage" />
+			</s:param>
+		</s:url>			
+     	   	<tr bgcolor="#FFFFFF"  align="center">
+			<td><s:property value="notice_regdate" /></td>
+			<td>공지사항</td>
+        	<td class="notice_subject">
+			<s:a href="%{viewURL}">  <!-- 내용 상세보기를 위한 URL -->
+				<s:property value="notice_subject"/>
+				</s:a>
+			</td>
+        		<td>관리자</td>
+      	      </tr>
+      	      <tr bgcolor="#777777">
+        		<td height="1" colspan="5"></td>
+      	      </tr>
+      
+	      </s:iterator>
+			
+	      <s:if test="list.size() <= 0">
+				
+	      <tr bgcolor="#FFFFFF"  align="center">
+		<td colspan="5">등록된 게시물이 없습니다.</td>
+                  </tr>						
+	      <tr bgcolor="#777777">
+      		<td height="1" colspan="5"></td>
+    	      </tr>
+    		
+	      </s:if>				
 	<!-- 게시물 하나씩 iterator 끝 -->																
 						<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 						<tr>
 							<td colspan="4" align="center">
-								여기에 테이블 페이징 내용을 넣어주세요
+								<!-- paging -->
+							<div class="paging">
+								<s:property value="pagingHtml" escape="false"/>
+							</div>
+							
 							</td>
 						</tr>
 						<tr>

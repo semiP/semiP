@@ -11,5 +11,9 @@
 		<action name="faqListAction" class="support.faqListAction">
 			<result>/support/faq.jsp</result>
 		</action>
+		<!-- 자주묻는질문 상세보기 액션 -->
+		<action name="faqViewAction" class="support.faqViewAction">
+			<result>/support/faqView.jsp</result>
+		</action>
 	</package>
 </struts>
