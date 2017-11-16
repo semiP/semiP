@@ -32,28 +32,28 @@ import com.opensymphony.xwork2.ActionSupport;
 	private Map session;
 	private long basket_Price=0;
 	
-	//»ý¼ºÀÚ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void baksetListAction() throws IOException{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
 	}
-	//°Ô½ÃÆÇ List¾×¼Ç
+	//ï¿½Ô½ï¿½ï¿½ï¿½ Listï¿½×¼ï¿½
 	public String execute() throws Exception{
 		list = sqlMapper.queryForList("basket.selectAll");
 		totalCount = list.size();
 		page = new pagingAction(currentPage,totalCount,blockCount,blockPage, pagingHtml);
 		pagingHtml = page.getPagingHtml().toString();
 		
-		//ÇöÀç ÆäÀÌÁö¿¡¼­ º¸¿©ÁÙ ¸¶Áö¸· ±ÛÀÇ¹øÈ£ ¼³Á¤
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 		int lastCount = totalCount;
 		
-		//ÇöÀç ÆäÀÌÁöÀÇ ¸¶Áö¸· ±ÛÀÇ ¹øÈ£°¡ ÀüÃ¼ÀÇ ¸¶Áö¸· ±Û ¹øÈ£º¸´Ù ÀÛÀ¸¸é
-		//lastCount¸¦ +1¹øÈ£·Î ¼³Á¤
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		//lastCountï¿½ï¿½ +1ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if(page.getEndCount() < totalCount)
 			lastCount = page.getBlockCount() + 1;
 		
-		///ÀüÃ¼ ¸®½ºÆ®¿¡¼­ ÇöÀç ÆäÀÌÁö¸¸Å­ÀÇ ¸®½ºÆ®¸¸ °¡Á®¿Â´Ù
+		///ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
 		list = list(page.getStartCount(),lastCount);
 		
 		return SUCCESS;
@@ -83,28 +83,43 @@ public class basketListAction extends ActionSupport implements SessionAware {
 	private Map session;
 	private long basket_Price=0;
 	
-	//»ý¼ºÀÚ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void baksetListAction() throws IOException{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
 	}
-	//°Ô½ÃÆÇ List¾×¼Ç
+	//ï¿½Ô½ï¿½ï¿½ï¿½ Listï¿½×¼ï¿½
 	public String execute() throws Exception{
-	basketlist = sqlMapper.queryForList("selectAll");
+	/*basketlist = sqlMapper.queryForList("selectAll");
 	totalCount = basketlist.size();
 	page = new pagingAction(currentPage, totalCount, blockCount, blockPage, pagingHtml);
 	pagingHtml = page.getPagingHtml().toString();
 
-	//ÇöÀç ÆäÀÌÁö¿¡¼­ º¸¿©ÁÙ ¸¶Áö¸·±ÛÀÇ ¹øÈ£ ¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 	int lastCount = totalCount;
-	//ÇöÀçÆäÀÌÁöÀÇ ¸¶Áö¸·±ÛÀÇ ¹øÈ£°¡ ÀüÃ¼ÀÇ ¸¶Áö¸·±Û ¹øÈ£º¸´Ù ÀÛÀ¸¸é
-	//lastCount¸¦ +1¹øÈ£·Î ¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//lastCountï¿½ï¿½ +1ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if(page.getEndCount() < totalCount)
 		lastCount = page.getEndCount() + 1;
 
-	//ÀüÃ¼ ¸®½ºÆ®¿¡¼­ ÇöÀç ÆäÀÌÁö¸¸Å­ÀÇ ¸®½ºÆ®¸¸ °¡Á®¿Â´Ù.
-	basketlist = basketlist.subList(page.getStartCount(),lastCount);
+	//ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+	basketlist = basketlist.subList(page.getStartCount(),lastCount);*/
+		
+		
+		//ìž„ì˜ì˜ ë¦¬ìŠ¤íŠ¸ ë§Œë“¤ê¸°. í…ŒìŠ¤íŠ¸ìš©
+		basketresultClass = new basketVO();
+		basketresultClass.setBasket_no(1);
+		basketresultClass.setBasket_price(40000);
+		basketresultClass.setGoods_size("L");
+		basketresultClass.setGoods_color("red");
+		basketresultClass.setGoods_name("solid");
+		basketresultClass.setBgoods_amount(2);
+		basketresultClass.setGoods_price(20000);
+		basketresultClass.setGoods_image("image");
+				
+		basketlist.add(basketresultClass);
+		
 		return SUCCESS;
 	}
 

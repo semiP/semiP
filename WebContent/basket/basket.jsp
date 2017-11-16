@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"
 	trimDirectiveWhitespaces="true"%>
+	 <%@ taglib prefix="s" uri="/struts-tags" %> 
 
 <div id="content-container">
 	<table width="100%" border="0" style="margin:auto; max-width:1000px;">
@@ -54,7 +55,8 @@
 									<td width="15%">₩ 102,500</td>
 									<td width="10%">
 										<input type="submit" value="주문하기" style="width:80%;"><br><br>
-										<input type="button" value="삭제" style="width:80%;">
+										<input type="button" value="삭제하기" style="width:150px;" onClick="alert('삭제되었습니다.'); 
+											location.href='basketDeleteAction.action?basket_no=<s:property value="basket_no"/>'"/>
 									</td>
 								</tr>
 								<tr><td colspan="9" bgcolor="#f2f2f2" height="1"></td></tr>
@@ -72,7 +74,8 @@
 									<td colspan="9" align="left" style="font-size:1.5em;">
 										선택상품을&nbsp;
 										<input type="submit" value="주문하기" style="width:150px;">&nbsp;
-										<input type="button" value="삭제하기" style="width:150px;" onclick="locaation:href='main.action'">
+										<input type="button" value="삭제하기" style="width:150px;" onClick="alert('삭제되었습니다.'); 
+											location.href='basketDeleteAction.action?basket_no=<s:property value="basket_no"/>'"/>
 									</td>
 								</tr>
 								<tr>	<td height="50"></td>	</tr>

@@ -35,6 +35,11 @@ public class basketDeleteAction extends ActionSupport {
 	public String execute() throws Exception{
 		basketparamClass = new basketVO();
 		basketresultClass = new basketVO();
+		
+		basketresultClass = (basketVO)sqlMapper.queryForObject("selectOne",getBasket_no());
+		
+		basketparamClass.setBasket_no(getBasket_no());
+		
 		basketparamClass.setBasket_no(basket_no);
 		sqlMapper.delete("Basket.basketDelete", basketparamClass);
 		return SUCCESS;
