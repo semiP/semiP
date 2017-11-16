@@ -17,7 +17,9 @@ public class existAction extends ActionSupport{
 	public static SqlMapClient sqlMapper;
 	
 	private memberBean paramClass;
+	private memberBean paramClass2;
 	private memberBean resultClass;
+	private memberBean resultClass2;
 	
 	private int member_no;
 	private String member_name;
@@ -56,8 +58,8 @@ public class existAction extends ActionSupport{
 		String session_member_no = (String)session.get("session_member_no");
 		
 		// 비밀번호 입력값 파라미터 설정.
-		paramClass.setMember_pw(member_pw);
-		paramClass.setMember_no(member_no);
+		paramClass.setMember_pw(getMember_pw());
+		paramClass.setMember_no(getMember_no());
 		
 		// 현재글의 비밀번호 가져오기
 		resultClass = (memberBean)sqlMapper.queryForObject("pwCheck",paramClass);
@@ -72,14 +74,14 @@ public class existAction extends ActionSupport{
 	// 회원탈퇴 처리 => MEMBER_LEVEL
 	public String execute() throws Exception{
 		// 파라미터와 리절트 객체 생성
-		paramClass = new memberBean();
-		resultClass = new memberBean();
+		paramClass2 = new memberBean();
+		resultClass2 = new memberBean();
 		
 		// 수정할 항목 설정
-		paramClass.setMember_level(getMember_level());
+		paramClass2.setMember_level(getMember_level());
 		
 		// 항목 수정
-		sqlMapper.update("member_level",2);
+		sqlMapper.update("updateMemberDelete");
 		
 		return SUCCESS;
 	}

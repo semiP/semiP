@@ -14,27 +14,27 @@ import org.apache.commons.io.FileUtils;
 
 public class goodsCmtWriteAction extends ActionSupport{
 	
-	public static Reader reader; //ÆÄÀÏ ½ºÆ®¸²À» À§ÇÑ reader.
-	public static SqlMapClient sqlMapper; //SqlMapClient API¸¦ »ç¿ëÇÏ±â À§ÇÑ sqlMapper °´Ã¼.
+	public static Reader reader; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ reader.
+	public static SqlMapClient sqlMapper; //SqlMapClient APIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼.
 	
-	private goodsCmtVO cmt_paramClass; //ÆÄ¶ó¹ÌÅÍ¸¦ ÀúÀåÇÒ °´Ã¼
-	private goodsCmtVO cmt_resultClass; //Äõ¸® °á°ú °ªÀ» ÀúÀåÇÒ °´Ã¼
+	private goodsCmtVO cmt_paramClass; //ï¿½Ä¶ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
+	private goodsCmtVO cmt_resultClass; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
 	
-	private int currentPage; //ÇöÀç ÆäÀÌÁö
+	private int currentPage; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
-	private int goods_cmt_no;            //±Û¹øÈ£
-	private String goods_cmt_pw;         //±Ûºñ¹ø
-	private String goods_cmt_image;  //¿ø·¡ ÆÄÀÏ ÀÌ¸§
-	private int goods_cmt_score;      //ÆòÁ¡
-	private String goods_cmt_subject;    //±ÛÁ¦¸ñ
-	private String goods_cmt_id;       //ÀÛ¼ºÀÚ
-	private String goods_cmt_content;    //³»¿ë
-	Calendar today = Calendar.getInstance(); //¿À´Ã ³¯Â¥ ±¸ÇÏ±â.
+	private int goods_cmt_no;            //ï¿½Û¹ï¿½È£
+	private String goods_cmt_pw;         //ï¿½Ûºï¿½ï¿½
+	private String goods_cmt_image;  //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+	private int goods_cmt_score;      //ï¿½ï¿½ï¿½ï¿½
+	private String goods_cmt_subject;    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String goods_cmt_id;       //ï¿½Û¼ï¿½ï¿½ï¿½
+	private String goods_cmt_content;    //ï¿½ï¿½ï¿½ï¿½
+	Calendar today = Calendar.getInstance(); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½Ï±ï¿½.
 	
-	private File upload; //ÆÄÀÏ °´Ã¼
-	private String uploadContentType; //ÄÁÅÙÃ÷ Å¸ÀÔ
-	private String uploadFileName; //ÆÄÀÏ ÀÌ¸§
-	private String fileUploadPath = "E:\\java\\upload\\"; //¾÷·Îµå °æ·Î.
+	private File upload; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
+	private String uploadContentType; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
+	private String uploadFileName; //ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+	private String fileUploadPath = "E:\\java\\upload\\"; //ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½.
 	
 	private int ref;
 	private int re_step;
@@ -42,17 +42,16 @@ public class goodsCmtWriteAction extends ActionSupport{
 	
 	boolean reply = false;
 	
-	//»ı¼ºÀÚ
+	//ìƒì„±ì
 	public goodsCmtWriteAction() throws IOException
 	{
-		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ÆÄÀÏÀÇ ¼³Á¤³»¿ëÀ» °¡Á®¿Â´Ù.
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ³»¿ëÀ» Àû¿ëÇÑ sqlMapper °´Ã¼ »ı¼º.
+		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½.
 		reader.close();
 	}
 	
 	public String form() throws Exception
 	{
-		//µî·Ï Æû.
 		return SUCCESS;
 	}
 	
@@ -61,8 +60,8 @@ public class goodsCmtWriteAction extends ActionSupport{
 		reply = true;
 		cmt_resultClass = new goodsCmtVO();
 		
-		cmt_resultClass = (goodsCmtVO)sqlMapper.queryForObject("selectOne", getGoods_cmt_no());
-		cmt_resultClass.setGoods_cmt_subject("[´äº¯] " + cmt_resultClass .getGoods_cmt_subject());
+		cmt_resultClass = (goodsCmtVO)sqlMapper.queryForObject("select-goods-cmt", getGoods_cmt_no());
+		cmt_resultClass.setGoods_cmt_subject("[ë‹µë³€] " + cmt_resultClass .getGoods_cmt_subject());
 		cmt_resultClass.setGoods_cmt_pw("");
 		cmt_resultClass.setGoods_cmt_id("");
 		cmt_resultClass.setGoods_cmt_content("");
@@ -72,10 +71,8 @@ public class goodsCmtWriteAction extends ActionSupport{
 		return SUCCESS;
 	}
 	
-	//°Ô½ÃÆÇ WRITE ¾×¼Ç
 	public String execute() throws Exception
 	{
-		//ÆÄ¶ó¹ÌÅÍ¿Í ¸®ÀıÆ® °´Ã¼ »ı¼º.
 		cmt_paramClass = new goodsCmtVO();
 		cmt_resultClass = new goodsCmtVO();
 		
@@ -95,7 +92,6 @@ public class goodsCmtWriteAction extends ActionSupport{
 			cmt_paramClass.setRef(getRef());
 		}
 		
-		//µî·ÏÇÒ Ç×¸ñ ¼³Á¤.
 		cmt_paramClass.setGoods_cmt_pw(getGoods_cmt_pw());
 		cmt_paramClass.setGoods_cmt_subject(getGoods_cmt_subject());
 		cmt_paramClass.setGoods_cmt_id(getGoods_cmt_id());
@@ -106,37 +102,33 @@ public class goodsCmtWriteAction extends ActionSupport{
 		
 		if(ref == 0)
 		{
-			//µî·Ï Äõ¸® ¼öÇà.
-			sqlMapper.insert("insertBoard", cmt_paramClass);
+			//ìƒˆë¡œ ì‘ì„±
+			sqlMapper.insert("goodsCmtInsert", cmt_paramClass);
 		}
 		else 
 		{
+			//ë‹µë³€ê¸€ ì‘ì„±
 			sqlMapper.insert("insertReplyBoard", cmt_paramClass);
 		}
 		
-		//Ã·ºÎÆÄÀÏÀ» ¼±ÅÃÇß´Ù¸é ÆÄÀÏÀ» ¾÷·ÎµåÇÑ´Ù.
+		//íŒŒì¼ ì—…ë¡œë“œ
 		if(getUpload() != null)
 		{
-			//µî·ÏÇÑ ±Û ¹øÈ£ °¡Á®¿À±â.
 			cmt_resultClass = (goodsCmtVO) sqlMapper.queryForObject("selectLastNo");
 			
-			//½ÇÁ¦ ¼­¹ö¿¡ ÀúÀåµÉ ÆÄÀÏ ÀÌ¸§°ú È®ÀåÀÚ ¼³Á¤.
 			String file_name = "file_" + cmt_resultClass.getGoods_cmt_no();
 			String file_ext = getUploadFileName().substring(
 							getUploadFileName().lastIndexOf('.') + 1,
 							getUploadFileName().length());
 			
-			//¼­¹ö¿¡ ÆÄÀÏ ÀúÀå.
 			File destFile = new File(fileUploadPath + file_name + "."
 							+ file_ext);
 			FileUtils.copyFile(getUpload(), destFile);
 			
-			//ÆÄÀÏ Á¤º¸ ÆÄ¶ó¹ÌÅÍ ¼³Á¤.
 			cmt_paramClass.setGoods_cmt_no(cmt_resultClass.getGoods_cmt_no());
-			cmt_paramClass.setGoods_cmt_image(getUploadFileName()); //¿ø·¡ ÆÄÀÏ ÀÌ¸§
-			cmt_paramClass.setGoods_cmt_image(file_name + "." + file_ext); //¼­¹ö¿¡ ÀúÀåÇÑ ÆÄÀÏ ÀÌ¸§
+			cmt_paramClass.setGoods_cmt_image(getUploadFileName()); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+			cmt_paramClass.setGoods_cmt_image(file_name + "." + file_ext); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
 			
-			//ÆÄÀÏ Á¤º¸ ¾÷µ¥ÀÌÆ®.
 			sqlMapper.update("updateFile", cmt_paramClass);
 		}
 		

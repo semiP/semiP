@@ -1,8 +1,8 @@
-package cmc;
-//´äº¯´Þ±â. ´äº¯¼öÁ¤.»èÁ¦. Â÷ÈÄ °ü¸®ÀÚ ±¸ÇöÇÒ ¶§ ±â´É Ãß°¡(ÇöÀç ÇÁ·ÐÆ® ±â´É¸¸)
+package support;
+//ï¿½äº¯ï¿½Þ±ï¿½. ï¿½äº¯ï¿½ï¿½ï¿½ï¿½.ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß°ï¿½(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½É¸ï¿½)
 import com.opensymphony.xwork2.ActionSupport;
 
-//import cmc.inquiryVO; °æ·Î °°¾Æ¼­ ±»ÀÌ ÇÊ¿ä¾øÀ½
+//import cmc.inquiryVO; ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -36,7 +36,7 @@ public class inquiryWriteAction extends ActionSupport implements SessionAware {
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
 	}
-//	·Î±×ÀÎÇÏ°í µ¿ÀÏ »çÀÌÆ®¿¡¼­ ÆäÀÌÁö 2°³·Î »ç¿ëÇÏ´Ù°¡ ÇÑÆäÀÌÁö¿¡¼­ ·Î±×¾Æ¿ôÇÏ¸é ´Ù¸¥ ÆäÀÌÁö¿¡¼­ »óÇ°¹®ÀÇ ÇÒ ½Ã ·Î±×ÀÎÃ¢À¸·Î ³Ñ°Ü¹ö¸²
+//	ï¿½Î±ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±×¾Æ¿ï¿½ï¿½Ï¸ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°Ü¹ï¿½ï¿½ï¿½
 	public String form() throws Exception{
 		if(session.get("session_member_id") == null){
 			return LOGIN;

@@ -11,16 +11,16 @@
 		<tr> <!-- 폼 테이블 넣기 -->
 			<td width="25%"/>
 			<td>
-				<form method="post" action="#">
+				<form action="login.action" method="post">
 					<table width="100%" height="200" border="0" class="inputForm" style="border:3px solid black;">
 						<tr>
 							<td align="right" width="100">아이디&nbsp;&nbsp;&nbsp;</td>
-							<td><input type="text" style="width: 100%; height:30px;"></td>
+							<td><input type="text" id="id" name="id" style="width: 100%; height:30px;"></td>
 							<td width="15"></td>
 						</tr>
 						<tr>
 							<td align="right" width="100">비밀번호&nbsp;&nbsp;&nbsp;</td>
-							<td><input type="password" style="width: 100%; height:30px;"></td>
+							<td><input type="password" id="pw" name="passwd" style="width: 100%; height:30px;"></td>
 							<td width="15"></td>
 						</tr>
 						<tr align="center">

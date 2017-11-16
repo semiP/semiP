@@ -14,13 +14,13 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 
 public class goodsCmtModifyAction extends ActionSupport{
-	public static Reader reader; //ÆÄÀÏ ½ºÆ®¸²À» À§ÇÑ reader.
-	public static SqlMapClient sqlMapper; //SqlMapClient API¸¦ »ç¿ëÇÏ±â À§ÇÑ sqlMapper °´Ã¼.
+	public static Reader reader; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ reader.
+	public static SqlMapClient sqlMapper; //SqlMapClient APIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼.
 	
-	private goodsCmtVO paramClass; //ÆÄ¶ó¹ÌÅÍ¸¦ ÀúÀåÇÒ °´Ã¼
-	private goodsCmtVO resultClass; //Äõ¸® °á°ú °ªÀ» ÀúÀåÇÒ °´Ã¼
+	private goodsCmtVO paramClass; //ï¿½Ä¶ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
+	private goodsCmtVO resultClass; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
 	
-	private int currentPage; //ÇöÀç ÆäÀÌÁö
+	private int currentPage; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
 	private int goods_cmt_no;
 	private String goods_cmt_subject;
@@ -31,27 +31,24 @@ public class goodsCmtModifyAction extends ActionSupport{
 	private int goods_cmt_score;
 	private String old_file;
 	
-	private File upload; //ÆÄÀÏ °´Ã¼
-	private String uploadContentType; //ÄÁÅÙÃ÷ Å¸ÀÔ
-	private String uploadFileName; //ÆÄÀÏ ÀÌ¸§
-	private String fileUploadPath = "E:\\java\\upload\\"; //¾÷·Îµå °æ·Î.
+	private File upload; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
+	private String uploadContentType; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
+	private String uploadFileName; //ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+	private String fileUploadPath = "E:\\java\\upload\\"; //ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½.
 	
-	//»ı¼ºÀÚ
+	//ìƒì„±ì
 	public goodsCmtModifyAction() throws IOException
 	{
-		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); //sqlMapConfig.xml ÆÄÀÏÀÇ ¼³Á¤³»¿ëÀ» °¡Á®¿Â´Ù.
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ³»¿ëÀ» Àû¿ëÇÑ sqlMapper °´Ã¼ »ı¼º.
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); //sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½.
 		reader.close();
 	}
 	
-	//°Ô½Ã±Û ¼öÁ¤
 	public String execute() throws Exception
 	{
-		//ÆÄ¶ó¹ÌÅÍ¿Í ¸®ÀıÆ® °´Ã¼ »ı¼º.
 		paramClass = new goodsCmtVO();
 		resultClass = new goodsCmtVO();
 		
-		//¼öÁ¤ÇÒ Ç×¸ñ ¼³Á¤.
 		paramClass.setGoods_cmt_no(getGoods_cmt_no());
 		paramClass.setGoods_cmt_pw(getGoods_cmt_pw());
 		paramClass.setGoods_cmt_subject(getGoods_cmt_subject());
@@ -59,33 +56,26 @@ public class goodsCmtModifyAction extends ActionSupport{
 		paramClass.setGoods_cmt_score(getGoods_cmt_score());
 		paramClass.setGoods_cmt_content(getGoods_cmt_content());
 		
-		//ÀÏ´Ü Ç×¸ñ¸¸ ¼öÁ¤ÇÑ´Ù.
 		sqlMapper.update("updateBoard", paramClass);
 		
-		//¼öÁ¤ÇÒ ÆÄÀÏÀÌ ¾÷·Îµå µÇ¾ú´Ù¸é ÆÄÀÏÀ» ¾÷·ÎµåÇÏ°í DBÀÇ file Ç×¸ñÀ» ¼öÁ¤ÇÔ.
+		//íŒŒì¼ ì—…ë¡œë“œ
 		if(getUpload() != null)
 		{
-			//½ÇÁ¦ ¼­¹ö¿¡ ÀúÀåµÉ ÆÄÀÏ ÀÌ¸§°ú È®ÀåÀÚ ¼³Á¤.
 			String file_name = "file_" + getGoods_cmt_no();
 			String file_ext = getUploadFileName().substring(getUploadFileName().lastIndexOf('.')+1,getUploadFileName().length());
 			
-			//ÀÌÀü ÆÄÀÏ »èÁ¦
 			File deleteFile = new File(fileUploadPath + getOld_file());
 			deleteFile.delete();
 			
-			//»õ ÆÄÀÏ ¾÷·Îµå
 			File destFile = new File(fileUploadPath + file_name + "." + file_ext);
 			FileUtils.copyFile(getUpload(), destFile);
 			
-			//ÆÄÀÏ Á¤º¸ ÆÄ¶ó¹ÌÅÍ ¼³Á¤.
 			paramClass.setGoods_cmt_image(getUploadFileName());
 			paramClass.setGoods_cmt_image(file_name + "." + file_ext);
 			
-			//ÆÄÀÏ Á¤º¸ ¾÷µ¥ÀÌÅÍ.
-			sqlMapper.update("updateFile", paramClass);
+			sqlMapper.update("goodsCmtUpdate", paramClass);
 		}
 		
-		//¼öÁ¤ÀÌ ³¡³ª¸é view ÆäÀÌÁö·Î ÀÌµ¿.
 		resultClass = (goodsCmtVO) sqlMapper.queryForObject("selectOne", getGoods_cmt_no());
 		
 		return SUCCESS;

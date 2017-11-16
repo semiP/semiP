@@ -16,8 +16,8 @@ import java.net.*;
 
 public class goodsListAction extends ActionSupport {
 	
-	public static Reader reader;        //ÆÄÀÏ ½ºÆ®¸²À» À§ÇÑ reader.
-	public static SqlMapClient sqlMapper;      //SqlMapClinet API¸¦ »ç¿ëÇÏ±â À§ÇÑ sqlMapper °´Ã¼.
+	public static Reader reader;        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ reader.
+	public static SqlMapClient sqlMapper;      //SqlMapClinet APIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼.
 	
 	private List<goodsVO> list = new ArrayList<goodsVO>();
 	
@@ -32,19 +32,17 @@ public class goodsListAction extends ActionSupport {
 	private String pagingHtml;
 //	private pagingAction page;
 
-	//»ı¼ºÀÚ
+	//ìƒì„±ì
 	public goodsListAction() throws IOException
 	{
-		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ÆÄÀÏÀÇ ¼³Á¤³»¿ëÀ» °¡Á®¿Â´Ù.
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);  //sqlMapConfig.xmlÀÇ ³»¿ëÀ» Àû¿ëÇÑ sqlMapper °´Ã¼ »ı¼º.
+		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);  //sqlMapConfig.xmlï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½.
 		reader.close();
 	}
 	
-	//°Ô½ÃÆÇ LIST ¾×¼Ç
 	public String execute() throws Exception
 	{		
-		//¸ğµç ±ÛÀ» °¡Á®¿Í list¿¡ ³Ö´Â´Ù.
-		list = sqlMapper.queryForList("select-goods");
+		list = sqlMapper.queryForList("select-goods-all");
 		
 		totalCount = list.size();
 //		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, num, "");

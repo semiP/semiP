@@ -16,13 +16,13 @@ import goods.goodsVO;
 
 public class orderWriteAction extends ActionSupport{
 	
-	public static Reader reader; //ÆÄÀÏ ½ºÆ®¸²À» À§ÇÑ reader.
-	public static SqlMapClient sqlMapper; //SqlMapClient API¸¦ »ç¿ëÇÏ±â À§ÇÑ sqlMapper °´Ã¼.
+	public static Reader reader; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ reader.
+	public static SqlMapClient sqlMapper; //SqlMapClient APIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼.
 	
-	private orderVO paramClass; //ÆÄ¶ó¹ÌÅÍ¸¦ ÀúÀåÇÒ °´Ã¼
-	private orderVO resultClass; //Äõ¸® °á°ú °ªÀ» ÀúÀåÇÒ °´Ã¼
+	private orderVO paramClass; //ï¿½Ä¶ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
+	private orderVO resultClass; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
 	
-	private List<goodsVO> list = new ArrayList<goodsVO>();
+	private List<orderVO> list = new ArrayList<orderVO>();
 	
 	private int order_no;
 	private int order_goods_no;
@@ -42,43 +42,36 @@ public class orderWriteAction extends ActionSupport{
 	private int order_pay_type;
 	private String order_pay_name;
 	private int order_total_pay;
-	Calendar today = Calendar.getInstance(); //¿À´Ã ³¯Â¥ ±¸ÇÏ±â.
+	Calendar today = Calendar.getInstance(); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½Ï±ï¿½.
 
-	private File upload; //ÆÄÀÏ °´Ã¼
-	private String uploadContentType; //ÄÁÅÙÃ÷ Å¸ÀÔ
-	private String uploadFileName; //ÆÄÀÏ ÀÌ¸§
-	private String fileUploadPath = "E:\\java\\upload\\"; //¾÷·Îµå °æ·Î.
+	private File upload; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
+	private String uploadContentType; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
+	private String uploadFileName; //ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+	private String fileUploadPath = "E:\\java\\upload\\"; //ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½.
 	
-	//»ı¼ºÀÚ
+	//ìƒì„±ì
 	public orderWriteAction() throws IOException
 	{
-		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ÆÄÀÏÀÇ ¼³Á¤³»¿ëÀ» °¡Á®¿Â´Ù.
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ³»¿ëÀ» Àû¿ëÇÑ sqlMapper °´Ã¼ »ı¼º.
+		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½.
 		reader.close();
 	}
 	
 	public String form() throws Exception
 	{
-		//µî·Ï Æû.
+		//orderVO <= goodsVO ì •ë³´ ì½”ë”©
 		return SUCCESS;
 	}
-	
-	public String goodslist() throws Exception
-	{
-		//¸ğµç ±ÛÀ» °¡Á®¿Í list¿¡ ³Ö´Â´Ù.
-		list = sqlMapper.queryForList("select-goods");
-		
-		return SUCCESS;
-	}
-	
-	//°Ô½ÃÆÇ WRITE ¾×¼Ç
+
+	//ì£¼ë¬¸ë‚´ì—­ ì‘ì„± ì•¡ì…˜
 	public String execute() throws Exception
 	{
-		//ÆÄ¶ó¹ÌÅÍ¿Í ¸®ÀıÆ® °´Ã¼ »ı¼º.
+		//í´ë˜ìŠ¤ ìƒì„±
 		paramClass = new orderVO();
 		resultClass = new orderVO();
 		
-		//µî·ÏÇÒ Ç×¸ñ ¼³Á¤.
+		//íŒŒë¼ë¯¸í„°ê°’ì„ ë°›ëŠ”ë‹¤.
+		//ì•¡ì…˜ì—ì„œ jspì—ì„œ ë°›ì€ ê°’ì„ voì— ë„£ëŠ” ê³¼ì • 
 		paramClass.setOrder_member_no(getOrder_member_no());
 		paramClass.setOrder_goods_no(getOrder_goods_no());
 		paramClass.setOrder_goods_amount(getOrder_goods_amount());
@@ -93,8 +86,8 @@ public class orderWriteAction extends ActionSupport{
 		paramClass.setOrder_date(today.getTime());
 		paramClass.setOrder_pay_name(getOrder_pay_name());
 		
-		//µî·Ï Äõ¸® ¼öÇà.
-		sqlMapper.insert("insertBoard", paramClass);
+		//ë°›ì€ê°’ì„ ë„£ëŠ”ë‹¤.
+		sqlMapper.insert("orderInsert", paramClass);
 		
 		if(getUpload() != null)
 		{
@@ -115,13 +108,11 @@ public class orderWriteAction extends ActionSupport{
 			
 			sqlMapper.update("updateFile", paramClass);
 		}
-		
-
 		return SUCCESS;
 	}
 	
-	public List<goodsVO> getList() { return list; }
-	public void setList(List<goodsVO> list) { this.list = list; }
+	public List<orderVO> getList() { return list; }
+	public void setList(List<orderVO> list) { this.list = list; }
 	
 	public Calendar getToday() { return today; }
 	public void setToday(Calendar today) { this.today = today; }

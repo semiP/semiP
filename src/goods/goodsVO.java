@@ -4,16 +4,16 @@ import java.util.Date;
 
 public class goodsVO {
 	
-	private int goods_no;                      //»óÇ° ¹øÈ£
-	private String goods_name;                 //»óÇ° ÀÌ¸§
-	private String goods_category;			   //»óÇ° Ä«Å×°í¸®
-	private String goods_size;				   //»óÇ° »çÀÌÁî
-	private String goods_color;				   //»óÇ° ÄÃ·¯
-	private String goods_content;			   //»óÇ° ³»¿ë
-	private int goods_amount;				   //»óÇ° ¼ö·®
-	private int goods_price;				   //»óÇ° °¡°İ
-	private String goods_image_file;	       //»óÇ° ÆÄÀÏ¸í
-	private Date goods_date;				   //»óÇ° µî·Ï³¯Â¥
+	private int goods_no;                      //ìƒí’ˆ ë„˜ë²„
+	private String goods_name;                 //ìƒí’ˆëª…
+	private String goods_category;			   //ì¹´í…Œê³ ë¦¬
+	private String goods_size;				   //ì‚¬ì´ì¦ˆ
+	private String goods_color;				   //ì»¬ëŸ¬
+	private String goods_content;			   //ì»¨í…ì¸ 
+	private int goods_amount;				   //ìˆ˜ëŸ‰
+	private int goods_price;				   //ê°€ê²©
+	private String goods_image_file;	       //ì´ë¯¸ì§€ëª…
+	private Date goods_date;				   //ë“±ë¡ë‚ ì§œ
 	
 	public int getGoods_no() { return goods_no; }
 	public void setGoods_no (int goods_no) { this.goods_no = goods_no; }
