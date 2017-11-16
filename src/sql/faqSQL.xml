@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="faq">
-	<typeAlias alias="faq" type="cmc.faqVO" />
+	<typeAlias alias="faq" type="support.faqVO" />
 	<!-- faqList.jsp에서 관리자 / 일반회원 구분 구문 까먹지않고 넣기!! -->
 	<!-- 리절트 맵 정의 -->
 	<!-- create faq table / sequence -->
 	<resultMap id="faqRes" class="faq">
 		<result property="faq_no" column="faq_no" />
+		<result property="faq_category" column="faq_category" />
 		<result property="faq_subject" column="faq_subject" />
 		<result property="faq_content" column="faq_content" />
 		<result property="faq_regdate" column="faq_regdate" />
-		<result property="faq_category" column="faq_category" />
 	</resultMap>
 	<!-- 공통 사용(select *) 절 정의 -->
 	<sql id="select-all">

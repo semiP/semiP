@@ -1,6 +1,10 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"
 	trimDirectiveWhitespaces="true"%>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 
+>>>>>>> yjunlim
 <link rel="stylesheet" href="/semiP/assets/css/board.css" type="text/css">
 <script type="text/javascript">
 	<!--
@@ -16,6 +20,11 @@
 	//--> 
 </script>
 
+<<<<<<< HEAD
+=======
+>>>>>>> yjunlim
+=======
+>>>>>>> yjunlim
 
 <div id="content-container">
 	<table width="100%" border="0" style="margin:auto; max-width:1000px;">

@@ -5,6 +5,8 @@
 
 <tiles-definitions>
 
+
+
 	<definition name="default" template="/template/layout.jsp">
 		<put-attribute name="title" value="MIGNON COPINE" />
 		<put-attribute name="header" value="/template/header.jsp" />

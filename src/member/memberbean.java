@@ -13,73 +13,82 @@ public class memberbean {
 	private String member_address2;
 	private String member_phone;
 	private String member_email;
-	Date member_regdate;
+	private Date member_regdate;
 	private int member_level;
+
+	private String member_deleteReason;
 	
-	public int getmember_no() {
+	public int getMember_no() {
 		return member_no;
 	}
-	public void setmember_no(int member_no) {
+	public void setMember_no(int member_no) {
 		this.member_no = member_no;
 	}
-	public String getmember_name() {
+	public String getMember_name() {
 		return member_name;
 	}
-	public void setmember_name(String member_name) {
+	public void setMember_name(String member_name) {
 		this.member_name = member_name;
 	}
-	public String getmember_id() {
+	public String getMember_id() {
 		return member_id;
 	}
-	public void setmember_id(String member_id) {
+	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
-	public String getmember_pw() {
+	public String getMember_pw() {
 		return member_pw;
 	}
-	public void setmember_pw(String member_pw) {
+	public void setMember_pw(String member_pw) {
 		this.member_pw = member_pw;
 	}
-	public String getmember_zipcode() {
+	public String getMember_zipcode() {
 		return member_zipcode;
 	}
-	public void setmember_zipcode(String member_zipcode) {
+	public void setMember_zipcode(String member_zipcode) {
 		this.member_zipcode = member_zipcode;
 	}
-	public String getmember_address1() {
+	public String getMember_address1() {
 		return member_address1;
 	}
-	public void setmember_address1(String member_address1) {
+	public void setMember_address1(String member_address1) {
 		this.member_address1 = member_address1;
 	}
-	public String getmember_address2() {
+	public String getMember_address2() {
 		return member_address2;
 	}
-	public void setmember_address2(String member_address2) {
+	public void setMember_address2(String member_address2) {
 		this.member_address2 = member_address2;
 	}
-	public String getmember_phone() {
+	public String getMember_phone() {
 		return member_phone;
 	}
-	public void setmember_phone(String member_phone) {
+	public void setMember_phone(String member_phone) {
 		this.member_phone = member_phone;
 	}
-	public String getmember_email() {
+	public String getMember_email() {
 		return member_email;
 	}
-	public void setmember_email(String member_email) {
+	public void setMember_email(String member_email) {
 		this.member_email = member_email;
 	}
-	public Date getmember_regdate() {
+	public Date getMember_regdate() {
 		return member_regdate;
 	}
-	public void setmember_regdate(Date member_regdate) {
+	public void setMember_regdate(Date member_regdate) {
 		this.member_regdate = member_regdate;
 	}
-	public int getmember_level() {
+	public int getMember_level() {
 		return member_level;
 	}
-	public void setmember_level(int member_level) {
+	public void setMember_level(int member_level) {
 		this.member_level = member_level;
+	}
+
+	public String getMember_deleteReason() {
+		return member_deleteReason;
+	}
+	public void setMember_deleteReason(String member_deleteReason) {
+		this.member_deleteReason = member_deleteReason;
 	}
 }

@@ -1,21 +1,13 @@
-package cmc;
+package support;
 
 import java.util.Date;
 
 public class faqVO {
 	private int faq_no;
+	private int faq_category;
 	private String faq_subject;
 	private String faq_content;
 	private Date faq_regdate;
-	private int faq_category;
-
-	public int getFaq_category() {
-		return faq_category;
-	}
-
-	public void setFaq_category(int faq_category) {
-		this.faq_category = faq_category;
-	}
 
 	public int getFaq_no() {
 		return faq_no;
@@ -23,6 +15,14 @@ public class faqVO {
 
 	public void setFaq_no(int faq_no) {
 		this.faq_no = faq_no;
+	}
+
+	public int getFaq_category() {
+		return faq_category;
+	}
+
+	public void setFaq_category(int faq_category) {
+		this.faq_category = faq_category;
 	}
 
 	public String getFaq_subject() {

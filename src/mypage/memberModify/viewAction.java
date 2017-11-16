@@ -19,7 +19,12 @@ public class viewAction extends ActionSupport{
 	public static SqlMapClient sqlMapper;
 	
 	private memberBean paramClass;
+	private memberBean paramClass1;
+	private memberBean paramClass2;
+
 	private memberBean resultClass;
+	private memberBean resultClass1;
+	private memberBean resultClass2;
 	
 	private int member_no;
 	private String member_name;
@@ -35,7 +40,7 @@ public class viewAction extends ActionSupport{
 	
 	private InputStream inputStream;
 	
-	private Map session;
+	/*private Map session;*/
 	
 	// 생성자
 	public viewAction() throws IOException{
@@ -52,34 +57,34 @@ public class viewAction extends ActionSupport{
 	// 비밀번호 체크 액션
 	public String checkAction() throws Exception{
 		// 비밀번호 입력값 파라미터 설정
-		paramClass.setMember_no(getMember_no());
-		paramClass.setMember_pw(getMember_pw());
+		paramClass1.setMember_no(getMember_no());
+		paramClass1.setMember_pw(getMember_pw());
 		
 		// 현재 글의 비밀번호 가져오기
-		resultClass = (memberBean) sqlMapper.queryForObject("pwCheck",paramClass);
+		resultClass1 = (memberBean) sqlMapper.queryForObject("mypage.pwCheck",paramClass1);
 		
 		// 입력한 비밀번호가 틀리면 ERROR리턴
-		if(resultClass == null) return ERROR;
+		if(resultClass1 == null) return ERROR;
 		
 		return SUCCESS;
 	}
 	
 	// 비밀번호 확인 후 맞을시 수정폼 이동 아닐 시 에러페이지
 	public String form() throws Exception{
-		paramClass = new memberBean(); // 파라미터를 저장할 객체
-		resultClass = new memberBean(); // 쿼리 결과 값을 저장할 객체
+		paramClass2 = new memberBean(); // 파라미터를 저장할 객체
+		resultClass2 = new memberBean(); // 쿼리 결과 값을 저장할 객체
 		
 		// session 얻어오기(ServletActionContext, ActionContext => getContext()메서드를 갖고 있음) < 클라이언트와 웹서버 간 네트워크 연결이 지속 유지되고 있는 상태
 				ActionContext context = ActionContext.getContext(); 
 				Map session = context.getSession();
 				
 				String session_member_no = (String) session.get("session_member_no");
-				paramClass.setMember_pw(member_pw);
-				paramClass.setMember_id(member_id);
+				paramClass2.setMember_pw(member_pw);
+				paramClass2.setMember_id(member_id);
 				
-				resultClass = (memberBean)sqlMapper.queryForObject("mypage.MemberModify",paramClass);
+				resultClass2 = (memberBean)sqlMapper.queryForObject("mypage.selectOneMember",paramClass2);
 				
-				if(resultClass != null){
+				if(resultClass2 != null){
 					/*checkPass = 1;*/
 					return SUCCESS;
 				}
@@ -87,28 +92,28 @@ public class viewAction extends ActionSupport{
 					/*checkPass = 0;*/
 					return ERROR;
 				}
-			}
+		}
 			
 			// 수정내용처리
 			public String execute() throws Exception{
 				ActionContext context = ActionContext.getContext();
-				session = context.getSession();
+				/*session = context.getSession();
 				
 				if(session.get("session_id")==null) {
 					return LOGIN;
 				}
 				
-				String session_member_no = (String)session.get("session_member_no");
+				String session_member_no = (String)session.get("session_member_no");*/
 				paramClass = new memberBean();
-				paramClass.setMember_id(session_member_no);
-				paramClass.setMember_name(member_name);
-				paramClass.setMember_pw(member_pw);
-				paramClass.setMember_email(member_email);
-				paramClass.setMember_zipcode(member_zipcode);
-				paramClass.setMember_address1(member_address1);
-				paramClass.setMember_address2(member_address2);
-				paramClass.setMember_phone(member_phone);
-				
+				/*paramClass.setMember_id(session_member_no);*/
+				paramClass.setMember_email(getMember_email());
+				paramClass.setMember_zipcode(getMember_zipcode());
+				paramClass.setMember_address1(getMember_address1());
+				paramClass.setMember_address2(getMember_address2());
+				paramClass.setMember_phone(getMember_phone());
+				paramClass.setMember_pw(getMember_pw());
+				paramClass.setMember_no(getMember_no());
+		
 				sqlMapper.update("updateMember",paramClass);
 				
 				return SUCCESS;
@@ -242,13 +247,13 @@ public class viewAction extends ActionSupport{
 				this.inputStream = inputStream;
 			}
 
-			public Map getSession() {
+			/*public Map getSession() {
 				return session;
 			}
 
 			public void setSession(Map session) {
 				this.session = session;
 			}
-			
+			*/
 			
 		} 

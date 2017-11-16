@@ -1,46 +1,41 @@
-/*package cmc;  °ü¸®ÀÚ ÀÛ¾÷½Ã ÁÖ¼® Ç®°í ¸®ÅÏ ¹ØÁÙ È®ÀÎ
+package support;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
-
+//noticeVOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾î¼­ ï¿½ï¿½ï¿½ï¿½ import ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 import java.io.Reader;
 import java.io.IOException;
 
-public class noticeModifyAction {
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
+public class noticeViewAction extends ActionSupport {
+
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 
-	private noticeVO paramClass;
-	private noticeVO resultClass;
+	private noticeVO paramClass = new noticeVO();
+	private noticeVO resultClass = new noticeVO();
 
 	private int currentPage;
 
 	private int notice_no;
-	private String notice_subject;
-	private String notice_content;
 
-	public noticeModifyAction() throws IOException {
+	public noticeViewAction() throws IOException {
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
 	}
 
 	public String execute() throws Exception {
-		paramClass = new noticeVO();
-		resultClass = new noticeVO();
 
 		paramClass.setNotice_no(getNotice_no());
-		paramClass.setNotice_subject(getNotice_subject());
-		paramClass.setNotice_content(getNotice_content());
-
-		sqlMapper.update("notice.update", paramClass);
-
 		resultClass = (noticeVO) sqlMapper.queryForObject("notice.selectOne", getNotice_no());
 
-		return SUCCESS;    //SUCCESS ¹ØÁÙ°¨ È®ÀÎÇØ¾ßÇÔ
-
+		return SUCCESS;
 	}
 
 	public noticeVO getParamClass() {
@@ -74,22 +69,4 @@ public class noticeModifyAction {
 	public void setNotice_no(int notice_no) {
 		this.notice_no = notice_no;
 	}
-
-	public String getNotice_subject() {
-		return notice_subject;
-	}
-
-	public void setNotice_subject(String notice_subject) {
-		this.notice_subject = notice_subject;
-	}
-
-	public String getNotice_content() {
-		return notice_content;
-	}
-
-	public void setNotice_content(String notice_content) {
-		this.notice_content = notice_content;
-	}
-
 }
-*/

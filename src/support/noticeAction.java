@@ -1,7 +1,7 @@
-package cmc;
+package support;
 
 import com.opensymphony.xwork2.ActionSupport;
-//import cmc.noticeVO; °°Àº°æ·Î¶ó...
+//import cmc.noticeVO; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¶ï¿½...
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -15,24 +15,24 @@ import common.pagingAction;
 
 public class noticeAction extends ActionSupport {
 
-	public static Reader reader; // ÆÄÀÏ ½ºÆ®¸²À» À§ÇÑ reader.
-	public static SqlMapClient sqlMapper; // SqlMapClient API¸¦ »ç¿ëÇÏ±â À§ÇÑ sqlMapper °´Ã¼.
+	public static Reader reader; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ reader.
+	public static SqlMapClient sqlMapper; // SqlMapClient APIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼.
 
 	private List<noticeVO> list = new ArrayList<noticeVO>();;
-	private int currentPage = 1; // ÇöÀç ÆäÀÌÁö
-	private int totalCount; // ÃÑ °Ô½Ã¹°ÀÇ ¼ö
-	private int blockCount = 10; // ÇÑ ÆäÀÌÁöÀÇ °Ô½Ã¹° ¼ö
-	private int blockPage = 5; // ÇÑ È­¸é¿¡ º¸¿©ÁÙ ÆäÀÌÁö ¼ö
-	private String pagingHtml; // ÆäÀÌÂ¡À» ±¸ÇöÇÑ html
-	private pagingAction page; // ÆäÀÌÂ¡ Å¬·¡½º
+	private int currentPage = 1; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private int totalCount; // ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½
+	private int blockCount = 10; // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½
+	private int blockPage = 5; // ï¿½ï¿½ È­ï¿½é¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+	private String pagingHtml; // ï¿½ï¿½ï¿½ï¿½Â¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ html
+	private pagingAction page; // ï¿½ï¿½ï¿½ï¿½Â¡ Å¬ï¿½ï¿½ï¿½ï¿½
 
 	private String searchS;
 
-	// »ý¼ºÀÚ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public noticeAction() throws IOException {
-		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml ÆÄÀÏÀÇ ¼³Á¤³»¿ëÀ» °¡Á®¿Â´Ù.
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xmlÀÇ ³»¿ëÀ» Àû¿ëÇÑ sqlMapper °´Ã¼ »ý¼º.
-		reader.close(); // ÀÐ¾î ¿ÔÀ¸¸é ´Ý±â
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xmlï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½.
+		reader.close(); // ï¿½Ð¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý±ï¿½
 	}
 
 	public String execute() throws Exception {
@@ -40,22 +40,22 @@ public class noticeAction extends ActionSupport {
 			return search();
 		}
 
-		list = sqlMapper.queryForList("notice.selectAll"); // list¿¡ ¸ðµç ±Û ³»¿ëÀ» ³ÖÀ½
+		list = sqlMapper.queryForList("notice.selectAll"); // listï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-		totalCount = list.size(); // ÀüÃ¼ ±ÛÀÇ °³¼ö¸¦ totalcount¿¡
+		totalCount = list.size(); // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ totalcountï¿½ï¿½
 		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "notice", "");
-		pagingHtml = page.getPageHtml().toString(); // pagingHtml »ý¼º
-		int lastCount = totalCount; // ÇöÀç ÆäÀÌÁö¿¡¼­ º¸¿©ÁÙ ¸¶Áö¸· ±Û ¹øÈ£ ¼³Á¤
+		pagingHtml = page.getPageHtml().toString(); // pagingHtml ï¿½ï¿½ï¿½ï¿½
+		int lastCount = totalCount; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 
-		if (page.getEndCount() < totalCount) // ÇöÀç ÆäÀÌÁöÀÇ ¸¶Áö¸· ±ÛÀÇ ¹øÈ£°¡ ÀüÃ¼ÀÇ ¸¶Áö¸· ±Û ¹øÈ£º¸´Ù ÀÛÀ¸¸é
-			lastCount = page.getEndCount() + 1; // lastCount¸¦ +1 ¹øÈ£·Î ¼³Á¤.
+		if (page.getEndCount() < totalCount) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			lastCount = page.getEndCount() + 1; // lastCountï¿½ï¿½ +1 ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
-		list = list.subList(page.getStartCount(), lastCount); // ÀüÃ¼ ¸®½ºÆ®¿¡¼­ ÇöÀç ¸®½ºÆ®¸¸Å­ÀÇ ¸®½ºÆ®¸¸ °¡Á®¿È
+		list = list.subList(page.getStartCount(), lastCount); // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		return SUCCESS;
 	}
 
-	// °Ë»ö ¸Þ¼Òµå Ãß°¡
+	// ï¿½Ë»ï¿½ ï¿½Þ¼Òµï¿½ ï¿½ß°ï¿½
 	public String search() throws Exception {
 		totalCount = list.size();
 		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, getSearchS(), "");

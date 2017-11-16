@@ -14,9 +14,9 @@
 		<result property="member_address2" column="member_address2"/>
 		<result property="member_phone" column="member_phone"/>
 		<result property="member_email" column="member_email"/>
-		<result property="memeber_regdate" column="member_regdate"/>
+		<result property="member_regdate" column="member_regdate"/>
 		<result property="member_level" column="member_level"/>
-		<result property="mebmer_deleteReason" column="member_deleteReason"/> <!-- member table에 reason column추가 -->
+		<result property="member_deleteReason" column="member_deleteReason"/> <!-- member table에 reason column추가 -->
 	</resultMap>
 	
 	<!--
