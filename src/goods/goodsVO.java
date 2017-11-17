@@ -44,5 +44,5 @@ public class goodsVO {
 	
 	public Date getGoods_date() { return goods_date; }
 	public void setGoods_date(Date goods_date) { this.goods_date = goods_date; }
-	
+
 }
