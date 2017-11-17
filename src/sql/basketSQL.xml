@@ -5,7 +5,7 @@
 	<typeAlias alias="basket" type="basket.basketVO"/>
 	
 	<!-- resultMap정의 -->
-	  	<resultMap id="basketRes" class="basket.basketVO">
+	  	<resultMap id="basketRes" class="basket">
 		  	<result property="basket_no" column="basket_no"/>
 		  	<result property="goods_size" column="goods_size"/>
 		  	<result property="goods_color" column="goods_color"/>
@@ -35,7 +35,7 @@
 		<!-- ORDER BY basket_no DESC -->
 	</select>
 	
-	<select id="selectOne" resultMap="basketRes" parameterClass="int">
+	<select id="basket.selectOne" resultMap="basketRes" parameterClass="int">
 		<include refid="select-all"/>
 		<include refid="where-no"/>
 	</select>
@@ -70,7 +70,7 @@
 	
 	
 	<!-- delete 쿼리문 정의 -->
-	<delete id="deleteBasket" parameterClass="int">
+	<delete id="basket.deleteBasket" parameterClass="int">
 		DELETE FROM BASKET WHERE BASKET_NO = #BASKET_NO#
 	</delete>
 	

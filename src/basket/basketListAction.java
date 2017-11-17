@@ -120,7 +120,7 @@ public class basketListAction extends ActionSupport implements SessionAware {
 				
 		basketlist.add(basketresultClass);
 		
-	/*	basketlist.add(basketresultClass);*/
+		basketlist.add(basketresultClass);
 		
 		return SUCCESS;
 	}
