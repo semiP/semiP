@@ -36,5 +36,9 @@
 				<param name="actionName">main</param>
 			</result> 
 		</action>
+		
 	</package>
+	
+	<include file="./config/goods.xml" />
+	
 </struts>

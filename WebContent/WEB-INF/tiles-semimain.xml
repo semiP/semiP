@@ -46,6 +46,10 @@
         <put-attribute name="body" value="/goods/goodsDetail.jsp" />
     </definition>
     
+    <definition name="goodsWrite" extends="default">
+    	<put-attribute name="body" value="/goods/goodsWrite.jsp" />
+    </definition>
+    
     <definition name="basket" extends="default"> 
         <put-attribute name="body" value="/basket/basket.jsp" />
     </definition>
@@ -84,6 +88,9 @@
     <definition name="faq" extends="default"> 
         <put-attribute name="body" value="/support/faq.jsp" />
     </definition>
+    
+    
+    
     
 	<!--
 	<definition name="hello2" template="/tiles/template/layout.jsp">

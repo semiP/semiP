@@ -38,7 +38,7 @@
 	<!-- 주문된상품 update 쿼리문 정의 -->
 	<update id="orderUpdate" parameterClass="goodsVO">
 	
-	update goods, order 
+	update goods, GOODSORDER
 	set
 		   goods_name = #goods_name#,
 		   goods_category = #goods_category#,
@@ -111,7 +111,7 @@
 	
 	<!-- 공통으로 사용할 select 절 정의 -->
 	<sql id="select-all">
-		SELECT * FROM ORDER
+		SELECT * FROM GOODSORDER
 	</sql>
 
 	<!-- 주문하기 Join (goods, member, order) -->
@@ -122,17 +122,17 @@
 		       o.status, o.order_total_pay, o.invoice_no, 
 		       o.order_receive_name, o.order_receive_zipcode, o.order_receive_addr1, o.order_receive_addr2, o.order_receive_phone,
 		       o.order_memo, o.order_pay_type, o.order_pay_name, o.order_total_pay, o.order_invoice_no
-		FROM  order o, goods g, member m,
+		FROM  GOODSORDER o, goods g, member m,
 		WHERE o.order_goods_no = #g.goods_no# and o.order_member_no = #m.member_no# 
 	</select>
 
-    <!-- 수경-주문내역 (orderList) (admin) -->
+    <!-- 주문내역 가져오기 -->
 	<select id="select-order-all" resultMap="orderRes" parameterClass="int">
 		<include refid="select-all"/>
-		ORDER BY order_no DESC
+		GOODSORDER BY order_no DESC
 	</select>
 	
-	<!-- 수경-주문내역 (orderView)-->
+	<!-- 주문내역 하나 보여주기-->
 	<select id="select-order" resultMap="orderRes" parameterClass="int">
 		<include refid="select-all"/>
 		WHERE ORDER_NO = #ORDER_NO#
@@ -141,7 +141,7 @@
 	<!-- 주문내역 delete 쿼리문 정의 -->
 	<delete id="orderDelete" parameterClass="goodsCmt">
 	
-	delete from order where order_no = #order_no#
+	delete from GOODSORDER where order_no = #order_no#
 	
 	</delete>
 
