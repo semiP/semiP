@@ -23,7 +23,7 @@
 		<tr>
 			
 			<td>
-				<form action="#" method="post">
+				<form action="order.action" method="post">
 				<table width="100%" border="0">
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 								
@@ -44,7 +44,14 @@
 									<td width="1%"><input type="checkbox"/></td>
 									<td width="10%"><img src="/semiP/assets/images/best1.jpg" style="width:100%;"></td>
 									<td width="19%">상품이름이름이름<br><font style="font-size:0.8em; color:777777">상품옵션옵션</font></td>
-									<td width="15%">₩ 100,000</td>
+									<td width="15%">
+									
+									<s:iterator value="basketlist" status="stat">
+										${goods_price }
+									</s:iterator>
+									
+									
+									</td>
 									<td width="10%">
 										<input type="button" id="p_btn" value="+" style="background-color:#cccccc;width:80%;"><br>
 										<input type="text" id="count" value="0" style="text-align:center; width:80%;" readonly="readonly"><br>

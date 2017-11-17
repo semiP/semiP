@@ -29,6 +29,7 @@ public class basketAddAction extends ActionSupport {
 	/*private String member_id;*/
 	private Date basket_date;
 	private int goods_no;
+	/*private int member_no;*/
 	
 	public basketAddAction() throws Exception{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
@@ -50,7 +51,7 @@ public class basketAddAction extends ActionSupport {
 		basketparamClass.setGoods_color(getGoods_color());
 		basketparamClass.setBasket_date(getBasket_date());
 		basketparamClass.setGoods_no(getGoods_no());
-		basketparamClass.setMember_no(세션에서 가져오기);
+		basketparamClass.setMember_no(세션);
 		sqlMapper.insert("insertBasket", basketparamClass);
 
 		return SUCCESS;
@@ -131,8 +132,13 @@ public class basketAddAction extends ActionSupport {
 
 
 	
-	
-	
+/*	public int getMember_no() {
+		return member_no;
+	}
+	public void setMember_no(int member_no) {
+		this.member_no = member_no;
+	}
+	*/
 	
 	
 	

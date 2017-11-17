@@ -3,10 +3,12 @@
 <struts>
 	<package name="basket" extends="struts-default, tiles-default">
 		<action name="basketListAction" class="basket.basketListAction">
-			<result type="tiles">basketListAction</result>
+		<interceptor-ref name="chain"/>
+			<result type="tiles">basket</result>
 		</action>
 		<action name="basketDeleteAction" class="basket.basketDeleteAction">
-			<result type="tiles">basketListAction</result>
+			<result type="chain"><param name="actionName">basketListAction</param>
+			</result>
 		</action>
 	</package>
 </struts>

@@ -93,7 +93,7 @@
 									<td>
 										<select>
 											<option value="" selected="selected">선택해 주세요</option>										
-											<option value="size1">size 1</option>
+											<option value="size1"><s:property value="goodsListAction.goodS_NO"/></option>
 											<option value="size2">size 2</option>
 											<option value="size3">size 3</option>
 										</select>
