@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
 	"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
 <sqlMapConfig>
 	<properties resource="/dbconnect.properties" />
 	<settings cacheModelsEnabled="true" enhancementEnabled="true"
@@ -15,14 +16,15 @@
 			<property name="JDBC.Password" value="${password}" />
 		</dataSource>
 	</transactionManager>
+	
 	<!-- main & search : 동민 -->
 	<sqlMap resource="/sql/mainSearch.xml" />
-	<!-- 로그인
+	<!-- 로그인 -->
 	<sqlMap resource="/sql/memberSQL.xml" />
-	 공지사항
+	<!-- 공지사항-->
 	<sqlMap resource="/sql/noticeSQL.xml" />
-	 FAQ 
+	<!-- FAQ -->
 	<sqlMap resource="/sql/faqSQL.xml" />
-	 1:1문의 
-	 <sqlMap resource="/sql/inquirySQL.xml" /> -->
+	<!-- 1:1문의 -->
+	 <sqlMap resource="/sql/inquirySQL.xml" /> 
 </sqlMapConfig>

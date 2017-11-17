@@ -1,0 +1,42 @@
+main, search 내가 해야 해서 작업 시작하던 중.
+
+main 작업할 내용
+
+- 카테고리별 베스트 상품 4개씩 가져오기
+ - 리스트 하나에 전 상품 베스트를 순차적으로 삽입
+  - 1~4   : outer
+  - 5~8   : top
+  - 9~12  : pants
+  - 13~16 : skirt
+  - 17~20 : dress
+  - 21~24 : shoes
+  - 25~28 : bags
+
+ - goodsVO 로 리스트를 채워주고
+ - 가져올 정보는
+  - 상품번호
+  - 상품 대표 이미지
+  - 상품 이름
+  - 상품 가격
+ - HIT 테이블에서 상품 정보를 가져와서 해당 상품들을 개별적으로 부르면서 리스트에 삽입.
+  - HIT 테이블에서 카테고리 베스트 상품 가져오기 (String)
+   - SELECT goods_content
+    FROM hit
+    WHERE goods_category = ##
+
+  - 가져온 String 파싱하기
+   - String resultBest = 디비 결과;
+    String[] category# = resultBest.split(",",4)
+
+  - 순서대로 4개에 대한 내용을 쿼리 보내면서 리스트에 넣기
+   - List<goodsVO> bestList;
+    for(int i=0; i<4; i++){
+     VO = 쿼리날려서;
+     List.add(VO);
+    }
+
+  - SELECT goods_no, goods_image, goods_name, goods_price
+   FROM goods
+   WHERE
+
+ 
