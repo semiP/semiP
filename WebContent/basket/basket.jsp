@@ -72,8 +72,8 @@
 <!-- 게시물 하나씩 iterator 끝 -->	
 								<tr><td colspan="9" bgcolor="#f2f2f2" height="1"></td></tr>
 								
-<!-- iterator 시작 -->
-								<s:iterator value="basketlist" status="stat">
+
+								
 								<tr bgcolor="#455b59" style="color:#FFFFFF;" align="center">
 									<td colspan="3" width="50%" height="100px" style="font-size:1.5em;">
 										[ 기본배송 ]
@@ -82,8 +82,8 @@
 										상품구매액 <s:property value="goods_price"/> + 배송비 무료 = 합계 : <s:property value="basket_price"/>원
 									</td>
 								</tr>
-								</s:iterator>
-<!-- iterator 끝 -->
+								
+
 															
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 								<tr>
@@ -112,3 +112,21 @@
 							</table>
 							</form>
 <script type="text/javascript" src="/semiP/assets/js/goodsCount.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
