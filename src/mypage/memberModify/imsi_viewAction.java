@@ -14,7 +14,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import mypage.memberBean;
 
-public class viewAction extends ActionSupport{
+public class imsi_viewAction extends ActionSupport{
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
@@ -43,7 +43,7 @@ public class viewAction extends ActionSupport{
 	/*private Map session;*/
 	
 	// 생성자
-	public viewAction() throws IOException{
+	public imsi_viewAction() throws IOException{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml 파일의 설정내용을 가져옴
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xml의 내용을 적용한 sqlMapper객체 생성
 		reader.close();
@@ -124,7 +124,7 @@ public class viewAction extends ActionSupport{
 			}
 
 			public static void setReader(Reader reader) {
-				viewAction.reader = reader;
+				imsi_viewAction.reader = reader;
 			}
 
 			public static SqlMapClient getSqlMapper() {
@@ -132,7 +132,7 @@ public class viewAction extends ActionSupport{
 			}
 
 			public static void setSqlMapper(SqlMapClient sqlMapper) {
-				viewAction.sqlMapper = sqlMapper;
+				imsi_viewAction.sqlMapper = sqlMapper;
 			}
 
 			public memberBean getParamClass() {

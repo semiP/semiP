@@ -1,5 +1,6 @@
 package mypage.memberModify;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.util.Date;
 import java.util.Map;
@@ -11,7 +12,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import mypage.memberBean;
 
-public class modifyAction extends ActionSupport{
+public class checkPWAction extends ActionSupport{
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
@@ -20,6 +21,9 @@ public class modifyAction extends ActionSupport{
 	
 	private memberBean paramClass2;
 	private memberBean resultClass2;
+	
+	private memberBean paramClass3;
+	private memberBean resultClass3;
 	
 	private int member_no;
 	private String member_name;
@@ -35,36 +39,27 @@ public class modifyAction extends ActionSupport{
 	
 	private Map session;
 	
-	//생성자
-	public modifyAction() throws Exception{
-		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml 파일의 설정내용을 가져온다.
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
-		reader.close();
-	}
-	
-	// 회원정보 수정
+	// 생성자
+		public checkPWAction() throws IOException{
+			reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml 파일의 설정내용을 가져옴
+			sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xml의 내용을 적용한 sqlMapper객체 생성
+			reader.close();
+		}
+			
+		// 비밀번호 체크 
 		public String execute() throws Exception{
-			// 파라미터와 리절트 객체 생성
 			paramClass = new memberBean();
 			resultClass = new memberBean();
 			
 			// 비밀번호 입력값 파라미터 설정
 			paramClass.setMember_no((int)session.get("session_member_no"));
-			
-			//수정할 항목 설정
-			paramClass.setMember_email(getMember_email());
-			paramClass.setMember_zipcode(getMember_zipcode());
-			paramClass.setMember_address1(getMember_address1());
-			paramClass.setMember_address2(getMember_address2());
-			paramClass.setMember_phone(getMember_phone());
 			paramClass.setMember_pw(getMember_pw());
-			paramClass.setMember_no(getMember_no());
 			
-			// 일단 항목만 수정한다.
-			sqlMapper.update("updateMember",paramClass);
+			// 현재 글의 비밀번호 가져오기
+			resultClass = (memberBean)sqlMapper.queryForObject("pwCheck",paramClass);
 			
-			//수정이 끝나면 view페이지로 이동
-			resultClass = (memberBean) sqlMapper.queryForObject("selectOneMember", getMember_no());
+			// 입력한 비밀번호가 없으면 입력창
+			if(resultClass == null) return ERROR;
 			
 			return SUCCESS;
 		}
@@ -74,7 +69,7 @@ public class modifyAction extends ActionSupport{
 		}
 
 		public static void setReader(Reader reader) {
-			modifyAction.reader = reader;
+			checkPWAction.reader = reader;
 		}
 
 		public static SqlMapClient getSqlMapper() {
@@ -82,7 +77,7 @@ public class modifyAction extends ActionSupport{
 		}
 
 		public static void setSqlMapper(SqlMapClient sqlMapper) {
-			modifyAction.sqlMapper = sqlMapper;
+			checkPWAction.sqlMapper = sqlMapper;
 		}
 
 		public memberBean getParamClass() {
@@ -99,6 +94,38 @@ public class modifyAction extends ActionSupport{
 
 		public void setResultClass(memberBean resultClass) {
 			this.resultClass = resultClass;
+		}
+
+		public memberBean getParamClass2() {
+			return paramClass2;
+		}
+
+		public void setParamClass2(memberBean paramClass2) {
+			this.paramClass2 = paramClass2;
+		}
+
+		public memberBean getResultClass2() {
+			return resultClass2;
+		}
+
+		public void setResultClass2(memberBean resultClass2) {
+			this.resultClass2 = resultClass2;
+		}
+
+		public memberBean getParamClass3() {
+			return paramClass3;
+		}
+
+		public void setParamClass3(memberBean paramClass3) {
+			this.paramClass3 = paramClass3;
+		}
+
+		public memberBean getResultClass3() {
+			return resultClass3;
+		}
+
+		public void setResultClass3(memberBean resultClass3) {
+			this.resultClass3 = resultClass3;
 		}
 
 		public int getMember_no() {
@@ -187,14 +214,6 @@ public class modifyAction extends ActionSupport{
 
 		public void setMember_level(int member_level) {
 			this.member_level = member_level;
-		}
-
-		public Map getSession() {
-			return session;
-		}
-
-		public void setSession(Map session) {
-			this.session = session;
 		}
 		
 		
