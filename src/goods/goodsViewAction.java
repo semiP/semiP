@@ -72,6 +72,18 @@ public class goodsViewAction extends ActionSupport{
 		
 		//commentlist = sqlMapper.queryForList("selectComment", getNo());
 		
+		
+		String size;
+		String color;
+		String[] array_size;
+		String[] array_color;
+		
+		size = resultClass.getGoods_size();
+		color = resultClass.getGoods_color();
+		
+		array_size = size.split(",");
+		array_color = color.split(",");
+	
 		return SUCCESS;
 	}
 

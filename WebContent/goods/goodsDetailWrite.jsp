@@ -11,7 +11,7 @@
 
 		<tr>
 			<td align="left">
-				<h2>MY PAGE</h2>
+				<h2>title</h2>
 			</td>
 		</tr>
 		
@@ -21,35 +21,13 @@
 
 		<tr>
 			<td width="15%"/>			
-			<td>
-				<table width="100%" border="0">
-					<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
-
-					<tr bgcolor="#455b59" align="center">
-						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="./profile.tiles" >
-							회원정보</a></strong></td>
-						<td class="myPageMenuItem" ><a href="./orderList.tiles" >
-							주문/배송현황</a></td>
-						<td class="myPageMenuItem"><a href="./refundList.tiles" >
-							반품/교환</a></td>
-						<td class="myPageMenuItem"><a href="./qnaList.tiles" >
-							문의내역</a></td>
-					</tr>
-					<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
-					<tr>	<td height="30"></td>	</tr>
-								
-				</table>
-			</td>
 			<td width="15%"/>
 		</tr>
-		
-		
-		
 		
 		<table width="80%" border="0" align="center">
 			<tr>
 				<td align="left" colspan="2">
-					<h2>> 기본정보 수정</h2>
+					<h2>> 상품평 작성</h2>
 				</td>
 			</tr>
 			
