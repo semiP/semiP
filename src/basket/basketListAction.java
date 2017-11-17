@@ -110,15 +110,17 @@ public class basketListAction extends ActionSupport implements SessionAware {
 		//임의의 리스트 만들기. 테스트용
 		basketresultClass = new basketVO();
 		basketresultClass.setBasket_no(1);
-		basketresultClass.setBasket_price(40000);
+		basketresultClass.setBasket_price(60000);
 		basketresultClass.setGoods_size("L");
 		basketresultClass.setGoods_color("red");
 		basketresultClass.setGoods_name("solid");
-		basketresultClass.setBgoods_amount(2);
+		basketresultClass.setBgoods_amount(3);
 		basketresultClass.setGoods_price(20000);
 		basketresultClass.setGoods_image("image");
 				
 		basketlist.add(basketresultClass);
+		
+	/*	basketlist.add(basketresultClass);*/
 		
 		return SUCCESS;
 	}

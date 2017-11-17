@@ -40,42 +40,51 @@
 								</tr>
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->
+								<s:iterator value="basketlist" status="stat">
 								<tr align="center">
 									<td width="1%"><input type="checkbox"/></td>
-									<td width="10%"><img src="/semiP/assets/images/best1.jpg" style="width:100%;"></td>
-									<td width="19%">상품이름이름이름<br><font style="font-size:0.8em; color:777777">상품옵션옵션</font></td>
+									<td width="10%">
+									<img src="<s:property value="goods_image"/>"><br><font style="width:100%;"></td>
+									<td width="19%"><s:property value="goods_name"/><br><font style="font-size:0.8em; color:777777"><s:property value="goods_color"/> / <s:property value="goods_size"/></font></td>
 									<td width="15%">
 									
-									<s:iterator value="basketlist" status="stat">
+									
 										<s:property value="goods_price"/>
-									</s:iterator>
+									
 									
 									
 									</td>
 									<td width="10%">
 										<input type="button" id="p_btn" value="+" style="background-color:#cccccc;width:80%;"><br>
-										<input type="text" id="count" value="0" style="text-align:center; width:80%;" readonly="readonly"><br>
+										<input type="text" id="count" value="<s:property value="bgoods_amount"/>"  style="text-align:center; width:80%;" readonly="readonly"><br>
 										<input type="button" id="m_btn" value="-" style="background-color:#cccccc;width:80%;">
 									</td>
 									<td width="10%">택배</td>
-									<td width="10%">₩ 2,500</td>
-									<td width="15%">₩ 102,500</td>
+									<td width="10%">무료</td>
+									<td width="15%">₩ <s:property value="basket_price"/></td>
 									<td width="10%">
 										<input type="submit" value="주문하기" style="width:80%;"><br><br>
 										<input type="button" value="삭제하기" style="width:150px;" onClick="alert('삭제되었습니다.'); 
 											location.href='basketDeleteAction.action?basket_no=<s:property value="basket_no"/>'"/>
 									</td>
 								</tr>
+								</s:iterator>
+<!-- 게시물 하나씩 iterator 끝 -->	
 								<tr><td colspan="9" bgcolor="#f2f2f2" height="1"></td></tr>
+								
+<!-- iterator 시작 -->
+								<s:iterator value="basketlist" status="stat">
 								<tr bgcolor="#455b59" style="color:#FFFFFF;" align="center">
 									<td colspan="3" width="50%" height="100px" style="font-size:1.5em;">
 										[ 기본배송 ]
 									</td>
 									<td colspan="6" width="50%" height="100px" align="right" style="padding:20px;font-size:1.5em;">
-										상품구매액 100,000 + 배송비 2,500 = 합계 : 102,500원
+										상품구매액 <s:property value="goods_price"/> + 배송비 무료 = 합계 : <s:property value="basket_price"/>원
 									</td>
 								</tr>
-<!-- 게시물 하나씩 iterator 끝 -->																
+								</s:iterator>
+<!-- iterator 끝 -->
+															
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 								<tr>
 									<td colspan="9" align="left" style="font-size:1.5em;">
