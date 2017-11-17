@@ -27,4 +27,7 @@
 	<sqlMap resource="/sql/faqSQL.xml" />
 	<!-- 1:1문의 -->
 	 <sqlMap resource="/sql/inquirySQL.xml" /> 
+	<!-- basket -->
+	<sqlMap resource="/sql/basketSQL.xml" />
+
 </sqlMapConfig>

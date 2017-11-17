@@ -5,7 +5,7 @@
 	<typeAlias alias="basket" type="basket.basketVO"/>
 	
 	<!-- resultMap정의 -->
-	  	<resultMap id="basketRes" class="basket.basketVO">
+	  	<resultMap id="basketRes" class="basket">
 		  	<result property="basket_no" column="basket_no"/>
 		  	<result property="goods_size" column="goods_size"/>
 		  	<result property="goods_color" column="goods_color"/>
@@ -22,12 +22,22 @@
 		SELECT * FROM BASKET
 	</sql>
 	
+	<!-- 공통으로 사용할 where-no -->
+	<sql id="where-no">
+		WHERE basket_no = #basket_no#
+	</sql>
+	
 	<!-- select 쿼리문 정의 -->
 	<select id="selectAll" resultMap="basketRes" parameterClass="int">
 		<include refid="select-all"/>
 		SELECT * FROM BASKET WHERE member_no = #member_no#
 		ORDER BY basket_no DESC
 		<!-- ORDER BY basket_no DESC -->
+	</select>
+	
+	<select id="basket.selectOne" resultMap="basketRes" parameterClass="int">
+		<include refid="select-all"/>
+		<include refid="where-no"/>
 	</select>
 	
 	<!-- <select id="selectLastBasket_no" resultClass="basket" parameterClass="int">
@@ -60,7 +70,7 @@
 	
 	
 	<!-- delete 쿼리문 정의 -->
-	<delete id="deleteBasket" parameterClass="basket">
+	<delete id="basket.deleteBasket" parameterClass="int">
 		DELETE FROM BASKET WHERE BASKET_NO = #BASKET_NO#
 	</delete>
 	

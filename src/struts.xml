@@ -36,5 +36,28 @@
 				<param name="actionName">main</param>
 			</result> 
 		</action>
-	</package>
+		</package>
+		
+	<!-- Basket.xml -->
+		<include file="./config/basket.xml"/>
 </struts>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
