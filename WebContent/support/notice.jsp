@@ -48,13 +48,6 @@
 				</td>
 			</tr>
 			<tr>
-				<td>
-					<select name="searchType">										
-						<option value="1">모두 보기</option>
-						<option value="2">주문/배송</option>
-						<option value="2">반품/교환</option>
-					</select>
-				</td>
 				<td align="right" colspan="2">
 					검색기간:	<input type="date" name="startDate"> ~ <input type="date" name="endDate">&nbsp;&nbsp;
 							<input type="button" name="dateSearchBtn" value="조회">
@@ -77,7 +70,7 @@
 						<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 	<!-- 게시물 하나씩 iterator 시작 -->
 		<s:iterator value="list" status="stat">
-		<s:url id="viewURL" action="noticeVieweAction" >
+		<s:url id="viewURL" action="noticeViewAction" >
 			<s:param name="notice_no">
 				<s:property value="notice_no" />
 			</s:param>

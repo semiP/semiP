@@ -15,6 +15,11 @@
 		<action name="faqViewAction" class="support.faqViewAction">
 			<result>/support/faqView.jsp</result>
 		</action>
+		<!-- 공지사항 상세보기 액션 -->
+		<action name="noticeViewAction" class="support.noticeViewAction">
+			<result>/support/noticeView.jsp</result>
+		</action>
+		
 	</package>
 	
 	<package name="main" extends="struts-default">

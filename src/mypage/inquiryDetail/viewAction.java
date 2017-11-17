@@ -46,7 +46,6 @@ public class viewAction extends ActionSupport{
 		/*ActionContext context = ActionContext.getContext();*/
 				
 		paramClass.setInquiry_no(getInquiry_no());
-		paramClass.setInquiry_email(getInquiry_email());
 		paramClass.setInquiry_category(getInquiry_category());
 		paramClass.setInquiry_subject(getInquiry_subject());
 		paramClass.setInquiry_content(getInquiry_content());

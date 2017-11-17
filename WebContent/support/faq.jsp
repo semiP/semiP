@@ -77,7 +77,7 @@
 	<!-- 게시물 하나씩 iterator 시작 -->
 	<!-- 완성 -->
 		<s:iterator value="list" status="stat">
-			<s:url id="viewURL" action="faqVieweAction" >
+			<s:url id="viewURL" action="faqViewAction" >
 				<s:param name="faq_no">
 					<s:property value="faq_no" />
 				</s:param>
