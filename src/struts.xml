@@ -40,5 +40,6 @@
 	</package>
 	
 	<include file="./config/goods.xml" />
+	<include file="./config/order.xml" />
 	
 </struts>

@@ -9,7 +9,7 @@
 	<typeAlias alias="goodsCmt" type="goods.goodsCmtVO" />
 	
 	<!-- 상품 테이블 리절트 맵 정의 -->
-	<resultMap id="goodsRes" class="goodsVO">
+	<resultMap id="goodsRes" class="goods.goodsVO">
 		<result property="goods_no" column="goods_no"/>
 		<result property="goods_name" column="goods_name"/>
 		<result property="goods_category" column="goods_category"/>
@@ -23,24 +23,22 @@
 	</resultMap>
 
 	<!-- 상품 (고객상품평) 리절트 맵 정의 -->
-	<resultMap id="goodsCmtRes" class="goodsCmtVO">
+	<resultMap id="goodsCmtRes" class="goods.goodsCmtVO">
 		<result property="goods_cmt_no" column="goods_cmt_no"/>
 		<result property="goods_cmt_pw" column="goods_cmt_pw"/>
 		<result property="goods_cmt_memberno" column="goods_cmt_memberno"/>
-		<result property="goods_cmt_org_image" column="goods_cmt_org_image"/>
-		<result property="goods_cmt_sav_image" column="goods_cmt_sav_image"/>
+		<result property="goods_cmt_image" column="goods_cmt_image"/>
 		<result property="goods_cmt_score" column="goods_cmt_score"/>
 		<result property="goods_cmt_subject" column="goods_cmt_subject"/>
-		<result property="goods_cmt_name" column="goods_cmt_name"/>
 		<result property="goods_cmt_date" column="goods_cmt_date"/>
 		<result property="goods_cmt_content" column="goods_cmt_content"/>
 		<result property="ref" column="ref"/>
 		<result property="re_step" column="re_step"/>
 		<result property="re_level" column="re_level"/>
 	</resultMap>
-		
+	
 	<!-- 상품 상세보기 insert 쿼리문 정의 -->
-	<insert id="goodsInsert" parameterClass="goodsVO">
+	<insert id="goodsInsert" parameterClass="goods">
 	
 	INSERT INTO GOODS (goods_no,
 					   goods_name,
@@ -65,34 +63,30 @@
 	</insert>
 	
 	<!-- 상품 (상품평) insert 쿼리문 정의 -->
-	<insert id="goodsCmtInsert" parameterClass="goodsCmtVO">
+	<insert id="goodsCmtInsert" parameterClass="goodsCmt">
 	
 	INSERT INTO GOODSCMT (goods_cmt_no,
 					      goods_cmt_pw,
 					      goods_cmt_memberno,
-					      goods_cmt_org_image,
-					      goods_cmt_sav_image,
+					      goods_cmt_image,
 					      goods_cmt_score,
 					      goods_cmt_subject,
-					      goods_cmt_name,
 					      goods_cmt_date,
 					      goods_cmt_content,
 					      ref, re_step, re_level)
 	VALUES (goods_no_seq.NEXTVAL,
 					      #goods_cmt_pw#,
 					      #goods_cmt_memberno#,
-					      #goods_cmt_org_image#,
-					      #goods_cmt_sav_image#,
+					      #goods_cmt_image#,
 					      #goods_cmt_score#,
 					      #goods_cmt_subject#,
-					      #goods_cmt_name#,
 					      #goods_cmt_date#,
 					      #goods_cmt_content#,
 					      #ref#, #re_step#, #re_level#)
 	</insert>
 	
 	<!-- 상품 update 쿼리문 정의 -->
-	<update id="goodsUpdate" parameterClass="goodsVO">
+	<update id="goodsUpdate" parameterClass="goods">
 	
 	update GOODS set
 		   goods_name = #goods_name#,
@@ -108,12 +102,11 @@
 	</update>
 	
 	<!-- 상품 (상품평) update 쿼리문 정의 -->
-	<update id="goodsCmtUpdate" parameterClass="goodsCmtVO">
+	<update id="goodsCmtUpdate" parameterClass="goodsCmt">
 	
 	update GOODSCMT set
 		   goods_cmt_pw = #goods_cmt_pw#,
-		   goods_cmt_org_image = #goods_cmt_org_image#,
-		   goods_cmt_sav_image = #goods_cmt_sav_image#,
+		   goods_cmt_org_image = #goods_cmt_image#,
 		   goods_cmt_subject = #goods_cmt_subject#,
 		   goods_cmt_content = #goods_cmt_content#
 		   goods_cmt_date = sysdate
@@ -122,14 +115,14 @@
 	</update>
 	
 	<!-- 등록된 상품 delete 쿼리문 정의 -->
-	<delete id="goodsDelete" parameterClass="goodsVO">
+	<delete id="goodsDelete" parameterClass="goods">
 	
 	delete from goods where goods_no = #goods_no#
 	
 	</delete>
 	
 	<!-- 상품 (상품평) delete 쿼리문 정의 -->
-	<delete id="goodsCmtDelete" parameterClass="goodsCmtVO">
+	<delete id="goodsCmtDelete" parameterClass="goodsCmt">
 	
 	delete from goodscmt where goods_cmt_no = #goods_cmt_no#
 	
@@ -144,28 +137,4 @@
 		SELECT * FROM goods_cmt
 	</sql>
 	
-	<!-- 상품 리스트 (goodsList) (admin) -->
-	<select id="select-goods-all" resultMap="goodsRes" parameterClass="int">
-		<include refid="select-all"/>
-		ORDER BY goods_no DESC
-	</select>
-	
-	<!-- 상품 상세보기 (goodsView) -->
-	<select id="select-goods" resultMap="goodsRes" parameterClass="int">
-		<include refid="select-all"/>
-		WHERE goods_no = #goods_no#
-	</select>
-	
-	<!-- 고객상품평 리스트 출력 (cmtList)-->
-	<select id="select-goods-cmt-all" resultMap="goodsCmtRes" parameterClass="int">
-		<include refid="select-cmt-all"/>
-		ORDER BY goods_cmt_no DESC
-	</select>
-	
-	<!-- 고객상품평 리스트 보기 (cmtView)-->
-	<select id="select-goods-cmt" resultMap="goodsCmtRes" parameterClass="int">
-		<include refid="select-cmt-all"/>
-		WHERE goods_cmt_no = #goods_cmt_no#
-	</select>
-
 </sqlMap>

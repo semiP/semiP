@@ -137,7 +137,7 @@
 				<s:file name="upload" theme="simple"/>
 				<s:if test="resultClass.goods_image_file != NULL">
 					&nbsp; * <s:property value="%{resultClass.goods_image_file}" /> 파일이 등록되어 있습니다. 다시 업로드하면 기존의 파일은 삭제됩니다.
-				</s:if>	
+				</s:if>
 			</td>
 		</tr>
 			
