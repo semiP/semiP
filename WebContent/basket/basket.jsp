@@ -1,6 +1,6 @@
-<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"
-	trimDirectiveWhitespaces="true"%>
-	 <%@ taglib prefix="s" uri="/struts-tags" %> 
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ page import = "java.util.List" %> 
 
 <div id="content-container">
 	<table width="100%" border="0" style="margin:auto; max-width:1000px;">
@@ -47,7 +47,7 @@
 									<td width="15%">
 									
 									<s:iterator value="basketlist" status="stat">
-										${goods_price }
+										<s:property value="goods_price"/>
 									</s:iterator>
 									
 									

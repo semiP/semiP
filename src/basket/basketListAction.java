@@ -136,10 +136,10 @@ public class basketListAction extends ActionSupport implements SessionAware {
 	public static void setSqlMapper(SqlMapClient sqlMapper) {
 		basketListAction.sqlMapper = sqlMapper;
 	}
-	public List<basketVO> getList() {
+	public List<basketVO> getBasketlist() {
 		return basketlist;
 	}
-	public void setList(List<basketVO> list) {
+	public void setBasketlist(List<basketVO> basketlist) {
 		this.basketlist = basketlist;
 	}
 	public int getCurrentPage() {

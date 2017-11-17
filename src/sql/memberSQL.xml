@@ -71,7 +71,7 @@
 								MEMBER_REGDATE,
 								MEMBER_LEVEL
                          )
-                VALUES (MEMBER_NUMBER_SEQ.NEXTVAL,
+                VALUES (MEMBER_NO_SEQ.NEXTVAL,
                 	 		#member_name#,
                          	#member_id#,
                          	#member_pw#,

@@ -40,7 +40,6 @@
 		
 	<!-- Basket.xml -->
 		<include file="./config/basket.xml"/>
-	<!--<include file="./config/goodsStruts.xml"/> -->
 </struts>
 
 
