@@ -43,9 +43,9 @@ public class MainAction extends ActionSupport {
 			StringTokenizer st = new StringTokenizer(hitvo.getGoods_content(),",");		// 꺼낸 상품content 를 콤마를 기준으로 자른다
 			
 			while(st.hasMoreTokens()) {						// 해당 카테고리의 각 히트상품마다(4개) 반복한다
-				listGoods.add( (goodsVO) sqlMapper.queryForObject("mainSearch.select-single-item",st.nextToken()) );
-			}			
-		}	
+				listGoods.add( (goodsVO) sqlMapper.queryForObject("mainSearch.select-single-item",Integer.parseInt(st.nextToken())) );
+			}
+		}
 		
 		return SUCCESS;
 	}

@@ -18,7 +18,8 @@
 		<result property="member_email" column="member_email"/>
 		<result property="memeber_regdate" column="member_regdate"/>
 		<result property="member_level" column="member_level"/>
-		<result property="mebmer_deleteReason" column="member_deleteReason"/> <!-- member table에 reason column추가 -->
+		<result property="member_deleteReason" column="member_deleteReason"/> <!-- member table에 reason column추가 -->
+		<!-- mebmer_deleteReason 오타수정 - 171118 동민-->
 	</resultMap>
 	
 	<resultMap id="goodsRes" class="goods">
@@ -34,21 +35,21 @@
 		<result property="goods_regdate" column="goods_regdate"/>
 	</resultMap>
 	
-	<resultMap id="goods_QARes" class="goods_qa">
-		<result property="QA_NO" column="QA_NO"/>
-		<result property="GOODS_NO" column="GOODS_NO"/>
-		<result property="MEMBER_NO" column="MEMBER_NO"/>
-		<result property="QA_SUBJECT" column="QA_SUBJECT"/>
-		<result property="QA_CONTENT" column="QA_CONTENT"/>
-		<result property="QA_PW" column="QA_PW"/>
-		<result property="SECRET_FLAG" column="SECRET_FLAG"/>
-		<result property="REGDATE" column="REGDATE"/>
-		<result property="QA_ADDFILE" column="QA_ADDFILE"/>
-		<result property="QARE_FLAG" column="QARE_FLAG"/>
-		<result property="REF" column="REF"/>
-		<result property="RE_STEP" column="RE_STEP"/>
-		<result property="RE_LEVEL" column="RE_LEVEL"/>
-		<result property="START" column="START"/>
+	<resultMap id="goods_QARes" class="goods_qa">			<!-- VO property 들 다 문자로 수정 - 171118 동민 -->
+		<result property="qa_no" column="QA_NO"/>
+		<result property="goods_no" column="GOODS_NO"/>
+		<result property="member_no" column="MEMBER_NO"/>
+		<result property="qa_subject" column="QA_SUBJECT"/>
+		<result property="qa_content" column="QA_CONTENT"/>
+		<result property="qa_pw" column="QA_PW"/>
+		<result property="secret_flag" column="SECRET_FLAG"/>
+		<result property="regdate" column="REGDATE"/>
+		<result property="qa_addfile" column="QA_ADDFILE"/>
+		<result property="qare_flag" column="QARE_FLAG"/>
+		<result property="qa_ref" column="REF"/>
+		<result property="aq_re_step" column="RE_STEP"/>
+		<result property="re_level" column="RE_LEVEL"/>
+		<result property="start" column="START"/>
 	</resultMap>
 	
 	<!-- select-all -->

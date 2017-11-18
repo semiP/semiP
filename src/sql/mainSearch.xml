@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE sqlMap PUBLIC 
-	'-//ibatis.apache.org//DTD Sql Map 2.0//EN' 
-	'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 	
 <sqlMap namespace="mainSearch">
 
@@ -18,7 +16,7 @@
 		<result property="goods_content" 	column="goods_content"/>
 		<result property="goods_amount" 	column="goods_amount"/>
 		<result property="goods_price" 		column="goods_price"/>
-		<result property="goods_image_file"	column="goods_image_file"/>
+		<result property="goods_image_file"	column="goods_image"/>
 		<result property="goods_date" 		column="goods_date"/>
 	</resultMap>
 	
@@ -34,8 +32,8 @@
 	</select>
 	
 	<!-- 상품 한개 가져오기 -->
-	<select id="select-single-item" resultMap="goodsRes" parameterClass="goods">
-		SELECT goods_no, goods_name, goods_price, goods_image_file
+	<select id="select-single-item" resultMap="goodsRes" parameterClass="int">
+		SELECT goods_no, goods_name, goods_price, goods_image
 		FROM goods
 		WHERE goods_no=#goods_no#
 	</select>

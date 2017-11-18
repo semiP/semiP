@@ -8,7 +8,7 @@ public class orderVO {
 	
 	private int order_no;
 	private int order_goods_no;
-	private int order_member_no;
+	private int order_member_no; //
 	private int order_goods_amount;
 	private String order_goods_size;
 	private String order_goods_color;
@@ -18,7 +18,7 @@ public class orderVO {
 	private String order_receive_addr2;
 	private String order_receive_phone;
 	private String order_memo;
-	private int order_sum_money;
+	private int order_sum_money;			// 이건 무슨 용도??? SQL 에도 안적혀있는데...-동민
 	private Date order_date;
 	private Date order_trade_date;
 	private int order_status;
@@ -26,6 +26,7 @@ public class orderVO {
 	private int order_pay_type;
 	private String order_pay_name;
 	private int order_total_pay;
+	private int order_invoice_no;		// 171118 디비/SQL 에는 있는데 VO 에 없어서 추가-동민
 	
 	goodsVO goods_vo = new goodsVO();        //goods테이블의 클래스 객체
 	//memeberVO member_vo = new memberVO(); 
@@ -90,4 +91,6 @@ public class orderVO {
 	public int getOrder_total_pay() { return order_total_pay; }
 	public void setOrder_total_pay(int order_total_pay) { this.order_total_pay = order_total_pay; }
 
+	public int getOrder_invoice_no() {	return order_invoice_no;	}
+	public void setOrder_invoice_no(int order_invoice_no) {	this.order_invoice_no = order_invoice_no;	}
 }

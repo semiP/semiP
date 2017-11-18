@@ -1,6 +1,9 @@
 - member 테이블에 탈퇴사유는 not null 인데 그럼 디폴트 값을 정해주던가 null 넣지 말던가 해야할듯
 - basket 테이블에 member_no, goods_no 빠져있음
 - inquiry 테이블에 파일이름이 not null
+- goodsorder 테이블에 member_no 필드가 없다.
+- goodsorder 테이블에 order_goods_image 뺴자.
+
 
 [member]
 [basket]

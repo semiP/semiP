@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
 
 <!-- 캐러셀 슬라이드쇼 시작 -->
 
@@ -18,9 +20,6 @@
 		<img src="/semiP/assets/images/slideshow/3.jpg" style="width: 100%">
 	</div>
 
-	<a class="prev" onclick="plusSlides(-1)">&#10094;</a> <a class="next"
-		onclick="plusSlides(1)">&#10095;</a>
-		
 	<div style="text-align: center">
 	<span class="dot" onclick="currentSlide(1)"></span> <span class="dot"
 		onclick="currentSlide(2)"></span> <span class="dot"
@@ -31,22 +30,22 @@
 
 
 <script>
-	var slideIndex = 0;
-	showSlides();
+var slideIndex = 0;
+showSlides();
 
-	function showSlides() {
-		var i;
-		var slides = document.getElementsByClassName("mySlides");
-		for (i = 0; i < slides.length; i++) {
-			slides[i].style.display = "none";
-		}
-		slideIndex++;
-		if (slideIndex > slides.length) {
-			slideIndex = 1
-		}
-		slides[slideIndex - 1].style.display = "block";
-		setTimeout(showSlides, 5000); // Change image every 2 seconds
-	}
+function currentSlide(){}
+
+function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none"; 
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1} 
+    slides[slideIndex-1].style.display = "block"; 
+    setTimeout(showSlides, 2000); // Change image every 2 seconds
+}
 </script>
 
 <!-- 캐러셀 슬라이드쇼 끝 -->
@@ -55,7 +54,6 @@
 <!-- 카테고리별 베스트 4개 상품 표시 시작 -->
 
 <div id="blog-container">
-	이곳에 표를 그려서 상품을 표시해주면 됩니다.	카테고리별 4개씩 베스트 상품 보여주기 부분 <br><br>
 	
 	<font size="1">BEST COLLECTION FROM </font><font size="2"><strong>카테고리 이름</strong></font><br>
 	<table width="100%" border="0">

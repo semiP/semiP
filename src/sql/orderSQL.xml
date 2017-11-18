@@ -16,7 +16,7 @@
 		<result property="order_goods_size" column="order_goods_size"/>
 		<result property="order_goods_color" column="order_goods_color"/>
 		<result property="order_receive_name" column="order_receive_name"/>
-		<result property="order_receive_zipcode" column="order_receive_zipcode"/>
+		<result property="order_zipcode" column="order_receive_zipcode"/>		<!--VO 프로퍼티 명이랑 달라서 property 쪽 수정 -->
 		<result property="order_receive_addr1" column="order_receive_addr1"/>
 		<result property="order_receive_addr2" column="order_receive_addr2"/>
 		<result property="order_receive_phone" column="order_receive_phone"/>
@@ -28,7 +28,7 @@
 		<result property="order_list_amount" column="order_list_amount"/>
 		<result property="order_status" column="order_status"/>
 		<result property="order_total_pay" column="order_total_pay"/>
-		<result property="order_invoice_no" column="order_invoice_no"/>
+		<result property="order_invoice_no" column="invoice_no"/>		<!-- 디비 필드명이랑 달라서 column 쪽 수정 -->
 	</resultMap>
 	
 	<!-- 주문된상품 update 쿼리문 정의 -->
@@ -36,7 +36,7 @@
 	
 	update goodsorder set
 		   order_status = #order_status#,
-	where goods_no = #goods_no#
+	where order_goods_no = #order_goods_no# <!-- 171118 수정-동민 -->
 	
 	</update>
 	
@@ -64,25 +64,25 @@
 							ORDER_TOTAL_PAY,
 							ORDER_INVOICE_NO)
 	VALUES (ORDER_NO_seq.NEXTVAL,
-							#ORDER_GOODS_NO#,
-							#ORDER_MEMBER_NO#,
-							#ORDER_GOODS_AMOUNT#,
-							#ORDER_GOODS_SIZE#,
-							#ORDER_GOODS_COLOR#,
-							#ORDER_RECEIVE_NAME#,
-							#ORDER_RECEIVE_ZIPCODE#,
-							#ORDER_RECEIVE_ADDR1#,
-							#ORDER_RECEIVE_ADDR2#,
-							#ORDER_RECEIVE_PHONE#,
-							#ORDER_MEMO#,
-							#ORDER_PAY_TYPE#,
-							#ORDER_PAY_NAME#,
-							#ORDER_DATE#,
-							#ORDER_TRADE_DATE#,
-							#ORDER_LIST_AMOUNT#,
-							#ORDER_STATUS#,
-							#ORDER_TOTAL_PAY#,
-							#ORDER_INVOICE_NO#
+							#order_goods_no#,		<!--VO property 랑 대소문자가 같아야 하는듯... 수정함. - 171118 동민 -->
+							#order_member_no#,
+							#order_goods_amount#,
+							#order_goods_size#,
+							#order_goods_color#,
+							#order_receive_name#,
+							#order_zipcode#,
+							#order_receive_addr1#,
+							#order_receive_addr2#,
+							#order_receive_phone#,
+							#order_memo#,
+							#order_pay_type#,
+							#order_pay_name#,
+							#order_date#,
+							#order_trade_date#,
+							#order_list_amount#,
+							#order_status#,
+							#order_total_pay#,
+							#order_invoice_no#
 			ORDER_NO_SEQ.CURRVAL)
 	</insert>
 	
