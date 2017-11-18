@@ -48,7 +48,7 @@
 			</tr>
 			<tr>
 				<td>
-					<select name="searchType">										
+					<select name="searchNum">										
 						<option value="1">모두 보기</option>
 						<option value="2">주문/배송</option>
 						<option value="3">반품/교환</option>
@@ -57,6 +57,7 @@
 				<td align="right" colspan="2">
 					검색기간:	<input type="date" name="startDate"> ~ <input type="date" name="endDate">&nbsp;&nbsp;
 							<input type="button" name="dateSearchBtn" value="조회">
+							
 				</td>
 			</tr>
 			<tr>
@@ -87,7 +88,7 @@
 			</s:url>			
      	      <tr bgcolor="#FFFFFF"  align="center">
 				<td><s:property value="faq_regdate" /></td>
-				<td><s:property value="faq_category" /></td>
+				<td><%-- <s:if> 벨류가 1이면 주문배송 2면 반품교환--%><s:property value="faq_category" /></td>
         		<td class="faq_subject">
 					<s:a href="%{viewURL}">  <!-- 내용 상세보기를 위한 URL -->
 						<s:property value="faq_subject"/>
@@ -111,7 +112,7 @@
     	      </tr>
     		
 	      </s:if>
-	<!-- 게시물 하나씩 iterator 끝 -->																
+	<!-- 게시물 하나씩 iterator 끝 -->														
 						<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 						<tr>
 							<td colspan="4" align="center">
@@ -126,13 +127,15 @@
 						<tr>
 							<td colspan="4">
 								<br>
-								<select name="searchType">										
+								<form>
+								<select name="searchSC">										
 									<option value="1">글 제목</option>
 									<option value="2">글 내용</option>
 								</select>
 								&nbsp;&nbsp;
-								<input type="text" name="searchKeyword" style="width:100px;">
-								<input type="button" value="검색">
+								<s:textfield name="searchKeyword" theme="simple" value="" cssStyle="width:100px" maxlength="20" />
+								<input name="submit" type="submit" value="검색" class="inputb">	
+								</form>
 							</td>
 						</tr>
 					</table>

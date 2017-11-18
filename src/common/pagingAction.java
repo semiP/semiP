@@ -13,7 +13,7 @@ public class pagingAction {
 	private String actionName;
 	private StringBuffer pageHtml;
 
-//	검색기능이 없는 페이징 액션. 액션 2가지 각각 불러다 쓰는 법 알아보기
+//	search X
 	public pagingAction(int currentPage, int totalCount, int blockCount, int blockPage, String actionName) {
 		this.currentPage = currentPage;
 		this.totalCount = totalCount;
@@ -70,8 +70,9 @@ public class pagingAction {
 			pageHtml.append("</a>");
 		}
 	}
-
-	public pagingAction(int currentPage, int totalCount, int blockCount, int blockPage, String actionName,
+	
+//	search O
+	public pagingAction(int currentPage, int totalCount, int blockCount, int blockPage, String actionName, int searchSC,
 			String isSearch) {
 
 		this.blockCount = blockCount;
@@ -137,6 +138,7 @@ public class pagingAction {
 		}
 
 	}
+
 
 	public int getCurrentPage() {
 		return currentPage;

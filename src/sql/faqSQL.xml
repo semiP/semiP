@@ -64,11 +64,24 @@
 	</delete>
 	<!-- 여기까지 -->
 	<!-- search 쿼리문 정의 -->
-	<select id="selectSearch-subject" resultMap="faqRes"
+	<select id="selectSearch-s" resultMap="faqRes"
 		parameterClass="string">
 		<include refid="select-all" />
-		WHERE faq_subject like #search#
+		WHERE faq_subject like #searchKeyword#
 		ORDER BY faq_no DESC
 	</select>
+	<select id="selectSearch-c" resultMap="faqRes"
+		parameterClass="string">
+		<include refid="select-all" />
+		WHERE faq_content like #searchKeyword#
+		ORDER BY faq_no DESC
+	</select>
+	
+	
+	<!-- 기간조회 -->
+		<select id="regdate" resultMap="faqRes">
+			<include refid="select-all" />
+			FROM faq WHERE faq_regdate between #startDate# and #endDate# 
+		</select>
 
 </sqlMap>

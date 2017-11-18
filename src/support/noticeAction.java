@@ -1,32 +1,33 @@
 package support;
 
 import com.opensymphony.xwork2.ActionSupport;
-//import cmc.noticeVO; ������ζ�...
 
+import java.io.IOException;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.List;
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 
-import java.util.*;
-import java.io.Reader;
-import java.io.IOException;
-
 import common.pagingAction;
 
 public class noticeAction extends ActionSupport {
-
 	public static Reader reader; // ���� ��Ʈ���� ���� reader.
 	public static SqlMapClient sqlMapper; // SqlMapClient API�� ����ϱ� ���� sqlMapper ��ü.
 
-	private List<noticeVO> list = new ArrayList<noticeVO>();;
+	private List<noticeVO> list = new ArrayList<noticeVO>();
 	private int currentPage = 1; // ���� ������
 	private int totalCount; // �� �Խù��� ��
-	private int blockCount = 10; // �� �������� �Խù� ��
+	private int blockCount = 3; // �� �������� �Խù� ��
 	private int blockPage = 5; // �� ȭ�鿡 ������ ������ ��
 	private String pagingHtml; // ����¡�� ������ html
 	private pagingAction page; // ����¡ Ŭ����
 
-	private String searchS;
+	private String searchKeyword;
+	private int searchSC;
+	
+	private int num=0;
 
 	// ������
 	public noticeAction() throws IOException {
@@ -36,14 +37,14 @@ public class noticeAction extends ActionSupport {
 	}
 
 	public String execute() throws Exception {
-		if (getSearchS() != null) {
+		if (getSearchKeyword() != null) {
 			return search();
 		}
 
 		list = sqlMapper.queryForList("notice.selectAll"); // list�� ��� �� ������ ����
 
 		totalCount = list.size(); // ��ü ���� ������ totalcount��
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "notice");
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "noticeAction", num, "");
 		pagingHtml = page.getPageHtml().toString(); // pagingHtml ����
 		int lastCount = totalCount; // ���� ���������� ������ ������ �� ��ȣ ����
 
@@ -57,8 +58,14 @@ public class noticeAction extends ActionSupport {
 
 	// �˻� �޼ҵ� �߰�
 	public String search() throws Exception {
+		if(searchSC == 0){
+			list = sqlMapper.queryForList("notice.selectSearch-s", "%"+getSearchKeyword()+"%");
+		}
+		if(searchSC == 1){
+			list = sqlMapper.queryForList("notice.selectSearch-c", "%"+getSearchKeyword()+"%");
+		}
 		totalCount = list.size();
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, getSearchS());
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "noticeAction", searchSC, getSearchKeyword());
 		pagingHtml = page.getPageHtml().toString();
 		int lastCount = totalCount;
 
@@ -124,12 +131,12 @@ public class noticeAction extends ActionSupport {
 		this.page = page;
 	}
 
-	public String getSearchS() {
-		return searchS;
+	public String getSearchKeyword() {
+		return searchKeyword;
 	}
 
-	public void setSearchS(String searchS) {
-		this.searchS = searchS;
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
 	}
 
 }

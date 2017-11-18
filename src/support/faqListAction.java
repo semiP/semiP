@@ -16,7 +16,7 @@ public class faqListAction extends ActionSupport {
 	public static Reader reader; // ���� ��Ʈ���� ���� reader.
 	public static SqlMapClient sqlMapper; // SqlMapClient API�� ����ϱ� ���� sqlMapper ��ü.
 
-	private List<faqVO> list = new ArrayList<faqVO>();;
+	private List<faqVO> list = new ArrayList<faqVO>();
 	private int currentPage = 1; // ���� ������
 	private int totalCount; // �� �Խù��� ��
 	private int blockCount = 3; // �� �������� �Խù� ��
@@ -24,7 +24,10 @@ public class faqListAction extends ActionSupport {
 	private String pagingHtml; // ����¡�� ������ html
 	private pagingAction page; // ����¡ Ŭ����
 
-	private String searchS;
+	private String searchKeyword;
+	private int searchSC;
+	
+	private int num=0;
 
 	// ������
 	public faqListAction() throws IOException {
@@ -34,14 +37,14 @@ public class faqListAction extends ActionSupport {
 	}
 
 	public String execute() throws Exception {
-		if (getSearchS() != null) {
+		if (getSearchKeyword() != null) {
 			return search();
 		}
 
 		list = sqlMapper.queryForList("faq.selectAll"); // list�� ��� �� ������ ����
 
 		totalCount = list.size(); // ��ü ���� ������ totalcount��
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "faq");
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "faqListAction", num, "");
 		pagingHtml = page.getPageHtml().toString(); // pagingHtml ����
 		int lastCount = totalCount; // ���� ���������� ������ ������ �� ��ȣ ����
 
@@ -55,8 +58,14 @@ public class faqListAction extends ActionSupport {
 
 	// �˻� �޼ҵ� �߰�
 	public String search() throws Exception {
+		if(searchSC == 0){
+			list = sqlMapper.queryForList("faq.selectSearch-s", "%"+getSearchKeyword()+"%");
+		}
+		if(searchSC == 1){
+			list = sqlMapper.queryForList("faq.selectSearch-c", "%"+getSearchKeyword()+"%");
+		}
 		totalCount = list.size();
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, getSearchS());
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "faqListAction", searchSC, getSearchKeyword());
 		pagingHtml = page.getPageHtml().toString();
 		int lastCount = totalCount;
 
@@ -65,6 +74,7 @@ public class faqListAction extends ActionSupport {
 		list = list.subList(page.getStartCount(), lastCount);
 		return SUCCESS;
 	}
+	
 
 	public List<faqVO> getList() {
 		return list;
@@ -122,12 +132,12 @@ public class faqListAction extends ActionSupport {
 		this.page = page;
 	}
 
-	public String getSearchS() {
-		return searchS;
+	public String getSearchKeyword() {
+		return searchKeyword;
 	}
 
-	public void setSearchS(String searchS) {
-		this.searchS = searchS;
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
 	}
 
 }
