@@ -51,7 +51,9 @@ public class basketAddAction extends ActionSupport {
 		basketparamClass.setGoods_color(getGoods_color());
 		basketparamClass.setBasket_date(getBasket_date());
 		basketparamClass.setGoods_no(getGoods_no());
-		basketparamClass.setMember_no(세션);
+
+//		basketparamClass.setMember_no(세션에서 가져오기);
+
 		sqlMapper.insert("insertBasket", basketparamClass);
 
 		return SUCCESS;
