@@ -8,17 +8,13 @@
 	<typeAlias alias="order" type="order.orderVO"/>
 	
 	<!-- 주문 테이블 리절트 맵 정의 -->
-	<resultMap id="orderRes" class="orderVO">
+	<resultMap id="orderRes" class="order.orderVO">
 		<result property="order_no" column="order_no"/>
 		<result property="order_goods_no" column="order_goods_no"/>
 		<result property="order_member_no" column="order_member_no"/>
-		<result property="order_member_id" column="order_member_id"/>
-		<result property="order_goods_name" column="order_goods_name"/>
 		<result property="order_goods_amount" column="order_goods_amount"/>
 		<result property="order_goods_size" column="order_goods_size"/>
 		<result property="order_goods_color" column="order_goods_color"/>
-		<result property="order_goods_price" column="order_goods_price"/>
-		<result property="order_goods_image_file" column="order_goods_image_file"/>
 		<result property="order_receive_name" column="order_receive_name"/>
 		<result property="order_receive_zipcode" column="order_receive_zipcode"/>
 		<result property="order_receive_addr1" column="order_receive_addr1"/>
@@ -36,41 +32,23 @@
 	</resultMap>
 	
 	<!-- 주문된상품 update 쿼리문 정의 -->
-	<update id="orderUpdate" parameterClass="goodsVO">
+	<update id="orderUpdate" parameterClass="order">
 	
-	update goods, order 
-	set
-		   goods_name = #goods_name#,
-		   goods_category = #goods_category#,
-		   goods_size = #goods_size#,
-		   goods_color = #goods_color#,
-		   goods_content = #goods_content#,
-		   goods_price = #goods_price#,
-		   goods_image_file = #goods_image_file#,
-		   goods_date = sysdate
-	where goods_no = #goods_no#
-	
-	</update>
-	
-	<!-- 주문된상품 update 쿼리문 정의 -->
-	<update id="orderUpdate" parameterClass="orderVO">
-	
-	update order set
+	update goodsorder set
 		   order_status = #order_status#,
 	where goods_no = #goods_no#
 	
 	</update>
 	
 	<!-- 주문 insert 쿼리문 정의 -->
-	<insert id="orderInsert" parameterClass="orderVO">
+	<insert id="orderInsert" parameterClass="order">
 	
 	INSERT INTO GOODSORDER (ORDER_NO,
-							ORDER_GOODS_NO,   //jsp 에서
-							ORDER_MEMBER_NO,  // jsp 
-							ORDER_GOODS_AMOUNT, //주문수량 (jsp)
-							ORDER_GOODS_SIZE,   //주문한 사이즈
-							ORDER_GOODS_COLOR,  //주문한색상
-							ORDER_GOODS_PRICE,  
+							ORDER_GOODS_NO,   
+							ORDER_MEMBER_NO,   
+							ORDER_GOODS_AMOUNT, 
+							ORDER_GOODS_SIZE,   
+							ORDER_GOODS_COLOR,  
 							ORDER_RECEIVE_NAME,
 							ORDER_RECEIVE_ZIPCODE,
 							ORDER_RECEIVE_ADDR1,
@@ -91,7 +69,6 @@
 							#ORDER_GOODS_AMOUNT#,
 							#ORDER_GOODS_SIZE#,
 							#ORDER_GOODS_COLOR#,
-							#ORDER_GOODS_PRICE#,
 							#ORDER_RECEIVE_NAME#,
 							#ORDER_RECEIVE_ZIPCODE#,
 							#ORDER_RECEIVE_ADDR1#,
@@ -111,7 +88,7 @@
 	
 	<!-- 공통으로 사용할 select 절 정의 -->
 	<sql id="select-all">
-		SELECT * FROM ORDER
+		SELECT * FROM GOODSORDER
 	</sql>
 
 	<!-- 주문하기 Join (goods, member, order) -->
@@ -122,27 +99,20 @@
 		       o.status, o.order_total_pay, o.invoice_no, 
 		       o.order_receive_name, o.order_receive_zipcode, o.order_receive_addr1, o.order_receive_addr2, o.order_receive_phone,
 		       o.order_memo, o.order_pay_type, o.order_pay_name, o.order_total_pay, o.order_invoice_no
-		FROM  order o, goods g, member m,
+		FROM  GOODSORDER o, goods g, member m,
 		WHERE o.order_goods_no = #g.goods_no# and o.order_member_no = #m.member_no# 
 	</select>
 
-    <!-- 수경-주문내역 (orderList) (admin) -->
+    <!-- 주문내역 가져오기 -->
 	<select id="select-order-all" resultMap="orderRes" parameterClass="int">
 		<include refid="select-all"/>
-		ORDER BY order_no DESC
+		GOODSORDER BY order_no DESC
 	</select>
 	
-	<!-- 수경-주문내역 (orderView)-->
+	<!-- 주문내역 하나 보여주기-->
 	<select id="select-order" resultMap="orderRes" parameterClass="int">
 		<include refid="select-all"/>
 		WHERE ORDER_NO = #ORDER_NO#
 	</select>
 	
-	<!-- 주문내역 delete 쿼리문 정의 -->
-	<delete id="orderDelete" parameterClass="goodsCmt">
-	
-	delete from order where order_no = #order_no#
-	
-	</delete>
-
 </sqlMap>

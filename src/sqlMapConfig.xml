@@ -25,6 +25,13 @@
 	<sqlMap resource="/sql/noticeSQL.xml" />
 	<!-- FAQ -->
 	<sqlMap resource="/sql/faqSQL.xml" />
+	
+	<!-- goods -->
+	<sqlMap resource="/sql/goodsSQL.xml" />
+	
+	<!-- order -->
+	<sqlMap resource="/sql/orderSQL.xml" />
+	
 	<!-- 1:1문의 -->
 	 <sqlMap resource="/sql/inquirySQL.xml" /> 
 	<!-- basket -->

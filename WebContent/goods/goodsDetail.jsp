@@ -1,10 +1,10 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"
 	trimDirectiveWhitespaces="true"%>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
->>>>>>> yjunlim
+<s:property value="resultClass.goods_name" />
+
 <link rel="stylesheet" href="/semiP/assets/css/board.css" type="text/css">
 <script type="text/javascript">
 	<!--
@@ -19,12 +19,6 @@
 	}
 	//--> 
 </script>
-
-<<<<<<< HEAD
-=======
->>>>>>> yjunlim
-=======
->>>>>>> yjunlim
 
 <div id="content-container">
 	<table width="100%" border="0" style="margin:auto; max-width:1000px;">
@@ -63,11 +57,11 @@
 						<td style="vertical-align:top;">
 							<table width="100%" border="0">
 								<tr>
-									<td colspan="2" style="font-size:1.5em;"><s:property value="resultClass.name" /><br><br></td>
+									<td colspan="2" style="font-size:1.5em;">상품이름 : <s:property value="resultClass.name" /><br><br></td>
 								</tr>
 								<tr>
 									<td width="100" height="40">&nbsp;가격</td>
-									<td style="font-size:1.2em;"><strong><s:property value="resultClass.price" /></strong></td>
+									<td style="font-size:1.2em;"><strong><s:property value="resultClass.goods_price" /></strong></td>
 								</tr>
 								<tr>
 									<td width="100" height="40">&nbsp;수량</td>
@@ -78,24 +72,29 @@
 									</td>
 								</tr>
 								<tr>
+								
 									<td width="100" height="40">&nbsp;색상</td>
+									
 									<td>
 										<select>
 											<option value="" selected="selected">선택해 주세요</option>										
-											<option value="color1">color 1</option>
-											<option value="color2">color 2</option>
-											<option value="color3">color 3</option>
+											<option value="color1"><s:property value="resultClass.split1." /></option>
+											<option value="color2"><s:property value="resultClass.goods_color2" /></option>
+											<option value="color3"><s:property value="resultClass.goods_color3" /></option>
 										</select>
 									</td>
 								</tr>
 								<tr>
 									<td width="100" height="40">&nbsp;사이즈</td>
+					
 									<td>
 										<select>
-											<option value="" selected="selected">선택해 주세요</option>										
-											<option value="size1"><s:property value="goodsListAction.goodS_NO"/></option>
-											<option value="size2">size 2</option>
-											<option value="size3">size 3</option>
+
+											<option value="" selected="selected">선택해 주세요</option>
+											<s:iterator value="array_size" status="size">										
+												<option value="size"><s:property value="#size.index" /></option>
+											</s:iterator>
+
 										</select>
 									</td>
 								</tr>
@@ -119,10 +118,10 @@
 								</tr>
 								<tr>
 									<td align="center" style="padding:5px;" >
-										<input type="button" class="btn-custom" value="장바구니 담기" style="width:150px;">
+										<input type="button" class="btn-custom" value="장바구니 담기" style="width:150px;" onClick="javascript:location.href='basketListAction.action?currentPage=<s:property value="currentPage" />'">
 									</td>
 									<td align="left" style="padding:5px;">
-										<input type="button" class="btn-custom1" value="구매하기" style="width:150px;">
+										<input type="button" class="btn-custom1" value="구매하기" style="width:150px;" onClick="javascript:location.href='orderWriteAction.action?currentPage=<s:property value="currentPage" />'">
 									</td>
 								</tr>
 							</table>
@@ -177,6 +176,9 @@
 									<td class="board-titlebar" width="12%">작성자</td>
 									<td class="board-titlebar" width="15%">작성일</td>
 								</tr>
+								
+								
+								
 								<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->
 								<tr>
@@ -233,12 +235,28 @@
 								</tr>
 								<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->
+
+						<s:iterator value="list" status="stat">
+						<s:url id = "viewURL" action="goodsQnaViewAction">
+							<s:param name="no">
+								<s:property value="goods_no" />
+							</s:param>
+							<s:param name="currentPage">
+								<s:property value="currentPage" />
+							</s:param>
+						</s:url>
+						
 								<tr>
 									<td class="board-titlebar" width="8%">15</td>
 									<!-- 글제목을 누르면 팝업으로 표시할까나 싶네요... ajax 를 안배워서 페이지 리로딩을 할 수밖에 없을듯 하네요 -->
-									<td class="board-titlebar" width="67%">이거 배송 하루만에 되나요</td>
-									<td class="board-titlebar" width="12%">돈쓴사람</td>
-									<td class="board-titlebar" width="15%">2017/11/09</td>
+									
+									<s:if test="re_level != 0">
+										<c:forEach var="i" begin = "${re_level }" end = "0">
+											<td class="board-titlebar" width="67%"><img src="/semiP/assets/images/board-icon/reply.gif">그럴 수도 있겠네요<s:property value="goods_subject" /></td>
+											<td class="board-titlebar" width="12%">관리자<s:property value="goods_name" /></td>
+											<td class="board-titlebar" width="15%">2017/11/09<s:property value="goods_date" /></td>
+										</c:forEach>
+									</s:if>
 								</tr>
 								<tr><td colspan="4" bgcolor="#f2f2f2" height="1"></td></tr>
 								<tr>
@@ -248,13 +266,16 @@
 									<td class="board-titlebar" width="12%">관리자</td>
 									<td class="board-titlebar" width="15%">2017/11/10</td>
 								</tr>
+						</s:iterator>
 <!-- 게시물 하나씩 iterator 끝 -->																
 								<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
+								<s:if test="list.size() <= 0">
 								<tr>
 									<td colspan="4" align="center">
-										여기에 테이블 페이징 내용을 넣어주세요
+										게시물이 아직 작성되지 않았습니다.
 									</td>
 								</tr>
+								</s:if>
 							</table>
 						</td>
 					</tr>
