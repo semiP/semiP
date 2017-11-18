@@ -55,37 +55,40 @@ function showSlides() {
 
 <div id="blog-container">
 	
-	<font size="1">BEST COLLECTION FROM </font><font size="2"><strong>카테고리 이름</strong></font><br>
 	<table width="100%" border="0">
-		<tr bgcolor="#777777">
-			<td height="1" colspan="4"></td>
-		</tr>
-		<tr><!-- 상품번호 적기 -->
-			<td>no.123</td>			
-			<td>no.123</td>
-			<td>no.123</td>
-			<td>no.123</td>
-		</tr>
-		<tr><!-- 상품이미지 찍기 -->
-			<td><img src="/semiP/assets/images/best1.jpg" style="width:100%;"></td>			
-			<td><img src="/semiP/assets/images/best2.jpg" style="width:100%;"></td>
-			<td><img src="/semiP/assets/images/best3.jpg" style="width:100%;"></td>
-			<td><img src="/semiP/assets/images/best4.jpg" style="width:100%;"></td>
-		</tr>
-		<tr><!-- 상품정보 적기 (이름/설명/가격) -->
-			<td>이릉이름<br>₩ 100,000</td>			
-			<td>이릉이름<br>₩ 100,000</td>	
-			<td>이릉이름<br>₩ 100,000</td>	
-			<td>이릉이름<br>₩ 100,000</td>	
-		</tr>
-		<tr > <!-- 공란 만들기 -->
-			<td height="10" colspan="4"></td>
-		</tr>
-		
+		<s:iterator value="categoryMap" status="stat">	
+			<tr>
+				<td colspan="4">
+					<font size="1">BEST COLLECTION FROM </font><font size="2"><strong></strong></font>
+				</td>
+			</tr>
+			<tr bgcolor="#777777">
+				<td height="1" colspan="4"></td>
+			</tr>
+			<tr><!-- 상품번호 적기 -->
+				<td>no.123</td>			
+				<td>no.123</td>
+				<td>no.123</td>
+				<td>no.123</td>
+			</tr>
+			<tr><!-- 상품이미지 찍기 -->
+				<td><img src="/semiP/assets/images/best1.jpg" style="width:100%;"></td>			
+				<td><img src="/semiP/assets/images/best2.jpg" style="width:100%;"></td>
+				<td><img src="/semiP/assets/images/best3.jpg" style="width:100%;"></td>
+				<td><img src="/semiP/assets/images/best4.jpg" style="width:100%;"></td>
+			</tr>
+			<tr><!-- 상품정보 적기 (이름/설명/가격) -->
+				<td>이릉이름<br>₩ 100,000</td>			
+				<td>이릉이름<br>₩ 100,000</td>	
+				<td>이릉이름<br>₩ 100,000</td>	
+				<td>이릉이름<br>₩ 100,000</td>	
+			</tr>
+			<tr > <!-- 공란 만들기 -->
+				<td height="10" colspan="4"></td>
+			</tr>
+		</s:iterator>
 	</table>
-		
-		
-	
+
 </div>
 
 <!-- 카테고리별 베스트 4개 상품 표시 끝 -->

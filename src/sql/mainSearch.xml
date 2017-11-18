@@ -24,6 +24,7 @@
 	<resultMap id="hitRes" class="hit">
 		<result property="goods_category" 	column="goods_category"/>
 		<result property="goods_content" 	column="goods_content"/>
+		<result property="name" 				column="name"/>
 	</resultMap>
 	
 	<!-- 히트상품 목록 가져오기 -->
