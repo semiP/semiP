@@ -11,10 +11,10 @@ import java.util.Map;
 
 public class loginAction extends ActionSupport implements SessionAware {
 
+	private static final long serialVersionUID = 1L;
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
-	private static final long serialVersionUID = 1L;
 	private String id;
 	private String passwd;
 	private Map session;
@@ -34,6 +34,7 @@ public class loginAction extends ActionSupport implements SessionAware {
 			return SUCCESS;
 		}
 	}
+	
 	public String execute() throws Exception{
 		paramClass.setMember_id(id);
 		paramClass.setMember_pw(passwd);
