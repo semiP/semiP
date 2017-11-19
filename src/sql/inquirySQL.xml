@@ -25,7 +25,7 @@
 	<!-- result map 정의 -->
 	<resultMap id="inquiryRes" class="inquiry">
 		<result property="inquiry_no" column="inquiry_no"/>
-		<result property="member_no" column="member_no"/>			<!-- property 쪽 소문자로 수정 - 171118 동민 -->
+		<result property="member_no" column="MEMBER_NO"/>			<!-- property 쪽 소문자로 수정 - 171118 동민 -->
 		<result property="inquiry_category" column="inquiry_category"/>
 		<result property="inquiry_subject" column="inquiry_subject"/>
 		<result property="inquiry_content" column="inquiry_content"/>
@@ -59,12 +59,10 @@
 	<!-- select-one -->	
 		<select id="selectOnemember_inquiry" resultMap="memberRes" parameterClass="int">
 			<include refid="select-all-member_inquiry" />
-			where inquiry_no = #inquiry_no#
 		</select>
 		
 		<select id="selectOneInquiry" resultMap="inquiryRes" parameterClass="int">
 			<include refid="select-all-inquiry" />
-			where inquiry_no = #inquiry_no#
 		</select>
 		
 	<!--
@@ -73,12 +71,72 @@
      	   inquiry table에서 
     	   inquiry_no, inquiry_category, inquiry_subject, inquiry_regdate를
            select 를 이용하여 첫 화면 목록에서 보여줌 -->	
+        
+        <!-- 각각의 list를 불러옴 -->
            
-           <!-- Action이랑 JSP에서 처리 -->
            
-           <select id="inquiry_regdate" resultMap="inquiryRes">
-			<include refid="select-all-inquiry"/>
-				BETWEEN #searchKeyword1# and #searchKeyword2#
-			</select>
- 
+           
+           
+           
+           
+           
+           
+           
+           
+           
+         <!-- 여기아래로는 다 select 문이 중첩됐습니다. 다시 작성해야 합니다. 월요일에 같이 체크합시다 - 171118 동민   
+           
+    	<select id="inquiry_no" resultMap="inquiryRes">
+				<include refid="select-all-member_inquiry"/>
+				select inquiry_no from INQUIRY 
+		</select>
+	
+		<select id="inquiry_category" resultMap="inquiryRes">
+				<include refid="select-all-member_inquiry"/>
+				select inquiry_category from INQUIRY
+		</select>
+	
+		<select id="inquiry_subject" resultMap="inquiryRes">
+				<include refid="select-all-member_inquiry"/>
+				select inquiry_subject from INQUIRY
+		</select>
+	
+		<select id="inquiry_content" resultMap="inquiryRes">
+				<include refid="select-all-member_inquiry"/>
+				select inquiry_content from INQUIRY
+		</select>
+	
+		<select id="inquiry_regdate" resultMap="inquiryRes">
+				<include refid="select-all-member_inquiry"/>
+				select inquiry_regdate from INQUIRY
+		</select>
+	
+		<select id="inquiry_addfile" resultMap="inquiryRes">
+				<include refid="select-all-member_inquiry"/>
+				select inquiry_addfile from INQUIRY
+		</select>
+		
+	 문의내역 답글보기 
+		<select id="inquiry_ref" resultMap="inquiryRes">
+			<include refid="select-all-member_inquiry"/>
+			select inquiry_ref from INQUIRY
+		</select>
+	
+		<select id="inquiry_re_step" resultMap="inquiryRes">
+			<include refid="select-all-member_inquiry"/>
+			select inquiry_re_step from INQUIRY
+		</select>
+	
+		<select id="inquiry_level" resultMap="inquiryRes">
+			<include refid="select-all-member_inquiry"/>
+			select inquiry_level from INQUIRY
+		</select>
+	
+	 기간조회 
+		<select id="inquiry_regdate" resultMap="inquiryRes">
+			<include refid="select-all-member_inquiry"/>
+			select inquiry_regdate from INQUIRY_REGDATE BETWEEN #inquiry_regdate1# and #inquiry_regdate2#
+		</select>
+		
+		-->
 </sqlMap>

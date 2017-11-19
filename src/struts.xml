@@ -53,36 +53,5 @@
 	<include file="./config/goods.xml" />
 	<include file="./config/order.xml" />
 	
-	<!-- 마이페이지-회원정보수정 -->
-	<package name="mypage.memberModify" extends="struts-default">
-		<!-- 마이페이지-회원정보수정 -->
-		<action name="listView_member" class="mypage.memberModify.listViewAction">
-			<result type="chain">checkPW_member</result>
-		</action>
-		
-		<action name="checkPW_member" class="mypage.memberModify.checkPWAction">
-			<result name="ERROR" type="chain">/mypage/pwError.jsp</result>
-			<result name="SUCCESS" type="chain">modify</result>
-		</action>
-		
-		<action name="modify" class="mypage.memberModify.modifyAction">
-			<result type="chain">/mypage/profile.jsp</result>
-		</action>
-		
-		<!-- 마이페이지-비밀번호수정 -->
-		<action name="listView_pw" class="mypage.memberModify.listViewAction">
-			<result type="chain">checkPW_pw</result>
-		</action>
-		
-		<action name="checkPW_pw" class="mypage.memberModify.checkPWAction">
-			<result name="ERROR" type="chain">/mypage/pwError.jsp</result>
-			<result name="SUCCESS" type="chain">modifyPW</result>
-		</action>
-		
-		<action name="modifyPW" class="mypage.memberModify.modifyPWAction">
-			<result type="chain">/mypage/profile.jsp</result>
-		</action>
-		
-	</package>
 </struts>
 

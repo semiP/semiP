@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Date;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -37,12 +36,6 @@ public class listViewAction extends ActionSupport{
 	private Date member_regdate;
 	private int member_level;
 	
-	//email개별번수
-	private String email1;
-	private String email2;
-	
-
-	
 	//생성자
 	public listViewAction() throws IOException{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml 파일의 설정내용을 가져옴
@@ -56,10 +49,7 @@ public class listViewAction extends ActionSupport{
 			resultClass = new memberBean(); // 쿼리 결과값을 저장할 객체
 			
 			// 목록을 화면에 출력
-			resultClass = (memberBean)sqlMapper.queryForObject("selectOneMember", getMember_no());
-			
-			email1 = getMember_email().substring(0, getMember_email().indexOf("@"));
-			email2 = getMember_email().substring(getMember_email().indexOf("@") + 1);
+			resultClass = (memberBean)sqlMapper.queryForObject("memberModifyList",paramClass);
 			
 			if(session.get("session_member_no") == null){
 				return LOGIN;

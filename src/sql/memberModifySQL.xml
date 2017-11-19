@@ -39,34 +39,18 @@
 	<!-- select-one -->
 		<select id="selectOneMember" resultMap="memberRes" parameterClass="int">
 			<include refid="select-all-member" />
-			WHERE member_no = #member_no#
 		</select>
    
-    <!-- 회원정보 수정에 관련된 목록 뽑기(비밀번호 제외) -->
-   		<!-- <select id="memberModifyList" resultMap="memberRes" parameterClass="int">
-   			SELECT membe_name, member_email, member_zipcode, member_address1, member_address2, member_phone FROM member WHERE member_no  = #member_no#
-   		</select> -->
-   
    <!-- 우편 번호 찾기 -->
-		<!-- <select id="zipCheckAction" resultMap="memberRes" parameterClass="String">
+		<select id="zipCheckAction" resultMap="zipcodeRes" parameterClass="String">
 			select * from member where member_zipcode like #member_zipcode#
-		</select> -->
+		</select>
 		
 	<!-- 비밀번호 일치여부 쿼리문 -->
 		<select id="pwCheck" resultMap="memberRes" parameterClass="String">
 			<include refid="select-all-member"/>
 			where member_no=#member_no#
 			and member_pw = #member_pw#
-		</select>
-	
-	<!-- 회원정보 수정에 관한 목록 뽑기(비밀번호 포함) -->
-		<!-- <select id="memberModifyAllList" resultMap="memberRes" parameterClass="int">
-   			SELECT membe_name, member_email, member_zipcode, member_address1, member_address2, member_phone FROM, member_pw member WHERE member_no  = #member_no#
-   		</select> -->
-	
-	<!-- 비밀번호 출력 쿼리문 -->
-		<select id="showPW" resultMap="memberRes" parameterClass="String">
-			<!-- SELECT member_pw FROM member WHERE member_no = #member_no# -->
 		</select>
 		
 	<!-- 회원정보 수정 쿼리문 -->

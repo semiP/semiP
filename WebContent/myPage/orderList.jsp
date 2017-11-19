@@ -26,13 +26,13 @@
 					<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 
 					<tr bgcolor="#455b59" align="center">
-						<td class="myPageMenuItem"><a href="/semiP/mypage/memberModify/listView_member.action" >
+						<td class="myPageMenuItem"><a href="./profile.tiles" >
 							회원정보</a></td>
-						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="/semiP/myPage/orderList.jsp" >
+						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="./orderList.tiles" >
 							주문/배송현황</a></strong></td>
-						<td class="myPageMenuItem"><a href="/semiP/myPage/refundList.jsp" >
+						<td class="myPageMenuItem"><a href="./refundList.tiles" >
 							반품/교환</a></td>
-						<td class="myPageMenuItem"><a href="/semiP/myPage/qnaList.jsp" >
+						<td class="myPageMenuItem"><a href="./qnaList.tiles" >
 							문의내역</a></td>
 					</tr>
 					<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
