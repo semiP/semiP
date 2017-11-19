@@ -1,10 +1,8 @@
 package mypage.memberModify;
 
-import java.io.IOException;
 import java.io.Reader;
 import java.util.Date;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -13,11 +11,9 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import mypage.memberBean;
 
-public class listViewAction extends ActionSupport{
+public class modifyPWAction extends ActionSupport{
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
-	
-	private Map session;
 	
 	private memberBean paramClass;
 	private memberBean resultClass;
@@ -37,33 +33,33 @@ public class listViewAction extends ActionSupport{
 	private Date member_regdate;
 	private int member_level;
 	
-	//email개별번수
-	private String email1;
-	private String email2;
-	
-
+	private Map session;
 	
 	//생성자
-	public listViewAction() throws IOException{
-		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml 파일의 설정내용을 가져옴
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xml의 내용을 적용한 sqlMapper객체 생성
+	public modifyPWAction() throws Exception{
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml 파일의 설정내용을 가져온다.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
 	}
 	
-	// 기존 비밀번호를 제외한 다른 항목들의 내용 list 출력
+	// 비밀번호수정
 		public String execute() throws Exception{
-			paramClass = new memberBean(); // 파라미터를 저장할 개게
-			resultClass = new memberBean(); // 쿼리 결과값을 저장할 객체
+			// 파라미터와 리절트 객체 생성
+			paramClass = new memberBean();
+			resultClass = new memberBean();
 			
-			// 목록을 화면에 출력
-			resultClass = (memberBean)sqlMapper.queryForObject("selectOneMember", getMember_no());
+			// 비밀번호 입력값 파라미터 설정
+			paramClass.setMember_no((int)session.get("session_member_no"));
 			
-			email1 = getMember_email().substring(0, getMember_email().indexOf("@"));
-			email2 = getMember_email().substring(getMember_email().indexOf("@") + 1);
+			//수정할 항목 설정
+			paramClass.setMember_pw(getMember_pw());
+			paramClass.setMember_no(getMember_no());
 			
-			if(session.get("session_member_no") == null){
-				return LOGIN;
-			}
+			// 일단 항목만 수정한다.
+			sqlMapper.update("updateMemberPW",paramClass);
+			
+			//수정이 끝나면 view페이지로 이동
+			resultClass = (memberBean) sqlMapper.queryForObject("showPW", getMember_no());
 			
 			return SUCCESS;
 		}
@@ -73,7 +69,7 @@ public class listViewAction extends ActionSupport{
 		}
 
 		public static void setReader(Reader reader) {
-			listViewAction.reader = reader;
+			modifyAction.reader = reader;
 		}
 
 		public static SqlMapClient getSqlMapper() {
@@ -81,7 +77,7 @@ public class listViewAction extends ActionSupport{
 		}
 
 		public static void setSqlMapper(SqlMapClient sqlMapper) {
-			listViewAction.sqlMapper = sqlMapper;
+			modifyAction.sqlMapper = sqlMapper;
 		}
 
 		public memberBean getParamClass() {
@@ -188,20 +184,13 @@ public class listViewAction extends ActionSupport{
 			this.member_level = member_level;
 		}
 
-		public memberBean getParamClass2() {
-			return paramClass2;
+		public Map getSession() {
+			return session;
 		}
 
-		public void setParamClass2(memberBean paramClass2) {
-			this.paramClass2 = paramClass2;
+		public void setSession(Map session) {
+			this.session = session;
 		}
-
-		public memberBean getResultClass2() {
-			return resultClass2;
-		}
-
-		public void setResultClass2(memberBean resultClass2) {
-			this.resultClass2 = resultClass2;
-		}
+		
 		
 	}

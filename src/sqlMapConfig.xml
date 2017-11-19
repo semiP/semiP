@@ -36,5 +36,15 @@
 	 <sqlMap resource="/sql/inquirySQL.xml" /> 
 	<!-- basket -->
 	<sqlMap resource="/sql/basketSQL.xml" />
-
+	
+	<!-- mypage-회원정보수정 -->
+	<sqlMap resource="/sql/memberModifySQL.xml"/>
+	<!-- mypage-문의내역 -->
+	<sqlMap resource="/sql/inquirySQL.xml"/>
+	<!-- mypage-상세문의내역 -->
+	<sqlMap resource="/sql/inquiryDetailSQL.xml"/>
+	<!-- mypage-환불 -->
+	<sqlMap resource="/sql/ReturnEXSQL.xml"/>
+	<!-- mypage-문의내역 상세보기 -->
+	<sqlMap resource="/sql/ReviewWriteSQL.xml"/>
 </sqlMapConfig>

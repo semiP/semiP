@@ -108,20 +108,8 @@ public class listAction extends ActionSupport {
 			sqlMapper.update("updateMember",paramClass1);
 			sqlMapper.update("updatemember",paramClass2);
 			
-			resultClass1 = (goodsOrderBean)sqlMapper.queryForObject("Order_no",paramClass1);
-			resultClass2 = (goodsBean)sqlMapper.queryForObject("goods_no",paramClass2);
-			
-			return SUCCESS;
-		}
-		
-		// 주문배송현환 목록 불러옴
-		public String classify() throws Exception{
-			paramClass5 = new goodsOrderBean();
-			resultClass5 = new goodsOrderBean();
-			
-			paramClass5.setOrder_status(getOrder_status());
-			
-			list=sqlMapper.queryForList("select-all-goodsOrder-order");
+			resultClass1 = (goodsOrderBean)sqlMapper.queryForObject("selectOneGoods_OrderDeliverCondition",getOrder_no());
+			resultClass2 = (goodsBean)sqlMapper.queryForObject("selectOneGoodsOrder_OrderDeliverCondition",getGoods_no());
 			
 			return SUCCESS;
 		}

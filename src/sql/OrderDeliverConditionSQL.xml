@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<!DOCTYPE sqlMap PUBLIC 
+	'-//ibatis.apache.org//DTD Sql Map 2.0//EN' 
+	'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+	
 <sqlMap namespace="mypage">
-	<typeAlias alias="goods" type="mypage.goodsBean"/>
 	<typeAlias alias="goodsOrder" type="mypage.goodsOrderBean"/>
 	
 	<!-- result map 정의 -->
@@ -46,54 +48,33 @@
 	</resultMap>
 	
 	<!-- select-all -->
-		<sql id="select-all-goods_returnEX">
+		<sql id="select-all-goods_OrderDeliverCondition">
 			SELECT * FROM GOODS
 		</sql>
 		
-		<sql id="select-all-goodsOrder_returnEX">
+		<sql id="select-all-goodsOrder_OrderDeliverCondition">
 			SELECT * FROM GOODSORDER
 		</sql>
 		
-		<select id="selectAllGoodsReturnEX" resultMap="goodsRes" parameterClass="int">
-			<include refid="select-all-goods_returnEX"/>
+		<select id="selectAllGoodsOrderDeliverCondition" resultMap="goodsRes" parameterClass="int">
+			<include refid="select-all-goods_OrderDeliverCondition"/>
 			ORDER BY goods_no DESC
 		</select>
 		
-		<select id="selectAllGoodsOrderReturnEX" resultMap="goodsOrderRes" parameterClass="int">
-			<include refid="select-all-goodsOrder_returnEX"/>
+		<select id="selectAllGoodsOrderOrderDeliverCondition" resultMap="goodsOrderRes" parameterClass="int">
+			<include refid="select-all-goodsOrder_OrderDeliverCondition"/>
 			ORDER BY order_no DESC
 		</select>
 		
 	<!--  select-one -->
-		<select id="selectOneGoodsReturnEX" resultMap="goodsRes" parameterClass="int">
-			<include refid="select-all-goods_returnEX" />
+		<select id="selectOneGoods_OrderDeliverCondition" resultMap="goodsRes" parameterClass="int">
+			<include refid="select-all-goods_OrderDeliverCondition" />
+			WHERE order_no = #order_no# and order_status != 5
 		</select>
 		
-		<select id="selectOneGoodsOrderReturnEX" resultMap="goodsOrderRes" parameterClass="int">
-			<include refid="select-all-goodsOrder_returnEX" />
+		<select id="selectOneGoodsOrder_OrderDeliverCondition" resultMap="goodsOrderRes" parameterClass="int">
+			<include refid="select-all-goodsOrder_OrderDeliverCondition" />
+			WHERE goods_no = #goods_no#
 		</select>
-		
-	<!-- 
-		- ORDER_STATUS를 4번-> 5번으로 상태 변환
-   		 > 교환의 경우 : 주문번호(ORDER_NO)를 달리하여 새로운 제품 주문으로 Admin에 전달
- 	-->
- 		<update id="updateORDER_STATUS" parameterClass="goodsOrder">
-			update goodsOrder set order_status = 5
-			where goods_no = #goods_no#
-		</update>
-		
-	<!-- 
-		- 화면에 반품/교환 list를 가져옴.
-    	> 반품/교환에 해당하는 list를
-      	  goodsOrder table에서 
-          order_status(5번), order_no, order_goods_no, order_goods_amount, order_goods_size, order_goods_color, order_date, order_list_amount, order_goods_image, order_total_pay와
-          goods table에서
-          goods_price를
-          select를 이용하여 출력 -->
-		
-		<!-- 기간조회 -->
-		<select id="order_date" resultMap="goodsOrderRes">
-			<include refid="select-all-goods"/>
-			BETWEEN #searchKeyword1# and #searchKeyword2#
-		</select>	
+	
 </sqlMap>
