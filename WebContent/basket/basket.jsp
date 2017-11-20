@@ -1,22 +1,8 @@
-<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true"%>
+d<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page import = "java.util.List" %> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-<script language="javascript">
-<!--
-function itemSum(frm)
-{
-   var sum = 0;
-   var count = frm.chkbox.length;
-   for(var i=0; i < count; i++ ){
-       if( frm.chkbox[i].checked == true ){
-	    sum += parseInt(frm.chkbox[i].value);
-       }
-   }
-   frm.total_sum.value = sum;
-}
-//-->
-</script>
 
 
 <div id="content-container">
@@ -40,7 +26,8 @@ function itemSum(frm)
 		<tr>
 			
 			<td>
-				<form action="order.action" method="post" id="frm">
+				<form action="order.action" method="post" id="frm" name="frm">
+				<input type="hidden" id="basket_no_set" name="basket_no_set" />
 				<table width="100%" border="0">
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 								
@@ -58,8 +45,10 @@ function itemSum(frm)
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->	
 								<s:iterator value="basketlist" status="stat">
-								<tr align="center">
-									<td width="1%"><input name="chkbox" type="checkbox" onClick="itemSum(this.form);" value="<s:property value='basket_price'/>"/></td>
+								
+								<input type="hidden" name="basket_price_<s:property value = "#stat.index" />" name="basket_price_<s:property value = "#stat.index" />" value="<s:property value='basket_price'/>" />
+								<tr align="center" id="basket_list_<s:property value = "#stat.index" />">
+									<td width="1%"><input name="chkbox" id="chkbox_<s:property value = "#stat.index" />" type="checkbox" onClick="itemSum(<s:property value = "#stat.index" />);" value="<s:property value='basket_no'/>"/></td>
 									<td width="10%">
 									<img src="<s:property value="goods_image"/>"><br><font style="width:100%;"></td>
 									<td width="19%"><s:property value="goods_name"/><br><font style="font-size:0.8em; color:777777"><s:property value="goods_color"/> / <s:property value="goods_size"/></font></td>
@@ -98,8 +87,9 @@ function itemSum(frm)
 									<td colspan="3" width="50%" height="100px" style="font-size:1.5em;">
 										[ 기본배송 ]
 									</td>
+									
 									<td colspan="6" width="50%" height="100px" align="right" style="padding:20px;font-size:1.5em;">
-										상품구매액 <input type="text" name="total_sum" value="" style="background-color:transparent;border:none;color:#FFFFFF;" readonly onchange="getElementById('totalValue').value=total_sum;"></font> + 배송비 무료 = 합계 : 원
+									 상품구매액 <input name="total_sum" value="" style="width:100px;text-align:center;background-color:transparent;border:none;color:#FFFFFF;" readonly></font>  +  배송비 무료 = 합계 :  <input name="totalOrder_sum" value="" style="width:100px;text-align:center;background-color:transparent;border:none;color:#FFFFFF;" readonly>   원
 									</td>
 								</tr>
 						
@@ -112,8 +102,7 @@ function itemSum(frm)
 									<td colspan="9" align="left" style="font-size:1.5em;">
 										선택상품을&nbsp;
 										<input type="submit" value="주문하기" style="width:150px;">&nbsp;
-										<input type="button" value="삭제하기" style="width:150px;" onClick="alert('삭제되었습니다.'); 
-											location.href='basketDeleteAction.action?basket_no=<s:property value="basket_no"/>'"/>
+										<input type="button" value="삭제하기" style="width:150px;" onClick="javascript:checked_delete();"/>
 									</td>
 								</tr>
 								<tr>	<td height="50"></td>	</tr>
@@ -134,7 +123,80 @@ function itemSum(frm)
 							</table>
 							</form>
 <script type="text/javascript" src="/semiP/assets/js/goodsCount.js"></script>
+<script language="javascript">
 
+
+
+function checked_delete()
+{
+	/*
+   var sum = 0;
+   var count = document.frm.chkbox.length;
+   var checkbox_list = "";
+   
+   for(var i=0; i < count; i++ ){
+       if( document.frm.chkbox[i].checked == true ){
+	    //sum += parseInt(frm.chkbox[i].value);
+    	   checkbox_list = checkbox_list + "||" + parseInt(document.frm.chkbox[i].value);
+    	   $("#basket_list_"+i).remove();
+       }
+      
+      
+   }
+   */
+
+   $('input[name=chkbox]:checked').each(function() { 
+	   $("#basket_list_"+$(this).val()).remove();
+   });
+   
+   
+      /*
+   $("#basket_no_set").val(checkbox_list);
+
+   alert($("#basket_no_set").val());
+   
+    var array_set = $("#basket_no_set").val();
+    
+	var array = array_set.split("||");
+   
+	for(var j=0;j<=array.length;j++)
+	{
+		//alert(j);
+		alert(array[j]);
+		//$("#basket_list_")
+		$("#basket_list_"+j).remove();
+	}
+	*/
+}
+
+function alldel()
+{
+
+}
+
+var basket_price = "";
+
+function itemSum(index)
+{
+	/*
+
+  */
+
+	
+  //for(i=0;i<$("input[name=basket_price]").length;i++)
+  //{
+	 //alert($("input[name=chkbox_"+index+"]").prop("checked"));
+  	if($("input[id=chkbox_"+index+"]").prop("checked") == true) basket_price = Number(basket_price) + Number($("input[name=basket_price_"+index+"]").val());
+  	else basket_price = Number(basket_price) - Number($("input[name=basket_price_"+index+"]").val());
+  //}  
+  document.frm.total_sum.value = basket_price;
+  document.frm.totalOrder_sum.value = basket_price;
+  
+}
+
+
+
+</script>
 
 
 
