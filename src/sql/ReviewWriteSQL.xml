@@ -42,16 +42,29 @@
 		<result property="qa_subject" column="QA_SUBJECT"/>
 		<result property="qa_content" column="QA_CONTENT"/>
 		<result property="qa_pw" column="QA_PW"/>
-		<result property="secret_flag" column="SECRET_FLAG"/>
-		<result property="regdate" column="REGDATE"/>
+		<result property="qa_secret_flag" column="QA_SECRET_FLAG"/>
+		<result property="qa_regdate" column="QA_REGDATE"/>
 		<result property="qa_addfile" column="QA_ADDFILE"/>
 		<result property="qare_flag" column="QARE_FLAG"/>
-		<result property="qa_ref" column="REF"/>
-		<result property="aq_re_step" column="RE_STEP"/>
-		<result property="re_level" column="RE_LEVEL"/>
-		<result property="start" column="START"/>
+		<result property="qa_ref" column="QA_REF"/>
+		<result property="qa_re_step" column="QA_RE_STEP"/>
+		<result property="qa_re_level" column="QA_RE_LEVEL"/>
+		<result property="qa_start" column="QA_START"/>
 	</resultMap>
 	
+	<!-- select-all -->
+		<sql id="select-all-member_ReviewWrite">
+			SELECT * FROM MEMBER
+		</sql>
+		
+		<sql id="select-all-goods_ReviewWrite">
+			SELECT * FROM GOODS
+		</sql>
+		
+		<sql id="select-all-goods_QA_ReviewWrite">
+			SELECT * FROM GOODS_QA
+		</sql>
+		
 	<!-- select-all -->
 		<select id="selectAllMember_ReviewWrite" resultMap="memberRes" parameterClass="int">
 			<include refid="select-all-member_ReviewWrite" />
@@ -74,7 +87,7 @@
 		</select>
 		
 		<select id="selectOneGoods_ReviewWrite" resultMap="goodsRes" parameterClass="int">
-			<include refid="select-all-member_ReviewWrite" />
+			<include refid="select-all-goods_ReviewWrite" />
 		</select>
 		
 		<select id="selectOneGoods_QA_ReviewWrite" resultMap="goods_QARes" parameterClass="int">

@@ -17,18 +17,7 @@
 		</dataSource>
 	</transactionManager>
 	
-	<!-- main & search : 동민 -->
-	<sqlMap resource="/sql/mainSearch.xml" />
-	<!-- 로그인 -->
-	<sqlMap resource="/sql/memberSQL.xml" />
-	<!-- 공지사항-->
-	<sqlMap resource="/sql/noticeSQL.xml" />
-	<!-- FAQ -->
-	<sqlMap resource="/sql/faqSQL.xml" />
-	
-	<!-- goods -->
-	<sqlMap resource="/sql/goodsSQL.xml" />
-	
+
 	<!-- order -->
 	<sqlMap resource="/sql/orderSQL.xml" />
 	
@@ -49,4 +38,16 @@
 	<sqlMap resource="/sql/ReturnEXSQL.xml"/>
 	<!-- mypage-문의내역 상세보기 -->
 	<sqlMap resource="/sql/ReviewWriteSQL.xml"/>
+	
+		<!-- main & search : 동민 -->
+	<sqlMap resource="/sql/mainSearch.xml" />
+	<!-- 로그인 -->
+	<sqlMap resource="/sql/memberSQL.xml" />
+	<!-- 공지사항-->
+	<sqlMap resource="/sql/noticeSQL.xml" />
+	<!-- FAQ -->
+	<sqlMap resource="/sql/faqSQL.xml" />
+	
+	<!-- goods -->
+	<sqlMap resource="/sql/goodsSQL.xml" />
 </sqlMapConfig>

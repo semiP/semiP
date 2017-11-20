@@ -77,5 +77,10 @@
 			<include refid="select-all-goodsOrder_OrderDeliverCondition" />
 			WHERE goods_no = #goods_no#
 		</select>
-	
+
+	<!-- 기간조회 -->
+		<select id="order_date" resultMap="goodsOrderRes">
+			<include refid="select-all-goodsOrder_OrderDeliverCondition"/>
+			BETWEEN #searchKeyword1# and #searchKeyword2#
+		</select>	
 </sqlMap>

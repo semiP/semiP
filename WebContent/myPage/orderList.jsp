@@ -51,8 +51,8 @@
 			</tr>
 			<tr>
 				<td align="right" colspan="7">
-					검색기간:	<input type="date" name="startDate"> ~ <input type="date" name="endDate">&nbsp;&nbsp;
-							<input type="button" name="dateSearchBtn" value="조회">
+					검색기간:	<input type="date" name="startDate" id="startDate"> ~ <input type="date" name="endDate" id="endDate" >&nbsp;&nbsp;
+							<input type="submit" name="dateSearchBtn" value="조회">
 				</td>
 			</tr>
 			<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
