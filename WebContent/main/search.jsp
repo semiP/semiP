@@ -58,7 +58,7 @@
 						</s:if>
 						<td width="25%" align="center">
 							<s:if test="goods_amount == -10">
-								nothing~
+								( '3')
 							</s:if>
 							<s:else>
 								<!-- 상품번호 적기 -->
