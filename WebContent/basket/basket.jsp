@@ -2,6 +2,23 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page import = "java.util.List" %> 
 
+<script language="javascript">
+<!--
+function itemSum(frm)
+{
+   var sum = 0;
+   var count = frm.chkbox.length;
+   for(var i=0; i < count; i++ ){
+       if( frm.chkbox[i].checked == true ){
+	    sum += parseInt(frm.chkbox[i].value);
+       }
+   }
+   frm.total_sum.value = sum;
+}
+//-->
+</script>
+
+
 <div id="content-container">
 	<table width="100%" border="0" style="margin:auto; max-width:1000px;">
 		<tr>			
@@ -23,7 +40,7 @@
 		<tr>
 			
 			<td>
-				<form action="order.action" method="post">
+				<form action="order.action" method="post" id="frm">
 				<table width="100%" border="0">
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 								
@@ -42,7 +59,7 @@
 <!-- 게시물 하나씩 iterator 시작 -->	
 								<s:iterator value="basketlist" status="stat">
 								<tr align="center">
-									<td width="1%"><input type="checkbox"/></td>
+									<td width="1%"><input name="chkbox" type="checkbox" onClick="itemSum(this.form);" value="<s:property value='basket_price'/>"/></td>
 									<td width="10%">
 									<img src="<s:property value="goods_image"/>"><br><font style="width:100%;"></td>
 									<td width="19%"><s:property value="goods_name"/><br><font style="font-size:0.8em; color:777777"><s:property value="goods_color"/> / <s:property value="goods_size"/></font></td>
@@ -82,7 +99,7 @@
 										[ 기본배송 ]
 									</td>
 									<td colspan="6" width="50%" height="100px" align="right" style="padding:20px;font-size:1.5em;">
-										상품구매액 <s:property value="goods_price"/> + 배송비 무료 = 합계 : <s:property value="basket_price"/>원
+										상품구매액 <input type="text" name="total_sum" value="" style="background-color:transparent;border:none;color:#FFFFFF;" readonly onchange="getElementById('totalValue').value=total_sum;"></font> + 배송비 무료 = 합계 : 원
 									</td>
 								</tr>
 						
