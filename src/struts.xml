@@ -25,4 +25,6 @@
 			</result> 
 		</action>
 	</package>
+	
+	<include file="/config/member.xml" />
 </struts>
