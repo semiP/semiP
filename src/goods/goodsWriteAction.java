@@ -95,10 +95,10 @@ public class goodsWriteAction extends ActionSupport{
 		    
 			sqlMapper.update("fileDownloadAction", paramClass);
 		}
-			
+		
 		return SUCCESS;
 	}
-	
+
 	public goodsVO getParamClass() { return paramClass; }
 	public void setParamClass(goodsVO paramClass) { this.paramClass = paramClass; }
 	
