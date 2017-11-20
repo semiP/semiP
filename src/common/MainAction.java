@@ -8,7 +8,7 @@ import common.hitVO;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -27,7 +27,7 @@ public class MainAction extends ActionSupport {
 	public static SqlMapClient sqlMapper;
 	
 	private List<hitVO> listHit = new ArrayList<hitVO>();	
-	private HashMap<String, List<goodsVO>> categoryMap = new HashMap<String, List<goodsVO>>();
+	private LinkedHashMap<String, List<goodsVO>> categoryMap = new LinkedHashMap<String, List<goodsVO>>();
 	
 	public MainAction() throws IOException{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); 
@@ -62,11 +62,11 @@ public class MainAction extends ActionSupport {
 		this.listHit = listHit;
 	}
 
-	public HashMap<String, List<goodsVO>> getCategoryMap() {
+	public LinkedHashMap<String, List<goodsVO>> getCategoryMap() {
 		return categoryMap;
 	}
 
-	public void setCategoryMap(HashMap<String, List<goodsVO>> categoryMap) {
+	public void setCategoryMap(LinkedHashMap<String, List<goodsVO>> categoryMap) {
 		this.categoryMap = categoryMap;
 	}
 

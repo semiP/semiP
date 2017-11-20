@@ -17,7 +17,7 @@
 		<result property="goods_amount" 	column="goods_amount"/>
 		<result property="goods_price" 		column="goods_price"/>
 		<result property="goods_image_file"	column="goods_image"/>
-		<result property="goods_date" 		column="goods_date"/>
+		<result property="goods_date" 		column="goods_regdate"/>
 	</resultMap>
 	
 	<!-- 상품 테이블 리절트 맵 정의 -->
@@ -33,8 +33,8 @@
 	</select>
 	
 	<!-- 상품 한개 가져오기 -->
-	<select id="select-single-item" resultMap="goodsRes" parameterClass="int">
-		SELECT goods_no, goods_name, goods_price, goods_image
+	<select id="select-single-item" resultMap="goodsRes" parameterClass="int"  remapResults="true">
+		SELECT *
 		FROM goods
 		WHERE goods_no=#goods_no#
 	</select>
