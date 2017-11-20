@@ -19,6 +19,7 @@
 		<result property="goods_amount" column="goods_amount"/>
 		<result property="goods_price" column="goods_price"/>
 		<result property="goods_image" column="goods_image"/>
+		<result property="goods_regdate" column="goods_regdate"/>
 	</resultMap>
 
 	<!-- 상품 (고객상품평) 리절트 맵 정의 -->
@@ -47,7 +48,8 @@
 					   goods_content,
 					   goods_amount,
 					   goods_price,
-					   goods_image)
+					   goods_image,
+					   goods_regdate)
 	VALUES (goods_no_seq.NEXTVAL,
 					   #goods_name#,
 					   #goods_category#,
@@ -56,7 +58,8 @@
 					   #goods_content#,
 					   #goods_amount#,
 					   #goods_price#,  
-					   #goods_image#)
+					   #goods_image#,
+					   #goods_regdate#)
 	</insert>
 	
 	<!-- 상품 (상품평) insert 쿼리문 정의 -->
@@ -92,7 +95,8 @@
 		   goods_color = #goods_color#,
 		   goods_content = #goods_content#,
 		   goods_price = #goods_price#,
-		   goods_image = #goods_image#
+		   goods_image = #goods_image#,
+		   goods_regdate = #goods_regdate#
 	where goods_no = #goods_no#
 	
 	</update>

@@ -34,6 +34,7 @@ public class goodsWriteAction extends ActionSupport{
 	private int goods_amount;
 	private int goods_price;
 	private String goods_image;  //���� ���� �̸�
+	private Date goods_regdate; 
 	Calendar today = Calendar.getInstance(); //���� ��¥ ���ϱ�.
 	
 	private File upload; //���� ��ü
@@ -70,6 +71,8 @@ public class goodsWriteAction extends ActionSupport{
 		paramClass.setGoods_content(getGoods_content());		  //��ǰ ����
 		paramClass.setGoods_amount(getGoods_amount());            //��ǰ ����
 		paramClass.setGoods_price(getGoods_price());			  //��ǰ ����
+		paramClass.setGoods_image(getGoods_image());
+		paramClass.setGoods_regdate(today.getTime());
 		
 		//��� ���� ����.
 		sqlMapper.insert("goods.goodsInsert", paramClass);

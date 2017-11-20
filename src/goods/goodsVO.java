@@ -13,6 +13,7 @@ public class goodsVO {
 	private int goods_amount;				   //수량
 	private int goods_price;				   //가격
 	private String goods_image;			       //이미지명
+	private Date goods_regdate;				   //상품등록
 	
 	public int getGoods_no() { return goods_no; }
 	public void setGoods_no (int goods_no) { this.goods_no = goods_no; }
@@ -40,5 +41,8 @@ public class goodsVO {
 	
 	public String getGoods_image() { return goods_image; }
 	public void setGoods_image(String goods_image) { this.goods_image = goods_image; }
+	
+	public Date getGoods_regdate() { return goods_regdate; }
+	public void setGoods_regdate(Date goods_regdate) { this.goods_regdate = goods_regdate; }
 	
 }

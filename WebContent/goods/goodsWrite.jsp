@@ -93,7 +93,9 @@
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;카테고리<br><br></td>
 				<td>
-					<select name="select" onchange="document.getElementById('email2').value=this.value;if(this.value==''){document.getElementById('email2').focus();}">
+<!-- 				<input type="text" id="goods_category" style="width:100px; height:30px;"> -->
+					<s:textfield name="goods_category" theme="simple" value="%{resultClass.goods_category}" cssStyle="width:100px" maxlength="20"/>
+					<select name="select" onchange="document.getElementById('goods_category').value=this.value;if(this.value==''){document.getElementById('goods_category').focus();}">
 						<option value="" selected="selected">직접입력</option>										
 						<option value="outer">1.outer</option>
 						<option value="top">2.top</option>
@@ -132,8 +134,8 @@
 			</tr>
 			
 			<tr>
-				<td width="100"><br>&nbsp;&nbsp;내용<br><br></td>
-				<td><s:textarea name="goods_content" theme="simple" value="%{resultClass.goods_content}" cssStyle="width:100px" maxlength="20"/></td>
+				<td width="200"><br>&nbsp;&nbsp;내용<br><br></td>
+				<td><s:textarea name="goods_content" theme="simple" value="%{resultClass.goods_content}" cols="50" rows="10"/></td>
 			</tr>
 			
 			<tr>
