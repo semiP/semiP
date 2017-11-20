@@ -17,12 +17,13 @@
 		<result property="member_email" column="member_email"/>
 		<result property="memeber_regdate" column="member_regdate"/>
 		<result property="member_level" column="member_level"/>
-		<result property="mebmer_deleteReason" column="member_deleteReason"/> <!-- member table에 reason column추가 -->
+		<result property="member_deleteReason" column="member_deleteReason"/> <!-- member table에 reason column추가 --> 
+		<!-- mebmer_deleteReason 오타수정 - 171118 동민-->
 	</resultMap>
 	
 	<resultMap id="inquiryRes" class="inquiry">
 		<result property="inquiry_no" column="inquiry_no"/>
-		<result property="MEMBER_NO" column="MEMBER_NO"/>
+		<result property="member_no" column="MEMBER_NO"/>					<!-- property 쪽 소문자로 수정 - 171118 동민 -->
 		<result property="inquiry_category" column="inquiry_category"/>
 		<result property="inquiry_subject" column="inquiry_subject"/>
 		<result property="inquiry_content" column="inquiry_content"/>

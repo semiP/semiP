@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
-<sqlMap>
+<sqlMap namespace="mypage">
 
 	<typeAlias alias="login" type="member.memberbean" />
 
@@ -71,7 +71,7 @@
 								MEMBER_REGDATE,
 								MEMBER_LEVEL
                          )
-                VALUES (MEMBER_NUMBER_SEQ.NEXTVAL,
+                VALUES (MEMBER_NO_SEQ.NEXTVAL,
                 	 		#member_name#,
                          	#member_id#,
                          	#member_pw#,

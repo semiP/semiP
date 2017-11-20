@@ -89,10 +89,12 @@
 					
 									<td>
 										<select>
+
 											<option value="" selected="selected">선택해 주세요</option>
 											<s:iterator value="array_size" status="size">										
 												<option value="size"><s:property value="#size.index" /></option>
 											</s:iterator>
+
 										</select>
 									</td>
 								</tr>

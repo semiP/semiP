@@ -13,7 +13,7 @@
 		<tr>
 			<td align="left">
 				<h2>고객지원</h2>
-			</td>
+			</td>	
 		</tr>
 		
 		<tr>
@@ -27,9 +27,9 @@
 					<tr><td colspan="2" bgcolor="#cccccc" height="1"></td></tr>
 
 					<tr bgcolor="#455b59" align="center">
-						<td class="myPageMenuItem"><a href="./notice.tiles" >
+						<td class="myPageMenuItem"><a href="support/noticeAction.action" >
 							공지사항</a></td>
-						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="./faq.tiles" >
+						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="support/faqListAction.action" >
 							자주하는 질문</a></strong></td>
 					</tr>
 					<tr><td colspan="2" bgcolor="#cccccc" height="1"></td></tr>
@@ -75,9 +75,9 @@
 						</tr>
 						<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 	<!-- 게시물 하나씩 iterator 시작 -->
-	<!-- 다시 넣어야함 -->
-		<%-- <s:iterator value="list" status="stat">
-			<s:url id="viewURL" action="faqVieweAction" >
+	<!-- 완성 -->
+		<s:iterator value="list" status="stat">
+			<s:url id="viewURL" action="faqViewAction" >
 				<s:param name="faq_no">
 					<s:property value="faq_no" />
 				</s:param>
@@ -86,11 +86,10 @@
 				</s:param>
 			</s:url>			
      	      <tr bgcolor="#FFFFFF"  align="center">
-        		<td><s:property value="faq_no" /></td>
 				<td><s:property value="faq_regdate" /></td>
 				<td><s:property value="faq_category" /></td>
         		<td class="faq_subject">
-					<s:a href="%{viewURL}">
+					<s:a href="%{viewURL}">  <!-- 내용 상세보기를 위한 URL -->
 						<s:property value="faq_subject"/>
 					</s:a>
 				</td>
@@ -100,7 +99,7 @@
         		<td height="1" colspan="5"></td>
       	      </tr>
       
-	      </s:iterator> --%>
+	      </s:iterator>
 			
 	      <s:if test="list.size() <= 0">
 				
@@ -112,19 +111,6 @@
     	      </tr>
     		
 	      </s:if>
-					<!-- 	<tr>
-							<td class="board-titlebar" width="15%" height="30">2017/11/10</td>
-							<td class="board-titlebar" width="15%" height="30">[주문/배송]</td>
-							<td class="board-titlebar" width="55%" height="30">이거 배송 하루만에 되나요</td>
-							<td class="board-titlebar" width="15%" height="30">돈쓴사람</td>
-						</tr>
-						<tr><td colspan="4" bgcolor="#f2f2f2" height="1"></td></tr>
-						<tr>
-							<td class="board-titlebar" width="15%" height="30">2017/11/10</td>
-							<td class="board-titlebar" width="15%" height="30"></td>
-							<td class="board-titlebar" width="55%" height="30"><img src="/semiP/assets/images/board-icon/reply.gif">그럴 수도 있겠네요</td>
-							<td class="board-titlebar" width="15%" height="30">관리자</td>
-						</tr> -->
 	<!-- 게시물 하나씩 iterator 끝 -->																
 						<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 						<tr>

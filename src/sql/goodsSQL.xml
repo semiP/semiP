@@ -134,7 +134,7 @@
 	</sql>
 	
 	<sql id="select-cmt-all">
-		SELECT * FROM goods_cmt
+		SELECT * FROM goodscmt
 	</sql>
 	
 	<!-- 파일 넣기 -->

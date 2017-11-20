@@ -6,7 +6,7 @@ public class orderVO {
 	
 	private int order_no;
 	private int order_goods_no;
-	private int order_member_no;
+	private int order_member_no; //
 	private int order_goods_amount;
 	private String order_goods_size;
 	private String order_goods_color;

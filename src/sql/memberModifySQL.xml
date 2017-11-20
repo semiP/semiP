@@ -49,7 +49,8 @@
 	<!-- 비밀번호 일치여부 쿼리문 -->
 		<select id="pwCheck" resultMap="memberRes" parameterClass="String">
 			<include refid="select-all-member"/>
-			where member_pw = #member_pw#
+			where member_no=#member_no#
+			and member_pw = #member_pw#
 		</select>
 		
 	<!-- 회원정보 수정 쿼리문 -->

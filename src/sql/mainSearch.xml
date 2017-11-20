@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+	
+<sqlMap namespace="mainSearch">
+
+	<typeAlias alias="goods" type="goods.goodsVO" />
+	<typeAlias alias="hit" type="common.hitVO" />
+	
+	<!-- 상품 테이블 리절트 맵 정의 -->
+	<resultMap id="goodsRes" class="goods">
+		<result property="goods_no" 		column="goods_no"/>
+		<result property="goods_name" 		column="goods_name"/>
+		<result property="goods_category" 	column="goods_category"/>
+		<result property="goods_size" 		column="goods_size"/>
+		<result property="goods_color" 		column="goods_color"/>
+		<result property="goods_content" 	column="goods_content"/>
+		<result property="goods_amount" 	column="goods_amount"/>
+		<result property="goods_price" 		column="goods_price"/>
+		<result property="goods_image"		column="goods_image"/>
+		<result property="goods_regdate" 	column="goods_regdate"/>
+	</resultMap>
+	
+	<!-- 상품 테이블 리절트 맵 정의 -->
+	<resultMap id="hitRes" class="hit">
+		<result property="goods_category" 	column="goods_category"/>
+		<result property="goods_content" 	column="goods_content"/>
+	</resultMap>
+	
+	<!-- 히트상품 목록 가져오기 -->
+	<select id="select-hit-list" resultMap="hitRes" parameterClass="int">
+		SELECT * FROM hit
+	</select>
+	
+	<!-- 상품 한개 가져오기 -->
+	<select id="select-single-item" resultMap="goodsRes" parameterClass="int">
+		SELECT goods_no, goods_name, goods_price, goods_image
+		FROM goods
+		WHERE goods_no=#goods_no#
+	</select>
+	
+
+</sqlMap>

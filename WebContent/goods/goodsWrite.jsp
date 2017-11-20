@@ -53,7 +53,7 @@
 		<form action="goodsModifyAction.action" method="post" enctype="multipart/form-data">
 		<s:hidden name="goods_no" value="%{resultClass.goods_no}" />
 		<s:hidden name="currentPage" value="%{currentPage}" />
-		<s:hidden name="old_file" value="%{resultClass.goods_image_file}" />
+		<s:hidden name="old_file" value="%{resultClass.goods_image}" />
 	</s:else>
 
 <div id="content-container">
@@ -161,4 +161,5 @@
 			<td height="30px"/>
 		</tr>
 		</table>
+		
 	</table>

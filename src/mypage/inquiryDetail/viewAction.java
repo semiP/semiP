@@ -46,7 +46,6 @@ public class viewAction extends ActionSupport{
 		/*ActionContext context = ActionContext.getContext();*/
 				
 		paramClass.setInquiry_no(getInquiry_no());
-		paramClass.setInquiry_email(getInquiry_email());
 		paramClass.setInquiry_category(getInquiry_category());
 		paramClass.setInquiry_subject(getInquiry_subject());
 		paramClass.setInquiry_content(getInquiry_content());
@@ -136,14 +135,6 @@ public class viewAction extends ActionSupport{
 
 	public void setInquiry_regdate(Date inquiry_regdate) {
 		this.inquiry_regdate = inquiry_regdate;
-	}
-
-	public String getInquiry_email() {
-		return inquiry_email;
-	}
-
-	public void setInquiry_email(String inquiry_email) {
-		this.inquiry_email = inquiry_email;
 	}
 
 	public String getInquiry_addfile() {

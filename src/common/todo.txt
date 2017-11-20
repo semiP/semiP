@@ -1,0 +1,64 @@
+main, search 내가 해야 해서 작업 시작하던 중.
+
+main 작업할 내용
+
+- 카테고리별 베스트 상품 4개씩 가져오기
+ - 리스트 하나에 전 상품 베스트를 순차적으로 삽입
+  - 1~4   : outer
+  - 5~8   : top
+  - 9~12  : pants
+  - 13~16 : skirt
+  - 17~20 : dress
+  - 21~24 : shoes
+  - 25~28 : bags
+
+ - goodsVO 로 리스트를 채워주고
+ - 가져올 정보는
+  - 상품번호
+  - 상품 대표 이미지
+  - 상품 이름
+  - 상품 가격
+ - HIT 테이블에서 상품 정보를 가져와서 해당 상품들을 개별적으로 부르면서 리스트에 삽입.
+  - HIT 테이블에서 카테고리 베스트 상품 가져오기 (String)
+   - SELECT goods_content
+    FROM hit
+    WHERE goods_category = ##
+
+  - 가져온 String 파싱하기
+   - String resultBest = 디비 결과;
+    String[] category# = resultBest.split(",",4)
+
+  - 순서대로 4개에 대한 내용을 쿼리 보내면서 리스트에 넣기
+   - List<goodsVO> bestList;
+    for(int i=0; i<4; i++){
+     VO = 쿼리날려서;
+     List.add(VO);
+    }
+
+  - SELECT goods_no, goods_image, goods_name, goods_price
+   FROM goods
+   WHERE
+
+ 
+ 오후 1시 기준으로 풀 받아서 처리한거.
+ 
+1118_고친거
+1. 
+ORDER: orderVO 에는 order_zipcode 라 돼있고, DB/SQL 에는 order_receive_zipcode 라고 돼 있어서 orderSQL.xml 쪽에 VO 관련된 부분은 order_zipcode 로 수
+2.
+ORDER: DB/SQL 에는 order_invoice_no 가 있고, VO 에는 없어서 에러나길래 해당 인자 추가, getter, setter 추가
+3.
+ORDER: SQL 내용에서 순수 SQL 이나 DB 관련된 쪽은 대소문자 구분하지 않지만, VO 의 속성 가져오는 #프로퍼티# 부분에서는 대소문자 구분하는듯... insert 구문의 VALUES 문 이하 소문자로 수정
+4.
+다음 파일들에서 mebmer_deleteReason 오타수정
+inquirySQL.xml
+inquiryDetailSQL.xml
+ReviewWriteSQL.xml
+5.
+다음 파일들에서 MEMBER_NO 등,VO 프로퍼티 가져오는 부분 이름 소문자로 수정
+inquirySQL.xml
+inquiryDetailSQL.xml
+ReviewWriteSQL.xml
+6.
+inquirySQL.xml 에서 select 문들이 다 중첩되어 있어서 일단 전체 주석처리. --> 에러가 나서 다른 작업을 못하고 있어서 일단 이렇게 처리했고 월요일에 같이 손봐야 할듯.
+

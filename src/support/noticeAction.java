@@ -43,7 +43,7 @@ public class noticeAction extends ActionSupport {
 		list = sqlMapper.queryForList("notice.selectAll"); // list�� ��� �� ������ ����
 
 		totalCount = list.size(); // ��ü ���� ������ totalcount��
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "notice", "");
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "notice");
 		pagingHtml = page.getPageHtml().toString(); // pagingHtml ����
 		int lastCount = totalCount; // ���� ���������� ������ ������ �� ��ȣ ����
 
@@ -58,7 +58,7 @@ public class noticeAction extends ActionSupport {
 	// �˻� �޼ҵ� �߰�
 	public String search() throws Exception {
 		totalCount = list.size();
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, getSearchS(), "");
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, getSearchS());
 		pagingHtml = page.getPageHtml().toString();
 		int lastCount = totalCount;
 

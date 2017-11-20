@@ -1,0 +1,273 @@
+- member 테이블에 탈퇴사유는 not null 인데 그럼 디폴트 값을 정해주던가 null 넣지 말던가 해야할듯
+- basket 테이블에 member_no, goods_no 빠져있음
+- inquiry 테이블에 파일이름이 not null
+- goodsorder 테이블에 member_no 필드가 없다.
+- goodsorder 테이블에 order_goods_image 뺴자.
+
+
+[member]
+[basket]
+[order]
+[hit]
+[notice]
+[faq]
+[inquiry]
+
+[goods]
+[goods_QA]
+
+[member]
+INSERT INTO member VALUES(
+	MEMBER_NO_SEQ.NEXTVAL,
+	'Barack Obama',
+	'1',
+	'1',
+	'13245',
+	'미쿡 주소',
+	'상세주소입니다',
+	'01012345678',
+	'obama@usa.com',
+	sysdate,
+	1,
+	'-'
+);
+
+INSERT INTO member VALUES(
+	MEMBER_NO_SEQ.NEXTVAL,
+	'Michelle Obama',
+	'2',
+	'2',
+	'13245',
+	'미쿡 주소',
+	'상세주소입니다',
+	'01012345678',
+	'obama@usa.com',
+	sysdate,
+	1,
+	'-'
+);
+
+[basket]
+INSERT INTO basket VALUES(
+	BASKET_NO_SEQ.NEXTVAL,
+	50000,
+	55000,
+	sysdate
+);
+INSERT INTO basket VALUES(
+	BASKET_NO_SEQ.NEXTVAL,
+	50000,
+	55000,
+	sysdate
+);
+
+[order]
+INSERT INTO goodsorder VALUES(
+	ORDER_NO_SEQ.NEXTVAL,
+	1,
+	3,
+	'S',
+	'B',
+	'미쉘오바마',
+	'13542',
+	'미쿡주소DB값입니다',
+	'상세주소DB값입니다',
+	'01065484512',
+	'경비실에 맡겨주세요',
+	100000,
+	sysdate,
+	sysdate,
+	1,
+	3,
+	'image1.jpg',
+	1,
+	'옵바마',
+	100000,
+	321654987
+);
+INSERT INTO goodsorder VALUES(
+	ORDER_NO_SEQ.NEXTVAL,
+	1,
+	3,
+	'S',
+	'B',
+	'미쉘오바마',
+	'13542',
+	'미쿡주소DB값입니다',
+	'상세주소DB값입니다',
+	'01065484512',
+	'경비실에 맡겨주세요',
+	100000,
+	sysdate,
+	sysdate,
+	1,
+	3,
+	'image2.jpg',
+	1,
+	'옵바마',
+	400000,
+	312354987
+);
+
+
+[hit]
+INSERT INTO hit VALUES(
+	1, '1,2,3,4'
+);
+INSERT INTO hit VALUES(
+	2, '1,2,3,4'
+);
+INSERT INTO hit VALUES(
+	3, '1,2,3,4'
+);
+INSERT INTO hit VALUES(
+	4, '1,2,3,4'
+);
+INSERT INTO hit VALUES(
+	5, '1,2,3,4'
+);
+INSERT INTO hit VALUES(
+	6, '1,2,3,4'
+);
+INSERT INTO hit VALUES(
+	7, '1,2,3,4'
+);
+
+[notice]
+INSERT INTO notice VALUES(
+	NOTICE_NO_SEQ.NEXTVAL,
+	'공지제목1',
+	'공지내용1 입니다',
+	sysdate
+);
+INSERT INTO notice VALUES(
+	NOTICE_NO_SEQ.NEXTVAL,
+	'공지제목2',
+	'공지내용2 입니다',
+	sysdate
+);
+INSERT INTO notice VALUES(
+	NOTICE_NO_SEQ.NEXTVAL,
+	'공지제목3',
+	'공지내용3 입니다',
+	sysdate
+);
+INSERT INTO notice VALUES(
+	NOTICE_NO_SEQ.NEXTVAL,
+	'공지제목4',
+	'공지내용1 입니다',
+	sysdate
+);
+
+[faq]
+INSERT INTO faq VALUES(
+	FAQ_NO_SEQ.NEXTVAL,
+	1,
+	'1번 카테고리 faq1 제목',
+	'1번 카테고리 faq1 내용입니다',
+	sysdate
+);
+INSERT INTO faq VALUES(
+	FAQ_NO_SEQ.NEXTVAL,
+	1,
+	'1번 카테고리 faq2 제목',
+	'1번 카테고리 faq2 내용입니다',
+	sysdate
+);
+INSERT INTO faq VALUES(
+	FAQ_NO_SEQ.NEXTVAL,
+	1,
+	'1번 카테고리 faq3 제목',
+	'1번 카테고리 faq3 내용입니다',
+	sysdate
+);
+INSERT INTO faq VALUES(
+	FAQ_NO_SEQ.NEXTVAL,
+	1,
+	'1번 카테고리 faq4 제목',
+	'1번 카테고리 faq4 내용입니다',
+	sysdate
+);
+INSERT INTO faq VALUES(
+	FAQ_NO_SEQ.NEXTVAL,
+	2,
+	'2번 카테고리 faq1 제목',
+	'2번 카테고리 faq1 내용입니다',
+	sysdate
+);
+INSERT INTO faq VALUES(
+	FAQ_NO_SEQ.NEXTVAL,
+	2,
+	'2번 카테고리 faq2 제목',
+	'2번 카테고리 faq2 내용입니다',
+	sysdate
+);
+INSERT INTO faq VALUES(
+	FAQ_NO_SEQ.NEXTVAL,
+	2,
+	'2번 카테고리 faq3 제목',
+	'2번 카테고리 faq3 내용입니다',
+	sysdate
+);
+INSERT INTO faq VALUES(
+	FAQ_NO_SEQ.NEXTVAL,
+	2,
+	'2번 카테고리 faq4 제목',
+	'2번 카테고리 faq4 내용입니다',
+	sysdate
+);
+
+[inquiry]
+INSERT INTO inquiry VALUES(
+	INQUIRY_NO_SEQ.NEXTVAL,
+	1,
+	'오바마가 1번 카테고리에 묻는 질문',
+	'오바마가 묻는 내용이다',
+	sysdate,
+	'not null 이네요',
+	1,
+	1,
+	1
+);
+INSERT INTO inquiry VALUES(
+	INQUIRY_NO_SEQ.NEXTVAL,
+	1,
+	'오바마가 1번 카테고리 두번째 질문',
+	'오바마가 묻는 내용이다',
+	sysdate,
+	'not null 이네요',
+	1,
+	1,
+	1
+);
+INSERT INTO inquiry VALUES(
+	INQUIRY_NO_SEQ.NEXTVAL,
+	2,
+	'오바마가 2번 카테고리에 묻는 질문',
+	'오바마가 묻는 내용이다',
+	sysdate,
+	'not null 이네요',
+	1,
+	1,
+	1
+);
+INSERT INTO inquiry VALUES(
+	INQUIRY_NO_SEQ.NEXTVAL,
+	2,
+	'오바마가 2번 카테고리 두번째 질문',
+	'오바마가 묻는 내용이다',
+	sysdate,
+	'not null 이네요',
+	1,
+	1,
+	1
+);
+
+[goods]
+INSERT INTO goods VALUES(
+	
+);
+[goods_QA]
+INSERT INTO goods_qa VALUES(
+	QA_NO_SEQ.NEXTVAL,	
+);
