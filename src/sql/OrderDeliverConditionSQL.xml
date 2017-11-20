@@ -3,7 +3,7 @@
 	'-//ibatis.apache.org//DTD Sql Map 2.0//EN' 
 	'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 	
-<sqlMap namespace="mypage">
+<sqlMap namespace="mypage2">
 	<typeAlias alias="goodsOrder" type="mypage.goodsOrderBean"/>
 	
 	<!-- result map 정의 -->
