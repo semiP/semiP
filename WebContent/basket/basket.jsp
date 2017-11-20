@@ -4,7 +4,6 @@ d<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirect
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 
-
 <div id="content-container">
 	<table width="100%" border="0" style="margin:auto; max-width:1000px;">
 		<tr>			
@@ -46,7 +45,7 @@ d<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirect
 <!-- 게시물 하나씩 iterator 시작 -->	
 								<s:iterator value="basketlist" status="stat">
 								
-								<input type="hidden" name="basket_price_<s:property value = "#stat.index" />" name="basket_price_<s:property value = "#stat.index" />" value="<s:property value='basket_price'/>" />
+								<input type="hidden" id="basket_price_<s:property value = "#stat.index" />" name="basket_price_<s:property value = "#stat.index" />" value="<s:property value='basket_price'/>" />
 								<tr align="center" id="basket_list_<s:property value = "#stat.index" />">
 									<td width="1%"><input name="chkbox" id="chkbox_<s:property value = "#stat.index" />" type="checkbox" onClick="itemSum(<s:property value = "#stat.index" />);" value="<s:property value='basket_no'/>"/></td>
 									<td width="10%">
@@ -147,8 +146,12 @@ function checked_delete()
 
    $('input[name=chkbox]:checked').each(function() { 
 	   $("#basket_list_"+$(this).val()).remove();
+	   $("input[name=total_sum]").val($("input[name=total_sum]").val() - $("#basket_price_"+$(this).val()).val());
+	   $("input[name=totalOrder_sum]").val($("input[name=totalOrder_sum]").val() - $("#basket_price_"+$(this).val()).val());
    });
    
+   //document.frm.total_sum.value = 0;
+   //document.frm.totalOrder_sum.value = 0;   
    
       /*
    $("#basket_no_set").val(checkbox_list);
