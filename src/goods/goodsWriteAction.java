@@ -33,7 +33,7 @@ public class goodsWriteAction extends ActionSupport{
 	private String goods_content;
 	private int goods_amount;
 	private int goods_price;
-	private String goods_image_file;  //���� ���� �̸�
+	private String goods_image;  //���� ���� �̸�
 	Calendar today = Calendar.getInstance(); //���� ��¥ ���ϱ�.
 	
 	private File upload; //���� ��ü
@@ -70,10 +70,9 @@ public class goodsWriteAction extends ActionSupport{
 		paramClass.setGoods_content(getGoods_content());		  //��ǰ ����
 		paramClass.setGoods_amount(getGoods_amount());            //��ǰ ����
 		paramClass.setGoods_price(getGoods_price());			  //��ǰ ����
-		paramClass.setGoods_date(today.getTime());				  //��ǰ ��ϳ�¥
 		
 		//��� ���� ����.
-		sqlMapper.insert("goodsInsert", paramClass);
+		sqlMapper.insert("goods.goodsInsert", paramClass);
 			
 		//파일 업로드
 		if(getUpload() != null)
@@ -90,8 +89,8 @@ public class goodsWriteAction extends ActionSupport{
 			FileUtils.copyFile(getUpload(), destFile);
 			
 			paramClass.setGoods_no(resultClass.getGoods_no());
-			paramClass.setGoods_image_file(getUploadFileName()); //���� ���� �̸�
-			paramClass.setGoods_image_file(file_name + "." + file_ext); //������ ������ ���� �̸�
+			paramClass.setGoods_image(getUploadFileName()); //���� ���� �̸�
+			paramClass.setGoods_image(file_name + "." + file_ext); //������ ������ ���� �̸�
 		    
 			sqlMapper.update("fileDownloadAction", paramClass);
 		}
@@ -132,8 +131,8 @@ public class goodsWriteAction extends ActionSupport{
 	public int getGoods_price() { return goods_price; }
 	public void setGoods_price(int goods_price) { this.goods_price = goods_price; }
 	
-	public String getGoods_image_file() { return goods_image_file; }
-	public void setGoods_image_file(String goods_image_file) { this.goods_image_file = goods_image_file; }
+	public String getGoods_image() { return goods_image; }
+	public void setGoods_image(String goods_image) { this.goods_image= goods_image; }
 	
 	public Calendar getToday() { return today; }
 	public void setToday(Calendar today) { this.today = today; }

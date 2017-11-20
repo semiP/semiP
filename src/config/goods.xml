@@ -24,12 +24,13 @@
  		<action name="goodsWriteForm" class="goods.goodsWriteAction" method="form">
  			<result>/goods/goodsWrite.jsp</result>
  		</action>
+ 		
  		<action name="goodsWriteAction" class="goods.goodsWriteAction">
  			<result type="redirect-action">
  				<param name="actionName">goodsListAction</param>
  			</result>
  		</action>
- 		
+ 	
  		<!-- (admin) 등록된 상품 수정액션 (수정버튼) -->
  		<action name="goodsModifyForm" class="goods.goodsModifyAction">
  			<result type="chain">goodsWriteForm</result>

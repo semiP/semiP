@@ -132,6 +132,11 @@
 			</tr>
 			
 			<tr>
+				<td width="100"><br>&nbsp;&nbsp;내용<br><br></td>
+				<td><s:textarea name="goods_content" theme="simple" value="%{resultClass.goods_content}" cssStyle="width:100px" maxlength="20"/></td>
+			</tr>
+			
+			<tr>
 				<td bgcolor="#F4F4F4">&nbsp;&nbsp;이미지등록</td>
 				<td bgcolor="#FFFFFF">
 				<s:file name="upload" theme="simple"/>
