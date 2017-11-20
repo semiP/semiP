@@ -152,6 +152,6 @@
 		</tr>
 		<tr>
 			<td height="30px"/>
-		</tr>								
+		</tr>
 		</table>
 	</table>
