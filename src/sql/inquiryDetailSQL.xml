@@ -15,7 +15,7 @@
 		<result property="member_address2" column="member_address2"/>
 		<result property="member_phone" column="member_phone"/>
 		<result property="member_email" column="member_email"/>
-		<result property="memeber_regdate" column="member_regdate"/>
+		<result property="member_regdate" column="member_regdate"/>
 		<result property="member_level" column="member_level"/>
 		<result property="member_deleteReason" column="member_deleteReason"/> <!-- member table에 reason column추가 --> 
 		<!-- mebmer_deleteReason 오타수정 - 171118 동민-->
@@ -28,7 +28,6 @@
 		<result property="inquiry_subject" column="inquiry_subject"/>
 		<result property="inquiry_content" column="inquiry_content"/>
 		<result property="inquiry_regdate" column="inquiry_regdate"/>
-		<result property="inquiry_email" column="inquiry_email"/>
 		<result property="inquiry_addfile" column="inquiry_addfile"/>
 		<result property="inquiry_ref" column="inquiry_ref"/>
 		<result property="inquiry_re_step" column="inquiry_re_step"/>
@@ -36,33 +35,33 @@
 	</resultMap>
 	
 	<!-- select-all -->
-		<sql id="select-all-member_inquiryDetail">
+		<sql id="select-all-member_inquiry_Detail">
 			SELECT * FROM MEMBER
 		</sql>
 	
-		<sql id="select-all-inquiryDetail">
+		<sql id="select-all-inquiry_Detail">
 			SELECT * FROM INQUIRY
 		</sql>
 		
 		<!-- select 쿼리문 정의 -->
 		<select id="selectAllmember_inquiryDetail" resultMap="memberRes" parameterClass="int">
-			<include refid="select-all-member_inquiry_detail"/>
+			<include refid="select-all-member_inquiry_Detail"/>
 			ORDER BY member_no DESC
 		</select>
 		
 		<select id="selectAllInquiryDetail" resultMap="inquiryRes" parameterClass="int">
-			<include refid="select-all-inquiry_detail" />
+			<include refid="select-all-inquiry_Detail" />
 			ORDER BY inquiry_no DESC
 		</select>
 	
 	<!-- select-one -->	
 		<select id="selectOnemember_inquiryDetail" resultMap="memberRes" parameterClass="int">
-			<include refid="select-all-member_inquiry_detail" />
+			<include refid="select-all-member_inquiry_Detail" />
 			where inquiry_no = #inquiry_no#
 		</select>
 		
 		<select id="selectOneInquiryDetail" resultMap="inquiryRes" parameterClass="int">
-			<include refid="select-all-inquiry_detail" />
+			<include refid="select-all-inquiry_Detail" />
 			where inquiry_no = #inquiry_no#
 		</select>
 		
@@ -74,7 +73,7 @@
      	   select 를 이용하여 첫 화면 목록에서 보여줌 -->
      	   
      	   	<select id="inquiry_regdate" resultMap="inquiryRes">
-			<include refid="select-all-inquiryDetail"/>
+			<include refid="select-all-member_inquiry_Detail"/>
 				BETWEEN #searchKeyword1# and #searchKeyword2#
 			</select>
 </sqlMap>

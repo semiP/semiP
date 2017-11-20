@@ -33,12 +33,14 @@
 	<sqlMap resource="/sql/orderSQL.xml" />
 	
 	<!-- 1:1문의 -->
-	 <sqlMap resource="/sql/inquirySQL.xml" /> 
+	<!--  <sqlMap resource="/sql/inquirySQL.xml" />  -->
 	<!-- basket -->
 	<sqlMap resource="/sql/basketSQL.xml" />
 	
 	<!-- mypage-회원정보수정 -->
 	<sqlMap resource="/sql/memberModifySQL.xml"/>
+	<!-- mypage-주문배송 현황 -->
+	<sqlMap resource="/sql/OrderDeliverConditionSQL.xml"/>
 	<!-- mypage-문의내역 -->
 	<sqlMap resource="/sql/inquirySQL.xml"/>
 	<!-- mypage-상세문의내역 -->

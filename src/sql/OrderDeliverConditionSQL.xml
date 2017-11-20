@@ -5,9 +5,10 @@
 	
 <sqlMap namespace="mypage2">
 	<typeAlias alias="goodsOrder" type="mypage.goodsOrderBean"/>
+	<typeAlias alias="goodss" type="mypage.goodsBean"/>
 	
 	<!-- result map 정의 -->
-	<resultMap id="goodsRes" class="goods">
+	<resultMap id="goodsRes" class="goodss">
 		<result property="goods_no" column="goods_no"/>
 		<result property="goods_name" column="goods_name"/>
 		<result property="goods_category" column="goods_category"/>
@@ -44,7 +45,7 @@
 		<result property="order_pay_type" column="order_pay_type"/>
 		<result property="order_pay_name" column="order_pay_name"/>
 		<result property="order_total_pay" column="order_total_pay"/>
-		<result property="invoice" column="invoice"/>
+		<result property="invoice_no" column="invoice_no"/>
 	</resultMap>
 	
 	<!-- select-all -->

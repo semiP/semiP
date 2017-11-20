@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="mypage1">
-	<typeAlias alias="memberModify" type="mypage.memberBean"/>
+	<typeAlias alias="member" type="mypage.memberBean"/>
 	
 	<!-- result map 정의 -->
 	<resultMap id="memberRes" class="member">
