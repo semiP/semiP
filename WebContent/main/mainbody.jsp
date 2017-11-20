@@ -72,11 +72,12 @@ function showSlides() {
 					no.<s:property value="goods_no" /><br>		
 					<!-- 상품이미지 찍기 -->
 					<a href="#">
-					<img src="http://cooz.co/semiP/IMG/<s:property value="goods_category" />/<s:property value="goods_no" />/0.jpg" style="width:100%;"><br>		
+						<img src="http://cooz.co/semiP/IMG/<s:property value="goods_category" />/<s:property value="goods_no" />/0.jpg" style="width:100%;"><br>		
 					</a>
 					<!-- 상품정보 적기 (이름/설명/가격) -->
 					<s:property value="goods_name" /><br>
-					₩ <s:property value="goods_price" /></td>
+					₩ <s:property value="goods_price" />
+					</td>
 				</s:iterator>
 			</tr>
 			<tr>

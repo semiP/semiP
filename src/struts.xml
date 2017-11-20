@@ -32,6 +32,11 @@
 		<action name="main" class="common.MainAction">
 			<result type="tiles">main</result>
 		</action>
+		
+		<action name="search" class="common.SearchAction">
+			<interceptor-ref name="params" />
+			<result type="tiles">search</result>
+		</action>
 	</package>
 	<!-- Login-->
 	<package name="login" namespace="/" extends="struts-default">

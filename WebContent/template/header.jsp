@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 
 <div id="menu-top">
-	<div class="menu-icon" ><a href="/semiP/mainAction.action" style="color:#FFFFFF; text-decoration:none;">
+	<div class="menu-icon" ><a href="/semiP/main.action" style="color:#FFFFFF; text-decoration:none;">
 		MC</a>
 		</div>
 	<div class="menu-item">

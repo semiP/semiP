@@ -1,9 +1,14 @@
 <%@ page contentType="text/html; charset=utf-8" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
 	<div class="sidebar" >
 		<table class="sidebar" align="center">
 			<tr>
 				<!--  -->
-				<td><img src="/semiP/assets/images/icons/search.png" onmouseover="this.src='/semiP/assets/images/icons/search_on.png'" onmouseout="this.src='/semiP/assets/images/icons/search.png'"><br>
+				<td>
+					<a href="/semiP/search.action">
+						<img src="/semiP/assets/images/icons/search.png" onmouseover="this.src='/semiP/assets/images/icons/search_on.png'" onmouseout="this.src='/semiP/assets/images/icons/search.png'"><br>
+					</a>
 					<font size="1">SEARCH</font>
 				</td>
 			</tr>
@@ -16,22 +21,31 @@
 			<tr>
 				<!-- 로그인 상태봐서  logout  아이콘으로 변경해줄 것 -->
 				<td>
-					<a href="/semiP/loginForm.action">
-						<img src="/semiP/assets/images/icons/login.png" onmouseover="this.src='/semiP/assets/images/icons/login_on.png'" onmouseout="this.src='/semiP/assets/images/icons/login.png'"><br>
-					</a>
-					<font size="1">LOGIN</font>
-					
+					<s:if test="login">	
+					</s:if>
+					<s:else>
+						<a href="/semiP/loginForm.action">
+							<img src="/semiP/assets/images/icons/login.png" onmouseover="this.src='/semiP/assets/images/icons/login_on.png'" onmouseout="this.src='/semiP/assets/images/icons/login.png'"><br>
+						</a>
+						<font size="1">LOGIN</font>
+					</s:else>
 				</td>
 			</tr>
 			<tr>
 				<!--  -->
-				<td><img src="/semiP/assets/images/icons/mypage.png" onmouseover="this.src='/semiP/assets/images/icons/mypage_on.png'" onmouseout="this.src='/semiP/assets/images/icons/mypage.png'"><br>
+				<td>
+					<a href="/semiP/myPage.action">
+						<img src="/semiP/assets/images/icons/mypage.png" onmouseover="this.src='/semiP/assets/images/icons/mypage_on.png'" onmouseout="this.src='/semiP/assets/images/icons/mypage.png'"><br>
+					</a>
 					<font size="1">MY PAGE</font>
 				</td>
 			</tr>
 			<tr>
 				<!--  -->
-				<td><img src="/semiP/assets/images/icons/cart.png" onmouseover="this.src='/semiP/assets/images/icons/cart_on.png'" onmouseout="this.src='/semiP/assets/images/icons/cart.png'"><br>
+				<td>
+					<a href="/semiP/basket.action">
+						<img src="/semiP/assets/images/icons/cart.png" onmouseover="this.src='/semiP/assets/images/icons/cart_on.png'" onmouseout="this.src='/semiP/assets/images/icons/cart.png'"><br>
+					</a>
 					<font size="1">CART</font>
 				</td>
 			</tr>
@@ -43,7 +57,10 @@
 			</tr>
 			<tr>
 				<!--  -->
-				<td><img src="/semiP/assets/images/icons/support.png" onmouseover="this.src='/semiP/assets/images/icons/support_on.png'" onmouseout="this.src='/semiP/assets/images/icons/support.png'"><br>
+				<td>
+					<a href="/semiP/support.action">
+						<img src="/semiP/assets/images/icons/support.png" onmouseover="this.src='/semiP/assets/images/icons/support_on.png'" onmouseout="this.src='/semiP/assets/images/icons/support.png'"><br>
+					</a>
 					<font size="1">SUPPORT</font>
 				</td>
 			</tr>
