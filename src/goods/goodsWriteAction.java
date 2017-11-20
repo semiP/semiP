@@ -71,7 +71,6 @@ public class goodsWriteAction extends ActionSupport{
 		paramClass.setGoods_content(getGoods_content());		  
 		paramClass.setGoods_amount(getGoods_amount());            
 		paramClass.setGoods_price(getGoods_price());			  
-		paramClass.setGoods_image(getGoods_image());
 		paramClass.setGoods_regdate(today.getTime());
 		
 		//��� ���� ����.
@@ -95,7 +94,8 @@ public class goodsWriteAction extends ActionSupport{
 			paramClass.setGoods_image(getUploadFileName()); //���� ���� �̸�
 			paramClass.setGoods_image(file_name + "." + file_ext); //������ ������ ���� �̸�
 		    
-			sqlMapper.update("fileDownloadAction", paramClass);
+			
+			sqlMapper.update("updateFile", paramClass);
 		}
 		
 		return SUCCESS;
