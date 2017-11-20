@@ -23,7 +23,7 @@ public class goodsModifyAction extends ActionSupport{
 	
 	private int goods_no;
 	private String goods_name;
-	private String goods_category;
+	private int goods_category;
 	private String goods_size;
 	private String goods_color;
 	private String goods_content;
@@ -104,8 +104,8 @@ public class goodsModifyAction extends ActionSupport{
 	public String getGoods_name() { return goods_name; }
 	public void setGoods_name(String goods_name) { this.goods_name = goods_name; }
 	
-	public String getGoods_category() { return goods_category; }
-	public void setGoods_category(String goods_category) { this.goods_category = goods_category; }
+	public int getGoods_category() { return goods_category; }
+	public void setGoods_category(int goods_category) { this.goods_category = goods_category; }
 	
 	public String getGoods_size() { return goods_size; }
 	public void setGoods_size(String goods_size) { this.goods_size = goods_size; }

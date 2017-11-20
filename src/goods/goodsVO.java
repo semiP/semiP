@@ -6,7 +6,7 @@ public class goodsVO {
 	
 	private int goods_no;                      //상품 넘버
 	private String goods_name;                 //상품명
-	private String goods_category;			   //카테고리
+	private int goods_category;			   //카테고리
 	private String goods_size;				   //사이즈
 	private String goods_color;				   //컬러
 	private String goods_content;			   //컨텐츠
@@ -21,8 +21,8 @@ public class goodsVO {
 	public String getGoods_name() { return goods_name; }
 	public void setGoods_name(String goods_name) { this.goods_name = goods_name; }
 	
-	public String getGoods_category() { return goods_category; }
-	public void setGoods_category(String goods_category) { this.goods_category = goods_category; }
+	public int getGoods_category() { return goods_category; }
+	public void setGoods_category(int goods_category) { this.goods_category = goods_category; }
 	
 	public String getGoods_size() { return goods_size; }
 	public void setGoods_size(String goods_size) { this.goods_size = goods_size; }

@@ -137,4 +137,9 @@
 		SELECT * FROM goods_cmt
 	</sql>
 	
+	<!-- 파일 넣기 -->
+	<select id="selectLastNo" resultClass="goods" parameterClass="int">
+			SELECT max(goods_no) as goods_no FROM goods
+	</select>
+	
 </sqlMap>
