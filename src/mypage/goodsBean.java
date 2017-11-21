@@ -13,7 +13,6 @@ public class goodsBean {
 	private int goods_price;
 	private String goods_image;
 	private Date goods_regdate;
-	
 	public int getGoods_no() {
 		return goods_no;
 	}
@@ -74,4 +73,5 @@ public class goodsBean {
 	public void setGoods_regdate(Date goods_regdate) {
 		this.goods_regdate = goods_regdate;
 	}
+	
 }

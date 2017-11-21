@@ -35,6 +35,8 @@ public class listViewAction extends ActionSupport{
 	private String member_email;
 	private Date member_regdate;
 	private int member_level;
+	private String member_deletereason;
+	
 	
 	//email개별번수
 	private String email1;
@@ -205,6 +207,62 @@ public class listViewAction extends ActionSupport{
 
 		public void setResultClass2(memberBean resultClass2) {
 			this.resultClass2 = resultClass2;
+		}
+
+		public Map getSession() {
+			return session;
+		}
+
+		public void setSession(Map session) {
+			this.session = session;
+		}
+
+		public String getMember_deletereason() {
+			return member_deletereason;
+		}
+
+		public void setMember_deletereason(String member_deletereason) {
+			this.member_deletereason = member_deletereason;
+		}
+
+		public String getEmail1() {
+			return email1;
+		}
+
+		public void setEmail1(String email1) {
+			this.email1 = email1;
+		}
+
+		public String getEmail2() {
+			return email2;
+		}
+
+		public void setEmail2(String email2) {
+			this.email2 = email2;
+		}
+
+		public String getPhone1() {
+			return phone1;
+		}
+
+		public void setPhone1(String phone1) {
+			this.phone1 = phone1;
+		}
+
+		public String getPhone2() {
+			return phone2;
+		}
+
+		public void setPhone2(String phone2) {
+			this.phone2 = phone2;
+		}
+
+		public String getPhone3() {
+			return phone3;
+		}
+
+		public void setPhone3(String phone3) {
+			this.phone3 = phone3;
 		}
 		
 	}

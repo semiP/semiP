@@ -26,7 +26,7 @@
 					<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 
 					<tr bgcolor="#455b59" align="center">
-						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="./profile.tiles" >
+						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="/semiP/listView_member.action" >
 							회원정보</a></strong></td>
 						<td class="myPageMenuItem" ><a href="./orderList.tiles" >
 							주문/배송현황</a></td>
@@ -108,7 +108,7 @@
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;연락처<br><br></td>
-				<td><input type="text" style="width:90px; height:30px;">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;"><br>
+				<td><input type="text" style="width:90px; height:30px;" value="<s:property value="phone1"/>">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;"value="<s:property value="phone2"/>">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;"value="<s:property value="phone3"/>"><br>
 				</td>
 			</tr>
 			<tr>
