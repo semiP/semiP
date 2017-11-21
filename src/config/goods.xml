@@ -17,7 +17,7 @@
 		
  		<!-- (admin) 상품보기 리스트 액션 -->
  		<action name="goodsListAction" class="goods.goodsListAction">
- 			<result>/goods/goodsList.jsp</result>
+ 			<result type="tiles">goodsList</result>
  		</action>
  		
  		<!-- (admin) 상품보기 등록(쓰기) 액션 -->

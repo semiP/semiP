@@ -17,7 +17,7 @@
 		  	<result property="member_email" column="member_email"/>
 		  	<result property="member_regdate" column="member_regdate"/>
 		  	<result property="member_level" column="member_level"/>
-		  	<result property="member_deleteReason" column="member_deletereason"/>
+		  	<result property="member_deletereason" column="member_deletereason"/>
 
 		</resultMap>
 
