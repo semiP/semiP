@@ -35,21 +35,22 @@
 		<result property="goods_regdate" column="goods_regdate"/>
 	</resultMap>
 	
-	<resultMap id="goods_QARes" class="goods_qa">			<!-- VO property 들 다 문자로 수정 - 171118 동민 -->
-		<result property="qa_no" column="qa_no"/>
-		<result property="goods_no" column="goods_no"/>
-		<result property="member_no" column="member_no"/>
-		<result property="qa_subject" column="qa_subject"/>
-		<result property="qa_content" column="qa_content"/>
-		<result property="qa_pw" column="qa_pw"/>
-		<result property="qa_secret_flag" column="qa_secret_flag"/>
-		<result property="qa_regdate" column="qa_regdate"/>
-		<result property="qa_addfile" column="qa_addfile"/>
-		<result property="qare_flag" column="qare_flag"/>
-		<result property="qa_ref" column="qa_ref"/>
-		<result property="qa_re_step" column="qa_re_step"/>
-		<result property="qa_re_level" column="qa_re_level"/>
-		<result property="qa_start" column="qa_start"/>
+
+	<resultMap id="goods_QARes" class="goods_qa">			
+		<result property="qa_no" column="QA_NO"/>
+		<result property="goods_no" column="GOODS_NO"/>
+		<result property="member_no" column="MEMBER_NO"/>
+		<result property="qa_subject" column="QA_SUBJECT"/>
+		<result property="qa_content" column="QA_CONTENT"/>
+		<result property="qa_pw" column="QA_PW"/>
+		<result property="qa_secret_flag" column="QA_SECRET_FLAG"/>
+		<result property="qa_regdate" column="QA_REGDATE"/>
+		<result property="qa_addfile" column="QA_ADDFILE"/>
+		<result property="qare_flag" column="QARE_FLAG"/>
+		<result property="qa_ref" column="QA_REF"/>
+		<result property="qa_re_step" column="QA_RE_STEP"/>
+		<result property="qa_re_level" column="QA_RE_LEVEL"/>
+		<result property="qa_start" column="QA_START"/>
 	</resultMap>
 	
 	<!-- select-all -->

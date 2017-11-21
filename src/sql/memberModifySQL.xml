@@ -90,8 +90,9 @@
 		
 	<!-- 회원탈퇴 관련 쿼리문 -->
 		<insert id="insertMemberDeleteReason" parameterClass="member">
-			insert into member
-				member_deleteReason values #member_deletereason#
+			INSERT INTO member
+				member_deletereason VALUES #member_deletereason#
+
 		</insert>
 		
 		<update id="updateMemberDelete" parameterClass="member">
