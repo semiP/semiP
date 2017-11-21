@@ -156,9 +156,8 @@
 			<td colspan="3" align="center">
 				<input type="submit" class="btn-custom" value="등록하기">&nbsp;&nbsp;
 				<input type="button" class="btn-custom" value="리셋">&nbsp;&nbsp;
-				<form action="goodsListAction.action" method="post">
-				<input type="button" class="btn-custom" value="목록">
-<!-- 			<input type="button" class="btn-custom" value="목록" onClick="javascript:location.href='goodsListAction.action?currentPage=<s:property value="currentPage"/>'"> -->
+<!-- 				<form action="goodsListAction.action" method="post"> -->
+				<input type="button" class="btn-custom" value="목록" onClick="javascript:location.href='goodsListAction.action'">
 			</td>
 		</tr>
 		<tr>
