@@ -20,12 +20,10 @@
 
 	<!-- order -->
 	<sqlMap resource="/sql/orderSQL.xml" />
-	
 	<!-- 1:1문의 -->
 	<!--  <sqlMap resource="/sql/inquirySQL.xml" />  -->
 	<!-- basket -->
 	<sqlMap resource="/sql/basketSQL.xml" />
-	
 	<!-- mypage-회원정보수정 -->
 	<sqlMap resource="/sql/memberModifySQL.xml"/>
 	<!-- mypage-주문배송 현황 -->
@@ -39,7 +37,7 @@
 	<!-- mypage-문의내역 상세보기 -->
 	<sqlMap resource="/sql/ReviewWriteSQL.xml"/>
 	
-		<!-- main & search : 동민 -->
+	<!-- main & search : 동민 -->
 	<sqlMap resource="/sql/mainSearch.xml" />
 	<!-- 로그인 -->
 	<sqlMap resource="/sql/memberSQL.xml" />

@@ -11,7 +11,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 
-import mypage.goodsBean;
+import goods.goodsVO;
 import mypage.goodsOrderBean;
 import mypage.inquiryBean;
 import mypage.memberBean;
