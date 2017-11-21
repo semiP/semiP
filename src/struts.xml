@@ -84,13 +84,13 @@
 			<result type="chain">/mypage/profile.jsp</result>
 		</action>
 		
-		<!-- 마이페이지 회원탈퇴 -->
+		<!-- 마이페이지 회원탈퇴 -->	
 		<action name="listView_delete" class="mypage.memberModify.listViewAction">
 			<result type="chain">deleteInfo</result>
 		</action>
 		
 		<action name="deleteInfo" class="mypage.memberModify.deleteInfoAction">
-			<result name="SUCCESS">/mypage/terminateForm.jsp</result>
+			<result name="SUCCESS">/main/mainbody.jsp</result>
 			<result name="ERROR">/mypage/pwError.jsp</result>
 		</action>
 	</package>

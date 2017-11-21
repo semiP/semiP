@@ -38,11 +38,11 @@
 	
 	<!-- select-all -->
 		<sql id="select-all-member_inquiry">
-			SELECT * FROM MEMBER
+			SELECT * FROM member
 		</sql>
 	
 		<sql id="select-all-inquiry">
-			SELECT * FROM INQUIRY
+			SELECT * FROM inquiry
 		</sql>
 	
 		<!-- select 쿼리문 정의 -->
@@ -59,12 +59,12 @@
 	<!-- select-one -->	
 		<select id="selectOnemember_inquiry" resultMap="memberRes" parameterClass="int">
 			<include refid="select-all-member_inquiry" />
-			where inquiry_no = #inquiry_no#
+			WHERE inquiry_no = #inquiry_no#
 		</select>
 		
 		<select id="selectOneInquiry" resultMap="inquiryRes" parameterClass="int">
 			<include refid="select-all-inquiry" />
-			where inquiry_no = #inquiry_no#
+			WHERE inquiry_no = #inquiry_no#
 		</select>
 		
 	<!--

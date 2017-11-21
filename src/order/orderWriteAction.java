@@ -31,12 +31,12 @@ public class orderWriteAction extends ActionSupport{
 	private String order_goods_size;
 	private String order_goods_color;
 	private String order_receive_name;
-	private String order_zipcode;
+	private String order_receive_zipcode;
 	private String order_receive_addr1;
 	private String order_receive_addr2;
 	private String order_receive_phone;
 	private String order_memo;
-	private int order_sum_money;
+	private int order_total_price;
 	private int order_status;
 	private int order_list_amount;
 	private int order_pay_type;
@@ -78,7 +78,7 @@ public class orderWriteAction extends ActionSupport{
 		paramClass.setOrder_goods_color(getOrder_goods_color());
 		paramClass.setOrder_goods_size(getOrder_goods_size());
 		paramClass.setOrder_receive_name(getOrder_receive_name());
-		paramClass.setOrder_zipcode(getOrder_zipcode());
+		paramClass.setOrder_receive_zipcode(getOrder_receive_zipcode());
 		paramClass.setOrder_receive_addr1(getOrder_receive_addr1());
 		paramClass.setOrder_receive_addr2(getOrder_receive_addr2());
 		paramClass.setOrder_receive_phone(getOrder_receive_phone());
@@ -145,8 +145,8 @@ public class orderWriteAction extends ActionSupport{
 	public String getOrder_receive_name() { return order_receive_name; }
 	public void setOrder_receive_name(String order_receive_name) { this.order_receive_name = order_receive_name; }
 	
-	public String getOrder_zipcode() { return order_zipcode; }
-	public void setOrder_zipcode(String order_zipcode) { this.order_zipcode = order_zipcode; }
+	public String getOrder_receive_zipcode() { return order_receive_zipcode; }
+	public void setOrder_receive_zipcode(String order_receive_zipcode) { this.order_receive_zipcode = order_receive_zipcode; }
 	
 	public String getOrder_receive_addr1() { return order_receive_addr1; }
 	public void setOrder_receive_addr1(String order_receive_addr1) { this.order_receive_addr1 = order_receive_addr1; }
@@ -160,8 +160,8 @@ public class orderWriteAction extends ActionSupport{
 	public String getOrder_memo() { return order_memo; }
 	public void setOrder_memo(String order_memo) { this.order_memo = order_memo; }
 	
-	public int getOrder_sum_money() { return order_sum_money; }
-	public void setOrder_sum_money(int order_sum_money) { this.order_sum_money = order_sum_money; }
+	public int getOrder_total_price() { return order_total_price; }
+	public void setOrder_total_price(int order_total_price) { this.order_total_price = order_total_price; }
 	
 	public int getOrder_status() { return order_status; }
 	public void setOrder_status(int order_status) { this.order_status = order_status; }

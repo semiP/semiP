@@ -66,8 +66,8 @@ public class listViewAction extends ActionSupport{
 			email1 = getMember_email().substring(0, getMember_email().indexOf("@"));
 			email2 = getMember_email().substring(getMember_email().indexOf("@") + 1);
 			
-			phone1 = getMember_phone().substring(0,3);
-			phone2 = getMember_phone().substring(3,7);
+			phone1 = getMember_phone().substring(0,2);
+			phone2 = getMember_phone().substring(3,6);
 			phone3 = getMember_phone().substring(7,9);
 			
 			if(session.get("session_member_no") == null){

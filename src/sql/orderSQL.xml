@@ -16,7 +16,7 @@
 		<result property="order_goods_size" column="order_goods_size"/>
 		<result property="order_goods_color" column="order_goods_color"/>
 		<result property="order_receive_name" column="order_receive_name"/>
-		<result property="order_zipcode" column="order_receive_zipcode"/>		<!--VO 프로퍼티 명이랑 달라서 property 쪽 수정 -->
+		<result property="order_receive_zipcode" column="order_receive_zipcode"/>		<!--VO 프로퍼티 명이랑 달라서 property 쪽 수정 -->
 		<result property="order_receive_addr1" column="order_receive_addr1"/>
 		<result property="order_receive_addr2" column="order_receive_addr2"/>
 		<result property="order_receive_phone" column="order_receive_phone"/>
@@ -28,7 +28,7 @@
 		<result property="order_list_amount" column="order_list_amount"/>
 		<result property="order_status" column="order_status"/>
 		<result property="order_total_pay" column="order_total_pay"/>
-		<result property="order_invoice_no" column="invoice_no"/>		<!-- 디비 필드명이랑 달라서 column 쪽 수정 -->
+		<result property="invoice_no" column="invoice_no"/>		<!-- 디비 필드명이랑 달라서 column 쪽 수정 -->
 	</resultMap>
 	
 	<!-- 주문된상품 update 쿼리문 정의 -->
@@ -43,26 +43,26 @@
 	<!-- 주문 insert 쿼리문 정의 -->
 	<insert id="orderInsert" parameterClass="order">
 	
-	INSERT INTO GOODSORDER (ORDER_NO,
-							ORDER_GOODS_NO,   
-							ORDER_MEMBER_NO,   
-							ORDER_GOODS_AMOUNT, 
-							ORDER_GOODS_SIZE,   
-							ORDER_GOODS_COLOR,  
-							ORDER_RECEIVE_NAME,
-							ORDER_RECEIVE_ZIPCODE,
-							ORDER_RECEIVE_ADDR1,
-							ORDER_RECEIVE_ADDR2,
-							ORDER_RECEIVE_PHONE,
-							ORDER_MEMO,
-							ORDER_PAY_TYPE,
-							ORDER_PAY_NAME,
-							ORDER_DATE,
-							ORDER_TRADE_DATE,
-							ORDER_LIST_AMOUNT,
-							ORDER_STATUS,
-							ORDER_TOTAL_PAY,
-							ORDER_INVOICE_NO)
+	INSERT INTO GOODSORDER (order_no,
+							order_goods_no,   
+							order_member_no,   
+							order_goods_amount, 
+							order_goods_size,   
+							order_goods_color,  
+							order_receive_name,
+							order_receive_zipcode,
+							order_receive_addr1,
+							order_receive_addr2,
+							order_receive_phone,
+							order_memo,
+							order_pay_type,
+							order_pay_name,
+							order_date,
+							order_trade_date,
+							order_list_amount,
+							order_status,
+							order_total_pay,
+							invoice_no)
 	VALUES (ORDER_NO_seq.NEXTVAL,
 							#order_goods_no#,		<!--VO property 랑 대소문자가 같아야 하는듯... 수정함. - 171118 동민 -->
 							#order_member_no#,
@@ -82,7 +82,7 @@
 							#order_list_amount#,
 							#order_status#,
 							#order_total_pay#,
-							#order_invoice_no#
+							#invoice_no#
 			ORDER_NO_SEQ.CURRVAL)
 	</insert>
 	
@@ -92,7 +92,7 @@
 	</sql>
 
 	<!-- 주문하기 Join (goods, member, order) -->
-	<select id="select-join" resultMap="orderRes" parameterClass="int">
+	<!-- <select id="select-join" resultMap="orderRes" parameterClass="int">
 		SELECT g.goods_no, g.goods_name, g.goods_size, g.goods_color, g.goods_price, g.goods_image_file,
 		       m.member_no, m.member_id,
 		       o.order_no, o.order_goods_no, o.member_no, o.order_date, o.order_trade_date, o.order_list_amount,
@@ -101,7 +101,7 @@
 		       o.order_memo, o.order_pay_type, o.order_pay_name, o.order_total_pay, o.order_invoice_no
 		FROM  GOODSORDER o, goods g, member m,
 		WHERE o.order_goods_no = #g.goods_no# and o.order_member_no = #m.member_no# 
-	</select>
+	</select> -->
 
     <!-- 주문내역 가져오기 -->
 	<select id="select-order-all" resultMap="orderRes" parameterClass="int">
@@ -112,7 +112,7 @@
 	<!-- 주문내역 하나 보여주기-->
 	<select id="select-order" resultMap="orderRes" parameterClass="int">
 		<include refid="select-all"/>
-		WHERE ORDER_NO = #ORDER_NO#
+		WHERE ORDER_NO = #order_no#
 	</select>
 	
 </sqlMap>

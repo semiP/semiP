@@ -47,11 +47,11 @@
 	
 	<!-- select-all -->
 		<sql id="select-all-goods_returnEX">
-			SELECT * FROM GOODS
+			SELECT * FROM goods
 		</sql>
 		
 		<sql id="select-all-goodsOrder_returnEX">
-			SELECT * FROM GOODSORDER
+			SELECT * FROM goodsOrder
 		</sql>
 		
 		<select id="selectAllGoodsReturnEX" resultMap="goodsRes" parameterClass="int">
@@ -78,8 +78,8 @@
    		 > 교환의 경우 : 주문번호(ORDER_NO)를 달리하여 새로운 제품 주문으로 Admin에 전달
  	-->
  		<update id="updateORDER_STATUS" parameterClass="goodsOrder">
-			update goodsOrder set order_status = 5
-			where goods_no = #goods_no#
+			UPDATE goodsOrder SET order_status = 5
+			WHERE goods_no = #goods_no#
 		</update>
 		
 	<!-- 
@@ -94,6 +94,6 @@
 		<!-- 기간조회 -->
 		<select id="order_date" resultMap="goodsOrderRes">
 			<include refid="select-all-goodsOrder_returnEX"/>
-			BETWEEN #searchKeyword1# and #searchKeyword2#
+			BETWEEN #searchKeyword1# AND #searchKeyword2#
 		</select>	
 </sqlMap>
