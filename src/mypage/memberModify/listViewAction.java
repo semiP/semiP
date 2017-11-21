@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Date;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -61,10 +60,7 @@ public class listViewAction extends ActionSupport{
 			resultClass = new memberBean(); // 쿼리 결과값을 저장할 객체
 			
 			// 목록을 화면에 출력
-			resultClass = (memberBean)sqlMapper.queryForObject("selectOneMember", getMember_no());
-			
-			email1 = getMember_email().substring(0, getMember_email().indexOf("@"));
-			email2 = getMember_email().substring(getMember_email().indexOf("@") + 1);
+			resultClass = (memberBean)sqlMapper.queryForObject("memberModifyList",paramClass);
 			
 			phone1 = getMember_phone().substring(0,2);
 			phone2 = getMember_phone().substring(3,6);

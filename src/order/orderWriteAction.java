@@ -13,6 +13,7 @@ import java.io.File;
 import org.apache.commons.io.FileUtils;
 
 import goods.goodsVO;
+import order.orderVO;
 
 public class orderWriteAction extends ActionSupport{
 	
@@ -37,11 +38,15 @@ public class orderWriteAction extends ActionSupport{
 	private String order_receive_phone;
 	private String order_memo;
 	private int order_total_price;
+	private Date order_date;
+	private Date order_trade_date;
 	private int order_status;
 	private int order_list_amount;
+	private String order_goods_image;
 	private int order_pay_type;
 	private String order_pay_name;
 	private int order_total_pay;
+	private int invoice_no;
 	Calendar today = Calendar.getInstance(); //���� ��¥ ���ϱ�.
 
 	private File upload; //���� ��ü
@@ -52,7 +57,7 @@ public class orderWriteAction extends ActionSupport{
 	//생성자
 	public orderWriteAction() throws IOException
 	{
-		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ������ ���������� �����´�.
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); //sqlMapConfig.xml ������ ���������� �����´�.
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ������ ������ sqlMapper ��ü ����.
 		reader.close();
 	}
@@ -83,15 +88,23 @@ public class orderWriteAction extends ActionSupport{
 		paramClass.setOrder_receive_addr2(getOrder_receive_addr2());
 		paramClass.setOrder_receive_phone(getOrder_receive_phone());
 		paramClass.setOrder_memo(getOrder_memo());
+		paramClass.setOrder_total_price(getOrder_total_price());
 		paramClass.setOrder_date(today.getTime());
+		paramClass.setOrder_trade_date(today.getTime());
+		paramClass.setOrder_status(getOrder_status());
+		paramClass.setOrder_list_amount(getOrder_list_amount());
+		paramClass.setOrder_goods_image(getOrder_goods_image());
+		paramClass.setOrder_pay_type(getOrder_pay_type());
 		paramClass.setOrder_pay_name(getOrder_pay_name());
+		paramClass.setOrder_total_pay(getOrder_total_pay());
+		paramClass.setInvoice_no(getInvoice_no());
 		
 		//받은값을 넣는다.
-		sqlMapper.insert("orderInsert", paramClass);
+		sqlMapper.insert("order.orderInsert", paramClass);
 		
 		if(getUpload() != null)
 		{
-			resultClass = (orderVO) sqlMapper.queryForObject("selectLastNo");
+			resultClass = (orderVO) sqlMapper.queryForObject("order.selectLastNo");
 			
 			String file_name = "file_" + resultClass.getOrder_no();
 			String file_ext = getUploadFileName().substring(
@@ -106,7 +119,7 @@ public class orderWriteAction extends ActionSupport{
 //			paramClass.setFile_orgname(getUploadFileName());
 //			paramClass.setFile_savname(file_name + "." +file_ext);
 			
-			sqlMapper.update("updateFile", paramClass);
+			sqlMapper.update("order.updateFile", paramClass);
 		}
 		return SUCCESS;
 	}
@@ -169,6 +182,9 @@ public class orderWriteAction extends ActionSupport{
 	public int getOrder_list_amount() { return order_list_amount; }
 	public void setOrder_list_amount(int order_list_amount) { this.order_list_amount = order_list_amount; }
 	
+	public String getOrder_goods_image() { return order_goods_image; }
+	public void setOrder_goods_image(String order_goods_image) { this.order_goods_image = order_goods_image; }
+	
 	public int getOrder_pay_type() { return order_pay_type; }
 	public void setOrder_pay_type(int order_pay_type) { this.order_pay_type = order_pay_type; }
 	
@@ -177,6 +193,9 @@ public class orderWriteAction extends ActionSupport{
 	
 	public int getOrder_total_pay() { return order_total_pay; }
 	public void setOrder_total_pay(int order_total_pay) { this.order_total_pay = order_total_pay; }
+	
+	public int getInvoice_no() { return invoice_no; }
+	public void setInvoice_no(int invoice_no) { this.invoice_no = invoice_no; }
 	
 	public File getUpload() { return upload; }
 	public void setUpload(File upload) { this.upload = upload; }

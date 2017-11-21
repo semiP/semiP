@@ -13,7 +13,7 @@ public class pagingAction {
 	private String actionName;
 	private StringBuffer pageHtml;
 
-//	검색기능이 없는 페이징 액션. 액션 2가지 각각 불러다 쓰는 법 알아보기
+//	search X
 	public pagingAction(int currentPage, int totalCount, int blockCount, int blockPage, String actionName) {
 		this.currentPage = currentPage;
 		this.totalCount = totalCount;
@@ -70,8 +70,10 @@ public class pagingAction {
 			pageHtml.append("</a>");
 		}
 	}
-
-	public pagingAction(int currentPage, int totalCount, int blockCount, int blockPage, String actionName,
+	
+	
+//	searchNum add
+	public pagingAction(int currentPage, int totalCount, int blockCount, int blockPage, String actionName, int searchSC, int searchNum,
 			String isSearch) {
 
 		this.blockCount = blockCount;
@@ -102,7 +104,7 @@ public class pagingAction {
 		if (currentPage > blockPage) {
 			if (isSearch != "")
 				pageHtml.append("<a class='page prv' href=" + actionName + ".action?currentPage=" + (startPage - 1)
-						+ "&searchS=" + isSearch + ">");
+						+ "&searchKeyword=" + isSearch + ">");
 			else
 				pageHtml.append(
 						"<a class='page prv' href=" + actionName + ".action?currentPage=" + (startPage - 1) + ">");
@@ -122,7 +124,7 @@ public class pagingAction {
 				pageHtml.append("<a class='page' href=" + actionName + ".action?currentPage=");
 				pageHtml.append(i);
 				if (isSearch != "")
-					pageHtml.append("&searchS=" + isSearch);
+					pageHtml.append("&searchKeyword=" + isSearch);
 				pageHtml.append(">");
 				pageHtml.append(i);
 				pageHtml.append("</a>");
@@ -131,12 +133,13 @@ public class pagingAction {
 		if (totalPage - startPage >= blockPage) {
 			pageHtml.append("<a class='page next' href=" + actionName + ".action?currentPage=" + (endPage + 1) + ">");
 			if (isSearch != "")
-				pageHtml.append("&searchS=" + isSearch);
+				pageHtml.append("&searchKeyword=" + isSearch);
 			pageHtml.append("&gt;");
 			pageHtml.append("</a>");
 		}
 
 	}
+
 
 	public int getCurrentPage() {
 		return currentPage;

@@ -63,9 +63,16 @@
 	<!-- 여기까지 -->
 
 	<!-- search 쿼리문 정의 -->
-	<select id="selectSearch-subject" resultMap="noticeRes" parameterClass="string">
+	<select id="selectSearch-s" resultMap="noticeRes"
+		parameterClass="string">
 		<include refid="select-all" />
-		WHERE notice_subject like #searchS#
+		WHERE notice_subject like #searchKeyword#
+		ORDER BY notice_no DESC
+	</select>
+	<select id="selectSearch-c" resultMap="noticeRes"
+		parameterClass="string">
+		<include refid="select-all" />
+		WHERE notice_content like #searchKeyword#
 		ORDER BY notice_no DESC
 	</select>
 

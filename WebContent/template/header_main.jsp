@@ -6,7 +6,7 @@
 	<h1>MIGNON COPINE</h1>
 </div>
 <div id="menu-container">
-	<div class="menu-icon" style="display: none;">MC</div>
+	<div class="menu-icon" style="display: none;"><a href="/semiP/main.action" style="color:#FFFFFF; text-decoration:none;">MC</a></div>
 	<div class="menu-item">
 		<a href="/semiP/goodsDetail.action?category=outer" style="color:#FFFFFF; text-decoration:none;">
 		OUTER</a>

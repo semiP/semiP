@@ -92,6 +92,7 @@
 		<insert id="insertMemberDeleteReason" parameterClass="member">
 			INSERT INTO member
 				member_deleteReason VALUES #member_deleteReason#
+
 		</insert>
 		
 		<update id="updateMemberDelete" parameterClass="member">

@@ -21,7 +21,7 @@
 		<put-attribute name="body" value="/main/mainbody.jsp" />
 		<put-attribute name="footer" value="/template/footer.jsp" />
 	</definition>
-	
+		
 	<definition name="loginForm" extends="default"> 
         <put-attribute name="body" value="/member/loginForm.jsp" />
     </definition>
@@ -31,6 +31,10 @@
     </definition>
     
     <definition name="idPassInquire" extends="default"> 
+        <put-attribute name="body" value="/member/idPassInquire.jsp" />
+    </definition>
+    
+     <definition name="memberfind" extends="default"> 
         <put-attribute name="body" value="/member/idPassInquire.jsp" />
     </definition>
     

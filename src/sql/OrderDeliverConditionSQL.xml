@@ -5,7 +5,7 @@
 	
 <sqlMap namespace="mypage2">
 	<typeAlias alias="goodsOrder" type="mypage.goodsOrderBean"/>
-	<typeAlias alias="goods" type="mypage.goodsBean"/>
+	<typeAlias alias="goods" type="goods.goodsVO"/>
 	
 	<!-- result map 정의 -->
 	<resultMap id="goodsRes" class="goods">

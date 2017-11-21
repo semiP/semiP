@@ -93,5 +93,4 @@ public class DeleteAction extends ActionSupport {
 	public void setSession(Map session) {
 		this.session = session;
 	}
-	
 }

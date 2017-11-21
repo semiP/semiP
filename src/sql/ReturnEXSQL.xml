@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="mypage3">
-	<typeAlias alias="goods" type="mypage.goodsBean"/>
+	<typeAlias alias="goods" type="goods.goodsVO"/>
 	<typeAlias alias="goodsOrder" type="mypage.goodsOrderBean"/>
 	
 	<!-- result map 정의 -->
@@ -90,6 +90,60 @@
           goods table에서
           goods_price를
           select를 이용하여 출력 -->
+          
+<!-- 	<select id="order_status" resultMap="goodsOrderRes">
+			<include refid="select-all-goodsOrder_returnEX"/>
+			select order_status from GOODSORDER
+		</select>
+		
+		<select id="order_no" resultMap="goodsOrderRes">
+			<include refid="select-all-goodsOrder"/>
+			select order_no from GOODSORDER
+		</select>
+		
+		<select id="order_goods_no" resultMap="goodsOrderRes">
+			<include refid="select-all-goodsOrder"/>
+			select order_goods_no from GOODSORDER
+		</select>
+		
+		<select id="order_goods_amount" resultMap="goodsOrderRes">
+			<include refid="select-all-goodsOrder"/>
+			select order_goods_amount from GOODSORDER
+		</select>
+		
+		<select id="order_goods_size" resultMap="goodsOrderRes">
+			<include refid="select-all-goodsOrder"/>
+			select order_goods_size from GOODSORDER
+		</select>
+		
+		<select id="order_goods_color" resultMap="goodsOrderRes">
+			<include refid="select-all-goodsOrder"/>
+			select order_goods_color from GOODSORDER
+		</select>
+		
+		<select id="order_date" resultMap="goodsOrderRes">
+			<include refid="select-all-goodsOrder"/>
+			select order_date from GOODSORDER
+		</select>
+		
+		<select id="order_list_amount" resultMap="goodsOrderRes">
+			<include refid="select-all-goodsOrder"/>
+			select order_list_amount from GOODSORDER
+		</select>
+		
+		<select id="order_goods_image" resultMap="goodsOrderRes">
+			<include refid="select-all-goodsOrder"/>
+			select order_goods_image from GOODSORDER
+		</select>
+		
+		<select id="order_total_pay" resultMap="goodsOrderRes">
+			<include refid="select-all-goodsOrder"/>
+			select order_total_pay from GOODSORDER
+		</select>
+	
+		<select id="goods_price" resultMap="goodsRes">
+			select goods_price from GOODS
+		</select> -->
 		
 		<!-- 기간조회 -->
 		<select id="order_date" resultMap="goodsOrderRes">

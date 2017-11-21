@@ -14,7 +14,7 @@
 		</tr>
 		
 		<s:iterator value="list" status="stat">
-			<s:url id="viewURL" action="goodsViewAction">
+			<s:url id="viewURL" action="goodsViewAction.action">
 				<s:param name="no">
 					<s:property value="goods_no" />
 				</s:param>
@@ -28,7 +28,7 @@
 			</tr>
 			
 			<tr><!-- 상품이미지 찍기 -->
-				<td><s:property value="goods_image_file" /></td>
+				<td><s:property value="goods_image" /></td>
 			</tr>
 			
 			<tr><!-- 상품정보 적기 (이름/설명/가격) -->
@@ -44,22 +44,19 @@
 		
 <!-- 이전에 사용한 샘플코드 -->
 		<tr><!-- 상품번호 적기 -->
-			<td>no.123</td>			
-			<td>no.123</td>
-			<td>no.123</td>
-			<td>no.123</td>
+		<s:iterator value="array_size" status="size">
+			<td><s:property value="#size.goods_no"/></td>
+		</s:iterator>
 		</tr>
 		<tr><!-- 상품이미지 찍기 -->
-			<td><img src="/semiP/assets/images/best1.jpg" style="width:100%;"></td>			
-			<td><img src="/semiP/assets/images/best2.jpg" style="width:100%;"></td>
-			<td><img src="/semiP/assets/images/best3.jpg" style="width:100%;"></td>
-			<td><img src="/semiP/assets/images/best4.jpg" style="width:100%;"></td>
+		<s:iterator value="array_size" status="size">
+			<td><img src="/semiP/assets/images/best1.jpg" style="width:100%;"></td>
+		</s:iterator>			
 		</tr>
 		<tr><!-- 상품정보 적기 (이름/설명/가격) -->
-			<td>이릉이름<br>₩ 100,000</td>			
-			<td>이릉이름<br>₩ 100,000</td>	
-			<td>이릉이름<br>₩ 100,000</td>	
-			<td>이릉이름<br>₩ 100,000</td>	
+		<s:iterator value="array_size" status="size">
+			<td><s:property value="#size.goods_name"/><br><s:property value="#size.goods_price"/></td>			
+		</s:iterator>
 		</tr>
 		<tr > <!-- 공란 만들기 -->
 			<td height="10" colspan="4"></td>

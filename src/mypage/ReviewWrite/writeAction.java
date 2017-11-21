@@ -12,7 +12,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 
-import mypage.goodsBean;
+import goods.goodsVO;
 import mypage.goods_qaBean;
 import mypage.memberBean;
 
@@ -23,8 +23,8 @@ public class writeAction extends ActionSupport{
 	private memberBean paramClass1;
 	private memberBean resultClass1;
 	
-	private goodsBean paramClass2;
-	private goodsBean resultClass2;
+	private goodsVO paramClass2;
+	private goodsVO resultClass2;
 	
 	private goods_qaBean paramClass3;
 	private goods_qaBean resultClass3;
@@ -89,8 +89,8 @@ public class writeAction extends ActionSupport{
 		paramClass1 = new memberBean();
 		resultClass1 = new memberBean();
 		
-		paramClass2 = new goodsBean();
-		resultClass2 = new goodsBean();
+		paramClass2 = new goodsVO();
+		resultClass2 = new goodsVO();
 		
 		paramClass3 = new goods_qaBean();
 		resultClass3 = new goods_qaBean();
@@ -102,7 +102,7 @@ public class writeAction extends ActionSupport{
 		paramClass2.setGoods_size(getGoods_size());*/
 		
 		resultClass1 = (memberBean)sqlMapper.queryForObject("Member_no",paramClass1);
-		resultClass2 = (goodsBean)sqlMapper.queryForObject("goods_no",paramClass2);
+		resultClass2 = (goodsVO)sqlMapper.queryForObject("goods_no",paramClass2);
 		
 		// 등록할 내용
 		paramClass3.setQa_regdate(getGoods_regdate());
@@ -169,19 +169,19 @@ public class writeAction extends ActionSupport{
 		this.resultClass1 = resultClass1;
 	}
 
-	public goodsBean getParamClass2() {
+	public goodsVO getParamClass2() {
 		return paramClass2;
 	}
 
-	public void setParamClass2(goodsBean paramClass2) {
+	public void setParamClass2(goodsVO paramClass2) {
 		this.paramClass2 = paramClass2;
 	}
 
-	public goodsBean getResultClass2() {
+	public goodsVO getResultClass2() {
 		return resultClass2;
 	}
 
-	public void setResultClass2(goodsBean resultClass2) {
+	public void setResultClass2(goodsVO resultClass2) {
 		this.resultClass2 = resultClass2;
 	}
 
