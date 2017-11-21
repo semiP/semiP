@@ -34,7 +34,7 @@
 		<tr> <!-- 추가링크 넣기 -->
 			<td width="25%"/>
 			<td align="center">
-				<a href="#">아이디 비밀번호 찾기</a>
+				<a href="loginfind.action">아이디 비밀번호 찾기</a>
 				&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="#">회원가입</a>
 			</td>

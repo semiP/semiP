@@ -50,13 +50,18 @@
 				<param name="actionName">main</param>
 			</result> 
 		</action>
+
 		</package>
 		
-	<!-- Basket.xml -->
-		<include file="./config/basket.xml"/>
-
+	<!-- 수경 장바구니 -->
+	<include file="./config/basket.xml"/>
+	<!-- 유준 상품/주문 -->
 	<include file="./config/goods.xml" />
 	<include file="./config/order.xml" />
+	<!-- 일우 회원/로그인 -->
+	<include file="/config/member.xml" />
 	
 </struts>
 
+
+	
