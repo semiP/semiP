@@ -1,4 +1,4 @@
-d<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true"%>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page import = "java.util.List" %> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -25,7 +25,7 @@ d<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirect
 		<tr>
 			
 			<td>
-				<form action="order.action" method="post" id="frm" name="frm">
+				<form action="orderList.action" method="post" id="frm" name="frm">
 				<input type="hidden" id="basket_no_set" name="basket_no_set" />
 				<table width="100%" border="0">
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
