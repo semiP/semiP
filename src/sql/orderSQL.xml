@@ -30,7 +30,7 @@
 		<result property="order_pay_type" column="order_pay_type"/>
 		<result property="order_pay_name" column="order_pay_name"/>
 		<result property="order_total_pay" column="order_total_pay"/>
-		<result property="invoice_no" column="invoice_no"/>
+		<result property="invoice_no" column="invoice_no"/>		<!-- 디비 필드명이랑 달라서 column 쪽 수정 -->
 	</resultMap>
 	
 	<!-- 주문된상품 update 쿼리문 정의 -->
@@ -51,9 +51,9 @@
 							order_member_no,   
 							order_goods_amount, 
 							order_goods_size,   
-							order_goods_color,
+							order_goods_color,  
 							order_receive_name,
-							order_receive_zipcode,  
+							order_receive_zipcode,
 							order_receive_addr1,
 							order_receive_addr2,
 							order_receive_phone,
@@ -90,13 +90,13 @@
 							#order_pay_name#,
 							#order_total_pay#,
 							#invoice_no#)
-			ORDER_NO_SEQ.CURRVAL)
 	</insert>
 
 	<!-- 공통으로 사용할 select 절 정의 -->
 	<sql id="select-all">
 		SELECT * FROM GOODSORDER
 	</sql>
+
 
 <!-- 
 	<select id="select-join" resultMap="orderRes" parameterClass="int">
@@ -108,8 +108,8 @@
 		       o.order_memo, o.order_pay_type, o.order_pay_name, o.order_total_pay, o.order_invoice_no
 		FROM  GOODSORDER o, goods g, member m,
 		WHERE o.order_goods_no = #g.goods_no# and o.order_member_no = #m.member_no# 
-	</select>
--->
+	</select> -->
+
 
     <!-- 주문내역 가져오기 -->
 	<select id="select-order-all" resultMap="orderRes" parameterClass="int">

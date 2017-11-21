@@ -62,8 +62,8 @@ public class listViewAction extends ActionSupport{
 			// 목록을 화면에 출력
 			resultClass = (memberBean)sqlMapper.queryForObject("memberModifyList",paramClass);
 			
-			phone1 = getMember_phone().substring(0,3);
-			phone2 = getMember_phone().substring(3,7);
+			phone1 = getMember_phone().substring(0,2);
+			phone2 = getMember_phone().substring(3,6);
 			phone3 = getMember_phone().substring(7,9);
 			
 			if(session.get("session_member_no") == null){

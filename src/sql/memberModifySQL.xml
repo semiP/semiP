@@ -27,7 +27,7 @@
     
     <!-- select-all -->
     	<sql id="select-all-member">
-			SELECT * FROM MEMBER
+			SELECT * FROM member
 		</sql>
 		
 		<!-- select 쿼리문 정의 -->
@@ -55,8 +55,8 @@
 	<!-- 비밀번호 일치여부 쿼리문 -->
 		<select id="pwCheck" resultMap="memberRes" parameterClass="String">
 			<include refid="select-all-member"/>
-			where member_no=#member_no#
-			and member_pw = #member_pw#
+			WHERE member_no=#member_no#
+			AND member_pw = #member_pw#
 		</select>
 	
 	<!-- 회원정보 수정에 관한 목록 뽑기(비밀번호 포함) -->
@@ -71,21 +71,21 @@
 		
 	<!-- 회원정보 수정 쿼리문 -->
 		<update id="updateMember" parameterClass="member">
-			update member set 
+			UPDATE member SET
 					member_email=#member_email#
 					member_zipcode=#member_zipcode#
 					member_address1=#member_address1#
 					member_address2=#member_address2#
 					member_phone=#member_phone#
 					member_pw=#member_pw#
-			where member_no=#member_no#
+			WHERE member_no=#member_no#
 		</update>
 		
 	<!-- 비밀번호 수정 쿼리문 -->
 		<update id="updateMemberPW" parameterClass="member">
-			update member set
+			UPDATE member SET
 				member_pw = #member_pw#
-			where member_no=#member_no#
+			WHERE member_no=#member_no#
 		</update>
 		
 	<!-- 회원탈퇴 관련 쿼리문 -->
@@ -95,6 +95,6 @@
 		</insert>
 		
 		<update id="updateMemberDelete" parameterClass="member">
-			update member set member_level = 2
+			UPDATE member SET member_level = 2
 		</update>
 </sqlMap>
