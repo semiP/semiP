@@ -16,7 +16,7 @@
 		<result property="member_email" column="member_email"/>
 		<result property="member_regdate" column="member_regdate"/>
 		<result property="member_level" column="member_level"/>
-		<result property="member_deleteReason" column="member_deleteReason"/> <!-- member table에 reason column추가 -->
+		<result property="member_deletereason" column="member_deletereason"/> <!-- member table에 reason column추가 -->
 	</resultMap>
 	
 	<!--
@@ -95,6 +95,6 @@
 		</insert>
 		
 		<update id="updateMemberDelete" parameterClass="member">
-			update member_level = 2 from member
+			update member set member_level = 2
 		</update>
 </sqlMap>

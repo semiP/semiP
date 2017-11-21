@@ -32,6 +32,7 @@ public class modifyPWAction extends ActionSupport{
 	private String member_email;
 	private Date member_regdate;
 	private int member_level;
+	private String member_deletereason;
 	
 	private Map session;
 	
@@ -190,6 +191,30 @@ public class modifyPWAction extends ActionSupport{
 
 		public void setSession(Map session) {
 			this.session = session;
+		}
+
+		public memberBean getParamClass2() {
+			return paramClass2;
+		}
+
+		public void setParamClass2(memberBean paramClass2) {
+			this.paramClass2 = paramClass2;
+		}
+
+		public memberBean getResultClass2() {
+			return resultClass2;
+		}
+
+		public void setResultClass2(memberBean resultClass2) {
+			this.resultClass2 = resultClass2;
+		}
+
+		public String getMember_deletereason() {
+			return member_deletereason;
+		}
+
+		public void setMember_deletereason(String member_deletereason) {
+			this.member_deletereason = member_deletereason;
 		}
 		
 		

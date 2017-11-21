@@ -38,7 +38,6 @@ public class listAction extends ActionSupport{
 	private String inquiry_subject;
 	private String inquiry_content;
 	private Date inquiry_regdate;
-	private String inquiry_email;
 	private String inquiry_addfile;
 	private int inquiry_ref;
 	private int inquiry_re_step;
@@ -212,15 +211,6 @@ public class listAction extends ActionSupport{
 		public void setInquiry_regdate(Date inquiry_regdate) {
 			this.inquiry_regdate = inquiry_regdate;
 		}
-
-		public String getInquiry_email() {
-			return inquiry_email;
-		}
-
-		public void setInquiry_email(String inquiry_email) {
-			this.inquiry_email = inquiry_email;
-		}
-
 		public String getInquiry_addfile() {
 			return inquiry_addfile;
 		}

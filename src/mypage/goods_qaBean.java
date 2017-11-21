@@ -17,7 +17,6 @@ public class goods_qaBean {
 	private int qa_re_step;
 	private int qa_re_level;
 	private String qa_start;
-	
 	public int getQa_no() {
 		return qa_no;
 	}
@@ -57,8 +56,8 @@ public class goods_qaBean {
 	public int getQa_secret_flag() {
 		return qa_secret_flag;
 	}
-	public void setQa_secret_flag(int secret_flag) {
-		this.qa_secret_flag = secret_flag;
+	public void setQa_secret_flag(int qa_secret_flag) {
+		this.qa_secret_flag = qa_secret_flag;
 	}
 	public Date getQa_regdate() {
 		return qa_regdate;
@@ -99,9 +98,8 @@ public class goods_qaBean {
 	public String getQa_start() {
 		return qa_start;
 	}
-	public void setQa_Start(String start) {
-		this.qa_start = start;
+	public void setQa_start(String qa_start) {
+		this.qa_start = qa_start;
 	}
-
 	
 }

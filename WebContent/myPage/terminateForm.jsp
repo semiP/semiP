@@ -26,13 +26,13 @@
 					<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 
 					<tr bgcolor="#455b59" align="center">
-						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="./profile.tiles" >
+						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="/semiP/myPage/profile.jsp" >
 							회원정보</a></strong></td>
-						<td class="myPageMenuItem" ><a href="./orderList.tiles" >
+						<td class="myPageMenuItem" ><a href="/semiP/myPage/orderList.jsp" >
 							주문/배송현황</a></td>
-						<td class="myPageMenuItem"><a href="./refundList.tiles" >
+						<td class="myPageMenuItem"><a href="/semiP/myPage/refundList.jsp" >
 							반품/교환</a></td>
-						<td class="myPageMenuItem"><a href="./qnaList.tiles" >
+						<td class="myPageMenuItem"><a href="/semiP/myPage/qnaList.jsp" >
 							문의내역</a></td>
 					</tr>
 					<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
@@ -78,8 +78,8 @@
 			</tr>
 			<tr>
 				<td colspan="3" align="center">
-					<input type="submit" class="btn-custom" value="변경하기">&nbsp;&nbsp;
-					<input type="button" class="btn-custom" value="리셋">
+					<input type="submit" class="btn-custom" value="탈퇴하기">&nbsp;&nbsp;
+					<input type="reset" class="btn-custom" value="리셋">
 				</td>
 			</tr>
 			<tr>
