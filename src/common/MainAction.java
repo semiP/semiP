@@ -43,10 +43,6 @@ public class MainAction extends ActionSupport implements SessionAware {
 	
 	public String execute() throws Exception {
 		// hit 테이블 전부를 가져와서 List 로 만든다. hit 리스트는 7줄로 정해져 있다.
-		if(session.get("session_member_id") == null){
-			return LOGIN;
-		}
-		
 		listHit = sqlMapper.queryForList("mainSearch.select-hit-list");
 				
 		for(int i=0; i<listHit.size(); i++) {				// 매 히트 카테고리마다 반복한다.
