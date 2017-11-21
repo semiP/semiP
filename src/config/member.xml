@@ -5,8 +5,8 @@
 
 <!-- 로그인관련 -->
 	<package name="member" namespace="/" extends="struts-default, tiles-default">
-		<action name="member">
-			<result name="success" type="tiles">member</result>
+		<action name="loginForm" class="member.loginAction" method="loginForm">
+			<result type="tiles">loginForm</result>
 		</action>
 		<action name="memberinfo">
 			<result name="success" type="tiles"></result>
