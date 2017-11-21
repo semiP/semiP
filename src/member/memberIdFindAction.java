@@ -11,7 +11,7 @@ import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
 
-public class memberPwFindAction extends ActionSupport {
+public class memberIdFindAction extends ActionSupport {
 
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
@@ -19,11 +19,10 @@ public class memberPwFindAction extends ActionSupport {
 	private memberbean paramClass;
 	private memberbean resultClass;
 	
-	private String id;
 	private String name;
 	private String email;		
 	
-	public memberPwFindAction() throws IOException {
+	public memberIdFindAction() throws IOException {
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); //sqlMapConfig.xml ������ ���������� �����´�.
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ������ ������ sqlMapper ��ü ����
 		reader.close();
@@ -36,19 +35,18 @@ public class memberPwFindAction extends ActionSupport {
 	public String execute() throws Exception {
 		
 		paramClass = new memberbean();
-		paramClass.setMember_id(id);
 		paramClass.setMember_name(name);
 		paramClass.setMember_email(email);
 		resultClass = new memberbean();
 		
 	
-		resultClass = (memberbean) sqlMapper.queryForObject("pwfind", paramClass); //쿼리문 바꾸기
+		resultClass = (memberbean) sqlMapper.queryForObject("select-login-id", paramClass); //쿼리문 수정
 		
 		if(resultClass == null) {
 			return ERROR;
 		}
 		else {
-			if(resultClass.getMember_email()==(email) && resultClass.getMember_name()==(name) && resultClass.getMember_id()==(id)) {
+			if(resultClass.getMember_email().equals(email) && resultClass.getMember_name().equals(name)) {
 				return SUCCESS;
 			}
 			else {
@@ -89,28 +87,22 @@ public class memberPwFindAction extends ActionSupport {
 		this.resultClass = resultClass;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getname() {
+	public String getName() {
 		return name;
 	}
 
-	public void setname(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getemail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setemail(String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
+
+
 }
 
