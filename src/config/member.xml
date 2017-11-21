@@ -28,13 +28,13 @@
 		<action name="DeleteAction" class="member.DeleteAction">
 			<result>/member/DeleteResult.jsp</result>
 		</action>
-		<!-- 회원정보 수정 -->
+		<!-- 회원정보 수정 
 		<action name="memberModifyAc" class="member.ModifyAction">
 			<result type="redirect-action">
 				<param name="actionName">main</param>
 			</result>
 			<result name="login" type="tiles">loginConfirm</result>
-		</action>
+		</action>-->
 		
 		
 		<!-- 
