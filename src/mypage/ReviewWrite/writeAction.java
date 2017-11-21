@@ -58,14 +58,14 @@ public class writeAction extends ActionSupport{
 	private String qa_subject;
 	private String qa_content;
 	private String qa_pw;
-	private int secret_flag;
-	private Date regdate;
+	private int qa_secret_flag;
+	private Date qa_regdate;
 	private String qa_addfile;
 	private int qare_flag;
 	private int qa_ref;
-	private int aq_re_step;
-	private int re_level;
-	private String start;
+	private int qa__re_step;
+	private int qa_re_level;
+	private String qa_start;
 	
 	private File upload; // 파일 객체
 	private String uploadContentType; // 컨턴츠 타입
@@ -104,7 +104,7 @@ public class writeAction extends ActionSupport{
 		resultClass2 = (goodsBean)sqlMapper.queryForObject("goods_no",paramClass2);
 		
 		// 등록할 내용
-		paramClass3.setRegdate(getGoods_regdate());
+		paramClass3.setQa_regdate(getGoods_regdate());
 		paramClass3.setQa_subject(getQa_subject());
 		paramClass3.setQa_content(getGoods_content());
 		paramClass3.setQa_addfile(getQa_addfile());
@@ -400,20 +400,20 @@ public class writeAction extends ActionSupport{
 		this.qa_pw = qa_pw;
 	}
 
-	public int getSecret_flag() {
-		return secret_flag;
+	public int getQa_secret_flag() {
+		return qa_secret_flag;
 	}
 
-	public void setSecret_flag(int secret_flag) {
-		this.secret_flag = secret_flag;
+	public void setQa_secret_flag(int qa_secret_flag) {
+		this.qa_secret_flag = qa_secret_flag;
 	}
 
-	public Date getRegdate() {
-		return regdate;
+	public Date getQa_regdate() {
+		return qa_regdate;
 	}
 
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
+	public void setQa_regdate(Date qa_regdate) {
+		this.qa_regdate = qa_regdate;
 	}
 
 	public String getQa_addfile() {
@@ -440,28 +440,28 @@ public class writeAction extends ActionSupport{
 		this.qa_ref = qa_ref;
 	}
 
-	public int getAq_re_step() {
-		return aq_re_step;
+	public int getQa__re_step() {
+		return qa__re_step;
 	}
 
-	public void setAq_re_step(int aq_re_step) {
-		this.aq_re_step = aq_re_step;
+	public void setQa__re_step(int qa__re_step) {
+		this.qa__re_step = qa__re_step;
 	}
 
-	public int getRe_level() {
-		return re_level;
+	public int getQa_re_level() {
+		return qa_re_level;
 	}
 
-	public void setRe_level(int re_level) {
-		this.re_level = re_level;
+	public void setQa_re_level(int qa_re_level) {
+		this.qa_re_level = qa_re_level;
 	}
 
-	public String getStart() {
-		return start;
+	public String getQa_start() {
+		return qa_start;
 	}
 
-	public void setStart(String start) {
-		this.start = start;
+	public void setQa_start(String qa_start) {
+		this.qa_start = qa_start;
 	}
 
 	public File getUpload() {

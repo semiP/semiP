@@ -96,7 +96,7 @@
 		   goods_content = #goods_content#,
 		   goods_price = #goods_price#,
 		   goods_image = #goods_image#,
-		   goods_regdate = #goods_regdate#
+		   goods_regdate = sysdate
 	where goods_no = #goods_no#
 	
 	</update>

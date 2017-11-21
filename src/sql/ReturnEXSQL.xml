@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
-<sqlMap namespace="mypage">
+<sqlMap namespace="mypage3">
 	<typeAlias alias="goods" type="mypage.goodsBean"/>
 	<typeAlias alias="goodsOrder" type="mypage.goodsOrderBean"/>
 	
@@ -42,7 +42,7 @@
 		<result property="order_pay_type" column="order_pay_type"/>
 		<result property="order_pay_name" column="order_pay_name"/>
 		<result property="order_total_pay" column="order_total_pay"/>
-		<result property="invoice" column="invoice"/>
+		<result property="invoice_no" column="invoice_no"/>
 	</resultMap>
 	
 	<!-- select-all -->
@@ -147,7 +147,7 @@
 		
 		<!-- 기간조회 -->
 		<select id="order_date" resultMap="goodsOrderRes">
-			<include refid="select-all-goods"/>
-			select order_date from GOODSORDER BETWEEN #searchKeyword1# and #searchKeyword2#
+			<include refid="select-all-goodsOrder_returnEX"/>
+			BETWEEN #searchKeyword1# and #searchKeyword2#
 		</select>	
 </sqlMap>

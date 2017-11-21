@@ -36,6 +36,15 @@ public class listViewAction extends ActionSupport{
 	private Date member_regdate;
 	private int member_level;
 	
+	//email개별번수
+	private String email1;
+	private String email2;
+	
+	//phone개별변수
+	private String phone1;
+	private String phone2;
+	private String phone3;
+	
 	//생성자
 	public listViewAction() throws IOException{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml 파일의 설정내용을 가져옴
@@ -50,6 +59,10 @@ public class listViewAction extends ActionSupport{
 			
 			// 목록을 화면에 출력
 			resultClass = (memberBean)sqlMapper.queryForObject("memberModifyList",paramClass);
+			
+			phone1 = getMember_phone().substring(0,3);
+			phone2 = getMember_phone().substring(3,7);
+			phone3 = getMember_phone().substring(7,9);
 			
 			if(session.get("session_member_no") == null){
 				return LOGIN;
