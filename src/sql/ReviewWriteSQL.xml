@@ -35,7 +35,7 @@
 		<result property="goods_regdate" column="goods_regdate"/>
 	</resultMap>
 	
-	<resultMap id="goods_QARes" class="goods_qa">			<!-- VO property 들 다 문자로 수정 - 171118 동민 -->
+	<resultMap id="goods_QARes" class="goods_qa">			<!-- VO property 들 다 소문자로 수정 - 171118 동민 -->
 		<result property="qa_no" column="QA_NO"/>
 		<result property="goods_no" column="GOODS_NO"/>
 		<result property="member_no" column="MEMBER_NO"/>
@@ -86,7 +86,7 @@
 			<include refid="select-all-member_ReviewWrite"/>
 		</select>
 		
-		<select id="selectOneGoods_ReviewWrite" resultMap="goodsRes" parameterClass="int">
+		<select id="selectOneGoods_ReviewWrite" resultMap="goods_QARes" parameterClass="int">   <!-- 오타수정 goodsRes => goods_QARes -->
 			<include refid="select-all-goods_ReviewWrite" />
 		</select>
 		
@@ -109,7 +109,7 @@
       	  qa_subject, qa_content, qa_addfile,star을 
       	  insert를 통해 새로운 작성된 내용 저장 -->
       
-     <!-- 회원정보 목록 출력 -->
+     <!-- 회원정보 목록 출력 
      	<select id="member_name" resultMap="memberRes">
 			<include refid="select-all-member"/>
 			select member_name from member where member_no = #member_no#
@@ -123,7 +123,7 @@
 		<select id="goods_name" resultMap="goodsRes">
 			<include refid="select-all-goods"/>
 			select goods_name from GOODS where goods_no = #goods_no#
-		</select>
+		</select>-->
 		
 		<!-- <select id="goods_color" resultMap="goodsRes">
 			<include refid="select-all-goods"/>
