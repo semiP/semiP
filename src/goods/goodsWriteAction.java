@@ -74,8 +74,7 @@ public class goodsWriteAction extends ActionSupport{
 		paramClass.setGoods_image(getGoods_image());
 		paramClass.setGoods_regdate(today.getTime());
 		
-		//��� ���� ����.
-		sqlMapper.insert("goods.goodsInsert", paramClass);
+		
 			
 		//파일 업로드
 		if(getUpload() != null)
@@ -92,13 +91,15 @@ public class goodsWriteAction extends ActionSupport{
 			FileUtils.copyFile(getUpload(), destFile);
 			
 			paramClass.setGoods_no(resultClass.getGoods_no());
-			paramClass.setGoods_image(getUploadFileName()); //���� ���� �̸�
+			
 			paramClass.setGoods_image(file_name + "." + file_ext); //������ ������ ���� �̸�
 		    
-			sqlMapper.update("goods.updateFile", paramClass);
+			//sqlMapper.update("goods.updateFile", paramClass);
 		}
+		//��� ���� ����.
+		sqlMapper.insert("goods.goodsInsert", paramClass);
 		
-		resultClass = (goodsVO)sqlMapper.queryForObject("goods.select-goods-all", getGoods_no());
+		//resultClass = (goodsVO)sqlMapper.queryForObject("goods.select-goods-all", getGoods_no());
 		
 		return SUCCESS;
 	}

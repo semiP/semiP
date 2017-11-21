@@ -47,6 +47,7 @@
 					   goods_color,
 					   goods_content,
 					   goods_amount,
+					   goods_image,
 					   goods_price,
 					   goods_regdate)
 	VALUES (goods_no_seq.NEXTVAL,
@@ -56,6 +57,7 @@
 					   #goods_color#, 
 					   #goods_content#,
 					   #goods_amount#,
+					   #goods_image#,
 					   #goods_price#,  
 					   #goods_regdate#)
 	</insert>
@@ -92,6 +94,7 @@
 		   goods_size = #goods_size#,
 		   goods_color = #goods_color#,
 		   goods_content = #goods_content#,
+		   goods_image = #goods_image#,
 		   goods_price = #goods_price#,
 		   goods_regdate = #goods_regdate#
 	where goods_no = #goods_no#
@@ -139,11 +142,11 @@
 			SELECT max(goods_no) as goods_no FROM goods
 	</select>
 		
-	<update id="updateFile" parameterClass="goods">
+	<!-- <update id="updateFile" parameterClass="goods">
 				UPDATE goods SET goods_image = #goods_image#
 								,goods_image = #goods_image#
 				where goods_no = #goods_no#
-	</update>
+	</update> -->
 	
 	<!-- 상품 리스트 보여주기 -->
 	<select id="select-goods-all" resultMap="goodsRes" parameterClass="int">

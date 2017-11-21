@@ -1,6 +1,5 @@
 package mypage.memberModify;
 
-import java.io.IOException;
 import java.io.Reader;
 import java.util.Date;
 import java.util.Map;
@@ -12,7 +11,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import mypage.memberBean;
 
-public class checkPWAction extends ActionSupport{
+public class modifyPWAction extends ActionSupport{
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
@@ -21,9 +20,6 @@ public class checkPWAction extends ActionSupport{
 	
 	private memberBean paramClass2;
 	private memberBean resultClass2;
-	
-	private memberBean paramClass3;
-	private memberBean resultClass3;
 	
 	private int member_no;
 	private String member_name;
@@ -40,27 +36,31 @@ public class checkPWAction extends ActionSupport{
 	
 	private Map session;
 	
-	// 생성자
-		public checkPWAction() throws IOException{
-			reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml 파일의 설정내용을 가져옴
-			sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xml의 내용을 적용한 sqlMapper객체 생성
-			reader.close();
-		}
-			
-		// 비밀번호 체크 
+	//생성자
+	public modifyPWAction() throws Exception{
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml 파일의 설정내용을 가져온다.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
+		reader.close();
+	}
+	
+	// 비밀번호수정
 		public String execute() throws Exception{
+			// 파라미터와 리절트 객체 생성
 			paramClass = new memberBean();
 			resultClass = new memberBean();
 			
 			// 비밀번호 입력값 파라미터 설정
 			paramClass.setMember_no((int)session.get("session_member_no"));
+			
+			//수정할 항목 설정
 			paramClass.setMember_pw(getMember_pw());
+			paramClass.setMember_no(getMember_no());
 			
-			// 현재 글의 비밀번호 가져오기
-			resultClass = (memberBean)sqlMapper.queryForObject("pwCheck",paramClass);
+			// 일단 항목만 수정한다.
+			sqlMapper.update("updateMemberPW",paramClass);
 			
-			// 입력한 비밀번호가 없으면 입력창
-			if(resultClass == null) return ERROR;
+			//수정이 끝나면 view페이지로 이동
+			resultClass = (memberBean) sqlMapper.queryForObject("showPW", getMember_no());
 			
 			return SUCCESS;
 		}
@@ -70,7 +70,7 @@ public class checkPWAction extends ActionSupport{
 		}
 
 		public static void setReader(Reader reader) {
-			checkPWAction.reader = reader;
+			modifyAction.reader = reader;
 		}
 
 		public static SqlMapClient getSqlMapper() {
@@ -78,7 +78,7 @@ public class checkPWAction extends ActionSupport{
 		}
 
 		public static void setSqlMapper(SqlMapClient sqlMapper) {
-			checkPWAction.sqlMapper = sqlMapper;
+			modifyAction.sqlMapper = sqlMapper;
 		}
 
 		public memberBean getParamClass() {
@@ -95,38 +95,6 @@ public class checkPWAction extends ActionSupport{
 
 		public void setResultClass(memberBean resultClass) {
 			this.resultClass = resultClass;
-		}
-
-		public memberBean getParamClass2() {
-			return paramClass2;
-		}
-
-		public void setParamClass2(memberBean paramClass2) {
-			this.paramClass2 = paramClass2;
-		}
-
-		public memberBean getResultClass2() {
-			return resultClass2;
-		}
-
-		public void setResultClass2(memberBean resultClass2) {
-			this.resultClass2 = resultClass2;
-		}
-
-		public memberBean getParamClass3() {
-			return paramClass3;
-		}
-
-		public void setParamClass3(memberBean paramClass3) {
-			this.paramClass3 = paramClass3;
-		}
-
-		public memberBean getResultClass3() {
-			return resultClass3;
-		}
-
-		public void setResultClass3(memberBean resultClass3) {
-			this.resultClass3 = resultClass3;
 		}
 
 		public int getMember_no() {
@@ -217,14 +185,6 @@ public class checkPWAction extends ActionSupport{
 			this.member_level = member_level;
 		}
 
-		public String getMember_deletereason() {
-			return member_deletereason;
-		}
-
-		public void setMember_deletereason(String member_deletereason) {
-			this.member_deletereason = member_deletereason;
-		}
-
 		public Map getSession() {
 			return session;
 		}
@@ -233,4 +193,29 @@ public class checkPWAction extends ActionSupport{
 			this.session = session;
 		}
 
+		public memberBean getParamClass2() {
+			return paramClass2;
+		}
+
+		public void setParamClass2(memberBean paramClass2) {
+			this.paramClass2 = paramClass2;
+		}
+
+		public memberBean getResultClass2() {
+			return resultClass2;
+		}
+
+		public void setResultClass2(memberBean resultClass2) {
+			this.resultClass2 = resultClass2;
+		}
+
+		public String getMember_deletereason() {
+			return member_deletereason;
+		}
+
+		public void setMember_deletereason(String member_deletereason) {
+			this.member_deletereason = member_deletereason;
+		}
+		
+		
 	}

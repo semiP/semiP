@@ -30,7 +30,7 @@
 
 		<tr>
 			<td height="1" bgcolor="#777777"></td>
-		</tr>
+		</tr> 
 
 		<tr>
 			

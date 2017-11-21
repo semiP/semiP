@@ -12,8 +12,8 @@ public class goodsVO {
 	private String goods_content;			   //컨텐츠
 	private int goods_amount;				   //수량
 	private int goods_price;				   //가격
-	private String goods_image;			       //이미지명
-	private Date goods_regdate;				   //상품등록
+	private String goods_image;	     		  //이미지명
+	private Date goods_regdate;				   //등록날짜
 	
 	public int getGoods_no() { return goods_no; }
 	public void setGoods_no(int goods_no) { this.goods_no = goods_no; }
@@ -44,5 +44,4 @@ public class goodsVO {
 	
 	public Date getGoods_regdate() { return goods_regdate; }
 	public void setGoods_regdate(Date goods_regdate) { this.goods_regdate = goods_regdate; }
-	
 }

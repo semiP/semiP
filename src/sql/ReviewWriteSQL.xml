@@ -2,11 +2,11 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="mypage">
 	<typeAlias alias="member" type="mypage.memberBean"/>
-	<typeAlias alias="goods" type="mypage.goodsBean"/>
+	<typeAlias alias="goods" type="goods.goodsVO"/>
 	<typeAlias alias="goods_qa" type="mypage.goods_qaBean"/>
 	
 	<!-- result map 정의 -->
-	<resultMap id="memberRes" class="memberModify">
+	<resultMap id="memberRes" class="member">
 		<result property="member_no" column="member_no"/>
 		<result property="member_name" column="member_name"/>
 		<result property="member_id" column="member_id"/>
@@ -16,9 +16,9 @@
 		<result property="member_address2" column="member_address2"/>
 		<result property="member_phone" column="member_phone"/>
 		<result property="member_email" column="member_email"/>
-		<result property="memeber_regdate" column="member_regdate"/>
+		<result property="member_regdate" column="member_regdate"/>
 		<result property="member_level" column="member_level"/>
-		<result property="member_deleteReason" column="member_deleteReason"/> <!-- member table에 reason column추가 -->
+		<result property="member_deletereason" column="member_deletereason"/> <!-- member table에 reason column추가 -->
 		<!-- mebmer_deleteReason 오타수정 - 171118 동민-->
 	</resultMap>
 	
@@ -35,23 +35,36 @@
 		<result property="goods_regdate" column="goods_regdate"/>
 	</resultMap>
 	
-	<resultMap id="goods_QARes" class="goods_qa">			<!-- VO property 들 다 문자로 수정 - 171118 동민 -->
+	<resultMap id="goods_QARes" class="goods_qa">			<!-- VO property 들 다 소문자로 수정 - 171118 동민 -->
 		<result property="qa_no" column="QA_NO"/>
 		<result property="goods_no" column="GOODS_NO"/>
 		<result property="member_no" column="MEMBER_NO"/>
 		<result property="qa_subject" column="QA_SUBJECT"/>
 		<result property="qa_content" column="QA_CONTENT"/>
 		<result property="qa_pw" column="QA_PW"/>
-		<result property="secret_flag" column="SECRET_FLAG"/>
-		<result property="regdate" column="REGDATE"/>
+		<result property="qa_secret_flag" column="QA_SECRET_FLAG"/>
+		<result property="qa_regdate" column="QA_REGDATE"/>
 		<result property="qa_addfile" column="QA_ADDFILE"/>
 		<result property="qare_flag" column="QARE_FLAG"/>
-		<result property="qa_ref" column="REF"/>
-		<result property="aq_re_step" column="RE_STEP"/>
-		<result property="re_level" column="RE_LEVEL"/>
-		<result property="start" column="START"/>
+		<result property="qa_ref" column="QA_REF"/>
+		<result property="qa_re_step" column="QA_RE_STEP"/>
+		<result property="qa_re_level" column="QA_RE_LEVEL"/>
+		<result property="qa_start" column="QA_START"/>
 	</resultMap>
 	
+	<!-- select-all -->
+		<sql id="select-all-member_ReviewWrite">
+			SELECT * FROM MEMBER
+		</sql>
+		
+		<sql id="select-all-goods_ReviewWrite">
+			SELECT * FROM GOODS
+		</sql>
+		
+		<sql id="select-all-goods_QA_ReviewWrite">
+			SELECT * FROM GOODS_QA
+		</sql>
+		
 	<!-- select-all -->
 		<select id="selectAllMember_ReviewWrite" resultMap="memberRes" parameterClass="int">
 			<include refid="select-all-member_ReviewWrite" />
@@ -73,8 +86,8 @@
 			<include refid="select-all-member_ReviewWrite"/>
 		</select>
 		
-		<select id="selectOneGoods_ReviewWrite" resultMap="goodsRes" parameterClass="int">
-			<include refid="select-all-member_ReviewWrite" />
+		<select id="selectOneGoods_ReviewWrite" resultMap="goods_QARes" parameterClass="int">   <!-- 오타수정 goodsRes => goods_QARes -->
+			<include refid="select-all-goods_ReviewWrite" />
 		</select>
 		
 		<select id="selectOneGoods_QA_ReviewWrite" resultMap="goods_QARes" parameterClass="int">
@@ -96,7 +109,7 @@
       	  qa_subject, qa_content, qa_addfile,star을 
       	  insert를 통해 새로운 작성된 내용 저장 -->
       
-     <!-- 회원정보 목록 출력 -->
+     <!-- 회원정보 목록 출력 
      	<select id="member_name" resultMap="memberRes">
 			<include refid="select-all-member"/>
 			select member_name from member where member_no = #member_no#
@@ -110,7 +123,7 @@
 		<select id="goods_name" resultMap="goodsRes">
 			<include refid="select-all-goods"/>
 			select goods_name from GOODS where goods_no = #goods_no#
-		</select>
+		</select>-->
 		
 		<!-- <select id="goods_color" resultMap="goodsRes">
 			<include refid="select-all-goods"/>
@@ -131,8 +144,8 @@
 								QA_ADDFILE)
 						 values (
 						 		sysdate,
-						 		#QA_SUBJECT#,
-						 		#QA_CONTENT#,
-						 		#QA_ADDFILE#)
+						 		#qa_subject#,
+						 		#qa_content#,
+						 		#qa_addfile#)
 		</insert>
 </sqlMap>

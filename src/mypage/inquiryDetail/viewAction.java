@@ -24,7 +24,6 @@ public class viewAction extends ActionSupport{
 	private String inquiry_subject;
 	private String inquiry_content;
 	private Date inquiry_regdate;
-	private String inquiry_email;
 	private String inquiry_addfile;
 	private int inquiry_ref;
 	private int inquiry_re_step;
@@ -168,6 +167,6 @@ public class viewAction extends ActionSupport{
 	public void setInquiry_level(int inquiry_level) {
 		this.inquiry_level = inquiry_level;
 	}
-	
+
 	
 }
