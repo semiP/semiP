@@ -48,8 +48,7 @@
 		</package>
 		
 	<!-- Basket.xml -->
-		<include file="./config/basket.xml"/>
-
+	<include file="./config/basket.xml"/>
 	<include file="./config/goods.xml" />
 	<include file="./config/order.xml" />
 	

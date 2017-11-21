@@ -1,9 +1,10 @@
-
-
+basket.jsp
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page import = "java.util.List" %> 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script  type="text/javascript" src="./jquery.js"></script>
+
+
 
 
 <div id="content-container">
@@ -27,13 +28,12 @@
 		<tr>
 			
 			<td>
-				<form action="orderWriteForm.action" method="post" id="frm" name="frm">
-				<input type="hidden" id="basket_no_set" name="basket_no_set" />
+				<form action="order.action" method="post" id="frm">
 				<table width="100%" border="0">
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 								
 								<tr bgcolor="#455b59" style="color:#FFFFFF;" align="center">
-									<td width="1%"></td>
+									<td width="1%"><input type="checkbox" id="checkall" /></td>
 									<td width="10%">이미지</td>
 									<td width="19%">상품정보</td>
 									<td width="15%">판매가</td>
@@ -46,10 +46,8 @@
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->	
 								<s:iterator value="basketlist" status="stat">
-								
-								<input type="hidden" id="basket_price_<s:property value = "#stat.index" />" name="basket_price_<s:property value = "#stat.index" />" value="<s:property value='basket_price'/>" />
-								<tr align="center" id="basket_list_<s:property value = "#stat.index" />">
-									<td width="1%"><input name="chkbox" id="chkbox_<s:property value = "#stat.index" />" type="checkbox" onClick="itemSum(<s:property value = "#stat.index" />);" value="<s:property value='basket_no'/>"/></td>
+								<tr align="center">
+									<td width="1%"><input name="chk" type="checkbox" onClick="itemSum(this.form);" value="<s:property value='basket_price'/>"/></td>
 									<td width="10%">
 									<img src="<s:property value="goods_image"/>"><br><font style="width:100%;"></td>
 									<td width="19%"><s:property value="goods_name"/><br><font style="font-size:0.8em; color:777777"><s:property value="goods_color"/> / <s:property value="goods_size"/></font></td>
@@ -103,7 +101,13 @@
 									<td colspan="9" align="left" style="font-size:1.5em;">
 										선택상품을&nbsp;
 										<input type="submit" value="주문하기" style="width:150px;">&nbsp;
-										<input type="button" value="삭제하기" style="width:150px;" onClick="javascript:checked_delete();"/>
+										<input type="button" value="삭제하기" style="width:150px;" id="del" onClick="alert('삭제되었습니다.'); 
+											location.href='basketDeleteAction.action?basket_no=<s:property value="basket_no"/>'"/>
+											
+										
+
+
+											
 									</td>
 								</tr>
 								<tr>	<td height="50"></td>	</tr>
@@ -124,94 +128,65 @@
 							</table>
 							</form>
 <script type="text/javascript" src="/semiP/assets/js/goodsCount.js"></script>
-<script language="javascript">
 
 
+<%-- <script type="text/javascript">
+function delete01(){
 
-function checked_delete()
-{
-	/*
-   var sum = 0;
-   var count = document.frm.chkbox.length;
-   var checkbox_list = "";
-   
-   for(var i=0; i < count; i++ ){
-       if( document.frm.chkbox[i].checked == true ){
-	    //sum += parseInt(frm.chkbox[i].value);
-    	   checkbox_list = checkbox_list + "||" + parseInt(document.frm.chkbox[i].value);
-    	   $("#basket_list_"+i).remove();
-       }
-      
-      
-   }
-   */
-	var basket_no_list = "";
-   $('input[name=chkbox]:checked').each(function() { 
-	   /*
-	   $("#basket_list_"+$(this).val()).remove();
-	   $("input[name=total_sum]").val($("input[name=total_sum]").val() - $("#basket_price_"+$(this).val()).val());
-	   $("input[name=totalOrder_sum]").val($("input[name=totalOrder_sum]").val() - $("#basket_price_"+$(this).val()).val());
-	   */
-	   basket_no_list = basket_no_list + "||" + $(this).val();
-	   
-   });
-      
-   $("#basket_no_set").val(basket_no_list);
-   
-	document.frm.action="basketDeleteAllAction.action";
-	document.frm.submit();
-   
-   
-   //document.frm.total_sum.value = 0;
-   //document.frm.totalOrder_sum.value = 0;   
-   
-      /*
-   $("#basket_no_set").val(checkbox_list);
+	var chk = document.getElementsByName("pidx1");  //name="pidx1" 값을 모두 가져옴.
+	var data = "";
+	var chk_check = false;
 
-   alert($("#basket_no_set").val());
-   
-    var array_set = $("#basket_no_set").val();
-    
-	var array = array_set.split("||");
-   
-	for(var j=0;j<=array.length;j++)
-	{
-		//alert(j);
-		alert(array[j]);
-		//$("#basket_list_")
-		$("#basket_list_"+j).remove();
+	 for (i=0;i<chk.length ;i++ )                   //for 문으로 돌리고..
+	 {
+	 if (chk[i].checked == true )               //checked 된 것만
+	 {
+	  data = data + ", " +chk[i].value;            // 값을 가져와서 data 넣는다.
+	     if(chk[i].checked) chk_check = true;    // 하나라도 체크 됐다면 chk_check = true 값 반환
+	 }
 	}
-	*/
-}
+	 if (chk_check)              // chk_check 값이 true 라면
+	 {
+	    if(confirm("삭제하시겠습니까?")){
+//		  alert("넘어가는 값은="+data);
 
-function alldel()
-{
+	   document.formName.action = "delete_ok2.asp?idx1="+data
+	   document.formName.submit();
 
-}
+	    }
+	 }else{                         // chk_check 값이 false 라면
+	  alert('하나이상을 체크하여 주십시오');
+	  return;
+	 }
+	}
+</script> --%>
 
-var basket_price = "";
-
-function itemSum(index)
-{
-	/*
-
-  */
-
-	
-  //for(i=0;i<$("input[name=basket_price]").length;i++)
-  //{
-	 //alert($("input[name=chkbox_"+index+"]").prop("checked"));
-  	if($("input[id=chkbox_"+index+"]").prop("checked") == true) basket_price = Number(basket_price) + Number($("input[name=basket_price_"+index+"]").val());
-  	else basket_price = Number(basket_price) - Number($("input[name=basket_price_"+index+"]").val());
-  //}  
-  document.frm.total_sum.value = basket_price;
-  document.frm.totalOrder_sum.value = basket_price;
-  
-}
-
-
-
+<script type="text/javascript">
+<!--
+$(document).ready(function(){
+    //최상단 체크박스 클릭
+    $("#checkall").click(function(){
+        //클릭되었으면
+        if($("#checkall").prop("checked")){
+            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+            $("input[name=chk]").prop("checked",true);
+            //클릭이 안되있으면
+        }else{
+            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+            $("input[name=chk]").prop("checked",false);
+        }
+    })
+})
+-->
 </script>
+
+
+
+
+
+
+
+
 
 
 
