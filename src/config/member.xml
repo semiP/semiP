@@ -11,22 +11,35 @@
 		<action name="memberinfo">
 			<result name="success" type="tiles"></result>
 		</action>
-		
-		<!-- 아이디 중복확인 -->
-		<action name="memberIdChkAction" class="member.memberIdChkAction">
-			<result>/member/idChk.jsp</result>
+		<!-- (수정) 회원가입 이동 -->
+		<action name="loginjoin" class="member.loginjoin">
+			<result name="success" type="tiles">joinForm</result>
 		</action>
-		<!-- (수정)아이디/비밀번호 찾기 -->
+		<!-- (수정)아이디/비밀번호 찾기(이동) -->
 		<action name="loginfind" class="member.IdPassInquire">
 			<result name="success" type="tiles">idPassInquire</result>
 		</action>
-		<!-- 회원탈퇴 -->
-		<action name="memberwith">
-			<result name="success" type="tiles">memberwith</result>
+		<!-- (수정)아이디 찾기 -->
+		<action name="loginidfind" class="member.memberIdFindAction">
+			<interceptor-ref name="params" />
+			<result name="success" >/member/idfind.jsp</result>
+			<result name="error">/member/loginfinderror.jsp</result>
 		</action>
-		<!-- 탈퇴  -->
-		<action name="DeleteAction" class="member.DeleteAction">
-			<result>/member/DeleteResult.jsp</result>
+		<!-- (수정)비밀번호 찾기 -->
+		<action name="loginpwfind" class="member.memberPwFindAction">
+			<result name="success">/member/pwfind.jsp</result>
+			<result name="error">/member/loginfinderror.jsp</result>
+		</action>
+		<!-- 회원가입 -->
+		<action name="memberend" class="member.memberendAction">
+			<interceptor-ref name="prepare" />
+			<interceptor-ref name="modelDriven" />
+			<interceptor-ref name="params" />
+			<result name="success" type="tiles">loginForm</result> 
+		</action>
+		<!-- 아이디 중복확인 -->
+		<action name="memberIdChkAction" class="member.memberIdChkAction">
+			<result>/member/idChk.jsp</result>
 		</action>
 		<!-- 회원정보 수정 -->
 		<action name="memberModifyAc" class="member.ModifyAction">

@@ -90,5 +90,8 @@ public class memberbean {
 	public void setMember_delegereason(String member_deletereason) {
 		this.member_deletereason = member_deletereason;
 	}
+	
+	
+	
 
 }

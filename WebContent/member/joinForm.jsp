@@ -8,7 +8,7 @@
 			<td>
 				<h1><strong>SIGNUP</strong></h1>
 				<p align="right">
-					<a href="#">로그인</a> 
+					<a href="loginForm.action">로그인</a> 
 					&nbsp;&nbsp; | &nbsp;&nbsp;
 					<a href="#">아이디/비밀번호찾기</a>
 				</p>
