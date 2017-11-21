@@ -17,7 +17,7 @@ public class SearchAction extends ActionSupport {
 	
 	private static final long serialVersionUID = 1L;
 	private String keyword;
-	private int category_no;
+	private int category;
 	private goodsVO paramClass;
 	private List<goodsVO> goodsList = new ArrayList<goodsVO>();
 	private List<countVO> countList = new ArrayList<countVO>();
@@ -31,15 +31,30 @@ public class SearchAction extends ActionSupport {
 		}
 		
 		public String execute() throws Exception{
-			 goodsVO emptyGoods = new goodsVO();
-			 emptyGoods.setGoods_amount(-10);
+			goodsVO emptyGoods = new goodsVO();
+			emptyGoods.setGoods_amount(-10);
 			
-			if("".equals(keyword) || keyword == null) {
-				goodsList = sqlMapper.queryForList("mainSearch.select-all-goods");
-				countList = sqlMapper.queryForList("mainSearch.count-all-goods");
+			if(category > 0) {
+				if("".equals(keyword) || keyword == null) {
+					goodsList = sqlMapper.queryForList("mainSearch.select-all-goods-by-category",category);
+					countList = sqlMapper.queryForList("mainSearch.count-all-goods");
+				}else {
+					List<goodsVO> tempList = new ArrayList<goodsVO>();
+					tempList = sqlMapper.queryForList("mainSearch.select-search-goods",keyword);
+					for(int i=0; i<tempList.size();i++) {
+						if(tempList.get(i).getGoods_category() == category)
+							goodsList.add(tempList.get(i));
+					}
+					countList = sqlMapper.queryForList("mainSearch.count-search-goods",keyword);
+				}
 			}else {
-				goodsList = sqlMapper.queryForList("mainSearch.select-search-goods",keyword);
-				countList = sqlMapper.queryForList("mainSearch.count-search-goods",keyword);
+				if("".equals(keyword) || keyword == null) {
+					goodsList = sqlMapper.queryForList("mainSearch.select-all-goods");
+					countList = sqlMapper.queryForList("mainSearch.count-all-goods");
+				}else {
+					goodsList = sqlMapper.queryForList("mainSearch.select-search-goods",keyword);
+					countList = sqlMapper.queryForList("mainSearch.count-search-goods",keyword);
+				}
 			}
 			
 			if(goodsList.size() % 4 != 0) {
@@ -64,12 +79,12 @@ public class SearchAction extends ActionSupport {
 			this.keyword = keyword;
 		}
 
-		public int getCategory_no() {
-			return category_no;
+		public int getCategory() {
+			return category;
 		}
 
-		public void setCategory_no(int category_no) {
-			this.category_no = category_no;
+		public void setCategory(int category) {
+			this.category = category;
 		}
 
 		public goodsVO getParamClass() {

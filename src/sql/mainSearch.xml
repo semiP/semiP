@@ -58,7 +58,12 @@
 	<select id="select-all-goods" resultMap="goodsRes" parameterClass="int"  remapResults="true">
 		<include refid="select-all"/>
 	</select>
-	<!-- 상품 전체 가져오면서 카테고리별 숫자세 -->
+	<!-- 상품 전체 카테고리별로 -->
+	<select id="select-all-goods-by-category" resultMap="goodsRes" parameterClass="int"  remapResults="true">
+		<include refid="select-all"/>
+		WHERE goods_category = #goods_category#
+	</select>
+	<!-- 상품 전체 가져오면서 카테고리별 숫자세기 -->
 	<select id="count-all-goods" resultMap="countRes" parameterClass="int"  remapResults="true">
 		SELECT b.name AS category_name, b.goods_category AS category_no, a.cnt
 		FROM
@@ -68,6 +73,7 @@
 		WHERE
 			a.goods_category = b.goods_category
 	</select>
+	
 	
 	<!-- 상품 키워드로 검색해 가져오기 -->
 	<select id="select-search-goods" resultMap="goodsRes" parameterClass="String"  remapResults="true">

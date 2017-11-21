@@ -42,7 +42,12 @@
 		</tr>
 		<tr>
 			<td>			
-			"${keyword }" 검색결과
+				<s:if test="keyword == null || keyword == ''">
+					전체&nbsp;검색결과입니다
+				</s:if>
+				<s:else>
+					"${keyword }"&nbsp;검색결과입니다
+				</s:else>
 			</td>
 		</tr>
 		<tr> <!-- 검색내용 넣고... 많은 경우 페이징도 넣고... -->
