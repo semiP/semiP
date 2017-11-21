@@ -142,11 +142,10 @@
 				<td bgcolor="#F4F4F4">&nbsp;&nbsp;이미지등록</td>
 				<td bgcolor="#FFFFFF">
 				<s:file name="upload" theme="simple" />
-				<s:if test="resultClass.goods_image != NULL">
-					&nbsp; * <s:property value="%{resultClass.goods_image}" /> 파일이 등록되어 있습니다. 다시 업로드하면 기존의 파일은 삭제됩니다.
-				</s:if>
 				
-
+				<s:if test="resultClass.goods_image != NULL">
+					&nbsp; * <s:property value="resultClass.goods_image" /> 파일이 등록되어 있습니다. 다시 업로드하면 기존의 파일은 삭제됩니다.
+				</s:if>
 				</td>
 			</tr>
 			
@@ -156,7 +155,8 @@
 		<tr>
 			<td colspan="3" align="center">
 				<input type="submit" class="btn-custom" value="등록하기">&nbsp;&nbsp;
-				<input type="button" class="btn-custom" value="리셋">
+				<input type="button" class="btn-custom" value="리셋">&nbsp;&nbsp;
+				<input type="button" class="btn-custom" value="목록" onClick="javascript:location.href='goodsListAction.action?currentPage=<s:property value="currentPage"/>'">
 			</td>
 		</tr>
 		<tr>
