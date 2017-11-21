@@ -156,7 +156,7 @@
 	</select>
 
 	<select id="select-cmt-all" resultMap="goodsCmtRes" parameterClass="int">
-			SELECT * FROM goods_qa WHERE member_no = #member_no#
+			SELECT * FROM goods_qa WHERE goods_no = #goods_no#
 	</select>
 	
 </sqlMap>
