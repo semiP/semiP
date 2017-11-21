@@ -215,7 +215,7 @@
 				<td height="30px"/>
 			</tr>
 			<tr>
-				<td colspan="2" align="right"><a href="./terminateForm.tiles">회원탈퇴</a></td>
+				<td colspan="2" align="right"><a href="/semiP/myPage/terminateForm.jsp">회원탈퇴</a></td>
 			</tr>		
 		</table>
 	</table>

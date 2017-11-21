@@ -69,17 +69,15 @@
 			<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->
 			<tr align="center">
-				<td width="10%">주문날짜</td>
-				<td width="10%"><img src="/semiP/assets/images/best1.jpg" style="width:100%;"></td>
-				<td width="28%">상품이름이름이름<br><font style="font-size:0.8em; color:777777">상품옵션옵션</font></td>
-				<td width="15%">₩ 100,000</td>
-				<td width="5%">
-					1
-				</td>
+				<td width="10%"><s:property value="order_date"/></td>
+				<td width="10%"><s:property value="order_goods_image"/><img style="width:100%;"></td>
+				<td width="28%"><s:property value="goods_name"/><br><font style="font-size:0.8em; color:777777"><s:property value="goods_size"/><s:property value="goods_color"/></font></td>
+				<td width="15%"><s:property value="goods_price"/></td>
+				<td width="5%"><s:property value="order_goods_amount"/></td>
 				<td width="20%">
-					배송중<br>
+					<s:property value="order_status"/><br>
 					우체국택배<br>
-					[12345679]<br><br>
+					<s:property value="invoice_no"/><br><br>
 					<input type="button" value="구매후기" style="width:60%;">
 				</td>
 				<td width="12%">
