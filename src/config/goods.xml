@@ -52,7 +52,8 @@
  		
  		<!-- 등록된 상품 상세보기 액션 -->
  		<action name="goodsViewAction" class="goods.goodsViewAction">
- 			<result>/goods/goodsDetail.jsp</result>
+ 			<interceptor-ref name="params"/>
+ 			<result type="tiles">goodsDetail</result>
  		</action>
 
 <!-- 

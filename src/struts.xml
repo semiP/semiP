@@ -45,7 +45,7 @@
 	<!-- Login-->
 	<package name="login" namespace="/" extends="struts-default, tiles-default">
 		<action name="login" class="member.loginAction">
-			<result name="success" type="tiles" >main</result> 
+			<result name="success" type="redirectAction" >main</result> 
 			<result name="login">/member/loginForm.jsp</result> 
 	 		<result name="error">/common/loginError.jsp</result>
 		</action>

@@ -10,80 +10,39 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 
 import java.io.Reader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class goodsViewAction extends ActionSupport{
 	
+	private static final long serialVersionUID = 1L;
+	
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
-	private goodsVO paramClass = new goodsVO(); //�Ķ���͸� ������ ��ü
-	private goodsVO resultClass = new goodsVO(); //���� ��� ���� ������ ��ü
 	
-	private goodsCmtVO cmt_paramClass = new goodsCmtVO();
-	private goodsCmtVO cmt_resultClass = new goodsCmtVO();
-	
-	private List<goodsCmtVO> list = new ArrayList<goodsCmtVO>();
-	
-	private String fileUploadPath = "E:\\Java\\upload\\";
-	
-	private InputStream inputStream;
-	private String contentDisposition;
-	private long contentLength;
-	
-	private int num = 0;
-	private int currentPage = 1;
-	private int totalCount;
-	private int blockCount = 10;
-	private int blockPage = 5;
-	private String pagingHtml;
-//	private pagingAction page;
-	
+	private goodsVO resultGoods = new goodsVO();
+	private List<goodsCmtVO> listCmt = new ArrayList<goodsCmtVO>();
+		
 	private int goods_no;
-	private int goods_cmt_no;
-	private String goods_cmt_pw;
+
 	
-	//������
 	public goodsViewAction() throws IOException
 	{
-		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); //sqlMapConfig.xml ������ ���������� �����´�.
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml�� ������ ������ sqlMapper ��ü ����
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); 
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); 
 		reader.close();
 	}
 	
-	//�󼼺���
+	
 	public String execute() throws Exception
 	{
-		//�ش� ���� ��ȸ�� +1.
-		//paramClass.setNo(getNo());
-		//sqlMapper.update("updateReadHit", paramClass);
+		resultGoods = (goodsVO) sqlMapper.queryForObject("goods.select-goods-one", goods_no);
+		listCmt = 
 		
-		//�ش� ��ȣ�� ��ǰ ����� �����´�.
-		resultClass = (goodsVO) sqlMapper.queryForObject("goods.select-goods-all", getGoods_no());
-		//cmt_resultClass = (goodsCmtVO) sqlMapper.queryForObject("select-goods", getGoods_cmt_no());
-		
-		//commentlist = sqlMapper.queryForList("selectComment", getNo());
-		
-		
-		String size;
-		String color;
-		String[] array_size;
-		String[] array_color;
-		
-		size = resultClass.getGoods_size();
-		color = resultClass.getGoods_color();
-		
-		array_size = size.split(",");
-		array_color = color.split(",");
-	
 		return SUCCESS;
 	}
 
