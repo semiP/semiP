@@ -26,6 +26,7 @@ public class noticeAction extends ActionSupport {
 
 	private String searchKeyword;
 	private int searchSC;
+	private int searchNum;
 	
 	private int num=0;
 
@@ -44,7 +45,7 @@ public class noticeAction extends ActionSupport {
 		list = sqlMapper.queryForList("notice.selectAll"); // list�� ��� �� ������ ����
 
 		totalCount = list.size(); // ��ü ���� ������ totalcount��
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "noticeAction", num, "");
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "noticeAction", num, num, "");
 		pagingHtml = page.getPageHtml().toString(); // pagingHtml ����
 		int lastCount = totalCount; // ���� ���������� ������ ������ �� ��ȣ ����
 
@@ -65,7 +66,7 @@ public class noticeAction extends ActionSupport {
 			list = sqlMapper.queryForList("notice.selectSearch-c", "%"+getSearchKeyword()+"%");
 		}
 		totalCount = list.size();
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "noticeAction", searchSC, getSearchKeyword());
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "noticeAction", searchSC, searchNum, getSearchKeyword());
 		pagingHtml = page.getPageHtml().toString();
 		int lastCount = totalCount;
 

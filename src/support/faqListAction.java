@@ -26,6 +26,7 @@ public class faqListAction extends ActionSupport {
 
 	private String searchKeyword;
 	private int searchSC;
+	private int searchNum;
 	
 	private int num=0;
 
@@ -36,15 +37,17 @@ public class faqListAction extends ActionSupport {
 		reader.close(); // �о� ������ �ݱ�
 	}
 
+//	execute() / search() 차후 변경
 	public String execute() throws Exception {
-		if (getSearchKeyword() != null) {
+		if (getSearchKeyword() != null || getSearchNum() == 1 || getSearchNum() == 2 || getSearchNum() == 3) {
 			return search();
 		}
+		
 
 		list = sqlMapper.queryForList("faq.selectAll"); // list�� ��� �� ������ ����
 
 		totalCount = list.size(); // ��ü ���� ������ totalcount��
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "faqListAction", num, "");
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "faqListAction", num, num, "");
 		pagingHtml = page.getPageHtml().toString(); // pagingHtml ����
 		int lastCount = totalCount; // ���� ���������� ������ ������ �� ��ȣ ����
 
@@ -64,8 +67,18 @@ public class faqListAction extends ActionSupport {
 		if(searchSC == 1){
 			list = sqlMapper.queryForList("faq.selectSearch-c", "%"+getSearchKeyword()+"%");
 		}
+		if(searchNum == 1) {
+			list = sqlMapper.queryForList("faq.selectAll");
+		}
+		if(searchNum == 2) {
+			list = sqlMapper.queryForList("faq.selectSearch-o");
+		}
+		if(searchNum == 3) {
+			list = sqlMapper.queryForList("faq.selectSearch-t");
+		}
+			
 		totalCount = list.size();
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "faqListAction", searchSC, getSearchKeyword());
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "faqListAction", searchSC, searchNum, getSearchKeyword());
 		pagingHtml = page.getPageHtml().toString();
 		int lastCount = totalCount;
 
@@ -75,6 +88,14 @@ public class faqListAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
+	
+	public int getSearchNum() {
+		return searchNum;
+	}
+
+	public void setSearchNum(int searchNum) {
+		this.searchNum = searchNum;
+	}
 
 	public List<faqVO> getList() {
 		return list;

@@ -1,6 +1,17 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"
 	trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<script type="text/javascript">
+<!-- 차후 에이작스 변경 -->
+	function go()
+	{
+		var form = document.searchForm;
+		
+		form.action = "./faqListAction.action";
+		form.submit();
+	}
+
+</script>
 
 <div id="content-container">
 	<table width="100%" border="0" style="margin:auto; max-width:1000px;">
@@ -15,10 +26,9 @@
 				<h2>고객지원</h2>
 			</td>	
 		</tr>
-		
-		<tr>
+		<!-- <tr>
 			<td colspan="3" height="1" bgcolor="#777777"></td>
-		</tr>
+		</tr> -->
 
 		<tr>
 			<td width="15%"/>			
@@ -48,15 +58,21 @@
 			</tr>
 			<tr>
 				<td>
-					<select name="searchNum">										
+				<!-- 차후 에이작스 변경 -->
+				<form id="searchForm" name="searchForm">
+					<select name=searchNum onchange="javascript:go();">
 						<option value="1">모두 보기</option>
 						<option value="2">주문/배송</option>
 						<option value="3">반품/교환</option>
 					</select>
+					</form>
 				</td>
+				
 				<td align="right" colspan="2">
+					<form>
 					검색기간:	<input type="date" name="startDate"> ~ <input type="date" name="endDate">&nbsp;&nbsp;
-							<input type="button" name="dateSearchBtn" value="조회">
+							<input type="submit" name="dateSearchBtn" value="조회">
+					</form>
 							
 				</td>
 			</tr>
@@ -86,9 +102,14 @@
 					<s:property value="currentPage" />
 				</s:param>
 			</s:url>			
+			
      	      <tr bgcolor="#FFFFFF"  align="center">
 				<td><s:property value="faq_regdate" /></td>
-				<td><%-- <s:if> 벨류가 1이면 주문배송 2면 반품교환--%><s:property value="faq_category" /></td>
+				<%-- 벨류가 1이면 주문배송 2면 반품교환--%>
+				<td>
+				<s:if test="%{faq_category.equals(1)}">주문/배송</s:if>
+				<s:else>반품/교환</s:else></td>
+				
         		<td class="faq_subject">
 					<s:a href="%{viewURL}">  <!-- 내용 상세보기를 위한 URL -->
 						<s:property value="faq_subject"/>

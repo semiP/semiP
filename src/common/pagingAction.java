@@ -71,8 +71,9 @@ public class pagingAction {
 		}
 	}
 	
-//	search O
-	public pagingAction(int currentPage, int totalCount, int blockCount, int blockPage, String actionName, int searchSC,
+	
+//	searchNum add
+	public pagingAction(int currentPage, int totalCount, int blockCount, int blockPage, String actionName, int searchSC, int searchNum,
 			String isSearch) {
 
 		this.blockCount = blockCount;
@@ -103,7 +104,7 @@ public class pagingAction {
 		if (currentPage > blockPage) {
 			if (isSearch != "")
 				pageHtml.append("<a class='page prv' href=" + actionName + ".action?currentPage=" + (startPage - 1)
-						+ "&searchS=" + isSearch + ">");
+						+ "&searchKeyword=" + isSearch + ">");
 			else
 				pageHtml.append(
 						"<a class='page prv' href=" + actionName + ".action?currentPage=" + (startPage - 1) + ">");
@@ -123,7 +124,7 @@ public class pagingAction {
 				pageHtml.append("<a class='page' href=" + actionName + ".action?currentPage=");
 				pageHtml.append(i);
 				if (isSearch != "")
-					pageHtml.append("&searchS=" + isSearch);
+					pageHtml.append("&searchKeyword=" + isSearch);
 				pageHtml.append(">");
 				pageHtml.append(i);
 				pageHtml.append("</a>");
@@ -132,7 +133,7 @@ public class pagingAction {
 		if (totalPage - startPage >= blockPage) {
 			pageHtml.append("<a class='page next' href=" + actionName + ".action?currentPage=" + (endPage + 1) + ">");
 			if (isSearch != "")
-				pageHtml.append("&searchS=" + isSearch);
+				pageHtml.append("&searchKeyword=" + isSearch);
 			pageHtml.append("&gt;");
 			pageHtml.append("</a>");
 		}
