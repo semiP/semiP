@@ -43,7 +43,7 @@ public class goodsListAction extends ActionSupport {
 	
 	public String execute() throws Exception
 	{		
-		list = sqlMapper.queryForList("select-goods-all");
+		list = sqlMapper.queryForList("goods.select-goods-all");
 		
 		totalCount = list.size();
 //		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, num, "");
