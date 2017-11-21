@@ -42,7 +42,7 @@
 		<result property="order_pay_type" column="order_pay_type"/>
 		<result property="order_pay_name" column="order_pay_name"/>
 		<result property="order_total_pay" column="order_total_pay"/>
-		<result property="invoice" column="invoice"/>
+		<result property="invoice_no" column="invoice_no"/>
 	</resultMap>
 	
 	<!-- select-all -->

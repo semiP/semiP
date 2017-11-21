@@ -146,11 +146,14 @@
 	</update>
 	
 	<!-- 상품 리스트 보여주기 -->
-	<select id="select-goods-all" resultClass="goods" parameterClass="int">
+	<select id="select-goods-all" resultMap="goodsRes" parameterClass="int">
 		<include refid="select-all"/>
 		ORDER BY goods_no DESC
 	</select>
 	
-	
-	
+	<select id="select-goods-one" resultMap="goodsRes" parameterClass="int">
+		<include refid="select-all"/>
+		WHERE goods_no = #goods_no#
+	</select>
+
 </sqlMap>
