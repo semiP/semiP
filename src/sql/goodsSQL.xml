@@ -18,8 +18,8 @@
 		<result property="goods_content" column="goods_content"/>
 		<result property="goods_amount" column="goods_amount"/>
 		<result property="goods_price" column="goods_price"/>
-		<result property="goods_image_file" column="goods_image_file"/>
-		<result property="goods_date" column="goods_date"/>
+		<result property="goods_image" column="goods_image"/>
+		<result property="goods_regdate" column="goods_regdate"/>
 	</resultMap>
 
 	<!-- 상품 (고객상품평) 리절트 맵 정의 -->
@@ -48,8 +48,8 @@
 					   goods_content,
 					   goods_amount,
 					   goods_price,
-					   goods_image_file,
-					   goods_date)
+					   goods_image,
+					   goods_regdate)
 	VALUES (goods_no_seq.NEXTVAL,
 					   #goods_name#,
 					   #goods_category#,
@@ -58,8 +58,8 @@
 					   #goods_content#,
 					   #goods_amount#,
 					   #goods_price#,  
-					   #goods_image_file#,
-					   #goods_date#)
+					   #goods_image#,
+					   #goods_regdate#)
 	</insert>
 	
 	<!-- 상품 (상품평) insert 쿼리문 정의 -->
@@ -95,8 +95,8 @@
 		   goods_color = #goods_color#,
 		   goods_content = #goods_content#,
 		   goods_price = #goods_price#,
-		   goods_image_file = #goods_image_file#,
-		   goods_date = sysdate
+		   goods_image = #goods_image#,
+		   goods_regdate = #goods_regdate#
 	where goods_no = #goods_no#
 	
 	</update>
@@ -134,7 +134,12 @@
 	</sql>
 	
 	<sql id="select-cmt-all">
-		SELECT * FROM goods_cmt
+		SELECT * FROM goodscmt
 	</sql>
+	
+	<!-- 파일 넣기 -->
+	<select id="selectLastNo" resultClass="goods" parameterClass="int">
+			SELECT max(goods_no) as goods_no FROM goods
+	</select>
 	
 </sqlMap>

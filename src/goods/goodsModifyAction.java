@@ -23,13 +23,13 @@ public class goodsModifyAction extends ActionSupport{
 	
 	private int goods_no;
 	private String goods_name;
-	private String goods_category;
+	private int goods_category;
 	private String goods_size;
 	private String goods_color;
 	private String goods_content;
 	private int goods_amount;
 	private int goods_price;
-	private String goods_image_file;
+	private String goods_image;
 	private String old_file;
 	Calendar today = Calendar.getInstance(); //���� ��¥ ���ϱ�.
 	
@@ -62,6 +62,7 @@ public class goodsModifyAction extends ActionSupport{
 		paramClass.setGoods_amount(getGoods_amount());   //��ǰ ����
 		paramClass.setGoods_content(getGoods_content()); //��ǰ ����
 		paramClass.setGoods_price(getGoods_price());     //��ǰ ����
+		paramClass.setGoods_image(getGoods_image());
 		
 		sqlMapper.update("goodsUpdate", paramClass);
 		
@@ -77,8 +78,8 @@ public class goodsModifyAction extends ActionSupport{
 			File destFile = new File(fileUploadPath + file_name + "." + file_ext);
 			FileUtils.copyFile(getUpload(), destFile);
 			
-			paramClass.setGoods_image_file(getUploadFileName());
-			paramClass.setGoods_image_file(file_name + "." + file_ext);
+			paramClass.setGoods_image(getUploadFileName());
+			paramClass.setGoods_image(file_name + "." + file_ext);
 			
 			sqlMapper.update("updateFile", paramClass);
 		}
@@ -103,8 +104,8 @@ public class goodsModifyAction extends ActionSupport{
 	public String getGoods_name() { return goods_name; }
 	public void setGoods_name(String goods_name) { this.goods_name = goods_name; }
 	
-	public String getGoods_category() { return goods_category; }
-	public void setGoods_category(String goods_category) { this.goods_category = goods_category; }
+	public int getGoods_category() { return goods_category; }
+	public void setGoods_category(int goods_category) { this.goods_category = goods_category; }
 	
 	public String getGoods_size() { return goods_size; }
 	public void setGoods_size(String goods_size) { this.goods_size = goods_size; }
@@ -121,8 +122,8 @@ public class goodsModifyAction extends ActionSupport{
 	public int getGoods_price() { return goods_price; }
 	public void setGoods_price(int goods_price) { this.goods_price = goods_price; }
 	
-	public String getGoods_image_file() { return goods_image_file; }
-	public void setGoods_image_file(String goods_image_file) { this.goods_image_file = goods_image_file; }
+	public String getGoods_image() { return goods_image; }
+	public void setGoods_image(String goods_image) { this.goods_image = goods_image; }
 	
 	public String getOld_file() { return old_file; }
 	public void setOld_file(String oldFile) { old_file = oldFile; }

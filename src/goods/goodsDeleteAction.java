@@ -38,7 +38,7 @@ public class goodsDeleteAction extends ActionSupport{
 		
 		resultClass = (goodsVO) sqlMapper.queryForObject("select-goods", getGoods_no());
 		
-		File deleteFile = new File(fileUploadPath + resultClass.getGoods_image_file());
+		File deleteFile = new File(fileUploadPath + resultClass.getGoods_image());
 		deleteFile.delete();
 		
 		paramClass.setGoods_no(getGoods_no());
