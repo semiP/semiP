@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class inquiryBean {
 	private int inquiry_no;
-	private int member_no;
+	private int MEMBER_NO;
 	private int inquiry_category;
 	private String inquiry_subject;
 	private String inquiry_content;
@@ -22,12 +22,13 @@ public class inquiryBean {
 		this.inquiry_no = inquiry_no;
 	}
 
-	public int getMember_no() {
-		return member_no;
+
+	public int getMEMBER_NO() {
+		return MEMBER_NO;
 	}
 
-	public void setMember_no(int member_no) {
-		this.member_no = member_no;
+	public void setMEMBER_NO(int mEMBER_NO) {
+		MEMBER_NO = mEMBER_NO;
 	}
 
 	public int getInquiry_category() {

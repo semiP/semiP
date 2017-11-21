@@ -16,7 +16,7 @@ public class faqListAction extends ActionSupport {
 	public static Reader reader; // ���� ��Ʈ���� ���� reader.
 	public static SqlMapClient sqlMapper; // SqlMapClient API�� ����ϱ� ���� sqlMapper ��ü.
 
-	private List<faqVO> list = new ArrayList<faqVO>();;
+	private List<faqVO> list = new ArrayList<faqVO>();
 	private int currentPage = 1; // ���� ������
 	private int totalCount; // �� �Խù��� ��
 	private int blockCount = 3; // �� �������� �Խù� ��
@@ -24,7 +24,11 @@ public class faqListAction extends ActionSupport {
 	private String pagingHtml; // ����¡�� ������ html
 	private pagingAction page; // ����¡ Ŭ����
 
-	private String searchS;
+	private String searchKeyword;
+	private int searchSC;
+	private int searchNum;
+	
+	private int num=0;
 
 	// ������
 	public faqListAction() throws IOException {
@@ -33,15 +37,17 @@ public class faqListAction extends ActionSupport {
 		reader.close(); // �о� ������ �ݱ�
 	}
 
+//	execute() / search() 차후 변경
 	public String execute() throws Exception {
-		if (getSearchS() != null) {
+		if (getSearchKeyword() != null || getSearchNum() == 1 || getSearchNum() == 2 || getSearchNum() == 3) {
 			return search();
 		}
+		
 
 		list = sqlMapper.queryForList("faq.selectAll"); // list�� ��� �� ������ ����
 
 		totalCount = list.size(); // ��ü ���� ������ totalcount��
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "faq");
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "faqListAction", num, num, "");
 		pagingHtml = page.getPageHtml().toString(); // pagingHtml ����
 		int lastCount = totalCount; // ���� ���������� ������ ������ �� ��ȣ ����
 
@@ -55,8 +61,24 @@ public class faqListAction extends ActionSupport {
 
 	// �˻� �޼ҵ� �߰�
 	public String search() throws Exception {
+		if(searchSC == 0){
+			list = sqlMapper.queryForList("faq.selectSearch-s", "%"+getSearchKeyword()+"%");
+		}
+		if(searchSC == 1){
+			list = sqlMapper.queryForList("faq.selectSearch-c", "%"+getSearchKeyword()+"%");
+		}
+		if(searchNum == 1) {
+			list = sqlMapper.queryForList("faq.selectAll");
+		}
+		if(searchNum == 2) {
+			list = sqlMapper.queryForList("faq.selectSearch-o");
+		}
+		if(searchNum == 3) {
+			list = sqlMapper.queryForList("faq.selectSearch-t");
+		}
+			
 		totalCount = list.size();
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, getSearchS());
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "faqListAction", searchSC, searchNum, getSearchKeyword());
 		pagingHtml = page.getPageHtml().toString();
 		int lastCount = totalCount;
 
@@ -64,6 +86,15 @@ public class faqListAction extends ActionSupport {
 			lastCount = page.getEndCount() + 1;
 		list = list.subList(page.getStartCount(), lastCount);
 		return SUCCESS;
+	}
+	
+	
+	public int getSearchNum() {
+		return searchNum;
+	}
+
+	public void setSearchNum(int searchNum) {
+		this.searchNum = searchNum;
 	}
 
 	public List<faqVO> getList() {
@@ -122,12 +153,12 @@ public class faqListAction extends ActionSupport {
 		this.page = page;
 	}
 
-	public String getSearchS() {
-		return searchS;
+	public String getSearchKeyword() {
+		return searchKeyword;
 	}
 
-	public void setSearchS(String searchS) {
-		this.searchS = searchS;
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
 	}
 
 }
