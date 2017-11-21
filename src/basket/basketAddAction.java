@@ -50,7 +50,7 @@ public class basketAddAction extends ActionSupport {
 		basketparamClass.setGoods_size(getGoods_size());
 		basketparamClass.setGoods_color(getGoods_color());
 		basketparamClass.setBasket_date(getBasket_date());
-		basketparamClass.setGoods_no(getGoods_no());
+		//basketparamClass.setGoods_no(getGoods_no());
 
 //		basketparamClass.setMember_no(세션에서 가져오기);
 

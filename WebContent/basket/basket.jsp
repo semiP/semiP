@@ -1,3 +1,5 @@
+
+
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page import = "java.util.List" %> 
@@ -25,14 +27,14 @@
 		<tr>
 			
 			<td>
-				<form action="orderList.action" method="post" id="frm" name="frm">
+				<form action="orderWriteForm.action" method="post" id="frm" name="frm">
 				<input type="hidden" id="basket_no_set" name="basket_no_set" />
 
 				<table width="100%" border="0">
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 								
 								<tr bgcolor="#455b59" style="color:#FFFFFF;" align="center">
-									<td width="1%"><input type="checkbox"/></td>
+									<td width="1%"></td>
 									<td width="10%">이미지</td>
 									<td width="19%">상품정보</td>
 									<td width="15%">판매가</td>
@@ -144,12 +146,22 @@ function checked_delete()
       
    }
    */
-
+	var basket_no_list = "";
    $('input[name=chkbox]:checked').each(function() { 
+	   /*
 	   $("#basket_list_"+$(this).val()).remove();
 	   $("input[name=total_sum]").val($("input[name=total_sum]").val() - $("#basket_price_"+$(this).val()).val());
 	   $("input[name=totalOrder_sum]").val($("input[name=totalOrder_sum]").val() - $("#basket_price_"+$(this).val()).val());
+	   */
+	   basket_no_list = basket_no_list + "||" + $(this).val();
+	   
    });
+      
+   $("#basket_no_set").val(basket_no_list);
+   
+	document.frm.action="basketDeleteAllAction.action";
+	document.frm.submit();
+   
    
    //document.frm.total_sum.value = 0;
    //document.frm.totalOrder_sum.value = 0;   

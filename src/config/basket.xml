@@ -2,13 +2,18 @@
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 	<package name="basket" extends="struts-default, tiles-default">
-		<action name="basketListAction" class="basket.basketListAction">
-		<interceptor-ref name="chain"/>
+		<!-- <action name="basketListAction" class="basket.basketListAction">
 			<result type="tiles">basket</result>
-		</action>
+		</action> -->
+		<action name="basketListAction" class="basket.basketListAction">
+			<result type="tiles">basket</result>
+		</action>		
 		<action name="basketDeleteAction" class="basket.basketDeleteAction">
 			<result type="chain"><param name="actionName">basketListAction</param>
 			</result>
+		</action>
+		<action name="basketDeleteAllAction" class="basket.basketListAction" method="deletebasket">
+			<result name="success" type="redirect">basketListAction.action</result>
 		</action>
 	</package>
 </struts>
