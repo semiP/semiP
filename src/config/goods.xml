@@ -4,7 +4,7 @@
 	"http://struts.apache.org/dtds/struts-2.0.dtd">
 	
 <struts>
-	
+	<constant name="struts.multipart.maxSize" value="104857600" />
 	<package name="goods" extends="struts-default, tiles-default">
 <!--  	글로벌 예외처리 화면설정
 		<global-results>

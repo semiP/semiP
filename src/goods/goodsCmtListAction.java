@@ -30,7 +30,7 @@ public class goodsCmtListAction extends ActionSupport{
 
 	public goodsCmtListAction() throws IOException
 	{
-		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml");
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();		
 	}

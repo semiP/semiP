@@ -16,7 +16,7 @@ public class goodsVO {
 	private Date goods_regdate;				   //등록날짜
 	
 	public int getGoods_no() { return goods_no; }
-	public void setGoods_no (int goods_no) { this.goods_no = goods_no; }
+	public void setGoods_no(int goods_no) { this.goods_no = goods_no; }
 	
 	public String getGoods_name() { return goods_name; }
 	public void setGoods_name(String goods_name) { this.goods_name = goods_name; }

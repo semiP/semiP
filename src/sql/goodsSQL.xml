@@ -9,7 +9,7 @@
 	<typeAlias alias="goodsCmt" type="goods.goodsCmtVO" />
 	
 	<!-- 상품 테이블 리절트 맵 정의 -->
-	<resultMap id="goodsRes" class="goods.goodsVO">
+	<resultMap id="goodsRes" class="goods">
 		<result property="goods_no" column="goods_no"/>
 		<result property="goods_name" column="goods_name"/>
 		<result property="goods_category" column="goods_category"/>
@@ -23,7 +23,7 @@
 	</resultMap>
 
 	<!-- 상품 (고객상품평) 리절트 맵 정의 -->
-	<resultMap id="goodsCmtRes" class="goods.goodsCmtVO">
+	<resultMap id="goodsCmtRes" class="goodsCmt">
 		<result property="goods_cmt_no" column="goods_cmt_no"/>
 		<result property="goods_cmt_pw" column="goods_cmt_pw"/>
 		<result property="goods_cmt_memberno" column="goods_cmt_memberno"/>
@@ -48,7 +48,6 @@
 					   goods_content,
 					   goods_amount,
 					   goods_price,
-					   goods_image,
 					   goods_regdate)
 	VALUES (goods_no_seq.NEXTVAL,
 					   #goods_name#,
@@ -58,7 +57,6 @@
 					   #goods_content#,
 					   #goods_amount#,
 					   #goods_price#,  
-					   #goods_image#,
 					   #goods_regdate#)
 	</insert>
 	
@@ -95,8 +93,7 @@
 		   goods_color = #goods_color#,
 		   goods_content = #goods_content#,
 		   goods_price = #goods_price#,
-		   goods_image = #goods_image#,
-		   goods_regdate = sysdate
+		   goods_regdate = #goods_regdate#
 	where goods_no = #goods_no#
 	
 	</update>
@@ -136,10 +133,22 @@
 	<sql id="select-cmt-all">
 		SELECT * FROM goodscmt
 	</sql>
-	
+
 	<!-- 파일 넣기 -->
 	<select id="selectLastNo" resultClass="goods" parameterClass="int">
 			SELECT max(goods_no) as goods_no FROM goods
+	</select>
+		
+	<update id="updateFile" parameterClass="goods">
+				UPDATE goods SET goods_image = #goods_image#
+								,goods_image = #goods_image#
+				where goods_no = #goods_no#
+	</update>
+	
+	<!-- 상품 리스트 보여주기 -->
+	<select id="select-goods-all" resultClass="goods" parameterClass="int">
+		<include refid="select-all"/>
+		ORDER BY goods_no DESC
 	</select>
 	
 </sqlMap>

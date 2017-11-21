@@ -57,7 +57,7 @@ public class orderWriteAction extends ActionSupport{
 	//생성자
 	public orderWriteAction() throws IOException
 	{
-		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ������ ���������� �����´�.
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); //sqlMapConfig.xml ������ ���������� �����´�.
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ������ ������ sqlMapper ��ü ����.
 		reader.close();
 	}
@@ -100,11 +100,11 @@ public class orderWriteAction extends ActionSupport{
 		paramClass.setInvoice_no(getInvoice_no());
 		
 		//받은값을 넣는다.
-		sqlMapper.insert("orderInsert", paramClass);
+		sqlMapper.insert("order.orderInsert", paramClass);
 		
 		if(getUpload() != null)
 		{
-			resultClass = (orderVO) sqlMapper.queryForObject("selectLastNo");
+			resultClass = (orderVO) sqlMapper.queryForObject("order.selectLastNo");
 			
 			String file_name = "file_" + resultClass.getOrder_no();
 			String file_ext = getUploadFileName().substring(
@@ -119,7 +119,7 @@ public class orderWriteAction extends ActionSupport{
 //			paramClass.setFile_orgname(getUploadFileName());
 //			paramClass.setFile_savname(file_name + "." +file_ext);
 			
-			sqlMapper.update("updateFile", paramClass);
+			sqlMapper.update("order.updateFile", paramClass);
 		}
 		return SUCCESS;
 	}

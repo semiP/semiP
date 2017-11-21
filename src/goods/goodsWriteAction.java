@@ -70,7 +70,8 @@ public class goodsWriteAction extends ActionSupport{
 		paramClass.setGoods_color(getGoods_color());              
 		paramClass.setGoods_content(getGoods_content());		  
 		paramClass.setGoods_amount(getGoods_amount());            
-		paramClass.setGoods_price(getGoods_price());			  
+		paramClass.setGoods_price(getGoods_price());	
+		paramClass.setGoods_image(getGoods_image());
 		paramClass.setGoods_regdate(today.getTime());
 		
 		//��� ���� ����.
@@ -94,13 +95,17 @@ public class goodsWriteAction extends ActionSupport{
 			paramClass.setGoods_image(getUploadFileName()); //���� ���� �̸�
 			paramClass.setGoods_image(file_name + "." + file_ext); //������ ������ ���� �̸�
 		    
-			
-			sqlMapper.update("updateFile", paramClass);
+			sqlMapper.update("goods.updateFile", paramClass);
 		}
+		
+		resultClass = (goodsVO)sqlMapper.queryForObject("goods.select-goods-all", getGoods_no());
 		
 		return SUCCESS;
 	}
 
+	public Calendar getToday() { return today; }
+	public void setToday(Calendar today) { this.today = today; }
+	
 	public goodsVO getParamClass() { return paramClass; }
 	public void setParamClass(goodsVO paramClass) { this.paramClass = paramClass; }
 	
@@ -136,9 +141,6 @@ public class goodsWriteAction extends ActionSupport{
 	
 	public String getGoods_image() { return goods_image; }
 	public void setGoods_image(String goods_image) { this.goods_image= goods_image; }
-	
-	public Calendar getToday() { return today; }
-	public void setToday(Calendar today) { this.today = today; }
 	
 	public File getUpload() { return upload; }
 	public void setUpload(File upload) { this.upload = upload; }
