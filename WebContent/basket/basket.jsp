@@ -23,7 +23,7 @@
 		<tr>
 			
 			<td>
-				<form action="order.action" method="post">
+				<form action="orderWriteForm.action" method="post">
 				<table width="100%" border="0">
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 								

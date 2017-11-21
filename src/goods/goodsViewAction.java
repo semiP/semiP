@@ -67,7 +67,7 @@ public class goodsViewAction extends ActionSupport{
 		//sqlMapper.update("updateReadHit", paramClass);
 		
 		//�ش� ��ȣ�� ��ǰ ����� �����´�.
-		resultClass = (goodsVO) sqlMapper.queryForObject("select-goods", getGoods_no());
+		resultClass = (goodsVO) sqlMapper.queryForObject("goods.select-goods-all", getGoods_no());
 		//cmt_resultClass = (goodsCmtVO) sqlMapper.queryForObject("select-goods", getGoods_cmt_no());
 		
 		//commentlist = sqlMapper.queryForList("selectComment", getNo());

@@ -151,4 +151,6 @@
 		ORDER BY goods_no DESC
 	</select>
 	
+	
+	
 </sqlMap>
