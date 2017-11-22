@@ -10,7 +10,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 
-import mypage.memberBean;
+import member.memberbean;
 
 public class deleteInfoAction extends ActionSupport{
 	public static Reader reader;
@@ -18,8 +18,8 @@ public class deleteInfoAction extends ActionSupport{
 	
 	private Map session;
 	
-	private memberBean paramClass;
-	private memberBean resultClass;
+	private memberbean paramClass;
+	private memberbean resultClass;
 	
 	private int member_no;
 	private String member_name;
@@ -44,8 +44,8 @@ public class deleteInfoAction extends ActionSupport{
 
 	//
 	public String execute() throws Exception{
-		paramClass = new memberBean();
-		resultClass = new memberBean();
+		paramClass = new memberbean();
+		resultClass = new memberbean();
 		
 		// 비밀번호 입력값 파라미터 설정
 		paramClass.setMember_no((int)session.get("session_member_no"));
@@ -59,7 +59,7 @@ public class deleteInfoAction extends ActionSupport{
 		sqlMapper.update("updateMemberDelete", getMember_no());
 			
 		// 현재 글의 비밀번호 가져오기
-		resultClass = (memberBean)sqlMapper.queryForObject("pwCheck",getMember_no());
+		resultClass = (memberbean)sqlMapper.queryForObject("pwCheck",getMember_no());
 						
 		// 입력한 비밀번호가 없으면 입력창
 		if(resultClass == null) return ERROR;
@@ -98,22 +98,22 @@ public class deleteInfoAction extends ActionSupport{
 	}
 
 
-	public memberBean getParamClass() {
+	public memberbean getParamClass() {
 		return paramClass;
 	}
 
 
-	public void setParamClass(memberBean paramClass) {
+	public void setParamClass(memberbean paramClass) {
 		this.paramClass = paramClass;
 	}
 
 
-	public memberBean getResultClass() {
+	public memberbean getResultClass() {
 		return resultClass;
 	}
 
 
-	public void setResultClass(memberBean resultClass) {
+	public void setResultClass(memberbean resultClass) {
 		this.resultClass = resultClass;
 	}
 

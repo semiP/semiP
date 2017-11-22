@@ -9,17 +9,17 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 
-import mypage.memberBean;
+import member.memberbean;
 
 public class modifyPWAction extends ActionSupport{
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
-	private memberBean paramClass;
-	private memberBean resultClass;
+	private memberbean paramClass;
+	private memberbean resultClass;
 	
-	private memberBean paramClass2;
-	private memberBean resultClass2;
+	private memberbean paramClass2;
+	private memberbean resultClass2;
 	
 	private int member_no;
 	private String member_name;
@@ -46,8 +46,8 @@ public class modifyPWAction extends ActionSupport{
 	// 비밀번호수정
 		public String execute() throws Exception{
 			// 파라미터와 리절트 객체 생성
-			paramClass = new memberBean();
-			resultClass = new memberBean();
+			paramClass = new memberbean();
+			resultClass = new memberbean();
 			
 			// 비밀번호 입력값 파라미터 설정
 			paramClass.setMember_no((int)session.get("session_member_no"));
@@ -60,7 +60,7 @@ public class modifyPWAction extends ActionSupport{
 			sqlMapper.update("updateMemberPW",paramClass);
 			
 			//수정이 끝나면 view페이지로 이동
-			resultClass = (memberBean) sqlMapper.queryForObject("showPW", getMember_no());
+			resultClass = (memberbean) sqlMapper.queryForObject("showPW", getMember_no());
 			
 			return SUCCESS;
 		}
@@ -81,19 +81,19 @@ public class modifyPWAction extends ActionSupport{
 			modifyAction.sqlMapper = sqlMapper;
 		}
 
-		public memberBean getParamClass() {
+		public memberbean getParamClass() {
 			return paramClass;
 		}
 
-		public void setParamClass(memberBean paramClass) {
+		public void setParamClass(memberbean paramClass) {
 			this.paramClass = paramClass;
 		}
 
-		public memberBean getResultClass() {
+		public memberbean getResultClass() {
 			return resultClass;
 		}
 
-		public void setResultClass(memberBean resultClass) {
+		public void setResultClass(memberbean resultClass) {
 			this.resultClass = resultClass;
 		}
 
@@ -193,19 +193,19 @@ public class modifyPWAction extends ActionSupport{
 			this.session = session;
 		}
 
-		public memberBean getParamClass2() {
+		public memberbean getParamClass2() {
 			return paramClass2;
 		}
 
-		public void setParamClass2(memberBean paramClass2) {
+		public void setParamClass2(memberbean paramClass2) {
 			this.paramClass2 = paramClass2;
 		}
 
-		public memberBean getResultClass2() {
+		public memberbean getResultClass2() {
 			return resultClass2;
 		}
 
-		public void setResultClass2(memberBean resultClass2) {
+		public void setResultClass2(memberbean resultClass2) {
 			this.resultClass2 = resultClass2;
 		}
 

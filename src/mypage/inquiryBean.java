@@ -13,6 +13,7 @@ public class inquiryBean {
 	private int inquiry_ref;
 	private int inquiry_re_step;
 	private int inquiry_level;
+	
 	public int getInquiry_no() {
 		return inquiry_no;
 	}

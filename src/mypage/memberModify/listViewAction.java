@@ -10,7 +10,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 
-import mypage.memberBean;
+import member.memberbean;
 
 public class listViewAction extends ActionSupport{
 	public static Reader reader;
@@ -18,11 +18,11 @@ public class listViewAction extends ActionSupport{
 	
 	private Map session;
 	
-	private memberBean paramClass;
-	private memberBean resultClass;
+	private memberbean paramClass;
+	private memberbean resultClass;
 	
-	private memberBean paramClass2;
-	private memberBean resultClass2;
+	private memberbean paramClass2;
+	private memberbean resultClass2;
 	
 	private int member_no;
 	private String member_name;
@@ -36,7 +36,6 @@ public class listViewAction extends ActionSupport{
 	private Date member_regdate;
 	private int member_level;
 	private String member_deletereason;
-	
 	
 	//email개별번수
 	private String email1;
@@ -56,11 +55,14 @@ public class listViewAction extends ActionSupport{
 	
 	// 기존 비밀번호를 제외한 다른 항목들의 내용 list 출력
 		public String execute() throws Exception{
-			paramClass = new memberBean(); // 파라미터를 저장할 개게
-			resultClass = new memberBean(); // 쿼리 결과값을 저장할 객체
+			paramClass = new memberbean(); // 파라미터를 저장할 개게
+			resultClass = new memberbean(); // 쿼리 결과값을 저장할 객체
 			
 			// 목록을 화면에 출력
-			resultClass = (memberBean)sqlMapper.queryForObject("memberModifyList",paramClass);
+			resultClass = (memberbean)sqlMapper.queryForObject("mypage1.selectOneMember");
+			
+			email1 = getMember_email().substring(0, getMember_email().indexOf("@"));
+			email2 = getMember_email().substring(getMember_email().indexOf("@") + 1);
 			
 			phone1 = getMember_phone().substring(0,2);
 			phone2 = getMember_phone().substring(3,6);
@@ -89,19 +91,19 @@ public class listViewAction extends ActionSupport{
 			listViewAction.sqlMapper = sqlMapper;
 		}
 
-		public memberBean getParamClass() {
+		public memberbean getParamClass() {
 			return paramClass;
 		}
 
-		public void setParamClass(memberBean paramClass) {
+		public void setParamClass(memberbean paramClass) {
 			this.paramClass = paramClass;
 		}
 
-		public memberBean getResultClass() {
+		public memberbean getResultClass() {
 			return resultClass;
 		}
 
-		public void setResultClass(memberBean resultClass) {
+		public void setResultClass(memberbean resultClass) {
 			this.resultClass = resultClass;
 		}
 
@@ -193,19 +195,19 @@ public class listViewAction extends ActionSupport{
 			this.member_level = member_level;
 		}
 
-		public memberBean getParamClass2() {
+		public memberbean getParamClass2() {
 			return paramClass2;
 		}
 
-		public void setParamClass2(memberBean paramClass2) {
+		public void setParamClass2(memberbean paramClass2) {
 			this.paramClass2 = paramClass2;
 		}
 
-		public memberBean getResultClass2() {
+		public memberbean getResultClass2() {
 			return resultClass2;
 		}
 
-		public void setResultClass2(memberBean resultClass2) {
+		public void setResultClass2(memberbean resultClass2) {
 			this.resultClass2 = resultClass2;
 		}
 

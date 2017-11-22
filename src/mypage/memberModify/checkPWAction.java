@@ -10,20 +10,20 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 
-import mypage.memberBean;
+import member.memberbean;
 
 public class checkPWAction extends ActionSupport{
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
-	private memberBean paramClass;
-	private memberBean resultClass;
+	private memberbean paramClass;
+	private memberbean resultClass;
 	
-	private memberBean paramClass2;
-	private memberBean resultClass2;
+	private memberbean paramClass2;
+	private memberbean resultClass2;
 	
-	private memberBean paramClass3;
-	private memberBean resultClass3;
+	private memberbean paramClass3;
+	private memberbean resultClass3;
 	
 	private int member_no;
 	private String member_name;
@@ -49,15 +49,15 @@ public class checkPWAction extends ActionSupport{
 			
 		// 비밀번호 체크 
 		public String execute() throws Exception{
-			paramClass = new memberBean();
-			resultClass = new memberBean();
+			paramClass = new memberbean();
+			resultClass = new memberbean();
 			
 			// 비밀번호 입력값 파라미터 설정
 			paramClass.setMember_no((int)session.get("session_member_no"));
 			paramClass.setMember_pw(getMember_pw());
 			
 			// 현재 글의 비밀번호 가져오기
-			resultClass = (memberBean)sqlMapper.queryForObject("pwCheck",paramClass);
+			resultClass = (memberbean)sqlMapper.queryForObject("pwCheck",paramClass);
 			
 			// 입력한 비밀번호가 없으면 입력창
 			if(resultClass == null) return ERROR;
@@ -81,51 +81,51 @@ public class checkPWAction extends ActionSupport{
 			checkPWAction.sqlMapper = sqlMapper;
 		}
 
-		public memberBean getParamClass() {
+		public memberbean getParamClass() {
 			return paramClass;
 		}
 
-		public void setParamClass(memberBean paramClass) {
+		public void setParamClass(memberbean paramClass) {
 			this.paramClass = paramClass;
 		}
 
-		public memberBean getResultClass() {
+		public memberbean getResultClass() {
 			return resultClass;
 		}
 
-		public void setResultClass(memberBean resultClass) {
+		public void setResultClass(memberbean resultClass) {
 			this.resultClass = resultClass;
 		}
 
-		public memberBean getParamClass2() {
+		public memberbean getParamClass2() {
 			return paramClass2;
 		}
 
-		public void setParamClass2(memberBean paramClass2) {
+		public void setParamClass2(memberbean paramClass2) {
 			this.paramClass2 = paramClass2;
 		}
 
-		public memberBean getResultClass2() {
+		public memberbean getResultClass2() {
 			return resultClass2;
 		}
 
-		public void setResultClass2(memberBean resultClass2) {
+		public void setResultClass2(memberbean resultClass2) {
 			this.resultClass2 = resultClass2;
 		}
 
-		public memberBean getParamClass3() {
+		public memberbean getParamClass3() {
 			return paramClass3;
 		}
 
-		public void setParamClass3(memberBean paramClass3) {
+		public void setParamClass3(memberbean paramClass3) {
 			this.paramClass3 = paramClass3;
 		}
 
-		public memberBean getResultClass3() {
+		public memberbean getResultClass3() {
 			return resultClass3;
 		}
 
-		public void setResultClass3(memberBean resultClass3) {
+		public void setResultClass3(memberbean resultClass3) {
 			this.resultClass3 = resultClass3;
 		}
 

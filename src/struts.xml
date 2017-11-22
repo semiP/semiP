@@ -59,54 +59,16 @@
 		
 	<!-- 수경 장바구니 -->
 	<include file="./config/basket.xml"/>
+	
 	<!-- 유준 상품/주문 -->
 	<include file="./config/goods.xml" />
 	<include file="./config/order.xml" />
+	
 	<!-- 일우 회원/로그인 -->
 	<include file="/config/member.xml" />
 	
-
-	<!-- 마이페이지-회원정보수정 -->
-	<package name="mypage.memberModify" extends="struts-default">
-		
-		<!-- 마이페이지-회원정보수정 -->
-		<action name="listView_member" class="mypage.memberModify.listViewAction">
-			<result type="chain">checkPW_member</result>
-		</action>
-		
-		<action name="checkPW_member" class="mypage.memberModify.checkPWAction">
-			<result name="ERROR" type="chain">/mypage/pwError.jsp</result>
-			<result name="SUCCESS" type="chain">modify</result>
-		</action>
-		
-		<action name="modify" class="mypage.memberModify.modifyAction">
-			<result type="chain">/mypage/profile.jsp</result>
-		</action>
-		
-		<!-- 마이페이지-비밀번호수정 -->
-		<action name="listView_pw" class="mypage.memberModify.listViewAction">
-			<result type="chain">checkPW_pw</result>
-		</action>
-		
-		<action name="checkPW_pw" class="mypage.memberModify.checkPWAction">
-			<result name="ERROR" type="chain">/mypage/pwError.jsp</result>
-			<result name="SUCCESS" type="chain">modifyPW</result>
-		</action>
-		
-		<action name="modifyPW" class="mypage.memberModify.modifyPWAction">
-			<result type="chain">/mypage/profile.jsp</result>
-		</action>
-		
-		<!-- 마이페이지 회원탈퇴 -->	
-		<action name="listView_delete" class="mypage.memberModify.listViewAction">
-			<result type="chain">deleteInfo</result>
-		</action>
-		
-		<action name="deleteInfo" class="mypage.memberModify.deleteInfoAction">
-			<result name="SUCCESS">/main/mainbody.jsp</result>
-			<result name="ERROR">/mypage/pwError.jsp</result>
-		</action>
-	</package>
-
+	<!-- 은이 마이페이지 -->
+	<include file="/config/mypageMemberModify.xml" />
+	
 </struts>
 

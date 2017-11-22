@@ -10,16 +10,14 @@ import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-import mypage.memberBean;
+import member.memberbean;
 
-public class imsi_existAction extends ActionSupport{
+public class InfoViewAction extends ActionSupport{
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
-	private memberBean paramClass;
-	private memberBean paramClass2;
-	private memberBean resultClass;
-	private memberBean resultClass2;
+	private memberbean paramClass;
+	private memberbean resultClass;
 	
 	private int member_no;
 	private String member_name;
@@ -32,66 +30,59 @@ public class imsi_existAction extends ActionSupport{
 	private String member_email;
 	private Date member_regdate;
 	private int member_level;
+	private String member_deletereason;
+
+	//email개별번수
+	private String email1;
+	private String email2;
 	
-	private Map session;
+	//phone개별변수
+	private String phone1;
+	private String phone2;
+	private String phone3;
+	
+	private Map<String,Object> session;
 	
 	//생성자
-	public imsi_existAction() throws Exception{
-		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml 파일의 설정내용을 가져옴
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xml의 내용을 적용한 sqlMapper객체 생성
-		reader.close();
+	public InfoViewAction() throws Exception{
+		 reader = Resources.getResourceAsReader("sqlMapConfig.xml");
+		   sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
+		   reader.close();
 	}
 	
-	// 회원 탈퇴 전 비밀번호 체크 폼 이동
-	public String checkForm() throws Exception{
-		return SUCCESS;
-	}
-	
-	// 비밀번호 확인 후 SUCCESS시 경고문 이동 ERROR시 pwError.jsp이동
-	public String checkAction() throws Exception{
-		paramClass = new memberBean();
-		resultClass = new memberBean();
-		
-		ActionContext context = ActionContext.getContext();
-		Map session = context.getSession();
-		
-		String session_member_no = (String)session.get("session_member_no");
-		
-		// 비밀번호 입력값 파라미터 설정.
-		paramClass.setMember_pw(getMember_pw());
-		paramClass.setMember_no(getMember_no());
-		
-		// 현재글의 비밀번호 가져오기
-		resultClass = (memberBean)sqlMapper.queryForObject("pwCheck",paramClass);
-		
-		if(resultClass != null) {
-			return SUCCESS;
-		}else {
-			return ERROR;
-		}
-	}
-	
-	// 회원탈퇴 처리 => MEMBER_LEVEL
+	//화면에 list출력
 	public String execute() throws Exception{
-		// 파라미터와 리절트 객체 생성
-		paramClass2 = new memberBean();
-		resultClass2 = new memberBean();
+		ActionContext context = ActionContext.getContext();
+		session = context.getSession();
 		
-		// 수정할 항목 설정
-		paramClass2.setMember_level(getMember_level());
+		if(session.get("session_member_id") == null) {
+			return LOGIN;
+		}
 		
-		// 항목 수정
-		sqlMapper.update("updateMemberDelete");
+		email1 = getMember_email().substring(0, getMember_email().indexOf("@"));
+		email2 = getMember_email().substring(getMember_email().indexOf("@") + 1);
 		
+		phone1 = getMember_phone().substring(0,2);
+		phone2 = getMember_phone().substring(3,6);
+		phone3 = getMember_phone().substring(7,9);
+		
+		member_no = (int)session.get("session_member_no");
+		
+		resultClass = (memberbean)sqlMapper.queryForObject("mypageMemberModify.selectOneMember",member_no);
 		return SUCCESS;
 	}
-
+	
+	// 개인정보 폼 보여주는 처리
+	public String infoView() throws Exception{
+		return SUCCESS;
+	}
+	
 	public static Reader getReader() {
 		return reader;
 	}
 
 	public static void setReader(Reader reader) {
-		imsi_existAction.reader = reader;
+		InfoViewAction.reader = reader;
 	}
 
 	public static SqlMapClient getSqlMapper() {
@@ -99,22 +90,22 @@ public class imsi_existAction extends ActionSupport{
 	}
 
 	public static void setSqlMapper(SqlMapClient sqlMapper) {
-		imsi_existAction.sqlMapper = sqlMapper;
+		InfoViewAction.sqlMapper = sqlMapper;
 	}
 
-	public memberBean getParamClass() {
+	public memberbean getParamClass() {
 		return paramClass;
 	}
 
-	public void setParamClass(memberBean paramClass) {
+	public void setParamClass(memberbean paramClass) {
 		this.paramClass = paramClass;
 	}
 
-	public memberBean getResultClass() {
+	public memberbean getResultClass() {
 		return resultClass;
 	}
 
-	public void setResultClass(memberBean resultClass) {
+	public void setResultClass(memberbean resultClass) {
 		this.resultClass = resultClass;
 	}
 
@@ -206,11 +197,59 @@ public class imsi_existAction extends ActionSupport{
 		this.member_level = member_level;
 	}
 
-	public Map getSession() {
+	public String getMember_deletereason() {
+		return member_deletereason;
+	}
+
+	public void setMember_deletereason(String member_deletereason) {
+		this.member_deletereason = member_deletereason;
+	}
+
+	public String getEmail1() {
+		return email1;
+	}
+
+	public void setEmail1(String email1) {
+		this.email1 = email1;
+	}
+
+	public String getEmail2() {
+		return email2;
+	}
+
+	public void setEmail2(String email2) {
+		this.email2 = email2;
+	}
+
+	public String getPhone1() {
+		return phone1;
+	}
+
+	public void setPhone1(String phone1) {
+		this.phone1 = phone1;
+	}
+
+	public String getPhone2() {
+		return phone2;
+	}
+
+	public void setPhone2(String phone2) {
+		this.phone2 = phone2;
+	}
+
+	public String getPhone3() {
+		return phone3;
+	}
+
+	public void setPhone3(String phone3) {
+		this.phone3 = phone3;
+	}
+
+	public Map<String, Object> getSession() {
 		return session;
 	}
 
-	public void setSession(Map session) {
+	public void setSession(Map<String, Object> session) {
 		this.session = session;
 	}
 	
