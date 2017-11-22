@@ -62,9 +62,9 @@
 									
 									</td>
 									<td width="10%">
-										<input type="button" id="p_btn" value="+" style="background-color:#cccccc;width:80%;"><br>
+										<!-- <input type="button" id="p_btn" value="+" style="background-color:#cccccc;width:80%;"><br> -->
 										<input type="text" id="count" value="<s:property value="bgoods_amount"/>"  style="text-align:center; width:80%;" readonly="readonly"><br>
-										<input type="button" id="m_btn" value="-" style="background-color:#cccccc;width:80%;">
+										<!-- <input type="button" id="m_btn" value="-" style="background-color:#cccccc;width:80%;"> -->
 									</td>
 									<td width="10%">택배</td>
 									<td width="10%">무료</td>
