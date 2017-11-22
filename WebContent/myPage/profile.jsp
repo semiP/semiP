@@ -93,7 +93,7 @@
 		
 		
 		
-		
+		<form>
 		<table width="80%" border="0" align="center">
 			<tr>
 				<td align="left" colspan="2">
@@ -145,16 +145,16 @@
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;우편번호<br><br></td>
-				<td><input type="text" id="sample6_postcode" style="width:100px; height:30px;" value="<s:property value="member_zipcode"/>">&nbsp;&nbsp;<input type="button" onclick="sample6_execDaumPostcode()" value="찾기"></td>
+				<td><input type="text" id="sample6_postcode" style="width:100px; height:30px;" value="<s:property value="resultClass.member_zipcode"/>">&nbsp;&nbsp;<input type="button" onclick="sample6_execDaumPostcode()" value="찾기"></td>
 			
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;주소<br><br></td>
-				<td><input type="text" id="sample6_address" style="width:90%; height:30px;" value="<s:property value="member_address1"/>"></td>
+				<td><input type="text" id="sample6_address" style="width:90%; height:30px;" value="<s:property value="resultClass.member_address1"/>"></td>
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;상세주소<br><br></td>
-				<td><input type="text" id="sample6_address2" style="width:90%; height:30px;" value="<s:property value="member_address2"/>"></td>
+				<td><input type="text" id="sample6_address2" style="width:90%; height:30px;" value="<s:property value="resultClass.member_address2"/>"></td>
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;연락처<br><br></td>
@@ -163,14 +163,14 @@
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;기존 비밀번호<br><br></td>
-				<td><input type="password" style="width:90%; height:30px;" value="<s:property value="member_pw"/>"></td>
+				<td><input type="password" style="width:90%; height:30px;" value="<s:property value="resultClass.member_pw"/>"></td>
 			</tr>
 			<tr>
 				<td colspan="3" height="1" bgcolor="#777777"></td>
 			</tr>
 			<tr>
 				<td colspan="3" align="center">
-					<input type="submit" name="submit_member" class="btn-custom" value="변경하기">&nbsp;&nbsp;
+					<input type="submit" name="submit_member" class="btn-custom" value="변경하기" onClick="changModify()">&nbsp;&nbsp;
 					<input type="reset" class="btn-custom" value="리셋">
 				</td>
 			</tr>
@@ -179,6 +179,8 @@
 			</tr>	
 					
 		</table>
+		</form>
+		<form>
 		<table width="80%" border="0" align="center">
 			<tr>
 				<td align="left" colspan="2">
@@ -191,8 +193,8 @@
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;기존 비밀번호<br><br></td>
-				<td><input type="password" style="width:90%; height:30px;"></td>
-				<s:hidden name="member_pw" value="%{resultClass.member_pw}"/>
+				<td><input type="password" style="width:90%; height:30px;" value="<s:property value="resultClass.member_pw"/>"></td>
+				<%-- <s:hidden name="member_pw" value="%{resultClass.member_pw}"/> --%>
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;새 비밀번호<br><br></td>
@@ -219,5 +221,11 @@
 			</tr>		
 		</table>
 	</table>
-	
+	</form>
 </body>
+
+<script type="text/javascript">
+function changModify(){
+	var 
+}
+</script>

@@ -50,15 +50,19 @@
 					member_address1=#member_address1#
 					member_address2=#member_address2#
 					member_phone=#member_phone#
-					member_pw=#member_pw#
 			WHERE member_no=#member_no#
 		</update>
 	
-	 <!-- 회원정보 수정 비밀번호 확인 -->
+	<!-- 회원정보 비밀번호 수정 쿼리문 -->
+		<update id="updatePW" parameterClass="member">
+			UPDATE member SET member_pw=#member_pw# WHERE member_no=#member_no#
+		</update>
+	
+	 <!-- 회원정보 선택 -->
   		 <select id="modifyPass" resultMap="memberRes">
       		<include refid="select-all-member"/>
       		 WHERE member_no = #member_no# 
-      		 AND member_id = #member_id#
+      		 AND member_pass = #member_pass#
    		</select>
 	
 	<!-- 비밀번호 일치여부 쿼리문 -->

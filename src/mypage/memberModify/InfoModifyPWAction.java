@@ -13,7 +13,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import member.memberbean;
 
-public class InfoModifyAction extends ActionSupport implements SessionAware{
+public class InfoModifyPWAction extends ActionSupport implements SessionAware{
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	//회원정보 확인
@@ -55,7 +55,7 @@ public class InfoModifyAction extends ActionSupport implements SessionAware{
 	private Map session;
 	
 	//생성자
-	public InfoModifyAction() throws Exception{
+	public InfoModifyPWAction() throws Exception{
 		reader=Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper=SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
@@ -91,30 +91,14 @@ public class InfoModifyAction extends ActionSupport implements SessionAware{
 			return LOGIN;
 		}
 		
-		String session_id = (String)session.get("session_member_id");
 		int session_no = (int)session.get("session_member_no");
-		String session_name = (String)session.get("session_member_name");
-		
-		member_email=getEmail1().concat("@");
-		member_email=member_email.concat (getEmail2 ());
-		
-		/*member_email = getEmail1() + "@" +getEmail2();*/
-		
-		member_phone=getPhone1().concat(getPhone2());
-		member_phone=member_phone.concat(getPhone3());
-		
-		/*member_phone=getPhone1() + getPhone2() + getPhone3();*/
-
+	
 		//수정할 항목 설정
-		paramClass2.setMember_email(getMember_email());
-		paramClass2.setMember_zipcode(getMember_zipcode());
-		paramClass2.setMember_address1(getMember_address1());
-		paramClass2.setMember_address2(getMember_address2());
-		paramClass2.setMember_phone(getMember_phone());
+		paramClass2.setMember_pw(getMember_pw());
 		paramClass2.setMember_no(session_no);
-		
+
 		// 일단 항목만 수정한다.
-		sqlMapper.update("mypageMemberModify.updateMember",paramClass2);
+		sqlMapper.update("mypageMemberModify.updatePW",paramClass2);
 		
 		//수정이 끝나면 view페이지로 이동
 		resultClass2 = (memberbean) sqlMapper.queryForObject("mypageMemberModify.selectOneMember", session_no);
@@ -127,7 +111,7 @@ public class InfoModifyAction extends ActionSupport implements SessionAware{
 	}
 
 	public static void setReader(Reader reader) {
-		InfoModifyAction.reader = reader;
+		InfoModifyPWAction.reader = reader;
 	}
 
 	public static SqlMapClient getSqlMapper() {
@@ -135,7 +119,7 @@ public class InfoModifyAction extends ActionSupport implements SessionAware{
 	}
 
 	public static void setSqlMapper(SqlMapClient sqlMapper) {
-		InfoModifyAction.sqlMapper = sqlMapper;
+		InfoModifyPWAction.sqlMapper = sqlMapper;
 	}
 
 	public memberbean getParamClass() {
@@ -152,6 +136,38 @@ public class InfoModifyAction extends ActionSupport implements SessionAware{
 
 	public void setResultClass(memberbean resultClass) {
 		this.resultClass = resultClass;
+	}
+
+	public memberbean getParamClass2() {
+		return paramClass2;
+	}
+
+	public void setParamClass2(memberbean paramClass2) {
+		this.paramClass2 = paramClass2;
+	}
+
+	public memberbean getResultClass2() {
+		return resultClass2;
+	}
+
+	public void setResultClass2(memberbean resultClass2) {
+		this.resultClass2 = resultClass2;
+	}
+
+	public memberbean getParamClass3() {
+		return paramClass3;
+	}
+
+	public void setParamClass3(memberbean paramClass3) {
+		this.paramClass3 = paramClass3;
+	}
+
+	public memberbean getResultClass3() {
+		return resultClass3;
+	}
+
+	public void setResultClass3(memberbean resultClass3) {
+		this.resultClass3 = resultClass3;
 	}
 
 	public int getMember_no() {
@@ -290,6 +306,14 @@ public class InfoModifyAction extends ActionSupport implements SessionAware{
 		this.phone3 = phone3;
 	}
 
+	public int getCheckPW() {
+		return checkPW;
+	}
+
+	public void setCheckPW(int checkPW) {
+		this.checkPW = checkPW;
+	}
+
 	public Map getSession() {
 		return session;
 	}
@@ -297,21 +321,6 @@ public class InfoModifyAction extends ActionSupport implements SessionAware{
 	public void setSession(Map session) {
 		this.session = session;
 	}
-
-	public memberbean getParamClass2() {
-		return paramClass2;
-	}
-
-	public void setParamClass2(memberbean paramClass2) {
-		this.paramClass2 = paramClass2;
-	}
-
-	public memberbean getResultClass2() {
-		return resultClass2;
-	}
-
-	public void setResultClass2(memberbean resultClass2) {
-		this.resultClass2 = resultClass2;
-	}
+	
 	
 }

@@ -21,19 +21,17 @@ public class InfoViewAction extends ActionSupport implements SessionAware{
 	private memberbean paramClass;
 	private memberbean resultClass;
 	
+	//session값 관련 객체
 	private int member_no;
 	private String member_name;
 	private String member_id;
+	
+	//비밀번호 변경
 	private String member_pw;
-	private String member_zipcode;
-	private String member_address1;
-	private String member_address2;
+
 	private String member_phone;
 	private String member_email;
-	private Date member_regdate;
-	private int member_level;
-	private String member_deletereason;
-
+	
 	//email개별번수
 	private String email1;
 	private String email2;
@@ -58,16 +56,21 @@ public class InfoViewAction extends ActionSupport implements SessionAware{
 		if(session.get("session_member_id").equals("") || session.get("session_member_id") == null) {
 			return LOGIN;
 		}
+		
+		member_no = (int)session.get("session_member_no");
+		resultClass = (memberbean)sqlMapper.queryForObject("mypageMemberModify.selectOneMember",member_no);		
+		
+		member_email = resultClass.getMember_email();
+		
 		email1 = getMember_email().substring(0, getMember_email().indexOf("@"));
 		email2 = getMember_email().substring(getMember_email().indexOf("@") + 1);
 		
-		phone1 = getMember_phone().substring(0,2);
-		phone2 = getMember_phone().substring(3,6);
-		phone3 = getMember_phone().substring(7,9);
+		member_phone = resultClass.getMember_phone();
 		
-		member_no = (int)session.get("session_member_no");
-		
-		resultClass = (memberbean)sqlMapper.queryForObject("mypageMemberModify.selectOneMember",member_no);
+		phone1 = getMember_phone().substring(0,3);
+		phone2 = getMember_phone().substring(3,7);
+		phone3 = getMember_phone().substring(7,11);
+
 		return SUCCESS;
 		
 		
@@ -142,30 +145,6 @@ public class InfoViewAction extends ActionSupport implements SessionAware{
 		this.member_pw = member_pw;
 	}
 
-	public String getMember_zipcode() {
-		return member_zipcode;
-	}
-
-	public void setMember_zipcode(String member_zipcode) {
-		this.member_zipcode = member_zipcode;
-	}
-
-	public String getMember_address1() {
-		return member_address1;
-	}
-
-	public void setMember_address1(String member_address1) {
-		this.member_address1 = member_address1;
-	}
-
-	public String getMember_address2() {
-		return member_address2;
-	}
-
-	public void setMember_address2(String member_address2) {
-		this.member_address2 = member_address2;
-	}
-
 	public String getMember_phone() {
 		return member_phone;
 	}
@@ -180,30 +159,6 @@ public class InfoViewAction extends ActionSupport implements SessionAware{
 
 	public void setMember_email(String member_email) {
 		this.member_email = member_email;
-	}
-
-	public Date getMember_regdate() {
-		return member_regdate;
-	}
-
-	public void setMember_regdate(Date member_regdate) {
-		this.member_regdate = member_regdate;
-	}
-
-	public int getMember_level() {
-		return member_level;
-	}
-
-	public void setMember_level(int member_level) {
-		this.member_level = member_level;
-	}
-
-	public String getMember_deletereason() {
-		return member_deletereason;
-	}
-
-	public void setMember_deletereason(String member_deletereason) {
-		this.member_deletereason = member_deletereason;
 	}
 
 	public String getEmail1() {
