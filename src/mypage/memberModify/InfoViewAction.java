@@ -7,12 +7,14 @@ import java.util.Map;
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.interceptor.SessionAware;
 
 import member.memberbean;
 
-public class InfoViewAction extends ActionSupport{
+public class InfoViewAction extends ActionSupport implements SessionAware{
+	
+	private static final long serialVersionUID = 1L;
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
@@ -41,7 +43,7 @@ public class InfoViewAction extends ActionSupport{
 	private String phone2;
 	private String phone3;
 	
-	private Map<String,Object> session;
+	private Map session;
 	
 	//생성자
 	public InfoViewAction() throws Exception{
@@ -52,13 +54,10 @@ public class InfoViewAction extends ActionSupport{
 	
 	//화면에 list출력
 	public String execute() throws Exception{
-		ActionContext context = ActionContext.getContext();
-		session = context.getSession();
-		
-		if(session.get("session_member_id") == null) {
+	
+		if(session.get("session_member_id").equals("") || session.get("session_member_id") == null) {
 			return LOGIN;
 		}
-		
 		email1 = getMember_email().substring(0, getMember_email().indexOf("@"));
 		email2 = getMember_email().substring(getMember_email().indexOf("@") + 1);
 		
@@ -70,6 +69,8 @@ public class InfoViewAction extends ActionSupport{
 		
 		resultClass = (memberbean)sqlMapper.queryForObject("mypageMemberModify.selectOneMember",member_no);
 		return SUCCESS;
+		
+		
 	}
 	
 	// 개인정보 폼 보여주는 처리
@@ -245,13 +246,13 @@ public class InfoViewAction extends ActionSupport{
 		this.phone3 = phone3;
 	}
 
-	public Map<String, Object> getSession() {
+	public Map getSession() {
 		return session;
 	}
 
-	public void setSession(Map<String, Object> session) {
+	public void setSession(Map session) {
 		this.session = session;
 	}
-	
-	
+
+
 }

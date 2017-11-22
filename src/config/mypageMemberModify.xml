@@ -5,9 +5,9 @@
 	
 <struts>
 	<!-- 마이페이지-회원정보수정 -->
-	<package name="mypage.memberModify" extends="struts-default">
+	<package name="mypageMemberModify" extends="struts-default, tiles-default">
 		<action name="InfoModifyForm" class="mypage.memberModify.InfoModifyAction" method="form">
-			<result name="success" type="tiles">profile</result>
+			<result type="tiles">profile</result>
 			<result name="error">/myPage/pwError.jsp</result>
 		</action>
 		
@@ -16,19 +16,13 @@
 		</action>
 		
 		<action name="InfoModifyPro" class="mypage.memberModify.InfoModifyAction" method="execute">
-			<result name="login" type="redirect-action">
-				<param name="actionName">loginForm</param>
-			</result>
-			<result name="success" type="redirect-action">
-				<param name="actionName">InfoView</param>
-			</result>
+			<result name="login" type="redirectAction">loginac</result>
+			<result name="success" type="redirectAction">InfoView</result>
 		</action>
 		
 		<action name="InfoView" class="mypage.memberModify.InfoViewAction" method="execute">
-			<result name="login" type="redirect-action">
-				<param name="actionName">loginForm</param>
-			</result>
-			<result type="tiles">profile</result>
+			<result name="login" type="redirectAction">loginac</result>
+			<result name="success" type="tiles">profile</result>
 		</action>
 	</package>
 </struts>

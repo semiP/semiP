@@ -26,7 +26,7 @@
 					<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 
 					<tr bgcolor="#455b59" align="center">
-						<td class="myPageMenuItem"><a href="/semiP/listView_member.action" >
+						<td class="myPageMenuItem"><a href="../InfoView.action" >
 							회원정보</a></td>
 						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="./orderList.tiles" >
 							주문/배송현황</a></strong></td>
