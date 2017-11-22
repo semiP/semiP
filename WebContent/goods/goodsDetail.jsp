@@ -4,7 +4,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<s:property value="resultClass.goods_name" />
+
+
+
+
+
+https://stackoverflow.com/questions/14133502/post-variable-with-onclick
+
+
+
+
+
+
+
 
 <link rel="stylesheet" href="/semiP/assets/css/board.css" type="text/css">
 <script type="text/javascript">
@@ -41,7 +53,7 @@
 						<td width="50%" style="vertical-align:top;">
 							<table width="100%">
 								<tr>
-									<td><img src="http://cooz.co/semiP/IMG/<s:property value="resultGoods.goods_category" />/<s:property value="goods_no" />/1.jpg" style="width:100%;"></td>
+									<td><img src="http://cooz.co/semiP/IMG/<s:property value="resultGoods.goods_category" />/<s:property value="goods_no" />/1.jpg" style="width:100%;"/></td>
 								</tr>
 								<tr>
 									<td align="center">
@@ -56,6 +68,7 @@
 						</td>
 						<td width="15"></td> <!-- 사진과 옵션 사이 여백는 부분 -->
 						<td style="vertical-align:top;">
+							<form>
 							<table width="100%" border="0">
 								<tr>
 									<td colspan="2" style="font-size:1.5em;">상품이름 : <s:property value="resultGoods.goods_name" /><br><br></td>
@@ -120,6 +133,7 @@
 									</td>
 								</tr>
 							</table>
+							</form>
 						</td>
 					</tr>
 				</table>
