@@ -1,0 +1,1813 @@
+***Struts2 게시판***
+ : 프로젝트 이름 : StrutsBoard
+ : DB Framework(ORM) ===? iBatis2.X(MyBatis3.X)
+
+1.테이블설계
+create table SBoard(
+no number primary key,
+subject varchar2(50) not null,
+name varchar2(20) not null,
+password varchar2(20) not null,,
+content varchar2(4000) not null,
+file_orgname varchar2(50),
+file_savname varchar2(50),
+readhit number default '0',
+regdate date not null
+);
+
+create sequence sboard_no_seq;
+
+2.DB와 ibatis연결 : ibatis-2.3.4.726.jar(MyBatis) =====> Hibernate
+[/src/dbconnect.properties]
+driver=oracle.jdbc.driver.OracleDriver
+url=jdbc:oracle:thin:@istudy.iptime.org:7000:ORCL
+username=KH07
+password=oracle
+
+[/src/sqlMapConfig.xml]
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+	<properties resource="/dbconnect.properties" />
+	<settings cacheModelsEnabled="true" 
+	         enhancementEnabled="true"
+	         lazyLoadingEnabled="true" 
+	         maxRequests="32" 
+	         maxSessions="10" 
+	         maxTransactions="5" 
+	         useStatementNamespaces="false" />
+
+	<transactionManager type="JDBC" commitRequired="false">
+		<dataSource type="SIMPLE">
+            			<property name="JDBC.Driver" value="${driver}" />
+            			<property name="JDBC.ConnectionURL" value="${url}" />
+            			<property name="JDBC.Username" value="${username}" />
+            			<property name="JDBC.Password" value="${password}" />
+		</dataSource>
+	</transactionManager>
+	
+	<sqlMap resource="/sql/boardSQL.xml"/>
+	
+</sqlMapConfig>
+
+[/src/sql/boardSQL.xml]
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap>
+
+	<typeAlias alias="board" type="board.boardVO" />
+
+		<!-- 리절트 맵 정의 -->
+	  	<resultMap id="boardRes" class="board">
+		  	<result property="no" column="no"/>
+		  	<result property="subject" column="subject"/>
+		  	<result property="name" column="name"/>
+		  	<result property="password" column="password"/>
+		  	<result property="content" column="content"/>
+		  	<result property="file_orgname" column="file_orgName"/>
+		  	<result property="file_savname" column="file_savName"/>
+		  	<result property="readhit" column="readhit"/>
+		  	<result property="regdate" column="regdate"/>
+		</resultMap>
+		
+		<!-- 공통으로 사용할 select 절 정의 -->
+		<sql id="select-all">
+			SELECT * FROM SBOARD 
+		</sql>
+		
+		<!-- 공통으로 사용할 where-no 절 정의 -->
+		<sql id="where-no">
+			WHERE no = #no#
+		</sql>
+	
+	
+		<!-- select 쿼리문 정의 -->
+		<select id="selectAll" resultMap="boardRes" parameterClass="int">
+			<include refid="select-all" />
+			ORDER BY no DESC
+		</select>
+		
+		<select id="selectOne" resultMap="boardRes" parameterClass="int">
+			<include refid="select-all" />
+			<include refid="where-no" />
+		</select>
+		
+		<select id="selectLastNo" resultClass="board" parameterClass="int">
+			SELECT max(no) as no FROM SBOARD 
+		</select>
+		
+		<select id="selectPassword" resultMap="boardRes" >
+			<include refid="select-all" />
+			<include refid="where-no" />
+			AND password = #password#
+		</select>
+		
+		
+		<!-- insert 쿼리문 정의 -->
+		<insert id="insertBoard" parameterClass="board">
+		
+      		INSERT INTO SBOARD (NO,
+      					SUBJECT,
+                         		NAME,
+                         		PASSWORD,
+                         		CONTENT,
+                         		REGDATE
+                         )
+                VALUES (SBOARD_NO_SEQ.NEXTVAL,
+                	 	#subject#,
+                         	#name#,
+                         	#password#,
+                         	#content#,
+                         	#regdate#
+                         )
+		</insert>
+		
+		
+		<!-- update 쿼리문 정의 -->
+		<update id="updateBoard" parameterClass="board">
+    		UPDATE SBOARD SET SUBJECT = #subject#,
+                     		     NAME = #name#,
+                       		     PASSWORD = #password#,
+                       		     CONTENT = #content#
+		<include refid="where-no" />
+   		</update>
+    
+    		<update id="updateFile" parameterClass="board">
+    			UPDATE SBOARD SET FILE_ORGNAME = #file_orgname#
+    		    		,FILE_SAVNAME = #file_savname#
+			<include refid="where-no" />
+   		 </update>
+    
+    		<update id="updateReadHit" parameterClass="board">
+    			UPDATE SBOARD SET READHIT = readHit + 1
+			<include refid="where-no" />
+   		 </update>
+    
+
+		<!-- delete 쿼리문 정의 -->
+  		  <delete id="deleteBoard" parameterClass="board">
+			DELETE FROM SBOARD 
+			<include refid="where-no" />
+   		 </delete>
+
+</sqlMap>
+
+3.리스트구현
+[/src/struts.xml]
+	<!-- 용량제한 100MB 로 설정. -->
+	<constant name="struts.multipart.maxSize" value="104857600" />
+	
+	<package name="board" extends="struts-default">
+		<!--
+		<!-- 글로벌 예외 처리 화면 설정 -->
+		<global-results>
+			<result name="error">/board/pageError.jsp</result>
+		</global-results>
+		
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"/>
+		</global-exception-mappings>	
+		-->
+		<!-- 게시판 리스트 액션. -->
+		<action name="listAction" class="board.listAction">
+			<result>/board/boardList.jsp</result>
+		</action>
+	</package>
+
+[/src/board/boardVO.java]
+package board;
+
+import java.util.Date;
+
+public class boardVO {
+
+	private int no;
+	private String subject;
+	private String name;
+	private String password;
+	private String content;
+	private String file_orgname;
+	private String file_savname;
+	private int readhit;
+	private Date regdate;
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public int getReadhit() {
+		return readhit;
+	}
+
+	public void setReadhit(int readhit) {
+		this.readhit = readhit;
+	}
+
+	public Date getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+
+	public String getFile_orgname() {
+		return file_orgname;
+	}
+
+	public void setFile_orgname(String file_orgname) {
+		this.file_orgname = file_orgname;
+	}
+
+	public String getFile_savname() {
+		return file_savname;
+	}
+
+	public void setFile_savname(String file_savname) {
+		this.file_savname = file_savname;
+	}
+
+}
+
+[/src/board/pagingAction.java]
+package board;
+
+public class pagingAction {
+
+	private int currentPage;   // 현재페이지
+	private int totalCount;	 // 전체 게시물 수
+	private int totalPage;	 // 전체 페이지 수
+	private int blockCount;	 // 한 페이지의  게시물의 수
+	private int blockPage;	 // 한 화면에 보여줄 페이지 수
+	private int startCount;	 // 한 페이지에서 보여줄 게시글의 시작 번호
+	private int endCount;	 // 한 페이지에서 보여줄 게시글의 끝 번호
+	private int startPage;	 // 시작 페이지
+	private int endPage;	 // 마지막 페이지
+
+	private StringBuffer pagingHtml;
+
+	// 페이징 생성자
+	public pagingAction(int currentPage, int totalCount, int blockCount,
+			int blockPage) {
+
+		this.blockCount = blockCount;
+		this.blockPage = blockPage;
+		this.currentPage = currentPage;
+		this.totalCount = totalCount;
+
+		// 전체 페이지 수
+		totalPage = (int) Math.ceil((double) totalCount / blockCount);
+		if (totalPage == 0) {
+			totalPage = 1;
+		}
+
+		// 현재 페이지가 전체 페이지 수보다 크면 전체 페이지 수로 설정
+		if (currentPage > totalPage) {
+			currentPage = totalPage;
+		}
+
+		// 현재 페이지의 처음과 마지막 글의 번호 가져오기.
+		startCount = (currentPage - 1) * blockCount;
+		endCount = startCount + blockCount - 1;
+
+		// 시작 페이지와 마지막 페이지 값 구하기.
+		startPage = (int) ((currentPage - 1) / blockPage) * blockPage + 1;
+		endPage = startPage + blockPage - 1;
+
+		// 마지막 페이지가 전체 페이지 수보다 크면 전체 페이지 수로 설정
+		if (endPage > totalPage) {
+			endPage = totalPage;
+		}
+
+		// 이전 block 페이지
+		pagingHtml = new StringBuffer();
+		if (currentPage > blockPage) {
+			pagingHtml.append("<a href=listAction.action?currentPage="
+					+ (startPage - 1) + ">");
+			pagingHtml.append("이전");
+			pagingHtml.append("</a>");
+		}
+
+		pagingHtml.append("&nbsp;|&nbsp;");
+
+		//페이지 번호.현재 페이지는 빨간색으로 강조하고 링크를 제거.
+		for (int i = startPage; i <= endPage; i++) {
+			if (i > totalPage) {
+				break;
+			}
+			if (i == currentPage) {
+				pagingHtml.append("&nbsp;<b> <font color='red'>");
+				pagingHtml.append(i);
+				pagingHtml.append("</font></b>");
+			} else {
+				pagingHtml
+						.append("&nbsp;<a href='listAction.action?currentPage=");
+				pagingHtml.append(i);
+				pagingHtml.append("'>");
+				pagingHtml.append(i);
+				pagingHtml.append("</a>");
+			}
+
+			pagingHtml.append("&nbsp;");
+		}
+
+		pagingHtml.append("&nbsp;&nbsp;|&nbsp;&nbsp;");
+
+		// 다음 block 페이지
+		if (totalPage - startPage >= blockPage) {
+			pagingHtml.append("<a href=listAction.action?currentPage="
+					+ (endPage + 1) + ">");
+			pagingHtml.append("다음");
+			pagingHtml.append("</a>");
+		}
+	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+
+	public int getTotalPage() {
+		return totalPage;
+	}
+
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
+	}
+
+	public int getBlockCount() {
+		return blockCount;
+	}
+
+	public void setBlockCount(int blockCount) {
+		this.blockCount = blockCount;
+	}
+
+	public int getBlockPage() {
+		return blockPage;
+	}
+
+	public void setBlockPage(int blockPage) {
+		this.blockPage = blockPage;
+	}
+
+	public int getStartCount() {
+		return startCount;
+	}
+
+	public void setStartCount(int startCount) {
+		this.startCount = startCount;
+	}
+
+	public int getEndCount() {
+		return endCount;
+	}
+
+	public void setEndCount(int endCount) {
+		this.endCount = endCount;
+	}
+
+	public int getStartPage() {
+		return startPage;
+	}
+
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+
+	public int getEndPage() {
+		return endPage;
+	}
+
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
+	}
+
+	public StringBuffer getPagingHtml() {
+		return pagingHtml;
+	}
+
+	public void setPagingHtml(StringBuffer pagingHtml) {
+		this.pagingHtml = pagingHtml;
+	}
+}
+
+[/src/board/listAction.java]
+package board;
+
+import com.opensymphony.xwork2.ActionSupport;
+import com.ibatis.common.resources.Resources;
+import com.ibatis.sqlmap.client.SqlMapClient; 
+import com.ibatis.sqlmap.client.SqlMapClientBuilder;
+ 
+import java.util.*;
+import java.io.Reader;
+import java.io.IOException;
+
+import board.pagingAction;
+
+public class listAction extends ActionSupport {
+	
+	public static Reader reader;	//파일 스트림을 위한 reader.
+	public static SqlMapClient sqlMapper;	//SqlMapClient API를 사용하기 위한 sqlMapper 객체.
+
+	private List<boardVO> list = new ArrayList<boardVO>();;	 
+	
+	private int currentPage = 1;	//현재 페이지
+	private int totalCount; 		// 총 게시물의 수
+	private int blockCount = 10;	// 한 페이지의  게시물의 수
+	private int blockPage = 5; 	// 한 화면에 보여줄 페이지 수
+	private String pagingHtml; 	//페이징을 구현한 HTML
+	private pagingAction page; 	// 페이징 클래스
+	
+	// 생성자
+	public listAction() throws IOException {
+		
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml 파일의 설정내용을 가져온다.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);	// sqlMapConfig.xml의 내용을 적용한 sqlMapper 객체 생성.
+		reader.close();
+	}
+
+	// 게시판 LIST 액션
+	public String execute() throws Exception {
+		// 모든 글을 가져와 list에 넣는다.
+		list = sqlMapper.queryForList("selectAll");
+
+		totalCount = list.size(); // 전체 글 갯수를 구한다.
+		// pagingAction 객체 생성.
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage); 
+		pagingHtml = page.getPagingHtml().toString(); // 페이지 HTML 생성.
+
+		// 현재 페이지에서 보여줄 마지막 글의 번호 설정.
+		int lastCount = totalCount;
+
+		// 현재 페이지의 마지막 글의 번호가 전체의 마지막 글 번호보다 작으면 
+		//lastCount를 +1 번호로 설정.
+		if (page.getEndCount() < totalCount)
+			lastCount = page.getEndCount() + 1;
+
+		// 전체 리스트에서 현재 페이지만큼의 리스트만 가져온다.
+		list = list.subList(page.getStartCount(), lastCount);
+
+		return SUCCESS;
+	}
+	
+	public List<boardVO> getList() {
+		return list;
+	}
+
+	public void setList(List<boardVO> list) {
+		this.list = list;
+	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+
+	public int getBlockCount() {
+		return blockCount;
+	}
+
+	public void setBlockCount(int blockCount) {
+		this.blockCount = blockCount;
+	}
+
+	public int getBlockPage() {
+		return blockPage;
+	}
+
+	public void setBlockPage(int blockPage) {
+		this.blockPage = blockPage;
+	}
+
+	public String getPagingHtml() {
+		return pagingHtml;
+	}
+
+	public void setPagingHtml(String pagingHtml) {
+		this.pagingHtml = pagingHtml;
+	}
+
+	public pagingAction getPage() {
+		return page;
+	}
+
+	public void setPage(pagingAction page) {
+		this.page = page;
+	}
+}
+
+[/WebContent/board/boardList.jsp]
+<%@ page contentType="text/html; charset=utf-8" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>스트럿츠2 게시판</title>
+	<link rel="stylesheet" href="/StrutsBoard/board/common/css/css.css" type="text/css">
+</head>
+  
+  <body>
+  	<table width="600" border="0" cellspacing="0" cellpadding="2">
+  		<tr>
+  			<td align="center"><h2>스트럿츠2 게시판</h2></td>
+  		</tr>
+  		<tr>
+  			<td height="20"></td>
+  		</tr>
+  	</table>
+  	
+  
+	<table width="600" border="0" cellspacing="0" cellpadding="2">
+	      <tr align="center" bgcolor="#F3F3F3">
+      		<td width="50"><strong>번호</strong></td>
+		<td width="350"><strong>제목</strong></td>
+        		<td width="70"><strong>글쓴이</strong></td>
+        		<td width="80"><strong>날짜</strong></td>
+		<td width="50"><strong>조회</strong></td>
+      	      </tr>
+      	      <tr bgcolor="#777777">
+        		<td height="1" colspan="5"></td>
+      	      </tr>
+
+	      <s:iterator value="list" status="stat">
+
+		<s:url id="viewURL" action="viewAction" >
+			<s:param name="no">
+				<s:property value="no" />
+			</s:param>
+			<s:param name="currentPage">
+				<s:property value="currentPage" />
+			</s:param>
+		</s:url>
+			
+     	      <tr bgcolor="#FFFFFF"  align="center">
+        		<td><s:property value="no" /></td>
+        		<td align="left"> &nbsp;<s:a href="%{viewURL}"><s:property value="subject" /></s:a></td>
+        		<td align="center"><s:property value="name" /></td>
+		<td align="center"><s:property value="regdate" /></td>
+        		<td><s:property value="readhit" /></td>
+      	      </tr>
+      	      <tr bgcolor="#777777">
+        		<td height="1" colspan="5"></td>
+      	      </tr>
+      
+	      </s:iterator>
+			
+	      <s:if test="list.size() <= 0">
+				
+	      <tr bgcolor="#FFFFFF"  align="center">
+		<td colspan="5">등록된 게시물이 없습니다.</td>
+                  </tr>						
+	      <tr bgcolor="#777777">
+      		<td height="1" colspan="5"></td>
+    	      </tr>
+    		
+	      </s:if>
+			
+	      <tr align="center">
+    		<td colspan="5"><s:property value="pagingHtml"  escape="false" /></td>
+    	      </tr>
+    	
+    	      <tr align="right">
+    		<td colspan="5">
+    		<input type="button" value="글쓰기" class="inputb" onClick="javascript:location.href='writeForm.action?currentPage=<s:property value="currentPage" />';">
+		</td>
+    	       </tr>
+	</table>
+   </body>
+</html>
+
+[/WebContent/board/common/css/css.css]
+textarea {color:#000000; font-family:"굴림"; font-size:9pt; line-height:120%;background-color: #FFFFFF; border: 1 solid #999999}
+td { color:#3f3f3f; font-family:"굴림"; font-size:9pt; line-height:170%;}
+td a { color:#333377; font-family:"굴림"; font-size:9pt; line-height:170% ; text-decoration: none; }
+td a:hover { color:#3366CC; font-family:"굴림"; font-size:9pt; line-height:170% ; text-decoration: underline;}
+input {color:#000000; font-family:"굴림"; font-size:9pt; line-height:120%;background-color: #FFFFFF; border: 1 solid #999999}
+
+.inputb {BORDER-BOTTOM: #999999 1px solid; BORDER-LEFT: #cecece 1px solid;BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #cecece 1px solid; COLOR: #000000; FONT-SIZE: 9pt;background-color: #EDEDED;}
+
+
+실행URL ::: http://localhost:8080/StrutsBoard/listAction.action
+
+
+4.글쓰기
+
+[/src/struts.xml]
+<!-- 게시판 쓰기 액션. -->
+<action name="writeForm" class="board.writeAction" method="form">
+	<result>/board/boardWrite.jsp</result>
+</action>
+		
+<action name="writeAction" class="board.writeAction">
+	<result type="redirect-action">
+		<param name="actionName">listAction</param>
+	</result>
+</action>
+
+[/src/board/writeAction.java]
+package board;
+
+import com.opensymphony.xwork2.ActionSupport;
+import com.ibatis.common.resources.Resources;
+import com.ibatis.sqlmap.client.SqlMapClient;
+import com.ibatis.sqlmap.client.SqlMapClientBuilder;
+
+import java.util.*;
+import java.io.Reader;
+import java.io.IOException;
+
+import java.io.File;
+import org.apache.commons.io.FileUtils;
+
+public class writeAction extends ActionSupport {
+
+	public static Reader reader; //파일 스트림을 위한 reader.
+	public static SqlMapClient sqlMapper; //SqlMapClient API를 사용하기 위한 sqlMapper 객체.
+
+	private boardVO paramClass; //파라미터를 저장할 객체
+	private boardVO resultClass; //쿼리 결과 값을 저장할 객체
+
+	private int currentPage; //현재 페이지
+
+	private int no;
+	private String subject;
+	private String name;
+	private String password;
+	private String content;
+	private String file_orgName; //업로드 파일의 원래 이름
+	private String file_savName; //서버에 저장할 업로드 파일의 이름. 고유 번호로 구분한다.
+	Calendar today = Calendar.getInstance(); //오늘 날짜 구하기.
+
+	private File upload; //파일 객체
+	private String uploadContentType; //컨텐츠 타입
+	private String uploadFileName; //파일 이름
+	private String fileUploadPath = "C:\\Java\\upload\\"; //업로드 경로.
+
+	// 생성자
+	public writeAction() throws IOException {
+
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml 파일의 설정내용을 가져온다.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xml의 내용을 적용한 sqlMapper 객체 생성.
+		reader.close();
+	}
+
+	public String form() throws Exception {
+		//등록 폼.
+		return SUCCESS;
+	}
+
+	// 게시판 WRITE 액션
+	public String execute() throws Exception {
+
+		//파라미터와 리절트 객체 생성.
+		paramClass = new boardVO();
+		resultClass = new boardVO();
+
+		// 등록할 항목 설정.
+		paramClass.setSubject(getSubject());
+		paramClass.setName(getName());
+		paramClass.setPassword(getPassword());
+		paramClass.setContent(getContent());
+		paramClass.setRegdate(today.getTime());
+
+		// 등록 쿼리 수행.
+		sqlMapper.insert("insertBoard", paramClass);
+
+		// 첨부파일을 선택했다면 파일을 업로드한다.
+		if (getUpload() != null) {
+
+			//등록한 글 번호 가져오기.
+			resultClass = (boardVO) sqlMapper.queryForObject("selectLastNo");
+
+			//실제 서버에 저장될 파일 이름과 확장자 설정.
+			String file_name = "file_" + resultClass.getNo();
+			String file_ext = getUploadFileName().substring(
+					getUploadFileName().lastIndexOf('.') + 1,
+					getUploadFileName().length());
+
+			//서버에 파일 저장.
+			File destFile = new File(fileUploadPath + file_name + "."
+					+ file_ext);
+			FileUtils.copyFile(getUpload(), destFile);
+
+			//파일 정보 파라미터 설정.
+			paramClass.setNo(resultClass.getNo());
+			paramClass.setFile_orgname(getUploadFileName());		//원래 파일 이름
+			paramClass.setFile_savname(file_name + "." + file_ext);	//서버에 저장한 파일 이름
+
+			//파일 정보 업데이트.
+			sqlMapper.update("updateFile", paramClass);
+		}
+
+		return SUCCESS;
+	}
+
+	public Calendar getToday() {
+		return today;
+	}
+
+	public void setToday(Calendar today) {
+		this.today = today;
+	}
+
+	public boardVO getParamClass() {
+		return paramClass;
+	}
+
+	public void setParamClass(boardVO paramClass) {
+		this.paramClass = paramClass;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public File getUpload() {
+		return upload;
+	}
+
+	public void setUpload(File upload) {
+		this.upload = upload;
+	}
+
+	public String getUploadContentType() {
+		return uploadContentType;
+	}
+
+	public void setUploadContentType(String uploadContentType) {
+		this.uploadContentType = uploadContentType;
+	}
+
+	public String getUploadFileName() {
+		return uploadFileName;
+	}
+
+	public void setUploadFileName(String uploadFileName) {
+		this.uploadFileName = uploadFileName;
+	}
+
+	public String getFileUploadPath() {
+		return fileUploadPath;
+	}
+
+	public void setFileUploadPath(String fileUploadPath) {
+		this.fileUploadPath = fileUploadPath;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	public String getFile_orgName() {
+		return file_orgName;
+	}
+
+	public void setFile_orgName(String file_orgName) {
+		this.file_orgName = file_orgName;
+	}
+
+	public String getFile_savName() {
+		return file_savName;
+	}
+
+	public void setFile_savName(String file_savName) {
+		this.file_savName = file_savName;
+	}
+
+	public boardVO getResultClass() {
+		return resultClass;
+	}
+
+	public void setResultClass(boardVO resultClass) {
+		this.resultClass = resultClass;
+	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+}
+
+[/WebContent/board/boardWrite.jsp]
+<%@ page contentType="text/html; charset=utf-8" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>스트럿츠2 게시판</title>
+	<link rel="stylesheet" href="/StrutsBoard/board/common/css/css.css" type="text/css">
+	
+	<SCRIPT type="text/javascript">
+		function validation() {
+		
+			var frm = document.forms(0);
+			
+			if(frm.subject.value == "") {
+				alert("제목을 입력해주세요.");
+				return false;
+			} 
+			
+			else if(frm.name.value == "") {
+				alert("이름을 입력해주세요.");
+				return false;
+			}
+			
+			else if(frm.password.value == "") {
+				alert("비밀번호를 입력해주세요.");
+				return false;
+			}
+			
+			else if(frm.content.value == "") {
+				alert("내용을 입력해주세요.");
+				return false;			
+			} 
+			
+			return true;
+		}
+	</SCRIPT>
+</head>
+  
+  <body>
+  	<table width="600" border="0" cellspacing="0" cellpadding="2">
+  		<tr>
+  			<td align="center"><h2>스트럿츠2 게시판</h2></td>
+  		</tr>
+  	</table>
+  
+		<s:if test="resultClass == NULL">
+			<form action="writeAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
+		</s:if>
+		
+		<s:else>
+		  <form action="modifyAction.action" method="post" enctype="multipart/form-data">
+		  <s:hidden name="no" value="%{resultClass.no}" />
+		  <s:hidden name="currentPage" value="%{currentPage}" />
+		  <s:hidden name="old_file" value="%{resultClass.file_savname}" />
+		</s:else>
+
+       <table width="600" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td align="right" colspan="2"><font color="#FF0000">*</font>는 필수 입력사항입니다.</td>
+        </tr>
+        
+        <tr bgcolor="#777777">
+          <td height="1" colspan="2"></td>
+        </tr>
+				
+        <tr>
+          <td width="100" bgcolor="#F4F4F4"><font color="#FF0000">*</font>  제목</td>
+          <td width="500" bgcolor="#FFFFFF">
+            <s:textfield name="subject" theme="simple" value="%{resultClass.subject}" cssStyle="width:370px" maxlength="50"/>
+          </td>
+        </tr>
+        							
+        <tr bgcolor="#777777">
+          <td height="1" colspan="2"></td>
+        </tr>
+        
+        <tr>
+          <td bgcolor="#F4F4F4"><font color="#FF0000">*</font>  이름 </td>
+          <td bgcolor="#FFFFFF">
+            <s:textfield name="name" theme="simple" value="%{resultClass.name}" cssStyle="width:100px" maxlength="20"/>
+          </td>
+        </tr>
+        <tr bgcolor="#777777">
+          <td height="1" colspan="2"></td>	
+        </tr>
+ 
+        <tr>
+          <td bgcolor="#F4F4F4"><font color="#FF0000">*</font>  비밀번호 </td>
+          <td bgcolor="#FFFFFF">
+            <s:textfield name="password" theme="simple" value="%{resultClass.password}" cssStyle="width:100px" maxlength="20"/>
+          </td>
+        </tr>
+        <tr bgcolor="#777777">
+          <td height="1" colspan="2"></td>	
+        </tr>
+        
+	<tr>
+          <td bgcolor="#F4F4F4"><font color="#FF0000">*</font>  내용 </td>
+          <td bgcolor="#FFFFFF">
+            <s:textarea name="content" theme="simple" value="%{resultClass.content}" cols="50" rows="10" />
+          </td>
+        </tr>
+        <tr bgcolor="#777777">
+          <td height="1" colspan="2"></td>
+        </tr>
+        
+        <tr>
+          <td bgcolor="#F4F4F4">  첨부파일 </td>
+          <td bgcolor="#FFFFFF">
+            <s:file name="upload" theme="simple"/>
+            
+            <s:if test="resultClass.file_orgname != NULL">
+		&nbsp; * <s:property value="resultClass.file_orgname" /> 파일이 등록되어 있습니다. 다시 업로드하면 기존의 파일은 삭제됩니다.
+	</s:if>
+						
+          </td>
+        </tr>
+        <tr bgcolor="#777777">
+          <td height="1" colspan="2"></td>	
+        </tr>
+        
+        <tr>
+          <td height="10" colspan="2"></td>
+        </tr>
+        
+        
+        <tr>
+          <td align="right" colspan="2">
+          	<input name="submit" type="submit" value="작성완료" class="inputb">
+            <input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='listAction.action?currentPage=<s:property value="currentPage" />'">
+          </td>
+        </tr>
+
+    </table>
+    </form>
+
+  </body>
+</html>
+
+5.글 상세보기
+[/src/struts.xml]
+<!-- 게시판 상세보기 액션. -->
+<action name="viewAction" class="board.viewAction">
+	<result>/board/boardView.jsp</result>
+</action>
+		
+<!-- 파일 다운로드 액션. -->
+<action name="fileDownloadAction" class="board.viewAction" method="download">
+    	<result name="success" type="stream">
+                <param name="contentType">binary/octet-stream</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">${contentDisposition}</param>
+                <param name="contentLength">${contentLength}</param> 
+                <param name="bufferSize">4096</param>
+         </result>
+</action>
+		
+<!-- 비밀번호 체크 액션. -->
+<action name="checkForm" class="board.viewAction" method="checkForm">
+	<result>/board/checkPassword.jsp</result>
+</action>
+		
+<action name="checkAction" class="board.viewAction" method="checkAction">
+	<result name="error">/board/checkError.jsp</result>
+	<result>/board/checkSuccess.jsp</result>
+</action>
+
+[/src/board/viewAction.java]
+package board;
+
+import com.opensymphony.xwork2.ActionSupport;
+import com.ibatis.common.resources.Resources;
+import com.ibatis.sqlmap.client.SqlMapClient;
+import com.ibatis.sqlmap.client.SqlMapClientBuilder;
+
+import java.io.Reader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.IOException;
+
+import java.net.URLEncoder;
+
+public class viewAction extends ActionSupport {
+	public static Reader reader;
+	public static SqlMapClient sqlMapper;
+
+	private boardVO paramClass = new boardVO(); //파라미터를 저장할 객체
+	private boardVO resultClass = new boardVO(); //쿼리 결과 값을 저장할 객체
+
+	private int currentPage;
+
+	private int no;
+	private String password;
+
+	private String fileUploadPath = "C:\\Java\\upload\\";
+
+	private InputStream inputStream;
+	private String contentDisposition;
+	private long contentLength;
+
+	// 생성자
+	public viewAction() throws IOException {
+
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml 파일의 설정내용을 가져온다.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xml의 내용을 적용한 sqlMapper 객체 생성.
+		reader.close();
+	}
+
+	// 상세보기
+	public String execute() throws Exception {
+
+		// 해당 글의 조회수 +1.
+		paramClass.setNo(getNo());
+		sqlMapper.update("updateReadHit", paramClass);
+
+		// 해당 번호의 글을 가져온다.
+		resultClass = (boardVO) sqlMapper.queryForObject("selectOne", getNo());
+
+		return SUCCESS;
+	}
+
+	// 첨부 파일 다운로드
+	public String download() throws Exception {
+
+		// 해당 번호의 파일 정보를 가져온다.
+		resultClass = (boardVO) sqlMapper.queryForObject("selectOne", getNo());
+
+		// 파일 경로와 파일명을 file 객체에 넣는다.
+		File fileInfo = new File(fileUploadPath + resultClass.getFile_savname());
+
+		// 다운로드 파일 정보 설정.
+		setContentLength(fileInfo.length());
+		setContentDisposition("attachment;filename="
+				+ URLEncoder.encode(resultClass.getFile_orgname(), "UTF-8"));
+		setInputStream(new FileInputStream(fileUploadPath
+				+ resultClass.getFile_savname()));
+
+		return SUCCESS;
+	}
+
+	// 비밀번호 체크 폼
+	public String checkForm() throws Exception {
+
+		return SUCCESS;
+	}
+
+	// 비밀번호 체크 액션
+	public String checkAction() throws Exception {
+
+		// 비밀번호 입력값 파라미터 설정.
+		paramClass.setNo(getNo());
+		paramClass.setPassword(getPassword());
+
+		// 현재 글의 비밀번호 가져오기.
+		resultClass = (boardVO) sqlMapper.queryForObject("selectPassword",
+				paramClass);
+
+		// 입력한 비밀번호가 틀리면 ERROR 리턴.
+		if (resultClass == null)
+			return ERROR;
+
+		return SUCCESS;
+	}
+
+	public boardVO getParamClass() {
+		return paramClass;
+	}
+
+	public void setParamClass(boardVO paramClass) {
+		this.paramClass = paramClass;
+	}
+
+	public boardVO getResultClass() {
+		return resultClass;
+	}
+
+	public void setResultClass(boardVO resultClass) {
+		this.resultClass = resultClass;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getFileUploadPath() {
+		return fileUploadPath;
+	}
+
+	public void setFileUploadPath(String fileUploadPath) {
+		this.fileUploadPath = fileUploadPath;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	public InputStream getInputStream() {
+		return inputStream;
+	}
+
+	public void setInputStream(InputStream inputStream) {
+		this.inputStream = inputStream;
+	}
+
+	public String getContentDisposition() {
+		return contentDisposition;
+	}
+
+	public void setContentDisposition(String contentDisposition) {
+		this.contentDisposition = contentDisposition;
+	}
+
+	public long getContentLength() {
+		return contentLength;
+	}
+
+	public void setContentLength(long contentLength) {
+		this.contentLength = contentLength;
+	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+}
+
+[/WebContent/board/boardView.jsp]
+<%@ page contentType="text/html; charset=utf-8" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>스트럿츠2 게시판</title>
+	<link rel="stylesheet" href="/StrutsBoard/board/common/css/css.css" type="text/css">
+	<script type="text/javascript">
+		function open_win_noresizable (url, name) {
+			var oWin = window.open(url, name, "scrollbars=no,status=no,resizable=no,width=300,height=150");
+		}
+	</script>
+</head>
+  
+  <body>
+  
+  	<table width="600" border="0" cellspacing="0" cellpadding="2">
+  		<tr>
+  			<td align="center"><h2>스트럿츠2 게시판</h2></td>
+  		</tr>
+  		<tr>
+  			<td height="20"></td>
+  		</tr>
+  	</table>
+		
+<table width="600" border="0" cellspacing="0" cellpadding="0">
+      
+      <tr bgcolor="#777777">
+        <td height="1" colspan="2"></td>
+      </tr>
+			
+      <tr>
+        <td bgcolor="#F4F4F4">  번호 </td>
+        <td bgcolor="#FFFFFF">
+          &nbsp;&nbsp;<s:property value="resultClass.no" />
+        </td>
+      </tr>
+      <tr bgcolor="#777777">
+        <td height="1" colspan="2"></td>	
+      </tr>
+      
+      <tr>
+        <td width="100" bgcolor="#F4F4F4">  제목</td>
+        <td width="500" bgcolor="#FFFFFF">
+          &nbsp;&nbsp;<s:property value="resultClass.subject" />
+        </td>
+      </tr>
+      							
+      <tr bgcolor="#777777">
+        <td height="1" colspan="2"></td>
+      </tr>
+      
+      <tr>
+        <td bgcolor="#F4F4F4">  글쓴이 </td>
+        <td bgcolor="#FFFFFF">
+          &nbsp;&nbsp;<s:property value="resultClass.name" />
+        </td>
+      </tr>
+      <tr bgcolor="#777777">
+        <td height="1" colspan="2"></td>	
+      </tr>
+      
+      <tr>
+        <td bgcolor="#F4F4F4">  내용 </td>
+        <td bgcolor="#FFFFFF">
+          &nbsp;&nbsp;<s:property value="resultClass.content" />
+        </td>
+      </tr>
+      <tr bgcolor="#777777">
+        <td height="1" colspan="2"></td>
+      </tr>
+      
+      <tr>
+        <td bgcolor="#F4F4F4">  조회수 </td>
+        <td bgcolor="#FFFFFF">
+          &nbsp;&nbsp;<s:property value="resultClass.readhit" />
+        </td>
+      </tr>
+      <tr bgcolor="#777777">
+        <td height="1" colspan="2"></td>	
+      </tr>
+      
+      <tr>
+        <td bgcolor="#F4F4F4">  등록날짜 </td>
+        <td bgcolor="#FFFFFF">
+          &nbsp;&nbsp;<s:property value="resultClass.regdate" />
+        </td>
+      </tr>
+      <tr bgcolor="#777777">
+        <td height="1" colspan="2"></td>	
+      </tr>
+      
+      <tr>
+        <td bgcolor="#F4F4F4">  첨부파일 </td>
+        <td bgcolor="#FFFFFF">
+          &nbsp;&nbsp;
+          
+          <s:url id="download" action="fileDownloadAction">
+          	<s:param name="no">
+				<s:property value="no" />
+			</s:param>
+          </s:url>
+					
+          <s:a href="%{download}"><s:property value="resultClass.file_orgname" /></s:a> 
+         </td>
+      </tr>
+      <tr bgcolor="#777777">
+        <td height="1" colspan="2"></td>	
+      </tr>
+      
+      <tr>
+        <td height="10" colspan="2"></td>
+      </tr>
+      
+      
+      <tr>
+        <td align="right" colspan="2">
+        
+	        <s:url id="modifyURL" action="modifyForm" >
+				<s:param name="no">
+					<s:property value="no" />
+				</s:param>
+	        </s:url>
+					
+	        <s:url id="deleteURL" action="deleteAction" >
+				<s:param name="no">
+					<s:property value="no" />
+				</s:param>
+	        </s:url>
+				
+	<input name="list" type="button" value="수정" class="inputb" onClick="javascript:open_win_noresizable('checkForm.action?no=<s:property value="resultClass.no" />&currentPage=<s:property value="currentPage" />','modify')">
+					
+	<input name="list" type="button" value="삭제" class="inputb" onClick="javascript:open_win_noresizable('checkForm.action?no=<s:property value="resultClass.no" />&currentPage=<s:property value="currentPage" />','delete')">
+
+	<input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='listAction.action?currentPage=<s:property value="currentPage" />'">
+
+        </td>
+      </tr>
+
+  </table>
+ </body>
+</html>
+
+[/WebContent/board/checkPassword.jsp]
+<%@ page contentType="text/html; charset=utf-8" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>비밀번호 확인</title>
+	<link rel="stylesheet" href="/StrutsBoard/board/common/css/css.css" type="text/css">
+</head>
+  
+  <body>
+  
+  	<h2>비밀번호 확인</h2>
+  	
+  	<form action="checkAction.action" method="post">
+  	<s:hidden name="no" value="%{no}" />
+  	<s:hidden name="currentPage" value="%{currentPage}" />
+  		
+  	<table width="250" border="0" cellspacing="0" cellpadding="0">
+      
+      <tr bgcolor="#777777">
+        <td height="1" colspan="2"></td>
+      </tr>
+			
+      <tr>
+        <td width="100" bgcolor="#F4F4F4">  비밀번호 입력</td>
+        <td width="150" bgcolor="#FFFFFF">
+          &nbsp;&nbsp;<s:textfield name="password" theme="simple" cssStyle="width:100px" maxlength="20"/>
+          &nbsp;&nbsp;<input name="submit" type="submit" value="확인" class="inputb">
+        </td>
+      </tr>
+      
+      <tr bgcolor="#777777">
+        <td height="1" colspan="2"></td>
+      </tr>
+      
+    </table>
+  
+  </form>
+ </body>
+</html>
+
+[/WebContent/board/checkError.jsp]
+<%@ page contentType="text/html; charset=utf-8" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>비밀번호 오류</title>
+	<link rel="stylesheet" href="/StrutsBoard/board/common/css/css.css" type="text/css">
+	<script type="text/javascript">
+		function ErrorMessage() {
+			alert("비밀번호가 틀립니다.");
+			history.back(-1);
+		}
+	</script>
+</head>
+  
+  <body>
+  	<script>ErrorMessage()</script>
+  </body>
+</html>
+
+[/WebContent/board/checkSuccess.jsp]
+<%@ page contentType="text/html; charset=utf-8" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>비밀번호 확인</title>
+	<link rel="stylesheet" href="/StrutsBoard/board/common/css/css.css" type="text/css">
+	<script type="text/javascript">
+		function locationURL() {
+		
+		if ( window.name == 'modify' ) 
+			window.opener.parent.location.href='modifyForm.action?no=<s:property value="no" />&currentPage=<s:property value="currentPage" />';
+				
+		else if ( window.name == 'delete' ) 
+		{
+			alert('삭제되었습니다.');
+			window.opener.parent.location.href='deleteAction.action?no=<s:property value="no" />&currentPage=<s:property value="currentPage" />';
+		}
+			
+		window.close();
+		}
+	</script>
+</head>
+  
+<body>
+  	<script>locationURL()</script>
+</body>
+</html>
+
+6.수정하기
+[/src/struts.xml]
+<!-- 게시판 수정 액션. -->
+<action name="modifyForm" class="board.viewAction">
+	<result type="chain">writeForm</result>
+</action>
+		
+<action name="modifyAction" class="board.modifyAction">
+	<result type="chain">viewAction</result>
+</action>	
+
+[/src/board/modifyAction.java]
+package board;
+
+import com.opensymphony.xwork2.ActionSupport;
+import com.ibatis.common.resources.Resources;
+import com.ibatis.sqlmap.client.SqlMapClient;
+import com.ibatis.sqlmap.client.SqlMapClientBuilder;
+
+import java.io.Reader;
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+
+public class modifyAction extends ActionSupport {
+	public static Reader reader;
+	public static SqlMapClient sqlMapper;
+
+	private boardVO paramClass; //파라미터를 저장할 객체
+	private boardVO resultClass; //쿼리 결과 값을 저장할 객체
+
+	private int currentPage;	//현재 페이지
+	
+	private int no;
+	private String subject;
+	private String name;
+	private String password;
+	private String content;
+	private String old_file;
+
+	private File upload; //파일 객체
+	private String uploadContentType; //컨텐츠 타입
+	private String uploadFileName; //파일 이름
+	private String fileUploadPath = "C:\\Java\\upload\\"; //업로드 경로.
+
+	// 생성자
+	public modifyAction() throws IOException {
+		
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml 파일의 설정내용을 가져온다.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xml의 내용을 적용한 sqlMapper 객체 생성.
+		reader.close();
+	}
+
+	// 게시글 수정
+	public String execute() throws Exception {
+		
+		//파라미터와 리절트 객체 생성.
+		paramClass = new boardVO();
+		resultClass = new boardVO();
+
+		// 수정할 항목 설정.
+		paramClass.setNo(getNo());
+		paramClass.setSubject(getSubject());
+		paramClass.setName(getName());
+		paramClass.setPassword(getPassword());
+		paramClass.setContent(getContent());
+
+		// 일단 항목만 수정한다.
+		sqlMapper.update("updateBoard", paramClass);
+
+		// 수정할 파일이 업로드 되었다면 파일을 업로드하고 DB의 file 항목을 수정함.
+		if (getUpload() != null) {
+			
+			//실제 서버에 저장될 파일 이름과 확장자 설정.
+			String file_name = "file_" + getNo();
+		           String file_ext = getUploadFileName().substring(getUploadFileName().lastIndexOf('.')+1,getUploadFileName().length());
+			
+			//이전 파일 삭제
+			File deleteFile = new File(fileUploadPath + getOld_file());
+			deleteFile.delete();
+			
+			//새 파일 업로드
+			File destFile = new File(fileUploadPath + file_name + "." + file_ext);
+			FileUtils.copyFile(getUpload(), destFile);
+			
+			//파일 정보 파라미터 설정.
+			paramClass.setFile_orgname(getUploadFileName());
+			paramClass.setFile_savname(file_name + "." + file_ext);
+			
+			//파일 정보 업데이트.
+			sqlMapper.update("updateFile", paramClass);
+		}
+
+		// 수정이 끝나면 view 페이지로 이동.
+		resultClass = (boardVO) sqlMapper.queryForObject("selectOne", getNo());
+
+		return SUCCESS;
+	}
+
+	public boardVO getParamClass() {
+		return paramClass;
+	}
+
+	public void setParamClass(boardVO paramClass) {
+		this.paramClass = paramClass;
+	}
+
+	public boardVO getResultClass() {
+		return resultClass;
+	}
+
+	public void setResultClass(boardVO resultClass) {
+		this.resultClass = resultClass;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public File getUpload() {
+		return upload;
+	}
+
+	public void setUpload(File upload) {
+		this.upload = upload;
+	}
+
+	public String getUploadContentType() {
+		return uploadContentType;
+	}
+
+	public void setUploadContentType(String uploadContentType) {
+		this.uploadContentType = uploadContentType;
+	}
+
+	public String getUploadFileName() {
+		return uploadFileName;
+	}
+
+	public void setUploadFileName(String uploadFileName) {
+		this.uploadFileName = uploadFileName;
+	}
+
+	public String getFileUploadPath() {
+		return fileUploadPath;
+	}
+
+	public void setFileUploadPath(String fileUploadPath) {
+		this.fileUploadPath = fileUploadPath;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	public String getOld_file() {
+		return old_file;
+	}
+
+	public void setOld_file(String old_file) {
+		this.old_file = old_file;
+	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+}
+
+7.삭제하기
+[/src/struts.xml]
+<!-- 게시판 삭제 액션. -->
+<action name="deleteAction" class="board.deleteAction">
+	<result type="chain">listAction</result>
+</action>
+
+[/src/board/deleteAction.java]
+package board;
+
+import com.opensymphony.xwork2.ActionSupport;
+import com.ibatis.common.resources.Resources;
+import com.ibatis.sqlmap.client.SqlMapClient;
+import com.ibatis.sqlmap.client.SqlMapClientBuilder;
+
+import java.io.File;
+import java.io.Reader;
+import java.io.IOException;
+
+public class deleteAction extends ActionSupport {
+	public static Reader reader;
+	public static SqlMapClient sqlMapper;
+
+	private boardVO paramClass; //파라미터를 저장할 객체
+	private boardVO resultClass; //쿼리 결과 값을 저장할 객체
+
+	private int currentPage;	//현재 페이지
+	
+	private String fileUploadPath = "C:\\Java\\upload\\";
+	
+	private int no;
+	
+	
+	// 생성자
+	public deleteAction() throws IOException {
+		
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml 파일의 설정내용을 가져온다.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xml의 내용을 적용한 sqlMapper 객체 생성.
+		reader.close();
+	}
+
+	// 게시글 글 삭제
+	public String execute() throws Exception {
+		
+		//파라미터와 리절트 객체 생성.
+		paramClass = new boardVO();
+		resultClass = new boardVO();
+		
+		// 해당 번호의 글을 가져온다.
+		resultClass = (boardVO) sqlMapper.queryForObject("selectOne", getNo());
+
+		//서버 파일 삭제
+		File deleteFile = new File(fileUploadPath + resultClass.getFile_savname());
+		deleteFile.delete();
+
+		// 삭제할 항목 설정.
+		paramClass.setNo(getNo());
+				
+		// 삭제 쿼리 수행.
+		sqlMapper.update("deleteBoard", paramClass);
+
+		return SUCCESS;
+	}
+
+	public boardVO getParamClass() {
+		return paramClass;
+	}
+
+	public void setParamClass(boardVO paramClass) {
+		this.paramClass = paramClass;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	public boardVO getResultClass() {
+		return resultClass;
+	}
+
+	public void setResultClass(boardVO resultClass) {
+		this.resultClass = resultClass;
+	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+}
+
+8.예외처리페이지
+[pageError.jsp]
+<%@ page contentType="text/html; charset=utf-8" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>게시판 오류 발생</title>
+	<link rel="stylesheet" href="/board/common/css/css.css" type="text/css">
+</head>
+  
+  <body>
+  
+  	<h2>게시판 오류 발생</h2>
+  	
+  	<table width="600" border="0" cellspacing="0" cellpadding="0">
+      
+      <tr>
+        <td>  게시판에 오류가 발생했습니다. 관리자에게 문의바랍니다.</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>  <a href="listAction.action">리스트 화면으로 이동</a>.</td>
+      </tr>
+      
+      
+    </table>
+  
+	</form>
+	</body>
+</html>
+

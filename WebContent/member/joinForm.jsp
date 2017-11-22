@@ -53,7 +53,7 @@
 				<p align="right">
 					<a href="loginForm.action">로그인</a> 
 					&nbsp;&nbsp; | &nbsp;&nbsp;
-					<a href="#">아이디/비밀번호찾기</a>
+					<a href="loginfind.action">아이디/비밀번호찾기</a>
 				</p>
 			</td>
 			<td width="15%"/>
