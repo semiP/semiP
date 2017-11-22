@@ -133,10 +133,6 @@
 		SELECT * FROM goods
 	</sql>
 	
-	<sql id="select-cmt-all">
-		SELECT * FROM goodscmt
-	</sql>
-
 	<!-- 파일 넣기 -->
 	<select id="selectLastNo" resultClass="goods" parameterClass="int">
 			SELECT max(goods_no) as goods_no FROM goods
@@ -159,4 +155,8 @@
 		WHERE goods_no = #goods_no#
 	</select>
 
+	<select id="select-cmt-all" resultMap="goodsCmtRes" parameterClass="int">
+			SELECT * FROM goods_qa WHERE goods_no = #goods_no#
+	</select>
+	
 </sqlMap>

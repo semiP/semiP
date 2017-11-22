@@ -5,10 +5,10 @@
 	
 <sqlMap namespace="mypage2">
 	<typeAlias alias="goodsOrder" type="mypage.goodsOrderBean"/>
-	<typeAlias alias="goodss" type="goods.goodsVO"/>
+	<typeAlias alias="goods" type="goods.goodsVO"/>
 	
 	<!-- result map 정의 -->
-	<resultMap id="goodsRes" class="goodss">
+	<resultMap id="goodsRes" class="goods">
 		<result property="goods_no" column="goods_no"/>
 		<result property="goods_name" column="goods_name"/>
 		<result property="goods_category" column="goods_category"/>
@@ -50,11 +50,11 @@
 	
 	<!-- select-all -->
 		<sql id="select-all-goods_OrderDeliverCondition">
-			SELECT * FROM GOODS
+			SELECT * FROM goods
 		</sql>
 		
 		<sql id="select-all-goodsOrder_OrderDeliverCondition">
-			SELECT * FROM GOODSORDER
+			SELECT * FROM goodsOrder
 		</sql>
 		
 		<select id="selectAllGoodsOrderDeliverCondition" resultMap="goodsRes" parameterClass="int">
@@ -81,6 +81,6 @@
 	<!-- 기간조회 -->
 		<select id="order_date" resultMap="goodsOrderRes">
 			<include refid="select-all-goodsOrder_OrderDeliverCondition"/>
-			BETWEEN #searchKeyword1# and #searchKeyword2#
+			BETWEEN #searchKeyword1# AND #searchKeyword2#
 		</select>	
 </sqlMap>

@@ -36,13 +36,17 @@ public class orderWriteAction extends ActionSupport{
 	private String order_receive_addr1;
 	private String order_receive_addr2;
 	private String order_receive_phone;
+	
+	private String phone1;
+	private String phone2;
+	private String phone3;
+	
 	private String order_memo;
 	private int order_total_price;
 	private Date order_date;
 	private Date order_trade_date;
 	private int order_status;
 	private int order_list_amount;
-	private String order_goods_image;
 	private int order_pay_type;
 	private String order_pay_name;
 	private int order_total_pay;
@@ -79,9 +83,11 @@ public class orderWriteAction extends ActionSupport{
 		//액션에서 jsp에서 받은 값을 vo에 넣는 과정 
 		paramClass.setOrder_member_no(getOrder_member_no());
 		paramClass.setOrder_goods_no(getOrder_goods_no());
-		paramClass.setOrder_goods_amount(getOrder_goods_amount());
-		paramClass.setOrder_goods_color(getOrder_goods_color());
-		paramClass.setOrder_goods_size(getOrder_goods_size());
+		
+		/*paramClass.setOrder_goods_amount(getOrder_goods_amount());
+		paramClass.setOrder_goods_color(getOrder_goods_color());  
+		paramClass.setOrder_goods_size(getOrder_goods_size());*/
+		
 		paramClass.setOrder_receive_name(getOrder_receive_name());
 		paramClass.setOrder_receive_zipcode(getOrder_receive_zipcode());
 		paramClass.setOrder_receive_addr1(getOrder_receive_addr1());
@@ -93,14 +99,22 @@ public class orderWriteAction extends ActionSupport{
 		paramClass.setOrder_trade_date(today.getTime());
 		paramClass.setOrder_status(getOrder_status());
 		paramClass.setOrder_list_amount(getOrder_list_amount());
-		paramClass.setOrder_goods_image(getOrder_goods_image());
 		paramClass.setOrder_pay_type(getOrder_pay_type());
 		paramClass.setOrder_pay_name(getOrder_pay_name());
 		paramClass.setOrder_total_pay(getOrder_total_pay());
 		paramClass.setInvoice_no(getInvoice_no());
 		
-		//받은값을 넣는다.
-		sqlMapper.insert("order.orderInsert", paramClass);
+		paramClass.setOrder_goods_size("a");
+		paramClass.setOrder_goods_color("a");
+		paramClass.setOrder_goods_amount(1);
+		
+		/*order_receive_phone = getPhone1().concat(getPhone2());
+		order_receive_phone = order_receive_phone.concat(getPhone3());*/
+		
+		order_receive_phone = getPhone1() + getPhone2() + getPhone3();
+		/*order_goods_size = */
+
+		
 		
 		if(getUpload() != null)
 		{
@@ -121,6 +135,10 @@ public class orderWriteAction extends ActionSupport{
 			
 			sqlMapper.update("order.updateFile", paramClass);
 		}
+		
+		//받은값을 넣는다.
+		sqlMapper.insert("order.orderInsert", paramClass);
+		
 		return SUCCESS;
 	}
 	
@@ -182,9 +200,6 @@ public class orderWriteAction extends ActionSupport{
 	public int getOrder_list_amount() { return order_list_amount; }
 	public void setOrder_list_amount(int order_list_amount) { this.order_list_amount = order_list_amount; }
 	
-	public String getOrder_goods_image() { return order_goods_image; }
-	public void setOrder_goods_image(String order_goods_image) { this.order_goods_image = order_goods_image; }
-	
 	public int getOrder_pay_type() { return order_pay_type; }
 	public void setOrder_pay_type(int order_pay_type) { this.order_pay_type = order_pay_type; }
 	
@@ -208,5 +223,14 @@ public class orderWriteAction extends ActionSupport{
 	
 	public String getFileUploadPath() { return fileUploadPath; }
 	public void setFileUploadPath(String fileUploadPath) { this.fileUploadPath = fileUploadPath; }
+
+	public String getPhone1() { return phone1; }
+	public void setPhone1(String phone1) { this.phone1 = phone1; }
+
+	public String getPhone2() { return phone2; }
+	public void setPhone2(String phone2) { this.phone2 = phone2; }
+
+	public String getPhone3() { return phone3; }
+	public void setPhone3(String phone3) { this.phone3 = phone3;}
 
 }

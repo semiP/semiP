@@ -35,7 +35,8 @@
 		<result property="goods_regdate" column="goods_regdate"/>
 	</resultMap>
 	
-	<resultMap id="goods_QARes" class="goods_qa">			<!-- VO property 들 다 소문자로 수정 - 171118 동민 -->
+
+	<resultMap id="goods_QARes" class="goods_qa">			
 		<result property="qa_no" column="QA_NO"/>
 		<result property="goods_no" column="GOODS_NO"/>
 		<result property="member_no" column="MEMBER_NO"/>

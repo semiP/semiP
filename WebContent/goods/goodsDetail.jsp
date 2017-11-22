@@ -2,6 +2,7 @@
 	trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <s:property value="resultClass.goods_name" />
 
@@ -40,7 +41,7 @@
 						<td width="50%" style="vertical-align:top;">
 							<table width="100%">
 								<tr>
-									<td><img src="/semiP/assets/images/best1.jpg" style="width:100%;"></td>
+									<td><img src="http://cooz.co/semiP/IMG/<s:property value="resultGoods.goods_category" />/<s:property value="goods_no" />/1.jpg" style="width:100%;"></td>
 								</tr>
 								<tr>
 									<td align="center">
@@ -48,7 +49,7 @@
 										src="/semiP/assets/images/icons/enlarge.png" width="50" height="50" 
 										onmouseover="this.src='/semiP/assets/images/icons/enlarge_on.png'" 
 										onmouseout="this.src='/semiP/assets/images/icons/enlarge.png'"
-										onclick="imagePopup('/semiP/assets/images/best1.jpg',100,100)">
+										onclick="imagePopup('http://cooz.co/semiP/IMG/<s:property value="resultGoods.goods_category" />/<s:property value="goods_no" />/1.jpg')">
 									</td>
 								</tr>
 							</table>
@@ -57,11 +58,11 @@
 						<td style="vertical-align:top;">
 							<table width="100%" border="0">
 								<tr>
-									<td colspan="2" style="font-size:1.5em;">상품이름 : <s:property value="resultClass.name" /><br><br></td>
+									<td colspan="2" style="font-size:1.5em;">상품이름 : <s:property value="resultGoods.goods_name" /><br><br></td>
 								</tr>
 								<tr>
 									<td width="100" height="40">&nbsp;가격</td>
-									<td style="font-size:1.2em;"><strong><s:property value="resultClass.goods_price" /></strong></td>
+									<td style="font-size:1.2em;"><strong><s:property value="resultGoods.goods_price" /></strong></td>
 								</tr>
 								<tr>
 									<td width="100" height="40">&nbsp;수량</td>
@@ -76,11 +77,13 @@
 									<td width="100" height="40">&nbsp;색상</td>
 									
 									<td>
-										<select>
+										<select name="g.color"> 오더 쓰기 액션 넘겨준다
 											<option value="" selected="selected">선택해 주세요</option>										
-											<option value="color1"><s:property value="resultClass.split1." /></option>
-											<option value="color2"><s:property value="resultClass.goods_color2" /></option>
-											<option value="color3"><s:property value="resultClass.goods_color3" /></option>
+											<c:forTokens var="color" items="${resultGoods.goods_color}" delims=",">
+												<option value=${fn:trim(color)}>
+													${fn:trim(color)}
+												</option>
+											</c:forTokens>
 										</select>
 									</td>
 								</tr>
@@ -89,12 +92,12 @@
 					
 									<td>
 										<select>
-
-											<option value="" selected="selected">선택해 주세요</option>
-											<s:iterator value="array_size" status="size">										
-												<option value="size"><s:property value="#size.index" /></option>
-											</s:iterator>
-
+											<option value="" selected="selected">선택해 주세요</option>										
+											<c:forTokens var="size" items="${resultGoods.goods_size}" delims=",">
+												<option value=${fn:trim(size)}>
+													${fn:trim(size)}
+												</option>
+											</c:forTokens>
 										</select>
 									</td>
 								</tr>
@@ -121,7 +124,8 @@
 										<input type="button" class="btn-custom" value="장바구니 담기" style="width:150px;" onClick="javascript:location.href='basketListAction.action?currentPage=<s:property value="currentPage" />'">
 									</td>
 									<td align="left" style="padding:5px;">
-										<input type="button" class="btn-custom1" value="구매하기" style="width:150px;" onClick="javascript:location.href='orderWriteAction.action?currentPage=<s:property value="currentPage" />'">
+										<input type="button" class="btn-custom" value="구매하기" style="width:150px;" onClick="javascript:location.href='orderWriteAction.action?currentPage=<s:property value="currentPage" />'">
+										<!-- <input type="button" class="btn-custom1" value="구매하기" style="width:150px;" onClick="javascript:location.href='orderWriteAction.action'"> -->
 									</td>
 								</tr>
 							</table>
@@ -145,10 +149,12 @@
 					
 					<tr>
 						<td align="center" colspan="4" style="border:1px solid #000000;">
-							이미지 1 <br>
-							이미지 2 <br>
-							이미지 3 <br>
-							등등 <br>
+							<c:forTokens var="detailIMG" items="${resultGoods.goods_image}" delims=",">
+								<c:if test="${detailIMG >= 3}">
+									<img width="100%" src="http://cooz.co/semiP/IMG/<s:property value="resultGoods.goods_category" />/<s:property value="goods_no" />/${fn:trim(detailIMG)}.jpg"><br>
+								</c:if>
+							</c:forTokens>
+							
 						</td>
 					</tr>
 				</table>
@@ -251,11 +257,11 @@
 									<!-- 글제목을 누르면 팝업으로 표시할까나 싶네요... ajax 를 안배워서 페이지 리로딩을 할 수밖에 없을듯 하네요 -->
 									
 									<s:if test="re_level != 0">
-										<c:forEach var="i" begin = "${re_level }" end = "0">
+										<c:forEach var="i" begin = "${re_level }" end = "0"></c:forEach>
 											<td class="board-titlebar" width="67%"><img src="/semiP/assets/images/board-icon/reply.gif">그럴 수도 있겠네요<s:property value="goods_subject" /></td>
 											<td class="board-titlebar" width="12%">관리자<s:property value="goods_name" /></td>
 											<td class="board-titlebar" width="15%">2017/11/09<s:property value="goods_date" /></td>
-										</c:forEach>
+										
 									</s:if>
 								</tr>
 								<tr><td colspan="4" bgcolor="#f2f2f2" height="1"></td></tr>

@@ -26,11 +26,10 @@
 		<result property="order_trade_date" column="order_trade_date"/>
 		<result property="order_status" column="order_status"/>
 		<result property="order_list_amount" column="order_list_amount"/>
-		<result property="order_goods_image" column="order_goods_image"/>
 		<result property="order_pay_type" column="order_pay_type"/>
 		<result property="order_pay_name" column="order_pay_name"/>
 		<result property="order_total_pay" column="order_total_pay"/>
-		<result property="invoice_no" column="invoice_no"/>
+		<result property="invoice_no" column="invoice_no"/>		<!-- 디비 필드명이랑 달라서 column 쪽 수정 -->
 	</resultMap>
 	
 	<!-- 주문된상품 update 쿼리문 정의 -->
@@ -51,9 +50,9 @@
 							order_member_no,   
 							order_goods_amount, 
 							order_goods_size,   
-							order_goods_color,
+							order_goods_color,  
 							order_receive_name,
-							order_receive_zipcode,  
+							order_receive_zipcode,
 							order_receive_addr1,
 							order_receive_addr2,
 							order_receive_phone,
@@ -63,7 +62,6 @@
 							order_trade_date,
 							order_status,
 							order_list_amount,
-							order_goods_image,
 							order_pay_type,
 							order_pay_name,
 							order_total_pay,
@@ -85,7 +83,6 @@
 							#order_trade_date#,
 							#order_status#,
 							#order_list_amount#,
-							#order_goods_image#,
 							#order_pay_type#,
 							#order_pay_name#,
 							#order_total_pay#,
@@ -97,7 +94,6 @@
 		SELECT * FROM GOODSORDER
 	</sql>
 
-<!-- 
 	<select id="select-join" resultMap="orderRes" parameterClass="int">
 		SELECT g.goods_no, g.goods_name, g.goods_size, g.goods_color, g.goods_price, g.goods_image,
 		       m.member_no, m.member_id,
@@ -107,8 +103,8 @@
 		       o.order_memo, o.order_pay_type, o.order_pay_name, o.order_total_pay, o.order_invoice_no
 		FROM  GOODSORDER o, goods g, member m,
 		WHERE o.order_goods_no = #g.goods_no# and o.order_member_no = #m.member_no# 
-	</select>
--->
+	</select> 
+
 
     <!-- 주문내역 가져오기 -->
 	<select id="select-order-all" resultMap="orderRes" parameterClass="int">

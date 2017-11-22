@@ -36,12 +36,12 @@ public class basketDeleteAction extends ActionSupport {
 		basketparamClass = new basketVO();
 		basketresultClass = new basketVO();
 		
-		basketresultClass = (basketVO)sqlMapper.queryForObject("basket.selectOne",getBasket_no());
+		basketresultClass = (basketVO)sqlMapper.queryForObject("basketSet.selectOne",getBasket_no());
 		
 		basketparamClass.setBasket_no(getBasket_no());
 		
 		basketparamClass.setBasket_no(basket_no);
-		sqlMapper.delete("basket.deleteBasket", basketparamClass.getBasket_no());
+		sqlMapper.delete("basketSet.deleteBasket", basketparamClass.getBasket_no());
 		return SUCCESS;
 	}
 

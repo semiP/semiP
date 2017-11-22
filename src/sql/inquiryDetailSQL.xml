@@ -23,7 +23,7 @@
 	
 	<resultMap id="inquiryRes" class="inquiry">
 		<result property="inquiry_no" column="inquiry_no"/>
-		<result property="member_no" column="MEMBER_NO"/>					<!-- property 쪽 소문자로 수정 - 171118 동민 -->
+		<result property="member_no" column="member_no"/>					<!-- property 쪽 소문자로 수정 - 171118 동민 -->
 		<result property="inquiry_category" column="inquiry_category"/>
 		<result property="inquiry_subject" column="inquiry_subject"/>
 		<result property="inquiry_content" column="inquiry_content"/>
@@ -36,11 +36,11 @@
 	
 	<!-- select-all -->
 		<sql id="select-all-member_inquiry_Detail">
-			SELECT * FROM MEMBER
+			SELECT * FROM member
 		</sql>
 	
 		<sql id="select-all-inquiry_Detail">
-			SELECT * FROM INQUIRY
+			SELECT * FROM inquiry
 		</sql>
 		
 		<!-- select 쿼리문 정의 -->
@@ -57,12 +57,12 @@
 	<!-- select-one -->	
 		<select id="selectOnemember_inquiryDetail" resultMap="memberRes" parameterClass="int">
 			<include refid="select-all-member_inquiry_Detail" />
-			where inquiry_no = #inquiry_no#
+			WHERE inquiry_no = #inquiry_no#
 		</select>
 		
 		<select id="selectOneInquiryDetail" resultMap="inquiryRes" parameterClass="int">
 			<include refid="select-all-inquiry_Detail" />
-			where inquiry_no = #inquiry_no#
+			WHERE inquiry_no = #inquiry_no#
 		</select>
 		
 	<!--
@@ -74,6 +74,6 @@
      	   
      	   	<select id="inquiry_regdate" resultMap="inquiryRes">
 			<include refid="select-all-member_inquiry_Detail"/>
-				BETWEEN #searchKeyword1# and #searchKeyword2#
+				BETWEEN #searchKeyword1# AND #searchKeyword2#
 			</select>
 </sqlMap>

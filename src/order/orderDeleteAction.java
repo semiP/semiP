@@ -11,7 +11,16 @@ import java.io.IOException;
 
 import order.orderVO;
 
-public class orderDeleteAction extends ActionSupport{
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
+
+public abstract class orderDeleteAction extends ActionSupport implements SessionAware{
+	
+	
+	private static final long serialVersionUID = 1L;
+	private Map session;
+	
 	public static Reader reader; //���� ��Ʈ���� ���� reader.
 	public static SqlMapClient sqlMapper; //SqlMapClient API�� ����ϱ� ���� sqlMapper ��ü.
 	
