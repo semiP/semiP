@@ -213,7 +213,7 @@
 							<p align="center">
 								<h2>Q&A</h2>
 								상품에 대한 문의사항을 남겨주시면, 빠른 답변으로 궁금한 사항을 해결해 드리겠습니다<br>
-								<input type="button" value="질문작성하기">
+								<input type="button" value="질문작성하기" onClick="window.open('goodQaWriteForm.action?goods_no=${goods_no}', '', 'width=600, height=430'); return false;">
 							</p>
 							<table width="100%">
 								<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>

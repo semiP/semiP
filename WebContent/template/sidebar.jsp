@@ -21,7 +21,7 @@
 			<tr>
 				<!-- 로그인 상태봐서  logout  아이콘으로 변경해줄 것 -->
 				<td>
-					<s:if test="session.session_member_id != null">	
+					<s:if test="#session.session_member_id != null">	
 						<a href="/semiP/logout.action">
 							<img src="/semiP/assets/images/icons/logout.png" onmouseover="this.src='/semiP/assets/images/icons/logout_on.png'" onmouseout="this.src='/semiP/assets/images/icons/logout.png'"><br>
 						</a>
