@@ -19,6 +19,10 @@
 		<action name="loginfind" class="member.IdPassInquire">
 			<result name="success" type="tiles">idPassInquire</result>
 		</action>
+		<!-- (수정)로그인창 (이동) -->
+		<action name="loginac" class="member.login">
+			<result name="success" type="tiles">loginForm</result>
+		</action>
 		<!-- (수정)아이디 찾기 -->
 		<action name="loginidfind" class="member.memberIdFindAction">
 			<interceptor-ref name="params" />
@@ -33,7 +37,7 @@
 		<!-- 회원가입 -->
 		<action name="memberend" class="member.memberendAction">
 			<interceptor-ref name="prepare" />
-			<interceptor-ref name="modelDriven" />
+			
 			<interceptor-ref name="params" />
 			<result name="success" type="tiles">loginForm</result> 
 		</action>
@@ -41,20 +45,6 @@
 		<action name="memberIdChkAction" class="member.memberIdChkAction">
 			<result>/member/idChk.jsp</result>
 		</action>
-		<!-- 회원정보 수정 
-		<action name="memberModifyAc" class="member.ModifyAction">
-			<result type="redirect-action">
-				<param name="actionName">main</param>
-			</result>
-			<result name="login" type="tiles">loginConfirm</result>
-		</action>-->
-		
-		
-		<!-- 
-		비밀번호 변경
-		<action name="memberpssch" >
-			<result name="success" type="tiles">memberpssch</result>
-		</action>
-		-->
+
 	</package>
 </struts>

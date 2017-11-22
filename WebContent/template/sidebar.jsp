@@ -28,11 +28,12 @@
 						<font size="1">LOGOUT</font>
 					</s:if>
 					<s:else>
-						<a href="/semiP/loginForm.action">
+						<a href="/semiP/loginac.action">
 							<img src="/semiP/assets/images/icons/login.png" onmouseover="this.src='/semiP/assets/images/icons/login_on.png'" onmouseout="this.src='/semiP/assets/images/icons/login.png'"><br>
 						</a>
 						<font size="1">LOGIN</font>
 					</s:else>
+
 				</td>
 			</tr>
 			<tr>
