@@ -113,6 +113,4 @@ public class memberbean {
 		this.member_deletereason = member_deletereason;
 	}
 
-
-	
 }

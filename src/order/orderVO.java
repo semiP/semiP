@@ -27,8 +27,8 @@ public class orderVO {
 	private int order_pay_type;
 	private String order_pay_name;
 	private int order_total_pay;
-	private int invoice_no;
-	private goodsVO goods_vo;
+	private int invoice_no;		// 171118 디비/SQL 에는 있는데 VO 에 없어서 추가-동민
+
 	
 	//goodsVO goods_vo = new goodsVO();        //goods테이블의 클래스 객체
 	//memeberVO member_vo = new memberVO(); 
@@ -70,7 +70,7 @@ public class orderVO {
 	public void setOrder_memo(String order_memo) { this.order_memo = order_memo; }
 	
 	public int getOrder_total_price() { return order_total_price; }
-	public void setOrder_total_price1(int order_total_price) { this.order_total_price = order_total_price; }
+	public void setOrder_total_price(int order_total_price) { this.order_total_price = order_total_price; }
 	
 	public Date getOrder_date() { return order_date; }
 	public void setOrder_date(Date order_date) { this.order_date= order_date; }
@@ -93,15 +93,10 @@ public class orderVO {
 	public int getOrder_total_pay() { return order_total_pay; }
 	public void setOrder_total_pay(int order_total_pay) { this.order_total_pay = order_total_pay; }
 	
-	public int getInvoice_no() { return invoice_no; }
-	public void setInvoice_no(int invoice_no) { this.invoice_no = invoice_no; }
+	public int getInvoice_no() {	return invoice_no;	}
+	public void setInvoice_no(int invoice_no) {	this.invoice_no = invoice_no;	}
 
 	public String getOrder_goods_image() {return order_goods_image;}
 	public void setOrder_goods_image(String order_goods_image) {this.order_goods_image = order_goods_image;}
-	
-	public goodsVO getGoods_vo() {return getGoods_vo();}
-	public void setGoods_vo(goodsVO goods_vo) {this.goods_vo = goods_vo;}
-	
-	public void setOrder_total_price(int order_total_price) {this.order_total_price = order_total_price;}
 
 }

@@ -49,4 +49,5 @@
 	<!-- goods -->
 	<sqlMap resource="/sql/goodsSQL.xml" />
 
+
 </sqlMapConfig>

@@ -30,7 +30,7 @@
 		<result property="order_pay_type" column="order_pay_type"/>
 		<result property="order_pay_name" column="order_pay_name"/>
 		<result property="order_total_pay" column="order_total_pay"/>
-		<result property="invoice_no" column="invoice_no"/>
+		<result property="invoice_no" column="invoice_no"/>		<!-- 디비 필드명이랑 달라서 column 쪽 수정 -->
 
 	</resultMap>
 	
@@ -52,9 +52,9 @@
 							order_member_no,   
 							order_goods_amount, 
 							order_goods_size,   
-							order_goods_color,
+							order_goods_color,  
 							order_receive_name,
-							order_receive_zipcode,  
+							order_receive_zipcode,
 							order_receive_addr1,
 							order_receive_addr2,
 							order_receive_phone,
@@ -69,7 +69,7 @@
 							order_pay_name,
 							order_total_pay,
 							invoice_no)
-	VALUES (ORDER_NO_seq.NEXTVAL,
+	VALUES (order_no_seq.NEXTVAL,
 							#order_goods_no#,   
 							#order_member_no#,   
 							#order_goods_amount#, 
@@ -91,7 +91,6 @@
 							#order_pay_name#,
 							#order_total_pay#,
 							#invoice_no#)
-
 	</insert>
 
 	<!-- 공통으로 사용할 select 절 정의 -->
@@ -99,16 +98,19 @@
 		SELECT * FROM GOODSORDER
 	</sql>
 
+
+<!-- 
 	<select id="select-join" resultMap="orderRes" parameterClass="int">
-		<!-- SELECT g.goods_no, g.goods_name, g.goods_size, g.goods_color, g.goods_price, g.goods_image,
+		SELECT g.goods_no, g.goods_name, g.goods_size, g.goods_color, g.goods_price, g.goods_image,
 		       m.member_no, m.member_id,
 		       o.order_no, o.order_goods_no, o.member_no, o.order_date, o.order_trade_date, o.order_list_amount,
 		       o.status, o.order_total_pay, o.invoice_no, 
 		       o.order_receive_name, o.order_receive_zipcode, o.order_receive_addr1, o.order_receive_addr2, o.order_receive_phone,
 		       o.order_memo, o.order_pay_type, o.order_pay_name, o.order_total_pay, o.order_invoice_no
 		FROM  GOODSORDER o, goods g, member m,
-		WHERE o.order_goods_no = #g.goods_no# and o.order_member_no = #m.member_no#  -->
-	</select>
+		WHERE o.order_goods_no = #g.goods_no# and o.order_member_no = #m.member_no# 
+	</select> -->
+
 
     <!-- 주문내역 가져오기 -->
 	<select id="select-order-all" resultMap="orderRes" parameterClass="int">

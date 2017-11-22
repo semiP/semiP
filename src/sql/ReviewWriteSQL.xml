@@ -35,6 +35,7 @@
 		<result property="goods_regdate" column="goods_regdate"/>
 	</resultMap>
 	
+
 	<resultMap id="goods_QARes" class="goods_qa">			
 		<result property="qa_no" column="QA_NO"/>
 		<result property="goods_no" column="GOODS_NO"/>
@@ -50,7 +51,6 @@
 		<result property="qa_re_step" column="QA_RE_STEP"/>
 		<result property="qa_re_level" column="QA_RE_LEVEL"/>
 		<result property="qa_start" column="QA_START"/>
-
 	</resultMap>
 	
 	<!-- select-all -->

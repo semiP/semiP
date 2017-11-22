@@ -8,6 +8,7 @@ import common.hitVO;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.LinkedHashMap;
 
 import com.ibatis.common.resources.Resources;
@@ -17,9 +18,11 @@ import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import java.io.Reader;
 import java.io.IOException;
 
+import org.apache.struts2.interceptor.SessionAware;
 
 
-public class MainAction extends ActionSupport {
+
+public class MainAction extends ActionSupport implements SessionAware {
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,6 +31,9 @@ public class MainAction extends ActionSupport {
 	
 	private List<hitVO> listHit = new ArrayList<hitVO>();	
 	private LinkedHashMap<String, List<goodsVO>> categoryMap = new LinkedHashMap<String, List<goodsVO>>();
+	
+	private Map session;
+	
 	
 	public MainAction() throws IOException{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); 
@@ -68,6 +74,14 @@ public class MainAction extends ActionSupport {
 
 	public void setCategoryMap(LinkedHashMap<String, List<goodsVO>> categoryMap) {
 		this.categoryMap = categoryMap;
+	}
+	
+	public Map getSession() {
+		return session;
+	}
+
+	public void setSession(Map session) {
+		this.session = session;
 	}
 
 

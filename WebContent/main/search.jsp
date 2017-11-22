@@ -69,7 +69,7 @@
 								<!-- 상품번호 적기 -->
 								no.<s:property value="goods_no"/><br>
 								<!-- 상품이미지 찍기 -->
-								<a href="#">
+								<a href="goodsViewAction.action?goods_no=<s:property value="goods_no" />">
 									<img src="http://cooz.co/semiP/IMG/<s:property value="goods_category" />/<s:property value="goods_no" />/0.jpg" style="width:100%;"><br>		
 								</a><br>
 								<!-- 상품정보 적기 (이름/설명/가격) -->

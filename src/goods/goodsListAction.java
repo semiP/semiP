@@ -1,29 +1,28 @@
 package goods;
 
-import com.opensymphony.xwork2.ActionSupport;
-
-import basket.basketVO;
-import goods.goodsVO;
-
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
+import com.opensymphony.xwork2.ActionSupport;
 
-import java.util.*;
+import goods.goodsVO;
+import common.countVO;
+import common.pagingAction;
+
 import java.io.Reader;
-import java.io.IOException;
-
-import java.net.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class goodsListAction extends ActionSupport {
+	public static Reader reader;
+	public static SqlMapClient sqlMapper;
 	
-	public static Reader reader;        //���� ��Ʈ���� ���� reader.
-	public static SqlMapClient sqlMapper;      //SqlMapClinet API�� ����ϱ� ���� sqlMapper ��ü.
-	
-	private List<goodsVO> list = new ArrayList<goodsVO>();
-	
-	private String searchKeyword;
-	private int searchNum;
+	private static final long serialVersionUID = 1L;
+	private String keyword;
+	private int category;
+	private goodsVO paramClass;
+	private List<goodsVO> goodsList = new ArrayList<goodsVO>();
+	private List<countVO> countList = new ArrayList<countVO>();
 	
 	private int num = 0;
 	private int currentPage = 1;
@@ -31,58 +30,89 @@ public class goodsListAction extends ActionSupport {
 	private int blockCount = 10;
 	private int blockPage = 5;
 	private String pagingHtml;
-//	private pagingAction page;
+	
+	// 생성자
+		public goodsListAction() throws Exception{
+			reader = Resources.getResourceAsReader("sqlMapConfig.xml");
+			sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
+			reader.close();
+		}
+		
+		public String execute() throws Exception{
+			goodsVO emptyGoods = new goodsVO();
+			emptyGoods.setGoods_amount(-10);
+			
+			if(category > 0) {
+					goodsList = sqlMapper.queryForList("mainSearch.select-all-goods-by-category",category);
+					countList = sqlMapper.queryForList("mainSearch.count-all-goods");
+			}else {
+					goodsList = sqlMapper.queryForList("mainSearch.select-all-goods");
+					countList = sqlMapper.queryForList("mainSearch.count-all-goods");
+			}
+			
+			if(goodsList.size() % 4 != 0) {
+				for(int i=0; i<(goodsList.size() % 4); i++) {
+					goodsList.add(emptyGoods);
+				}
+			}
+			
+			return SUCCESS;
+		}
 
-	//생성자
-	public goodsListAction() throws IOException
-	{
-		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); //sqlMapConfig.xml ������ ���������� �����´�.
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);  //sqlMapConfig.xml�� ������ ������ sqlMapper ��ü ����.
-		reader.close();
+		
+		
+		
+		
+		
+		public String getKeyword() {
+			return keyword;
+		}
+
+		public void setKeyword(String keyword) {
+			this.keyword = keyword;
+		}
+
+		public int getCategory() {
+			return category;
+		}
+
+		public void setCategory(int category) {
+			this.category = category;
+		}
+
+		public goodsVO getParamClass() {
+			return paramClass;
+		}
+
+		public void setParamClass(goodsVO paramClass) {
+			this.paramClass = paramClass;
+		}
+
+		public List<goodsVO> getGoodsList() {
+			return goodsList;
+		}
+
+		public void setGoodsList(List<goodsVO> goodsList) {
+			this.goodsList = goodsList;
+		}
+
+		public List<countVO> getCountList() {
+			return countList;
+		}
+
+		public void setCountList(List<countVO> countList) {
+			this.countList = countList;
+		}
 	}
-	
-	public String execute() throws Exception
-	{		
-		list = sqlMapper.queryForList("select-goods-all");
-		
-		totalCount = list.size();
-//		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, num, "");
-//		pagingHtml = page.getPagingHtml().toString();
-	
-//		list = list.subList(page.getStartCount(), lastCount);
-		
-		/*임의의 리스트 만들기. 테스트용
-				basketresultClass = new basketVO();
-				basketresultClass.setBasket_no(1);
-				basketresultClass.setBasket_price(40000);
-				basketresultClass.setGoods_size("L");
-				basketresultClass.setGoods_color("red");
-				basketresultClass.setGoods_name("solid");
-				basketresultClass.setBgoods_amount(2);
-				basketresultClass.setGoods_price(20000);
-				basketresultClass.setGoods_image("image");
-			*/			
-		
-		
-		return SUCCESS;
-	}
 
-	public List<goodsVO> getList() { return list; }
-	public void setList( List<goodsVO> list) { this.list = list; }
-	
-	public int getCurrentPage() { return currentPage; }
-	public void setCurrentPage(int currentPage) { this.currentPage = currentPage; }
-	
-	public int getTotalCount() { return totalCount; }
-	public void setTotalCount(int totalCount) { this.totalCount = totalCount; }
 
-	public int getBlockCount() { return blockCount; }
-	public void setBlockCount(int blockCount) { this.blockCount = blockCount; }
 
-	public int getBlockPage() { return blockPage; }
-	public void setBlockPage(int blockPage) { this.blockPage = blockPage; }
 
-	public String getPagingHtml() { return pagingHtml; }
-	public void setPagingHtml(String pagingHtml) { this.pagingHtml = pagingHtml; }
-	
-}
+
+
+
+
+
+
+
+
