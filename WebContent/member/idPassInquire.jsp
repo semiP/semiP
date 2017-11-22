@@ -1,16 +1,23 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
+<s:if test="resultClass != null">
+	<script>alert("고객님의 ID는\n"+"<s:property value="resultClass.member_id"/>"+"\n입니다.");</script>
+</s:if>
 
 <div id="blog-container">
 	<table width="100%" border="0">
 		<tr> <!-- 타이틀 텍스트 넣기 -->
-			<td width="10%"/>
+			<td width="20%"/>
 			<td align="center"><h1>아이디 찾기</h1></td>
+<!--
 			<td width="10%"/>
 			<td align="center"><h1>비밀번호 찾기</h1></td>
-			<td width="10%"/>
+-->
+			<td width="20%"/>
 		</tr>
 		<tr> <!-- 폼 테이블 넣기 -->
-			<td width="10%"/>
+			<td width="20%"/>
 			<td>
 				<form method="post" action="loginidfind.action" name="memberFindForm" >
 					<table width="100%" height="200" border="0" class="inputForm" style="border:3px solid black;">
@@ -30,6 +37,7 @@
 					</table>
 				</form>
 			</td>
+<!--  
 			<td width="10%"/>
 			<td>
 				<form method="post" action="loginpwfind.action" >
@@ -55,10 +63,13 @@
 					</table>
 				</form>
 			</td>
-			<td width="10%"/>
+-->
+			<td width="20%"/>
 		</tr>
 		<tr>
 			<td colspan="5" height="200"/>
 		</tr>
 	</table>
 </div>
+
+
