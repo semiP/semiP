@@ -102,14 +102,6 @@
 									</td>
 								</tr>
 								<tr>
-									<td width="100" height="40">&nbsp;할인혜택</td>
-									<td></td>
-								</tr>
-								<tr>
-									<td width="100" height="40">&nbsp;할인가</td>
-									<td></td>
-								</tr>
-								<tr>
 									<td width="100" height="40">&nbsp;배송비</td>
 									<td>무료</td>
 								</tr>
@@ -186,21 +178,15 @@
 								
 								<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->
-								<tr>
-									<td class="board-titlebar" width="8%">15</td>
-									<!-- 글제목을 누르면 팝업으로 표시할까나 싶네요... ajax 를 안배워서 페이지 리로딩을 할 수밖에 없을듯 하네요 -->
-									<td class="board-titlebar" width="67%">이거 배송 하루만에 되나요</td>
-									<td class="board-titlebar" width="12%">돈쓴사람</td>
-									<td class="board-titlebar" width="15%">2017/11/09</td>
-								</tr>
-								<tr><td colspan="4" bgcolor="#f2f2f2" height="1"></td></tr>
-								<tr>
-									<td class="board-titlebar" width="8%">15</td>
-									<!-- 글제목을 누르면 팝업으로 표시할까나 싶네요... ajax 를 안배워서 페이지 리로딩을 할 수밖에 없을듯 하네요 -->
-									<td class="board-titlebar" width="67%"><img src="/semiP/assets/images/board-icon/reply.gif">그럴 수도 있겠네요</td>
-									<td class="board-titlebar" width="12%">관리자</td>
-									<td class="board-titlebar" width="15%">2017/11/10</td>
-								</tr>
+								<s:iterator value="listCmt" status="stat">
+									<tr>
+										<td class="board-titlebar" width="8%"><s:property value="goods_cmt_no"/></td>
+										<td class="board-titlebar" width="67%"><s:property value="goods_cmt_subject"/></td>
+										<td class="board-titlebar" width="12%"><s:property value="comment_author"/></td>
+										<td class="board-titlebar" width="15%"><s:property value="goods_cmt_date"/></td>
+									</tr>
+									<tr><td colspan="4" bgcolor="#f2f2f2" height="1"></td></tr>
+								</s:iterator>
 <!-- 게시물 하나씩 iterator 끝 -->																
 								<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 								<tr>
@@ -239,48 +225,20 @@
 									<td class="board-titlebar" width="15%">작성일</td>
 								</tr>
 								<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
-<!-- 게시물 하나씩 iterator 시작 -->
 
-						<s:iterator value="list" status="stat">
-						<s:url id = "viewURL" action="goodsQnaViewAction">
-							<s:param name="no">
-								<s:property value="goods_no" />
-							</s:param>
-							<s:param name="currentPage">
-								<s:property value="currentPage" />
-							</s:param>
-						</s:url>
-						
-								<tr>
-									<td class="board-titlebar" width="8%">15</td>
-									<!-- 글제목을 누르면 팝업으로 표시할까나 싶네요... ajax 를 안배워서 페이지 리로딩을 할 수밖에 없을듯 하네요 -->
-									
-									<s:if test="re_level != 0">
-										<c:forEach var="i" begin = "${re_level }" end = "0"></c:forEach>
-											<td class="board-titlebar" width="67%"><img src="/semiP/assets/images/board-icon/reply.gif">그럴 수도 있겠네요<s:property value="goods_subject" /></td>
-											<td class="board-titlebar" width="12%">관리자<s:property value="goods_name" /></td>
-											<td class="board-titlebar" width="15%">2017/11/09<s:property value="goods_date" /></td>
-										
-									</s:if>
-								</tr>
-								<tr><td colspan="4" bgcolor="#f2f2f2" height="1"></td></tr>
-								<tr>
-									<td class="board-titlebar" width="8%">15</td>
-									<!-- 글제목을 누르면 팝업으로 표시할까나 싶네요... ajax 를 안배워서 페이지 리로딩을 할 수밖에 없을듯 하네요 -->
-									<td class="board-titlebar" width="67%"><img src="/semiP/assets/images/board-icon/reply.gif">그럴 수도 있겠네요</td>
-									<td class="board-titlebar" width="12%">관리자</td>
-									<td class="board-titlebar" width="15%">2017/11/10</td>
-								</tr>
-						</s:iterator>
-<!-- 게시물 하나씩 iterator 끝 -->																
-								<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
-								<s:if test="list.size() <= 0">
-								<tr>
-									<td colspan="4" align="center">
-										게시물이 아직 작성되지 않았습니다.
-									</td>
-								</tr>
-								</s:if>
+<!-- 게시물 하나씩 iterator 시작 -->
+								<s:iterator value="listCmt" status="stat">
+									<tr>
+										<td class="board-titlebar" width="8%"><s:property value="goods_cmt_no"/></td>
+										<td class="board-titlebar" width="67%"><s:property value="goods_cmt_subject"/></td>
+										<td class="board-titlebar" width="12%"><s:property value="comment_author"/></td>
+										<td class="board-titlebar" width="15%"><s:property value="goods_cmt_date"/></td>
+									</tr>
+									<tr><td colspan="4" bgcolor="#f2f2f2" height="1"></td></tr>
+								</s:iterator>
+<!-- 게시물 하나씩 iterator 끝 -->			
+
+
 							</table>
 						</td>
 					</tr>

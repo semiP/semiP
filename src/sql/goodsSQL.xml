@@ -24,17 +24,18 @@
 
 	<!-- 상품 (고객상품평) 리절트 맵 정의 -->
 	<resultMap id="goodsCmtRes" class="goodsCmt">
-		<result property="goods_cmt_no" column="goods_cmt_no"/>
-		<result property="goods_cmt_pw" column="goods_cmt_pw"/>
-		<result property="goods_cmt_memberno" column="goods_cmt_memberno"/>
-		<result property="goods_cmt_image" column="goods_cmt_image"/>
-		<result property="goods_cmt_score" column="goods_cmt_score"/>
-		<result property="goods_cmt_subject" column="goods_cmt_subject"/>
-		<result property="goods_cmt_date" column="goods_cmt_date"/>
-		<result property="goods_cmt_content" column="goods_cmt_content"/>
-		<result property="ref" column="ref"/>
-		<result property="re_step" column="re_step"/>
-		<result property="re_level" column="re_level"/>
+		<result property="goods_cmt_no" column="qa_no"/>
+		<result property="goods_cmt_pw" column="qa_pw"/>
+		<result property="goods_cmt_memberno" column="member_no"/>
+		<result property="goods_cmt_image" column="qa_addfile"/>
+		<!-- <result property="goods_cmt_score" column="qa_start"/> -->
+		<result property="goods_cmt_subject" column="qa_subject"/>
+		<result property="goods_cmt_date" column="qa_regdate"/>
+		<result property="goods_cmt_content" column="qa_content"/>
+		<result property="ref" column="qa_ref"/>
+		<result property="re_step" column="qa_re_step"/>
+		<result property="re_level" column="qa_re_level"/>
+		<result property="comment_author" column="comment_author"/>
 	</resultMap>
 	
 	<!-- 상품 상세보기 insert 쿼리문 정의 -->
@@ -156,7 +157,20 @@
 	</select>
 
 	<select id="select-cmt-all" resultMap="goodsCmtRes" parameterClass="int">
-			SELECT * FROM goods_qa WHERE goods_no = #goods_no#
+		SELECT
+			a.qa_no,
+			a.qa_pw,
+			a.qa_subject,
+			a.member_no,
+			a.qa_addfile,
+			a.qa_start,
+			a.qa_content,
+			a.qa_regdate,
+			a.qa_ref,
+			a.qa_re_step,
+			a.qa_re_level,
+			b.member_name as comment_author
+		FROM (SELECT * FROM goods_qa WHERE goods_no = #goods_no#) a, member b
+		WHERE a.member_no = b.member_no
 	</select>
-	
 </sqlMap>

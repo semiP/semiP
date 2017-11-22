@@ -4,15 +4,16 @@ import java.util.Date;
 
 public class goodsCmtVO {
 	
-	private int goods_cmt_no;            //±Û¹øÈ£
-	private String goods_cmt_pw;         //±Ûºñ¹ø
-	private String goods_cmt_subject;    //±ÛÁ¦¸ñ
-	private int goods_cmt_memberno;   //ÀÛ¼ºÀÚ °¡ÀÔ ¹øÈ£
-	private String goods_cmt_id;       //ÀÛ¼ºÀÚ ID
-	private String goods_cmt_image;  //¿ø·¡ ÆÄÀÏ ÀÌ¸§
-	private int goods_cmt_score;      //ÆòÁ¡
-	private String goods_cmt_content;    //³»¿ë
-	private Date goods_cmt_date;         //ÀÛ¼ºÀÏ
+	private int goods_cmt_no;            //ï¿½Û¹ï¿½È£
+	private String goods_cmt_pw;         //ï¿½Ûºï¿½ï¿½
+	private String goods_cmt_subject;    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private int goods_cmt_memberno;   //ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+	private String goods_cmt_id;       //ï¿½Û¼ï¿½ï¿½ï¿½ ID
+	private String goods_cmt_image;  //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+	private int goods_cmt_score;      //ï¿½ï¿½ï¿½ï¿½
+	private String goods_cmt_content;    //ï¿½ï¿½ï¿½ï¿½
+	private Date goods_cmt_date;         //ï¿½Û¼ï¿½ï¿½ï¿½
+	private String comment_author;
 	
 	private int ref;
 	private int re_step;
@@ -53,5 +54,8 @@ public class goodsCmtVO {
 	
 	public int getRe_level() { return re_level; }
 	public void setRe_level(int re_level) { this.re_level = re_level; }
+	
+	public String getComment_author() {return comment_author;}
+	public void setComment_author(String comment_author) {this.comment_author = comment_author;}
 	
 }
