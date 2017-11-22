@@ -4,7 +4,7 @@
 	"http://struts.apache.org/dtds/struts-2.0.dtd">
 	
 <struts>
-	
+	<constant name="struts.multipart.maxSize" value="104857600" />
 	<package name="goods" extends="struts-default, tiles-default">
 <!--  	글로벌 예외처리 화면설정
 		<global-results>
@@ -17,19 +17,21 @@
 		
  		<!-- (admin) 상품보기 리스트 액션 -->
  		<action name="goodsListAction" class="goods.goodsListAction">
- 			<result>/goods/goodsList.jsp</result>
+ 			<result type="tiles">goodsList</result>
  		</action>
  		
  		<!-- (admin) 상품보기 등록(쓰기) 액션 -->
  		<action name="goodsWriteForm" class="goods.goodsWriteAction" method="form">
  			<result>/goods/goodsWrite.jsp</result>
  		</action>
+ 		
  		<action name="goodsWriteAction" class="goods.goodsWriteAction">
  			<result type="redirect-action">
  				<param name="actionName">goodsListAction</param>
  			</result>
  		</action>
  		
+ 	
  		<!-- (admin) 등록된 상품 수정액션 (수정버튼) -->
  		<action name="goodsModifyForm" class="goods.goodsModifyAction">
  			<result type="chain">goodsWriteForm</result>
@@ -50,7 +52,8 @@
  		
  		<!-- 등록된 상품 상세보기 액션 -->
  		<action name="goodsViewAction" class="goods.goodsViewAction">
- 			<result>/goods/goodsDetail.jsp</result>
+ 			<interceptor-ref name="params"/>
+ 			<result type="tiles">goodsDetail</result>
  		</action>
 
 <!-- 

@@ -29,6 +29,7 @@
 			<td>
 				<form action="orderWriteForm.action" method="post" id="frm" name="frm">
 				<input type="hidden" id="basket_no_set" name="basket_no_set" />
+
 				<table width="100%" border="0">
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 								

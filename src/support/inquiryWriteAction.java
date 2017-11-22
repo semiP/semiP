@@ -19,8 +19,8 @@ public class inquiryWriteAction extends ActionSupport implements SessionAware {
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 
-	private inquiryVO paramClass;
-	private inquiryVO resultClass;
+	private mypage.inquiryBean paramClass;
+	private mypage.inquiryBean resultClass;
 
 	private int currentPage;
 
@@ -28,7 +28,6 @@ public class inquiryWriteAction extends ActionSupport implements SessionAware {
 	private int inquiry_category;
 	private String inquiry_subject;
 	private String inquiry_content;
-	private String inquiry_email;
 	private String inquiry_addfile;
 	private Map session;
 
@@ -48,44 +47,27 @@ public class inquiryWriteAction extends ActionSupport implements SessionAware {
 	}
 
 	public String deletet() throws Exception {
-		paramClass = new inquiryVO();
-		resultClass = (inquiryVO) sqlMapper.queryForObject("inquiry.selectOne", getInquiry_no());
+		paramClass = new mypage.inquiryBean();
+		resultClass = (mypage.inquiryBean) sqlMapper.queryForObject("mypage.selectOne", getInquiry_no());
 		paramClass.setInquiry_no(getInquiry_no());
-		sqlMapper.update("inquiry.delete", paramClass);
+		sqlMapper.update("mypage.delete", paramClass);
 
 		return SUCCESS;
 	}
 
 	public String execute() throws Exception {
 
-		paramClass = new inquiryVO();
-		resultClass = new inquiryVO();
+		paramClass = new mypage.inquiryBean();
+		resultClass = new mypage.inquiryBean();
 
 		paramClass.setInquiry_category(getInquiry_category());
 		paramClass.setInquiry_subject(getInquiry_subject());
 		paramClass.setInquiry_content(getInquiry_content());
-		paramClass.setInquiry_email(getInquiry_email());
 		paramClass.setInquiry_addfile(getInquiry_addfile());
 
-		sqlMapper.insert("inquiry.insert", paramClass);
+		sqlMapper.insert("mypage.insert", paramClass);
 
 		return SUCCESS;
-	}
-
-	public inquiryVO getParamClass() {
-		return paramClass;
-	}
-
-	public void setParamClass(inquiryVO paramClass) {
-		this.paramClass = paramClass;
-	}
-
-	public inquiryVO getResultClass() {
-		return resultClass;
-	}
-
-	public void setResultClass(inquiryVO resultClass) {
-		this.resultClass = resultClass;
 	}
 
 	public int getCurrentPage() {
@@ -128,14 +110,6 @@ public class inquiryWriteAction extends ActionSupport implements SessionAware {
 		this.inquiry_content = inquiry_content;
 	}
 
-	public String getInquiry_email() {
-		return inquiry_email;
-	}
-
-	public void setInquiry_email(String inquiry_email) {
-		this.inquiry_email = inquiry_email;
-	}
-
 	public String getInquiry_addfile() {
 		return inquiry_addfile;
 	}
@@ -151,5 +125,22 @@ public class inquiryWriteAction extends ActionSupport implements SessionAware {
 	public void setSession(Map session) {
 		this.session = session;
 	}
+
+	public mypage.inquiryBean getParamClass() {
+		return paramClass;
+	}
+
+	public void setParamClass(mypage.inquiryBean paramClass) {
+		this.paramClass = paramClass;
+	}
+
+	public mypage.inquiryBean getResultClass() {
+		return resultClass;
+	}
+
+	public void setResultClass(mypage.inquiryBean resultClass) {
+		this.resultClass = resultClass;
+	}
+
 
 }

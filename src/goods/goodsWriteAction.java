@@ -27,13 +27,14 @@ public class goodsWriteAction extends ActionSupport{
 	
 	private int goods_no;
 	private String goods_name;
-	private String goods_category;
+	private int goods_category;
 	private String goods_size;
 	private String goods_color;
 	private String goods_content;
 	private int goods_amount;
 	private int goods_price;
-	private String goods_image_file;  //���� ���� �̸�
+	private String goods_image;  //���� ���� �̸�
+	private Date goods_regdate; 
 	Calendar today = Calendar.getInstance(); //���� ��¥ ���ϱ�.
 	
 	private File upload; //���� ��ü
@@ -63,22 +64,22 @@ public class goodsWriteAction extends ActionSupport{
 		resultClass = new goodsVO();
 			
 		//����� �׸� ����.
-		paramClass.setGoods_name(getGoods_name());				  //��ǰ �̸�
-		paramClass.setGoods_category(getGoods_category());        //��ǰ ī�װ�
-		paramClass.setGoods_size(getGoods_size());				  //��ǰ ������
-		paramClass.setGoods_color(getGoods_color());              //��ǰ �÷�
-		paramClass.setGoods_content(getGoods_content());		  //��ǰ ����
-		paramClass.setGoods_amount(getGoods_amount());            //��ǰ ����
-		paramClass.setGoods_price(getGoods_price());			  //��ǰ ����
-		paramClass.setGoods_date(today.getTime());				  //��ǰ ��ϳ�¥
+		paramClass.setGoods_name(getGoods_name());				  
+		paramClass.setGoods_category(getGoods_category());        
+		paramClass.setGoods_size(getGoods_size());				  
+		paramClass.setGoods_color(getGoods_color());              
+		paramClass.setGoods_content(getGoods_content());		  
+		paramClass.setGoods_amount(getGoods_amount());            
+		paramClass.setGoods_price(getGoods_price());	
+		paramClass.setGoods_image(getGoods_image());
+		paramClass.setGoods_regdate(today.getTime());
 		
-		//��� ���� ����.
-		sqlMapper.insert("goodsInsert", paramClass);
+		
 			
 		//파일 업로드
 		if(getUpload() != null)
 		{
-			resultClass = (goodsVO) sqlMapper.queryForObject("selectLastNo");
+			resultClass = (goodsVO) sqlMapper.queryForObject("goods.selectLastNo");
 			
 			String file_name = "file_" + resultClass.getGoods_no();
 			String file_ext = getUploadFileName().substring(
@@ -90,14 +91,21 @@ public class goodsWriteAction extends ActionSupport{
 			FileUtils.copyFile(getUpload(), destFile);
 			
 			paramClass.setGoods_no(resultClass.getGoods_no());
-			paramClass.setGoods_image_file(getUploadFileName()); //���� ���� �̸�
-			paramClass.setGoods_image_file(file_name + "." + file_ext); //������ ������ ���� �̸�
-		    
-			sqlMapper.update("fileDownloadAction", paramClass);
-		}
 			
+			paramClass.setGoods_image(file_name + "." + file_ext); //������ ������ ���� �̸�
+		    
+			//sqlMapper.update("goods.updateFile", paramClass);
+		}
+		//��� ���� ����.
+		sqlMapper.insert("goods.goodsInsert", paramClass);
+		
+		//resultClass = (goodsVO)sqlMapper.queryForObject("goods.select-goods-all", getGoods_no());
+		
 		return SUCCESS;
 	}
+
+	public Calendar getToday() { return today; }
+	public void setToday(Calendar today) { this.today = today; }
 	
 	public goodsVO getParamClass() { return paramClass; }
 	public void setParamClass(goodsVO paramClass) { this.paramClass = paramClass; }
@@ -114,8 +122,8 @@ public class goodsWriteAction extends ActionSupport{
 	public String getGoods_name() { return goods_name; }
 	public void setGoods_name(String goods_name) { this.goods_name = goods_name; }
 	
-	public String getGoods_category() { return goods_category; }
-	public void setGoods_category(String goods_category) { this.goods_category = goods_category; }
+	public int getGoods_category() { return goods_category; }
+	public void setGoods_category(int goods_category) { this.goods_category = goods_category; }
 	
 	public String getGoods_size() { return goods_size; }
 	public void setGoods_size(String goods_size) { this.goods_size = goods_size; }
@@ -132,11 +140,8 @@ public class goodsWriteAction extends ActionSupport{
 	public int getGoods_price() { return goods_price; }
 	public void setGoods_price(int goods_price) { this.goods_price = goods_price; }
 	
-	public String getGoods_image_file() { return goods_image_file; }
-	public void setGoods_image_file(String goods_image_file) { this.goods_image_file = goods_image_file; }
-	
-	public Calendar getToday() { return today; }
-	public void setToday(Calendar today) { this.today = today; }
+	public String getGoods_image() { return goods_image; }
+	public void setGoods_image(String goods_image) { this.goods_image= goods_image; }
 	
 	public File getUpload() { return upload; }
 	public void setUpload(File upload) { this.upload = upload; }

@@ -2,78 +2,49 @@
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
     
 <struts>
-	<!-- 로그인관련 -->
-	<package name="member" namespace="/" extends="struts-default, tiles-default">
-		<action name="member">
-			<result name="success" type="tiles">member</result>
-		</action>
-	</package>
 
 <!-- 로그인관련 -->
 	<package name="member" namespace="/" extends="struts-default, tiles-default">
-		<action name="member">
-			<result name="success" type="tiles">member</result>
+		<action name="loginForm" class="member.loginAction" method="loginForm">
+			<result type="tiles">loginForm</result>
 		</action>
 		<action name="memberinfo">
-			<result name="success" type="tiles">memberinfo</result>
+			<result name="success" type="tiles"></result>
 		</action>
+		<!-- (수정) 회원가입 이동 -->
+		<action name="loginjoin" class="member.loginjoin">
+			<result name="success" type="tiles">joinForm</result>
+		</action>
+		<!-- (수정)아이디/비밀번호 찾기(이동) -->
+		<action name="loginfind" class="member.IdPassInquire">
+			<result name="success" type="tiles">idPassInquire</result>
+		</action>
+		<!-- (수정)로그인창 (이동) -->
+		<action name="loginac" class="member.login">
+			<result name="success" type="tiles">loginForm</result>
+		</action>
+		<!-- (수정)아이디 찾기 -->
+		<action name="loginidfind" class="member.memberIdFindAction">
+			<interceptor-ref name="params" />
+			<result name="success" >/member/idfind.jsp</result>
+			<result name="error">/member/loginfinderror.jsp</result>
+		</action>
+		<!-- (수정)비밀번호 찾기 -->
+		<action name="loginpwfind" class="member.memberPwFindAction">
+			<result name="success">/member/pwfind.jsp</result>
+			<result name="error">/member/loginfinderror.jsp</result>
+		</action>
+		<!-- 회원가입 -->
 		<action name="memberend" class="member.memberendAction">
 			<interceptor-ref name="prepare" />
-			<interceptor-ref name="modelDriven" />
+			
 			<interceptor-ref name="params" />
-			<result name="success" type="tiles">memberend</result> 
+			<result name="success" type="tiles">loginForm</result> 
 		</action>
 		<!-- 아이디 중복확인 -->
 		<action name="memberIdChkAction" class="member.memberIdChkAction">
 			<result>/member/idChk.jsp</result>
 		</action>
-		<!-- 우편번호 검색 -->
-		<action name="zipCheckAction" class="member.zipCheckAction">
-			<result>/member/zipChk.jsp</result>
-		</action>
-		<!-- 아이디찾기 -->
-		<action name="memberidfind">
-			<result name="success" type="tiles">memberidfind</result>
-		</action>
-		<!-- 비밀번호 찾기 -->
-		<action name="memberpwfind">
-			<result name="success" type="tiles">memberpwfind</result>
-		</action>
-		<!-- 아이디/비밀번호 찾기  -->
-		<action name="memberFindAction" class="member.memberFindAction">
-			<result type="tiles">memberidfindend</result>
-			<result name="input">/member/IdFind_error.jsp</result>
-		</action>
-		<action name="memberPwFindAction" class="member.memberPwFindAction">
-			<result name="success" type="tiles">memberpwfindend</result>
-			<result name="input">/member/PwFind_error.jsp</result>
-		</action>
-		<!-- 회원탈퇴 -->
-		<action name="memberwith">
-			<result name="success" type="tiles">memberwith</result>
-		</action>
-		<!-- 탈퇴  -->
-		<action name="DeleteAction" class="member.DeleteAction">
-			<result>/member/DeleteResult.jsp</result>
-		</action>
-		<!-- 회원정보 수정 -->
-		<action name="memberModifyAc" class="member.ModifyAction">
-			<result type="redirect-action">
-				<param name="actionName">main</param>
-			</result>
-			<result name="login" type="tiles">loginConfirm</result>
-		</action>
-		<!-- 회원정보수정 보여줌 -->
-		<action name="membermypage" class="member.memberInfoAction">
-			<result name="success" type="tiles">membermypage</result>
-			<result name="login" type="tiles">loginConfirm</result>
-		</action>
-		
-		<!-- 
-		비밀번호 변경
-		<action name="memberpssch" >
-			<result name="success" type="tiles">memberpssch</result>
-		</action>
-		-->
+
 	</package>
 </struts>

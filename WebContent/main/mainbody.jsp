@@ -55,37 +55,37 @@ function showSlides() {
 
 <div id="blog-container">
 	
-	<font size="1">BEST COLLECTION FROM </font><font size="2"><strong>카테고리 이름</strong></font><br>
 	<table width="100%" border="0">
-		<tr bgcolor="#777777">
-			<td height="1" colspan="4"></td>
-		</tr>
-		<tr><!-- 상품번호 적기 -->
-			<td>no.123</td>			
-			<td>no.123</td>
-			<td>no.123</td>
-			<td>no.123</td>
-		</tr>
-		<tr><!-- 상품이미지 찍기 -->
-			<td><img src="/semiP/assets/images/best1.jpg" style="width:100%;"></td>			
-			<td><img src="/semiP/assets/images/best2.jpg" style="width:100%;"></td>
-			<td><img src="/semiP/assets/images/best3.jpg" style="width:100%;"></td>
-			<td><img src="/semiP/assets/images/best4.jpg" style="width:100%;"></td>
-		</tr>
-		<tr><!-- 상품정보 적기 (이름/설명/가격) -->
-			<td>이릉이름<br>₩ 100,000</td>			
-			<td>이릉이름<br>₩ 100,000</td>	
-			<td>이릉이름<br>₩ 100,000</td>	
-			<td>이릉이름<br>₩ 100,000</td>	
-		</tr>
-		<tr > <!-- 공란 만들기 -->
-			<td height="10" colspan="4"></td>
-		</tr>
-		
+		<s:iterator value="categoryMap">	
+			<tr>
+				<td colspan="4" style="text-transform:uppercase;">
+					<font size="1">BEST COLLECTION FROM </font><font size="2"><strong><s:property value="key" /></strong></font>
+				</td>
+			</tr>
+			<tr bgcolor="#777777">
+						<td height="1" colspan="4"></td>
+			</tr>
+			<tr>
+				<s:iterator value="value">
+					<td align="center" width="25%">
+					<!-- 상품번호 적기 -->
+					no.<s:property value="goods_no" /><br>		
+					<!-- 상품이미지 찍기 -->
+					<a href="goodsViewAction.action?goods_no=<s:property value="goods_no" />">
+						<img src="http://cooz.co/semiP/IMG/<s:property value="goods_category" />/<s:property value="goods_no" />/0.jpg" style="width:100%;"><br>		
+					</a>
+					<!-- 상품정보 적기 (이름/설명/가격) -->
+					<s:property value="goods_name" /><br>
+					₩ <s:property value="goods_price" />
+					</td>
+				</s:iterator>
+			</tr>
+			<tr>
+				<td height="30" colspan="4"></td>		<!-- 공란 만들기 -->
+			</tr>
+		</s:iterator>
 	</table>
-		
-		
-	
+
 </div>
 
 <!-- 카테고리별 베스트 4개 상품 표시 끝 -->

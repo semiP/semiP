@@ -26,7 +26,6 @@ public class goodsOrderBean {
 	private String order_pay_name;
 	private int order_total_pay;
 	private String invoice_no;
-	
 	public int getOrder_no() {
 		return order_no;
 	}
@@ -165,4 +164,6 @@ public class goodsOrderBean {
 	public void setInvoice_no(String invoice_no) {
 		this.invoice_no = invoice_no;
 	}
+	
+
 }

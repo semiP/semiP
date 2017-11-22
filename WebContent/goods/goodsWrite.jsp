@@ -53,7 +53,7 @@
 		<form action="goodsModifyAction.action" method="post" enctype="multipart/form-data">
 		<s:hidden name="goods_no" value="%{resultClass.goods_no}" />
 		<s:hidden name="currentPage" value="%{currentPage}" />
-		<s:hidden name="old_file" value="%{resultClass.goods_image_file}" />
+		<s:hidden name="old_file" value="%{resultClass.goods_image}" />
 	</s:else>
 
 <div id="content-container">
@@ -93,15 +93,17 @@
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;카테고리<br><br></td>
 				<td>
-					<select name="select" onchange="document.getElementById('email2').value=this.value;if(this.value==''){document.getElementById('email2').focus();}">
+<!-- 				<input type="text" id="goods_category" style="width:100px; height:30px;"> -->
+					<s:textfield name="goods_category" theme="simple" value="%{resultClass.goods_category}" cssStyle="width:100px" maxlength="20"/>
+					<select name="select" onchange="document.getElementById('goods_category').value=this.value;if(this.value==''){document.getElementById('goods_category').focus();}">
 						<option value="" selected="selected">직접입력</option>										
-						<option value="outer">1.outer</option>
-						<option value="top">2.top</option>
-						<option value="pants">3.pants</option>
-						<option value="skirt">4.skirt</option>
-						<option value="dress">5.dress</option>
-						<option value="shoes">6.shoes</option>
-						<option value="bag">7.bag</option>
+						<option value="1">1.outer</option>
+						<option value="2">2.top</option>
+						<option value="3">3.pants</option>
+						<option value="4">4.skirt</option>
+						<option value="5">5.dress</option>
+						<option value="6">6.shoes</option>
+						<option value="7">7.bag</option>
 					</select>					
 				</td>
 			</tr>
@@ -132,14 +134,20 @@
 			</tr>
 			
 			<tr>
+				<td width="200"><br>&nbsp;&nbsp;내용<br><br></td>
+				<td><s:textarea name="goods_content" theme="simple" value="%{resultClass.goods_content}" cols="50" rows="10"/></td>
+			</tr>
+			
+			<tr>
 				<td bgcolor="#F4F4F4">&nbsp;&nbsp;이미지등록</td>
 				<td bgcolor="#FFFFFF">
-				<s:file name="upload" theme="simple"/>
-				<s:if test="resultClass.goods_image_file != NULL">
-					&nbsp; * <s:property value="%{resultClass.goods_image_file}" /> 파일이 등록되어 있습니다. 다시 업로드하면 기존의 파일은 삭제됩니다.
+				<s:file name="upload" theme="simple" />
+				
+				<s:if test="resultClass.goods_image != NULL">
+					&nbsp; * <s:property value="resultClass.goods_image" /> 파일이 등록되어 있습니다. 다시 업로드하면 기존의 파일은 삭제됩니다.
 				</s:if>
-			</td>
-		</tr>
+				</td>
+			</tr>
 			
 		<tr>
 			<td colspan="3" height="1" bgcolor="#777777"></td>
@@ -147,11 +155,14 @@
 		<tr>
 			<td colspan="3" align="center">
 				<input type="submit" class="btn-custom" value="등록하기">&nbsp;&nbsp;
-				<input type="button" class="btn-custom" value="리셋">
+				<input type="button" class="btn-custom" value="리셋">&nbsp;&nbsp;
+<!-- 				<form action="goodsListAction.action" method="post"> -->
+				<input type="button" class="btn-custom" value="목록" onClick="javascript:location.href='goodsListAction.action'">
 			</td>
 		</tr>
 		<tr>
 			<td height="30px"/>
-		</tr>								
+		</tr>
 		</table>
+		
 	</table>

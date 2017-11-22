@@ -26,7 +26,7 @@ public class goodsDeleteAction extends ActionSupport{
 	//생성자
 	public goodsDeleteAction() throws IOException
 	{
-		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ������ ���������� �����´�.
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); //sqlMapConfig.xml ������ ���������� �����´�.
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ������ ������ sqlMapper ��ü ����.
 		reader.close();
 	}
@@ -38,7 +38,7 @@ public class goodsDeleteAction extends ActionSupport{
 		
 		resultClass = (goodsVO) sqlMapper.queryForObject("select-goods", getGoods_no());
 		
-		File deleteFile = new File(fileUploadPath + resultClass.getGoods_image_file());
+		File deleteFile = new File(fileUploadPath + resultClass.getGoods_image());
 		deleteFile.delete();
 		
 		paramClass.setGoods_no(getGoods_no());

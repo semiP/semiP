@@ -21,11 +21,7 @@ public class memberPwFindAction extends ActionSupport {
 	
 	private String id;
 	private String name;
-	private String email;
-	private int jumin1;
-	private int jumin2;
-	private int memberPwFindChk;
-		
+	private String email;		
 	
 	public memberPwFindAction() throws IOException {
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); //sqlMapConfig.xml ������ ���������� �����´�.
@@ -46,22 +42,17 @@ public class memberPwFindAction extends ActionSupport {
 		resultClass = new memberbean();
 		
 	
-		resultClass = (memberbean) sqlMapper.queryForObject("pwfind", paramClass);
+		resultClass = (memberbean) sqlMapper.queryForObject("pwfind", paramClass); //쿼리문 바꾸기
 		
 		if(resultClass == null) {
-			memberPwFindChk = 0; 
-			return INPUT;
+			return ERROR;
 		}
-		
 		else {
-			if(resultClass.getMember_email()==(email) && resultClass.getMember_name()==(name)) {
-			
-				memberPwFindChk = 1; 
+			if(resultClass.getMember_email()==(email) && resultClass.getMember_name()==(name) && resultClass.getMember_id()==(id)) {
 				return SUCCESS;
 			}
 			else {
-				memberPwFindChk = -1;
-				return INPUT;
+				return ERROR;
 			}
 		}
 	}
@@ -106,30 +97,20 @@ public class memberPwFindAction extends ActionSupport {
 		this.id = id;
 	}
 
-	public int getJumin1() {
-		return jumin1;
+	public String getname() {
+		return name;
 	}
 
-	public void setJumin1(int jumin1) {
-		this.jumin1 = jumin1;
+	public void setname(String name) {
+		this.name = name;
 	}
 
-	public int getJumin2() {
-		return jumin2;
+	public String getemail() {
+		return email;
 	}
 
-	public void setJumin2(int jumin2) {
-		this.jumin2 = jumin2;
+	public void setemail(String email) {
+		this.email = email;
 	}
-
-	public int getMemberPwFindChk() {
-		return memberPwFindChk;
-	}
-
-	public void setMemberPwFindChk(int memberPwFindChk) {
-		this.memberPwFindChk = memberPwFindChk;
-	}
-
-
 }
 
