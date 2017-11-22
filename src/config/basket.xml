@@ -6,6 +6,8 @@
 			<result type="tiles">basket</result>
 		</action> -->
 		<action name="basketListAction" class="basket.basketListAction">
+			
+			<result name="login" type="redirectAction">loginac</result>
 			<result type="tiles">basket</result>
 		</action>		
 		<action name="basketDeleteAction" class="basket.basketDeleteAction">

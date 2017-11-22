@@ -42,7 +42,7 @@
 									<td width="10%">배송구분</td>
 									<td width="10%">배송비</td>
 									<td width="15%">합계</td>
-									<td width="10%">선택</td>
+									<td width="10%">선택주문</td>
 								</tr>
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->	
@@ -52,7 +52,7 @@
 								<tr align="center" id="basket_list_<s:property value = "#stat.index" />">
 									<td width="1%"><input name="chkbox" id="chkbox_<s:property value = "#stat.index" />" type="checkbox" onClick="itemSum(<s:property value = "#stat.index" />);" value="<s:property value='basket_no'/>"/></td>
 									<td width="10%">
-									<img src="<s:property value="goods_image"/>"><br><font style="width:100%;"></td>
+									<img width="100%" src="http://cooz.co/semiP/IMG/<s:property value="category"/>/<s:property value="goods_no"/>/0.jpg"><br><font style="width:100%;"></td>
 									<td width="19%"><s:property value="goods_name"/><br><font style="font-size:0.8em; color:777777"><s:property value="goods_color"/> / <s:property value="goods_size"/></font></td>
 									<td width="15%">
 									
@@ -72,8 +72,8 @@
 									<td width="15%">₩ <s:property value="basket_price"/></td>
 									<td width="10%">
 										<input type="submit" value="주문하기" style="width:80%;"><br><br>
-										<input type="button" value="삭제하기" style="width:150px;" onClick="alert('삭제되었습니다.'); 
-											location.href='basketDeleteAction.action?basket_no=<s:property value="basket_no"/>'"/>
+										<%-- <input type="button" value="삭제하기" style="width:80%;" onClick="alert('삭제되었습니다.'); 
+											location.href='basketDeleteAction.action?basket_no=<s:property value="basket_no"/>'"/> --%>
 									</td>
 								</tr>
 								</s:iterator>
@@ -103,7 +103,7 @@
 								<tr>
 									<td colspan="9" align="left" style="font-size:1.5em;">
 										선택상품을&nbsp;
-										<input type="submit" value="주문하기" style="width:150px;">&nbsp;
+										<!-- <input type="submit" value="주문하기" style="width:150px;">&nbsp; -->
 										<input type="button" value="삭제하기" style="width:150px;" onClick="javascript:checked_delete();"/>
 									</td>
 								</tr>

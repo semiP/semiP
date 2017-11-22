@@ -5,6 +5,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
+import org.apache.struts2.interceptor.SessionAware;
+import java.util.Map;
+
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -12,24 +15,25 @@ import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class basketAddAction extends ActionSupport {
+public class basketAddAction extends ActionSupport implements SessionAware {
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
 	private basketVO basketparamClass;
 	/*private basketVO basketresultClass;*/
 	
-	/*private String goods_name; // 없애고 goods_no
-	private String goods_image; // 없애고 goods_no
-*/	private int basket_price;
-	/*private int goods_price; // 없애고 goods_no
-*/	private int bgoods_amount;
+	
+	private int basket_price;
+	
+	private int bgoods_amount;
 	private String goods_size;
 	private String goods_color;
-	/*private String member_id;*/
+	
 	private Date basket_date;
 	private int goods_no;
-	/*private int member_no;*/
+	private int member_no;
+	
+	private Map session;
 	
 	public basketAddAction() throws Exception{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
@@ -41,9 +45,8 @@ public class basketAddAction extends ActionSupport {
 		basketparamClass = new basketVO();
 		/*basketresultClass= new basketVO();*/
 		
-		/*basketparamClass.setMember_id(getMember_id());*/
-		/*basketparamClass.setGoods_name(getGoods_name()); // vo에는 있지만, table에 없는 정보
-		basketparamClass.setGoods_image(getGoods_image());// vo에는 있지만, table에 없는 정보
+		
+		/*basketparamClass.setGoods_image(getGoods_image());// vo에는 있지만, table에 없는 정보
 */		basketparamClass.setBasket_price(getBasket_price());
 		/*basketparamClass.setGoods_price(getGoods_price());// vo에는 있지만, table에 없는 정보
 */		basketparamClass.setBgoods_amount(getBgoods_amount());
@@ -52,7 +55,7 @@ public class basketAddAction extends ActionSupport {
 		basketparamClass.setBasket_date(getBasket_date());
 		//basketparamClass.setGoods_no(getGoods_no());
 
-//		basketparamClass.setMember_no(세션에서 가져오기);
+		//basketparamClass.setMember_no(session.get(session.get("session_member_id")));
 
 		sqlMapper.insert("insertBasket", basketparamClass);
 
@@ -132,15 +135,23 @@ public class basketAddAction extends ActionSupport {
 		this.goods_no = goods_no;
 	}
 
+	public Map getSession() {
+		return session;
+	}
+
+	public void setSession(Map session) {
+		this.session = session;
+	}
+
 
 	
-/*	public int getMember_no() {
+	public int getMember_no() {
 		return member_no;
 	}
 	public void setMember_no(int member_no) {
 		this.member_no = member_no;
 	}
-	*/
+	
 	
 	
 	
