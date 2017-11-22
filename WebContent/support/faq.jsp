@@ -7,8 +7,11 @@
 	{
 		var form = document.searchForm;
 		
+		
 		form.action = "./faqListAction.action";
 		form.submit();
+		
+		
 	}
 
 </script>
@@ -61,7 +64,7 @@
 				<!-- 차후 에이작스 변경 -->
 				<form id="searchForm" name="searchForm">
 					<select name=searchNum onchange="javascript:go();">
-						<option value="1">모두 보기</option>
+						<option value="1">모두보기</option>
 						<option value="2">주문/배송</option>
 						<option value="3">반품/교환</option>
 					</select>
@@ -70,7 +73,7 @@
 				
 				<td align="right" colspan="2">
 					<form>
-					검색기간:	<input type="date" name="startDate"> ~ <input type="date" name="endDate">&nbsp;&nbsp;
+					검색기간:	<input type="date" name="startDate" > ~ <input type="date" name="endDate">&nbsp;&nbsp;
 							<input type="submit" name="dateSearchBtn" value="조회">
 					</form>
 							
@@ -154,6 +157,7 @@
 									<option value="2">글 내용</option>
 								</select>
 								&nbsp;&nbsp;
+								
 								<s:textfield name="searchKeyword" theme="simple" value="" cssStyle="width:100px" maxlength="20" />
 								<input name="submit" type="submit" value="검색" class="inputb">	
 								</form>

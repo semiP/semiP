@@ -20,15 +20,17 @@
 			return false;
 		}
 		else
+		alert("확인");
+		location.href="리스트를Action.action";
 		
 		return true;
-	}
-	 /* alert("확인");
-		location.href="faqListAction.action" */	
+	}	
 	
 	 $(document).ready(function(){
 		 $("#inquiry_content").cleditor();
+		 
 	 });
+	 
 </script>
 
 
@@ -46,7 +48,7 @@
 	</tr>
 	<tr><td bgcolor="#cccccc" height="1"></td></tr>
 	<!-- 넘어가기 전에 alert창 띄우기 -->
-	<form action="임의로noticeAction.action"  method="post" enctype="multipart/form-data" onsubmit="return validation();">
+	<form action="testAction.action"  method="post" enctype="multipart/form-data" onsubmit="return validation();">
 	<tr>
 		<td style="padding: 0 0 0 5%;">
 			문의분류&nbsp;&nbsp;
@@ -75,8 +77,15 @@
 		<td align="center">
 			<table width="90%" border="0">
 				<tr>
-					<td width="100"><input type="button" value="사진추가"></td>
+					<td width="100"><!-- <form> --><input type="button" value="사진추가"></td>
+					<!-- <td width="100"><input type="submit" value="사진추가"></form></td> -->
 					<td>여기에 등록된 파일들 이름을 br 태그로 나열합니다</td>
+					<%-- <td><s:file name="uploadFile" theme="simple"/>
+					<s:if test="resultClass.inquiry_addfile != NULL">
+						<s:property value="resultClass.inquiry_addfile" /> 파일이 이미 등록되어 있음
+					</s:if>
+					
+					</td> --%>
 				</tr>
 			</table>
 		</td>

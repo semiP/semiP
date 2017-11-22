@@ -1,8 +1,8 @@
-package mypage;
+package test;
 
 import java.util.Date;
 
-public class inquiryBean {
+public class testVO {
 	private int inquiry_no;
 	private int MEMBER_NO;
 	private int inquiry_category;
