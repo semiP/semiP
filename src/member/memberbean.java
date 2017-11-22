@@ -15,7 +15,6 @@ public class memberbean {
 	private String member_email;
 	private Date member_regdate;
 	private int member_level;
-
 	private String member_deletereason;
 	
 	public int getMember_no() {

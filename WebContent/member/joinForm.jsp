@@ -1,6 +1,90 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
+<script type="text/javascript">
+function check(){
+	var f = document.joinform;			//문서.Form name="";
+	var idPs = /^[a-z0-9_]{4,12}$/;		//아이디 비밀번호 체크표현식
+	 
+	if(f.id.value == ""){
+		alert("아이디를 입력해주세요.");
+		f.id.focus();
+		return false;
+	}
+	if(!idPs.test(f.id.value)){
+		alert("유효한 아이디 형식이 아닙니다.");
+		f.id.value = "";				//id작성했던 값을 비워줌
+		f.id.focus();					//id focus이동
+		return false;
+	}
+	if(f.passwd.value == ""){
+		alert("비밀번호를 입력해주십시요.");
+		f.passwd.focus();
+		return false;
+	}
+	if(!idPs.test(f.passwd.value)){
+		alert("유효한 비밀번호 형식이 아닙니다.");
+		f.passwd.value = "";			//id값을 비워줌
+		f.passwd.focus();				//id focus이동
+		return false;
+	}
+	if(f.passwd.value != f.passwd2.value){
+		alert("비빌번호를 다르게 입력했습니다.");
+		f.passwd2.select();
+		return false;
+	}
+	if(f.name.value == ""){
+		alert("이름을 입력해주십시요.");
+		f.name.focus();
+		return false;
+	}
+	if((f.jumin1.value == "") || (f.jumin1.value.length < 6)){
+		alert("주민등록번호 앞의 6자리를 입력해 주세요");
+		f.jumin1.focus();
+		return false;
+	}
+	if((f.jumin2.value == "") || (f.jumin2.value.length < 7)){
+		alert("주민등록번호 뒤의 7자리를 입력해 주세요");
+		f.jumin2.focus();
+		return false;
+	}
+	if(isNaN(f.jumin1.value) || isNaN(f.jumin2.value)){
+		alert("유효한 주민등록번호 형식이 아닙니다.");
+		f.jumin1.value = "";
+		f.jumin2.value = "";
+		f.jumin1.focus();
+		return false;
+	}
+	if(f.zipcode.value == ""){
+		alert("우편번호를 검색하여 입력해주세요");
+		f.zipcode.focus();
+		return false;
+	}else{
+		return true; 
+	}
+}
+
+function openConfirmId(joinform){
+	var url = "memberIdChkAction.action?id="+document.joinform.id.value;
+	var f = document.joinform;			//문서.Form name="";
+	var idPs = /^[a-z0-9_]{4,12}$/;		//아이디 비밀번호 체크표현식
+	cw=screen.availWidth;     //화면 넓이
+	ch=screen.availHeight;    //화면 높이
+
+	sw=450;    //띄울 창의 넓이
+	sh=250;    //띄울 창의 높이
+
+	ml=(cw-sw)/2;        //가운데 띄우기위한 창의 x위치
+	mt=(ch-sh)/2;        //가운데 띄우기위한 창의 y위치
+	
+	if(f.id.value == ""){
+		alert("아이디를 입력해주세요.");
+		f.id.focus();
+		return false;
+	}
+	window.open(url ,"confirm","width="+sw+", height="+sh+",top="+mt+", left="+ml+", toolbar=no, location=no, status=co, menubar=no, scrollbars=no, resizable=no");
+}
+
     function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -68,22 +152,32 @@
 		<tr>
 			<td width="15%"/>
 			<td><br>
+		<form action="memberend.action" method="post" name="joinform" onsubmit="return check(this)">
 			<table width="100%" border="0" >
 				<tr>
 					<td width="100"><br>&nbsp;&nbsp;아이디<br><br></td>
-					<td><input type="text" style="width:90%; height:30px;"></td>
+					<td><input type="text" style="width:90%; height:30px;" name="id"></td>
+					<br><br>
+					<td>
+				<s:if test="resultClass == null">
+					<input type="button" value="중복확인" onclick="openConfirmId(this.form)" />
+				</s:if>
+				<s:else>
+					${resultClass.id}
+					</s:else>
+					</td>
 				</tr>
 				<tr>
 					<td width="100"><br>&nbsp;&nbsp;이  름<br><br></td>
-					<td><input type="text" style="width:90%; height:30px;"></td>
+					<td><input type="text" style="width:90%; height:30px;" name="name"></td>
 				</tr>
 				<tr>
 					<td width="100"><br>&nbsp;&nbsp;비밀번호<br><br></td>
-					<td><input type="password" style="width:90%; height:30px;"></td>
+					<td><input type="password" style="width:90%; height:30px;" name="passwd"></td>
 				</tr>
 				<tr>
 					<td width="100"><br>&nbsp;&nbsp;비밀번호 확인<br><br></td>
-					<td><input type="password" style="width:90%; height:30px;"></td>
+					<td><input type="password" style="width:90%; height:30px;" name="passwd2"></td>
 				</tr>
 				<tr>
 					<td width="100"><br>&nbsp;&nbsp;주  소<br><br></td>
@@ -95,7 +189,7 @@
 				</tr>
 				<tr>
 					<td width="100"><br>&nbsp;&nbsp;이메일<br><br></td>
-					<td><input type="text" style="width:100px; height:30px;">&nbsp;@&nbsp;<input type="text" id="email2" style="width:100px; height:30px;">
+					<td><input type="text" style="width:100px; height:30px;">&nbsp;@&nbsp;<input type="text" id="email2" style="width:100px; height:30px;" name="email">
 					<select name="select" onchange="document.getElementById('email2').value=this.value;if(this.value==''){document.getElementById('email2').focus();}">
 										<option value="" selected="selected">직접입력</option>										
 										<option value="gmail.com">gmail.com</option>
@@ -128,8 +222,7 @@
 				<tr>
 					<td width="100"><br>&nbsp;&nbsp;핸드폰 번호<br><br></td>
 					<td>
-						<input type="text" style="width:90px; height:30px;">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;"><br>
-						
+						<input type="text" style="width:90px; height:30px;">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;" ><br>				
 					</td>
 				</tr>
 				<tr>
@@ -154,6 +247,7 @@
 			<td colspan="3" align="center" ><input type="submit" class="btn-custom" value="가입하기"></td>
 		</tr>
 			</table>
+	</form>
 
 
 		
