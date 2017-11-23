@@ -4,20 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-
-
-
-
-
-https://stackoverflow.com/questions/14133502/post-variable-with-onclick
-
-
-
-
-
-
-
-
 <link rel="stylesheet" href="/semiP/assets/css/board.css" type="text/css">
 <script type="text/javascript">
 	<!--
@@ -68,7 +54,11 @@ https://stackoverflow.com/questions/14133502/post-variable-with-onclick
 						</td>
 						<td width="15"></td> <!-- 사진과 옵션 사이 여백는 부분 -->
 						<td style="vertical-align:top;">
-							<form>
+							<form name="orderInfo" action="testcount.action" method="post">
+							<input type="hidden" name="order_goods_no" value="${goods_no }"/>
+							<input type="hidden" name="goods_name" value="<s:property value='resultGoods.goods_name' />"/>
+							<input type="hidden" name="goods_category" value="<s:property value='resultGoods.goods_category' />"/>
+							<input type="hidden" name="goods_Price" value="<s:property value='resultGoods.goods_price' />"/>
 							<table width="100%" border="0">
 								<tr>
 									<td colspan="2" style="font-size:1.5em;">상품이름 : <s:property value="resultGoods.goods_name" /><br><br></td>
@@ -81,7 +71,7 @@ https://stackoverflow.com/questions/14133502/post-variable-with-onclick
 									<td width="100" height="40">&nbsp;수량</td>
 									<td>
 										<input type="button" id="m_btn" value="-" style="background-color:#cccccc;">
-										<input type="text" id="count" value="0" style="text-align:center; width:50px;" readonly="readonly">
+										<input type="text" name="goods_amount" id="count" value="0" style="text-align:center; width:50px;" readonly="readonly">
 										<input type="button" id="p_btn" value="+" style="background-color:#cccccc;">
 									</td>
 								</tr>
@@ -90,7 +80,7 @@ https://stackoverflow.com/questions/14133502/post-variable-with-onclick
 									<td width="100" height="40">&nbsp;색상</td>
 									
 									<td>
-										<select>
+										<select name="goods_color">
 											<option value="" selected="selected">선택해 주세요</option>										
 											<c:forTokens var="color" items="${resultGoods.goods_color}" delims=",">
 												<option value=${fn:trim(color)}>
@@ -104,7 +94,7 @@ https://stackoverflow.com/questions/14133502/post-variable-with-onclick
 									<td width="100" height="40">&nbsp;사이즈</td>
 					
 									<td>
-										<select>
+										<select name="goods_size">
 											<option value="" selected="selected">선택해 주세요</option>										
 											<c:forTokens var="size" items="${resultGoods.goods_size}" delims=",">
 												<option value=${fn:trim(size)}>
@@ -129,7 +119,7 @@ https://stackoverflow.com/questions/14133502/post-variable-with-onclick
 										<input type="button" class="btn-custom" value="장바구니 담기" style="width:150px;" onClick="javascript:location.href='basketListAction.action?currentPage=<s:property value="currentPage" />'">
 									</td>
 									<td align="left" style="padding:5px;">
-										<input type="button" class="btn-custom1" value="구매하기" style="width:150px;" onClick="javascript:location.href='orderWriteAction.action?currentPage=<s:property value="currentPage" />'">
+										<input type="submit" class="btn-custom1" value="구매하기" style="width:150px;"/>
 									</td>
 								</tr>
 							</table>
