@@ -40,7 +40,7 @@ public class goodsWriteAction extends ActionSupport{
 	private File upload; //���� ��ü
 	private String uploadContentType; //������ Ÿ��
 	private String uploadFileName; //���� �̸�
-	private String fileUploadPath = "E:\\java\\upload\\"; //���ε� ���.
+	private String fileUploadPath = "C:\\java\\upload\\"; //���ε� ���.
 	
 	//������
 	public goodsWriteAction() throws IOException
