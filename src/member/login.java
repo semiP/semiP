@@ -2,13 +2,8 @@ package member;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import member.memberbean;
 
-
-public class IdPassInquire extends ActionSupport {
-
-	memberbean resultClass;
-	
+public class login extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 
 	public String execute() {

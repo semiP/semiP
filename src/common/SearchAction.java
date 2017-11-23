@@ -10,8 +10,12 @@ import goods.goodsVO;
 import java.io.Reader;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
-public class SearchAction extends ActionSupport {
+import org.apache.struts2.interceptor.SessionAware;
+
+
+public class SearchAction extends ActionSupport implements SessionAware{
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
@@ -21,6 +25,7 @@ public class SearchAction extends ActionSupport {
 	private goodsVO paramClass;
 	private List<goodsVO> goodsList = new ArrayList<goodsVO>();
 	private List<countVO> countList = new ArrayList<countVO>();
+	private Map session;
 	
 	
 	// 생성자
@@ -110,4 +115,13 @@ public class SearchAction extends ActionSupport {
 		public void setCountList(List<countVO> countList) {
 			this.countList = countList;
 		}
+
+		public Map getSession() {
+			return session;
+		}
+
+		public void setSession(Map session) {
+			this.session = session;
+		}
+		
 	}

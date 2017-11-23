@@ -12,7 +12,10 @@ import java.io.IOException;
 import java.io.File;
 import org.apache.commons.io.FileUtils;
 
-public class goodsCmtWriteAction extends ActionSupport{
+import java.util.Map;
+import org.apache.struts2.interceptor.SessionAware;
+
+public class goodsCmtWriteAction extends ActionSupport implements SessionAware{
 	
 	public static Reader reader; //���� ��Ʈ���� ���� reader.
 	public static SqlMapClient sqlMapper; //SqlMapClient API�� ����ϱ� ���� sqlMapper ��ü.
@@ -30,6 +33,7 @@ public class goodsCmtWriteAction extends ActionSupport{
 	private String goods_cmt_id;       //�ۼ���
 	private String goods_cmt_content;    //����
 	Calendar today = Calendar.getInstance(); //���� ��¥ ���ϱ�.
+	private Map session;
 	
 	private File upload; //���� ��ü
 	private String uploadContentType; //������ Ÿ��
@@ -48,6 +52,11 @@ public class goodsCmtWriteAction extends ActionSupport{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); //sqlMapConfig.xml ������ ���������� �����´�.
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ������ ������ sqlMapper ��ü ����.
 		reader.close();
+	}
+	
+	public String qaform() throws Exception
+	{
+		return SUCCESS;
 	}
 	
 	public String form() throws Exception
@@ -188,5 +197,14 @@ public class goodsCmtWriteAction extends ActionSupport{
 	
 	public int getRe_level() { return re_level; }
 	public void setRe_level(int re_level) { this.re_level = re_level; }
+
+	public Map getSession() {
+		return session;
+	}
+
+	public void setSession(Map session) {
+		this.session = session;
+	}
+	
 	
 }

@@ -36,6 +36,10 @@
 		<action name="main" class="common.MainAction">
 			<result type="tiles">main</result>
 		</action>
+		<action name="testcount" class="common.testcount">
+			<interceptor-ref name="params"></interceptor-ref>
+			<result>/test.jsp</result>
+		</action>
 		
 		<action name="search" class="common.SearchAction">
 			<interceptor-ref name="params" />

@@ -75,7 +75,12 @@ public class goodsViewAction extends ActionSupport implements SessionAware {
 		return session;
 	}
 
-	public void setSession(Map session) {
-		this.session = session;
+
+	@Override
+	public void setSession(Map arg0) {
+		// TODO Auto-generated method stub
+		this.session = arg0;
 	}
+
+
 }
