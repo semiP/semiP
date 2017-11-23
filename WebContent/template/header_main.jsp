@@ -6,9 +6,6 @@
 <script type="text/javascript" src="/semiP/assets/js/menuscroll.js"></script>
 <div id="blog-header-container">
 	<h1>MIGNON COPINE</h1><br>
-	<s:if test="session.session_member_id != null">
-		<article align="center" style="font-size:0.8em;">로그인 아이디: ${session.session_member_id }</article>
-	</s:if>
 </div>
 <div id="menu-container">
 	<div class="menu-icon" style="display: none;"><a href="main.action" style="color:#FFFFFF; text-decoration:none;">MC</a></div>
