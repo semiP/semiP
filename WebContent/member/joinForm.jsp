@@ -1,70 +1,62 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
 <script>
-<script type="text/javascript">
-function check(){
-	var f = document.joinform;			//문서.Form name="";
-	var idPs = /^[a-z0-9_]{4,12}$/;		//아이디 비밀번호 체크표현식
-	 
-	if(f.id.value == ""){
-		alert("아이디를 입력해주세요.");
-		f.id.focus();
-		return false;
-	}
-	if(!idPs.test(f.id.value)){
-		alert("유효한 아이디 형식이 아닙니다.");
-		f.id.value = "";				//id작성했던 값을 비워줌
-		f.id.focus();					//id focus이동
-		return false;
-	}
-	if(f.passwd.value == ""){
-		alert("비밀번호를 입력해주십시요.");
-		f.passwd.focus();
-		return false;
-	}
-	if(!idPs.test(f.passwd.value)){
-		alert("유효한 비밀번호 형식이 아닙니다.");
-		f.passwd.value = "";			//id값을 비워줌
-		f.passwd.focus();				//id focus이동
-		return false;
-	}
-	if(f.passwd.value != f.passwd2.value){
-		alert("비빌번호를 다르게 입력했습니다.");
-		f.passwd2.select();
-		return false;
-	}
-	if(f.name.value == ""){
-		alert("이름을 입력해주십시요.");
-		f.name.focus();
-		return false;
-	}
-	if((f.jumin1.value == "") || (f.jumin1.value.length < 6)){
-		alert("주민등록번호 앞의 6자리를 입력해 주세요");
-		f.jumin1.focus();
-		return false;
-	}
-	if((f.jumin2.value == "") || (f.jumin2.value.length < 7)){
-		alert("주민등록번호 뒤의 7자리를 입력해 주세요");
-		f.jumin2.focus();
-		return false;
-	}
-	if(isNaN(f.jumin1.value) || isNaN(f.jumin2.value)){
-		alert("유효한 주민등록번호 형식이 아닙니다.");
-		f.jumin1.value = "";
-		f.jumin2.value = "";
-		f.jumin1.focus();
-		return false;
-	}
-	if(f.zipcode.value == ""){
-		alert("우편번호를 검색하여 입력해주세요");
-		f.zipcode.focus();
-		return false;
-	}else{
-		return true; 
-	}
+
+function check()
+{
+    var form = document.joinform;
+
+    if(!form.id.value){
+        alert("아이디를 입력하세요.");
+        return false;
+    }
+    
+    if(form.idDuplication.value != "idCheck"){
+        alert("아이디 중복체크를 해주세요.");
+        return false;
+    }
+    
+    if((!form.passwd.value)||(!form.passwd2.value)){
+        alert("비밀번호를 입력하세요.");
+        return false;
+    }
+    
+    // 비밀번호와 비밀번호 확인에 입력된 값이 동일한지 확인
+    if(form.password.value != form.passwordcheck.value ){
+        alert("비밀번호를 동일하게 입력하세요.");
+        return false;
+    }    
+    
+    if(!form.name.value){
+        alert("이름을 입력하세요.");
+        return false;
+    }
+    
+    if(!form.zipcode.value){
+        alert("우편번호를 입력하세요.");
+        return false;
+    }
+    
+    if((!form.address1.value)||(!form.address2.value)){
+        alert("주소를 입력하세요.");
+        return false;
+    }
+    
+    if(!form.email.value){
+        alert("이메일 주소를 입력하세요.");
+        return false;
+    }
+    
+    if((!form.tel1.value)||(!form.tel2.value)||(!form.tel3.value)){
+        alert("전화번호를 입력하세요.");
+        return false;
+    }
 }
 
-function openConfirmId(joinform){
+</script>
+<script>
+function openConfirmId(){
 	var url = "memberIdChkAction.action?id="+document.joinform.id.value;
 	var f = document.joinform;			//문서.Form name="";
 	var idPs = /^[a-z0-9_]{4,12}$/;		//아이디 비밀번호 체크표현식
@@ -74,17 +66,18 @@ function openConfirmId(joinform){
 	sw=450;    //띄울 창의 넓이
 	sh=250;    //띄울 창의 높이
 
-	ml=(cw-sw)/2;        //가운데 띄우기위한 창의 x위치
-	mt=(ch-sh)/2;        //가운데 띄우기위한 창의 y위치
+	ml=(cw-sw)/2;
+	mt=(ch-sh)/2; 
 	
-	if(f.id.value == ""){
+	if(!f.id.value){
 		alert("아이디를 입력해주세요.");
 		f.id.focus();
 		return false;
 	}
 	window.open(url ,"confirm","width="+sw+", height="+sh+",top="+mt+", left="+ml+", toolbar=no, location=no, status=co, menubar=no, scrollbars=no, resizable=no");
 }
-
+</script>
+<script>
     function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -159,12 +152,7 @@ function openConfirmId(joinform){
 					<td><input type="text" style="width:90%; height:30px;" name="id"></td>
 					<br><br>
 					<td>
-				<s:if test="resultClass == null">
 					<input type="button" value="중복확인" onclick="openConfirmId(this.form)" />
-				</s:if>
-				<s:else>
-					${resultClass.id}
-					</s:else>
 					</td>
 				</tr>
 				<tr>
@@ -182,9 +170,9 @@ function openConfirmId(joinform){
 				<tr>
 					<td width="100"><br>&nbsp;&nbsp;주  소<br><br></td>
 					<td>
-						<input type="text" style="width:100px; height:30px;" id="postcode">&nbsp;<input type="button" value="우편번호" onclick="execDaumPostcode()"><br>
-						<input type="text" style="width:90%; height:30px;" id="address1" placeholder="주소"><br>
-						<input type="text" style="width:90%; height:30px;" id="address2" placeholder="상세 주소">
+						<input type="text" style="width:100px; height:30px;" id="postcode" name="zipcode">&nbsp;<input type="button" value="우편번호" onclick="execDaumPostcode()"><br>
+						<input type="text" style="width:90%; height:30px;" id="address1" placeholder="주소" name="address1"><br>
+						<input type="text" style="width:90%; height:30px;" id="address2" placeholder="상세 주소" name="address2">
 					</td>
 				</tr>
 				<tr>
@@ -222,7 +210,7 @@ function openConfirmId(joinform){
 				<tr>
 					<td width="100"><br>&nbsp;&nbsp;핸드폰 번호<br><br></td>
 					<td>
-						<input type="text" style="width:90px; height:30px;">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;" ><br>				
+						<input type="text" style="width:90px; height:30px;" name="tel1">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;" name="tel2">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;" name="tel3" ><br>				
 					</td>
 				</tr>
 				<tr>
@@ -244,7 +232,7 @@ function openConfirmId(joinform){
 				</tr>
 		
 		<tr>			
-			<td colspan="3" align="center" ><input type="submit" class="btn-custom" value="가입하기"></td>
+			<td colspan="3" align="center" ><input type="submit" class="btn-custom" value="가입하기" onSubmit="checkValue()"></td>
 		</tr>
 			</table>
 	</form>

@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-public class memberendAction extends ActionSupport implements Preparable,ModelDriven{
+public class memberendAction extends ActionSupport {
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
@@ -20,19 +20,40 @@ public class memberendAction extends ActionSupport implements Preparable,ModelDr
 	memberbean paramClass;
 	
 	private memberbean resultClass;
-	private int member_no;
-	private String member_name;
-	private String member_id;
-	private String member_pw;
-	private String member_zipcode;
-	private String member_address1;
-	private String member_address2;
-	private String member_phone;
-	private String member_email;
-	private Date member_regdate;
-	private int member_level;
-	private String member_deletereason;	
-	
+	private String name;
+	private String id;
+	private String passwd;
+	private String zipcode;
+	private String address1;
+	private String address2;
+	private String email;
+	private String phone;
+	private String tel1,tel2,tel3;
+	private int level;
+	private String deletereason;
+
+
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	public String getDeletereason() {
+		return deletereason;
+	}
+
+	public void setDeletereason(String deletereason) {
+		this.deletereason = deletereason;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
 	// 생성자
 	public memberendAction() throws Exception{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
@@ -42,34 +63,30 @@ public class memberendAction extends ActionSupport implements Preparable,ModelDr
 	
 	public String execute() throws Exception{
 		
+		phone = tel1+tel2+tel3;
 		paramClass = new memberbean();
-		paramClass.setMember_no(member_no);
-		paramClass.setMember_name(member_name);
-		paramClass.setMember_id(member_id);
-		paramClass.setMember_pw(member_pw);
-		paramClass.setMember_zipcode(member_zipcode);
-		paramClass.setMember_address1(member_address1);
-		paramClass.setMember_address2(member_address2);
-		paramClass.setMember_phone(member_phone);
-		paramClass.setMember_email(member_email);
-		paramClass.setMember_regdate(member_regdate);
-		paramClass.setMember_level(member_level);
-		paramClass.setMember_deletereason(member_deletereason);
-		
+		paramClass.setMember_name(name);
+		paramClass.setMember_id(id);
+		paramClass.setMember_pw(passwd);
+		paramClass.setMember_zipcode(zipcode);
+		paramClass.setMember_address1(address1);
+		paramClass.setMember_address2(address2);
+		paramClass.setMember_phone(phone);
+		paramClass.setMember_email(email);
+		paramClass.setMember_level(level);
+		paramClass.setMember_deletereason(deletereason);
 		
 		sqlMapper.insert("mypage.insertlogin",paramClass);
 		
+		
 		return SUCCESS;
 	}
-	
-	public String getMember_deletereason() {
-		return member_deletereason;
-	}
 
-	public void setMember_deletereason(String member_deletereason) {
-		this.member_deletereason = member_deletereason;
-	}
 
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 	public static Reader getReader() {
 		return reader;
@@ -87,6 +104,14 @@ public class memberendAction extends ActionSupport implements Preparable,ModelDr
 		memberendAction.sqlMapper = sqlMapper;
 	}
 
+	public memberbean getParamClass() {
+		return paramClass;
+	}
+
+	public void setParamClass(memberbean paramClass) {
+		this.paramClass = paramClass;
+	}
+
 	public memberbean getResultClass() {
 		return resultClass;
 	}
@@ -95,110 +120,102 @@ public class memberendAction extends ActionSupport implements Preparable,ModelDr
 		this.resultClass = resultClass;
 	}
 
-	public int getMember_no() {
-		return member_no;
+	public String getName() {
+		return name;
 	}
 
-	public void setMember_no(int member_no) {
-		this.member_no = member_no;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getMember_name() {
-		return member_name;
+	public String getId() {
+		return id;
 	}
 
-	public void setMember_name(String member_name) {
-		this.member_name = member_name;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getMember_id() {
-		return member_id;
+	public String getPasswd() {
+		return passwd;
 	}
 
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
 	}
 
-	public String getMember_pw() {
-		return member_pw;
+
+
+	public String getAddress1() {
+		return address1;
 	}
 
-	public void setMember_pw(String member_pw) {
-		this.member_pw = member_pw;
+	public void setAddress1(String address1) {
+		this.address1 = address1;
 	}
 
-	public String getMember_zipcode() {
-		return member_zipcode;
+	public String getAddress2() {
+		return address2;
 	}
 
-	public void setMember_zipcode(String member_zipcode) {
-		this.member_zipcode = member_zipcode;
+	public void setAddress2(String address2) {
+		this.address2 = address2;
 	}
 
-	public String getMember_address1() {
-		return member_address1;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setMember_address1(String member_address1) {
-		this.member_address1 = member_address1;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getMember_address2() {
-		return member_address2;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setMember_address2(String member_address2) {
-		this.member_address2 = member_address2;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
-	public String getMember_phone() {
-		return member_phone;
+	public String getTel1() {
+		return tel1;
 	}
 
-	public void setMember_phone(String member_phone) {
-		this.member_phone = member_phone;
+	public void setTel1(String tel1) {
+		this.tel1 = tel1;
 	}
 
-	public String getMember_email() {
-		return member_email;
+	public String getTel2() {
+		return tel2;
 	}
 
-	public void setMember_email(String member_email) {
-		this.member_email = member_email;
+	public void setTel2(String tel2) {
+		this.tel2 = tel2;
 	}
 
-	public Date getMember_regdate() {
-		return member_regdate;
+	public String getTel3() {
+		return tel3;
 	}
 
-	public void setMember_regdate(Date member_regdate) {
-		this.member_regdate = member_regdate;
-	}
-
-	public int getMember_level() {
-		return member_level;
-	}
-
-	public void setMember_level(int member_level) {
-		this.member_level = member_level;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public void setParamClass(memberbean paramClass) {
-		this.paramClass = paramClass;
+	public void setTel3(String tel3) {
+		this.tel3 = tel3;
 	}
 	
-	public memberbean getParamClass(){
-		return paramClass;
+	public int getLevel() {
+		return level;
 	}
-	
-	public void prepare() throws Exception{
-		paramClass = new memberbean();
+
+	public void setLevel() {
+		this.level = 1;
 	}
-	public memberbean getModel(){
-		return paramClass;
+
+	public String getdeletereason() {
+		return deletereason;
 	}
+
+	public void setdeletereason() {
+		this.deletereason = "";
+	}
+
 }

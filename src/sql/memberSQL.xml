@@ -45,8 +45,7 @@
 		</select>
 		<!-- 아이디 중복확인 -->
 		<select id="select-login-id_comparison" resultMap="loginRes" parameterClass="String">
-			SELECT COUNT(*)
-			FROM member
+			<include refid="select-all-login" />
 			WHERE member_id = #member_id#
 		</select>
 
@@ -55,32 +54,8 @@
 		<!-- 회원가입-->
 		<insert id="insertlogin" parameterClass="login">
 		
-      		INSERT INTO MEMBER (MEMBER_NO, 
-      							MEMBER_NAME, 
-                         		MEMBER_ID, 
-                         		MEMBER_PW, 
-                         		MEMBER_ZIPCODE, 
-                         		MEMBER_ADDRESS1, 
-								MEMBER_ADDRESS2, 
-								MEMBER_PHONE, 
-								MEMBER_EMAIL, 
-								MEMBER_REGDATE, 
-								MEMBER_LEVEL, 
-								MEMBER_DELETEREASON)
-                VALUES (MEMBER_NO_SEQ.NEXTVAL, 
-                	 		#member_name#, 
-                         	#member_id#, 
-                         	#member_pw#, 
-                         	#member_zipcode#, 
-                         	#member_address1#, 
-							#member_address2#, 
-							#member_phone#, 
-							#member_email#, 
-							sysdate, 
-							#member_level#, 
-							#member_deletereason#)
+      		INSERT INTO MEMBER (MEMBER_NO, MEMBER_NAME, MEMBER_ID, MEMBER_PW, MEMBER_ZIPCODE, MEMBER_ADDRESS1, MEMBER_ADDRESS2, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_REGDATE, MEMBER_LEVEL, MEMBER_DELETEREASON)
+                VALUES (MEMBER_NO_SEQ.NEXTVAL, #member_name#, #member_id#, #member_pw#, #member_zipcode#, #member_address1#, #member_address2#, #member_phone#, #member_email#, sysdate, #member_level#, #member_deletereason#)
 		</insert>
 		
-
-	
 </sqlMap>

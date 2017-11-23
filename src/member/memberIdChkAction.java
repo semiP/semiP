@@ -23,12 +23,17 @@ public class memberIdChkAction extends ActionSupport{
 	}
 	
 	public String execute() throws Exception{
-		resultClass = (memberbean)sqlMapper.queryForObject("getMember",getId());
+		resultClass = (memberbean)sqlMapper.queryForObject("mypage.select-login-id_comparison",getId());
+		
 		
 		if(resultClass == null){
-			return ERROR;
+			chkId = 0;
+		}else{
+			chkId = 1;
 		}
+		
 		return SUCCESS;
+		
 	}
 	
 	public memberbean getResultClass() {
