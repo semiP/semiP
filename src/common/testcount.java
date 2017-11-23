@@ -34,13 +34,13 @@ public class testcount extends ActionSupport implements SessionAware {
 	
 	private Map session;
 	
-	private int order_goods_no;
+	private int goods_no;
 	private String goods_name;
 	private String goods_size;
 	private String goods_color;
-	private int goods_Price;
-	private int goods_amount;
-	private int goods_category;
+	private int goods_price;
+	private int bgoods_amount;
+	private int category;
 	
 	public testcount() throws IOException{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); 
@@ -53,7 +53,6 @@ public class testcount extends ActionSupport implements SessionAware {
 				
 		return SUCCESS;
 	}
-
 
 	public List<hitVO> getListHit() {
 		return listHit;
@@ -70,7 +69,7 @@ public class testcount extends ActionSupport implements SessionAware {
 	public void setCategoryMap(LinkedHashMap<String, List<goodsVO>> categoryMap) {
 		this.categoryMap = categoryMap;
 	}
-	
+
 	public Map getSession() {
 		return session;
 	}
@@ -79,12 +78,12 @@ public class testcount extends ActionSupport implements SessionAware {
 		this.session = session;
 	}
 
-	public int getOrder_goods_no() {
-		return order_goods_no;
+	public int getGoods_no() {
+		return goods_no;
 	}
 
-	public void setOrder_goods_no(int order_goods_no) {
-		this.order_goods_no = order_goods_no;
+	public void setGoods_no(int goods_no) {
+		this.goods_no = goods_no;
 	}
 
 	public String getGoods_name() {
@@ -111,29 +110,31 @@ public class testcount extends ActionSupport implements SessionAware {
 		this.goods_color = goods_color;
 	}
 
-	public int getGoods_Price() {
-		return goods_Price;
+	public int getGoods_price() {
+		return goods_price;
 	}
 
-	public void setGoods_Price(int goods_Price) {
-		this.goods_Price = goods_Price;
+	public void setGoods_price(int goods_price) {
+		this.goods_price = goods_price;
 	}
 
-	public int getGoods_amount() {
-		return goods_amount;
+	public int getBgoods_amount() {
+		return bgoods_amount;
 	}
 
-	public void setGoods_amount(int goods_amount) {
-		this.goods_amount = goods_amount;
+	public void setBgoods_amount(int bgoods_amount) {
+		this.bgoods_amount = bgoods_amount;
 	}
 
-	public int getGoods_category() {
-		return goods_category;
+	public int getCategory() {
+		return category;
 	}
 
-	public void setGoods_category(int goods_category) {
-		this.goods_category = goods_category;
+	public void setCategory(int category) {
+		this.category = category;
 	}
+
+
 
 
 }
