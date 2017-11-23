@@ -224,12 +224,5 @@
 	</form>
 </body>
 
-<script type="text/javascript">
-function changModify(){
-	document.action="InfoModifyAction.action";
-	document.method="form";
-	docuemtn.submit();
-}
-</script> 
 
 <!-- onClick="location='InfoModifyForm.action',session_member_no,resultClass.member_pw" -->

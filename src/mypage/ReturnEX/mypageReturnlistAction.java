@@ -105,7 +105,7 @@ public class mypageReturnlistAction extends ActionSupport implements SessionAwar
 		paramClass1.setOrder_no(getOrder_no());
 		paramClass1.setOrder_status(getOrder_status());
 		
-		resultClass1=(orderVO) sqlMapper.queryForList("mypageReturnEX.selectOneGoodsOrderReturnEX",paramClass1);
+		resultClass1=(orderVO) sqlMapper.queryForObject("mypageReturnEX.selectOneGoodsOrderReturnEX",paramClass1);
 		
 		return SUCCESS;
 	}
