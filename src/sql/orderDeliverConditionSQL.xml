@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC 
+	'-//ibatis.apache.org//DTD Sql Map 2.0//EN' 
+	'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+	
+<sqlMap namespace="mypage2">
+	<typeAlias alias="goodsOrder" type="mypage.goodsOrderBean"/>
+	<typeAlias alias="goods" type="goods.goodsVO"/>
+	
+	<!-- result map 정의 -->
+	<resultMap id="goodsRes" class="goods">
+		<result property="goods_no" column="goods_no"/>
+		<result property="goods_name" column="goods_name"/>
+		<result property="goods_category" column="goods_category"/>
+		<result property="goods_size" column="goods_size"/>
+		<result property="goods_color" column="goods_color"/>
+		<result property="goods_content" column="good_content"/>
+		<result property="goods_amount" column="goods_amount"/>
+		<result property="goods_price" column="good_price"/>
+		<result property="goods_image" column="goods_image"/>
+		<result property="goods_regdate" column="goods_regdate"/>
+	</resultMap>
+	
+	<!-- result map 정의 -->
+	<resultMap id="goodsOrderRes" class="goodsOrder">
+		<result property="member_no" column="member_no"/>
+		<result property="goods_no" column="goods_no"/>
+		<result property="order_no" column="order_no"/>
+		<result property="order_goods_no" column="order_goods_no"/>
+		<result property="order_goods_amount" column="order_goods_amount"/>
+		<result property="order_goods_size" column="order_goods_size"/>
+		<result property="order_goods_color" column="order_goods_color"/>
+		<result property="order_receive_name" column="order_receive_name"/>
+		<result property="order_receive_zipcode" column="order_receive_zipcode"/>
+		<result property="order_receive_addr1" column="order_receive_addr1"/>
+		<result property="order_receive_addr2" column="order_receive_addr2"/>
+		<result property="order_receive_phone" column="order_receive_phone"/>
+		<result property="order_memo" column="order_memo"/>
+		<result property="order_total_price" column="order_total_price"/>
+		<result property="order_date" column="order_date"/>
+		<result property="order_trade_date" column="order_trade_date"/>
+		<result property="order_status" column="order_status"/>
+		<result property="order_list_amount" column="order_list_amount"/>
+		<result property="order_goods_image" column="order_goods_image"/>
+		<result property="order_pay_type" column="order_pay_type"/>
+		<result property="order_pay_name" column="order_pay_name"/>
+		<result property="order_total_pay" column="order_total_pay"/>
+		<result property="invoice_no" column="invoice_no"/>
+	</resultMap>
+	
+	<!-- select-all -->
+		<sql id="select-all-goods_OrderDeliverCondition">
+			SELECT * FROM goods
+		</sql>
+		
+		<sql id="select-all-goodsOrder_OrderDeliverCondition">
+			SELECT * FROM goodsOrder
+		</sql>
+		
+		<select id="selectAllGoodsOrderDeliverCondition" resultMap="goodsRes" parameterClass="int">
+			<include refid="select-all-goods_OrderDeliverCondition"/>
+			ORDER BY goods_no DESC
+		</select>
+		
+		<select id="selectAllGoodsOrderOrderDeliverCondition" resultMap="goodsOrderRes" parameterClass="int">
+			<include refid="select-all-goodsOrder_OrderDeliverCondition"/>
+			ORDER BY order_no DESC
+		</select>
+		
+	<!--  select-one -->
+		<select id="selectOneGoods_OrderDeliverCondition" resultMap="goodsRes" parameterClass="int">
+			<include refid="select-all-goods_OrderDeliverCondition" />
+			WHERE order_no = #order_no# and order_status != 5
+		</select>
+		
+		<select id="selectOneGoodsOrder_OrderDeliverCondition" resultMap="goodsOrderRes" parameterClass="int">
+			<include refid="select-all-goodsOrder_OrderDeliverCondition" />
+			WHERE goods_no = #goods_no#
+		</select>
+
+	<!-- 기간조회 -->
+		<select id="order_date" resultMap="goodsOrderRes">
+			<include refid="select-all-goodsOrder_OrderDeliverCondition"/>
+			BETWEEN #searchKeyword1# AND #searchKeyword2#
+		</select>	
+</sqlMap>
