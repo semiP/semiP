@@ -1,128 +1,124 @@
 package mypage;
 
-
-//�亯�ޱ�. �亯����.����. ���� ������ ������ �� ��� �߰�(���� ����Ʈ ��ɸ�)
 import com.opensymphony.xwork2.ActionSupport;
-
-//import cmc.inquiryVO; ��� ���Ƽ� ���� �ʿ����
-
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 
-import org.apache.struts2.interceptor.SessionAware;
-
 import java.util.*;
-import java.io.IOException;
 import java.io.Reader;
+import java.io.IOException;
 
 import java.io.File;
 import org.apache.commons.io.FileUtils;
 
-public class inqWriteAction extends ActionSupport implements SessionAware {
+
+public class inqWriteAction extends ActionSupport{
+	
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
+	
+	private inquiryVO paramClass;
+	private inquiryVO resultClass;
 
-	private mypage.inquiryVO paramClass;
-	private mypage.inquiryVO resultClass;
-
+	
 	private int currentPage;
-
+	
 	private int inquiry_no;
 	private int inquiry_category;
 	private String inquiry_subject;
 	private String inquiry_content;
 	private Date inquiry_regdate;
 	private String inquiry_addfile;
+	private String member_name;
 	private Map session;
+	
+	Calendar today = Calendar.getInstance();
 	
 	private File upload;
 	private String uploadContentType;
 	private String uploadFileName;
-	private String fileUploadPath = "C:\\Java\\upload\\";
-
-	public inqWriteAction() throws IOException {
+	private String fileUploadPath="C:\\Java\\upload\\";
+	
+	
+	public inqWriteAction() throws IOException
+	{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
-	}
 
-	// �α����ϰ� ���� ����Ʈ���� ������ 2���� ����ϴٰ� ������������ �α׾ƿ��ϸ� �ٸ�
-	// ���������� ��ǰ���� �� �� �α���â���� �Ѱܹ���
-	public String form() throws Exception {
-		if (session.get("session_member_id") == null) {
-			return LOGIN;
-		}
+	}
+	
+	public String form() throws Exception
+	{
 		return SUCCESS;
+		
 	}
-
+	
 
 	public String execute() throws Exception {
-
-		paramClass = new mypage.inquiryVO();
-		resultClass = new mypage.inquiryVO();
-
+		
+		paramClass = new inquiryVO();
+		resultClass = new inquiryVO();
+		/*if(ref == 0)
+		{
+			paramClass.setRe_step(0);
+			paramClass.setRe_level(0);
+		}
+		else
+		{
+			paramClass.setRef(getRef());
+			paramClass.setRe_step(getRe_step());
+			sqlMapper.update("updateReplyStep", paramClass);
+			
+			paramClass.setRe_step(getRe_step() + 1);
+			paramClass.setRe_level(getRe_level() + 1);
+			paramClass.setRef(getRef());
+		}*/
 		paramClass.setInquiry_no(getInquiry_no());
 		paramClass.setInquiry_category(getInquiry_category());
 		paramClass.setInquiry_subject(getInquiry_subject());
 		paramClass.setInquiry_content(getInquiry_content());
-		paramClass.setInquiry_regdate(getInquiry_regdate());
-		paramClass.setInquiry_addfile(getInquiry_addfile());
+		paramClass.setInquiry_regdate(today.getTime());
 		
-
 		sqlMapper.insert("inq.insert", paramClass);
 		
-		if (getUpload() != null) {
-
-			//등록한 글 번호 가져오기.
+		if(getUpload() != null)
+		{
 			resultClass = (inquiryVO) sqlMapper.queryForObject("inq.selectLastNo");
-
-			//실제 서버에 저장될 파일 이름과 확장자 설정.
+			
 			String file_name = "file_" + resultClass.getInquiry_no();
 			String file_ext = getUploadFileName().substring(
 					getUploadFileName().lastIndexOf('.') + 1,
-					getUploadFileName().length());
-
-			//서버에 파일 저장.
-			File destFile = new File(fileUploadPath + file_name + "."
-					+ file_ext);
+					getUploadFileName().length()
+					);
+			
+			File destFile = new File(fileUploadPath + file_name + "." + file_ext);
 			FileUtils.copyFile(getUpload(), destFile);
+			
+			paramClass.setInquiry_no(resultClass.getInquiry_no());
+			paramClass.setInquiry_addfile(getUploadFileName());
+			
+			sqlMapper.update("updateFile", paramClass);
 		}
 
 		return SUCCESS;
 	}
-	
 
-	public File getUpload() {
-		return upload;
+	public inquiryVO getParamClass() {
+		return paramClass;
 	}
 
-	public void setUpload(File upload) {
-		this.upload = upload;
+	public void setParamClass(inquiryVO paramClass) {
+		this.paramClass = paramClass;
 	}
 
-	public String getUploadContentType() {
-		return uploadContentType;
+	public inquiryVO getResultClass() {
+		return resultClass;
 	}
 
-	public void setUploadContentType(String uploadContentType) {
-		this.uploadContentType = uploadContentType;
-	}
-
-	public String getUploadFileName() {
-		return uploadFileName;
-	}
-
-	public void setUploadFileName(String uploadFileName) {
-		this.uploadFileName = uploadFileName;
-	}
-
-	public String getFileUploadPath() {
-		return fileUploadPath;
-	}
-
-	public void setFileUploadPath(String fileUploadPath) {
-		this.fileUploadPath = fileUploadPath;
+	public void setResultClass(inquiryVO resultClass) {
+		this.resultClass = resultClass;
 	}
 
 	public int getCurrentPage() {
@@ -165,12 +161,28 @@ public class inqWriteAction extends ActionSupport implements SessionAware {
 		this.inquiry_content = inquiry_content;
 	}
 
+	public Date getInquiry_regdate() {
+		return inquiry_regdate;
+	}
+
+	public void setInquiry_regdate(Date inquiry_regdate) {
+		this.inquiry_regdate = inquiry_regdate;
+	}
+
 	public String getInquiry_addfile() {
 		return inquiry_addfile;
 	}
 
 	public void setInquiry_addfile(String inquiry_addfile) {
 		this.inquiry_addfile = inquiry_addfile;
+	}
+
+	public String getMember_name() {
+		return member_name;
+	}
+
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
 	}
 
 	public Map getSession() {
@@ -181,30 +193,46 @@ public class inqWriteAction extends ActionSupport implements SessionAware {
 		this.session = session;
 	}
 
-	public mypage.inquiryVO getParamClass() {
-		return paramClass;
+
+	public Calendar getToday() {
+		return today;
 	}
 
-	public void setParamClass(mypage.inquiryVO paramClass) {
-		this.paramClass = paramClass;
+	public void setToday(Calendar today) {
+		this.today = today;
 	}
 
-	public mypage.inquiryVO getResultClass() {
-		return resultClass;
+	public File getUpload() {
+		return upload;
 	}
 
-	public void setResultClass(mypage.inquiryVO resultClass) {
-		this.resultClass = resultClass;
+	public void setUpload(File upload) {
+		this.upload = upload;
 	}
 
-	public Date getInquiry_regdate() {
-		return inquiry_regdate;
+	public String getUploadContentType() {
+		return uploadContentType;
 	}
 
-	public void setInquiry_regdate(Date inquiry_regdate) {
-		this.inquiry_regdate = inquiry_regdate;
+	public void setUploadContentType(String uploadContentType) {
+		this.uploadContentType = uploadContentType;
 	}
 
+	public String getUploadFileName() {
+		return uploadFileName;
+	}
 
+	public void setUploadFileName(String uploadFileName) {
+		this.uploadFileName = uploadFileName;
+	}
+
+	public String getFileUploadPath() {
+		return fileUploadPath;
+	}
+
+	public void setFileUploadPath(String fileUploadPath) {
+		this.fileUploadPath = fileUploadPath;
+	}
+	
 
 }

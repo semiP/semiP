@@ -62,17 +62,20 @@
 		inquiry_category,
 		inquiry_subject,
 		inquiry_content,
-		inquiry_addfile,
 		inquiry_regdate
 		)
 		values(inquiry_no_seq.nextval,
 		#inquiry_category#,
 		#inquiry_subject#,
 		#inquiry_content#,
-		#inquiry_addfile#,
 		#inquiry_regdate#
 		)
 	</insert>
+	
+	<update id="updateFile" parameterClass="inq">
+			UPDATE inquiry SET inquiry_addfile = #inquiry_addfile#
+			where inquiry_no = #inquiry_no#
+	</update>
 
 
 </sqlMap>
