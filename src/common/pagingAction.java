@@ -72,7 +72,7 @@ public class pagingAction {
 	}
 	
 	
-//	searchNum add
+//	searchNum add(FAQ)
 	public pagingAction(int currentPage, int totalCount, int blockCount, int blockPage, String actionName, int searchSC, int searchNum,
 			String isSearch) {
 

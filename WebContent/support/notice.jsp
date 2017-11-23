@@ -70,22 +70,12 @@
 						<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 	<!-- 게시물 하나씩 iterator 시작 -->
 		<s:iterator value="list" status="stat">
-		<s:url id="viewURL" action="noticeViewAction" >
-			<s:param name="notice_no">
-				<s:property value="notice_no" />
-			</s:param>
-			<s:param name="currentPage">
-				<s:property value="currentPage" />
-			</s:param>
-		</s:url>			
      	   	<tr bgcolor="#FFFFFF"  align="center">
 			<td><s:property value="notice_regdate" /></td>
 			<td>공지사항</td>
-        	<td class="notice_subject">
-			<s:a href="%{viewURL}">  <!-- 내용 상세보기를 위한 URL -->
-				<s:property value="notice_subject"/>
-				</s:a>
-			</td>
+        	<td class="notice_subject"><a href="javascript:window.open('noticeViewAction.action?notice_no=<s:property value="notice_no"/>','_blank', 'width=600, height=400');">
+						<s:property value="notice_subject"/></a>
+				</td>
         		<td>관리자</td>
       	      </tr>
       	      <tr bgcolor="#777777">

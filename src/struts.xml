@@ -2,15 +2,25 @@
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 	<package name="support" extends="struts-default">
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
 		<!-- 공지사항 액션. -->
-		<!-- faq까지 같은 패키지 안에 넣고 액션명만 따로 주면 될거 같음 -->
 		<action name="noticeAction" class="support.noticeAction">
-			<result>/support/notice.jsp</result>
+			<result type="tiles">notice</result>
 		</action>
-		<!-- 자주묻는질문 액션 -->
 		<action name="faqListAction" class="support.faqListAction">
-			<result>/support/faq.jsp</result>
+			<result type="tiles">faq</result>
 		</action>
+
+
+		<!-- <action name="noticeAction" class="support.noticeAction"> <result>/support/notice.jsp</result> 
+			</action> -->
+		<!-- 자주묻는질문 액션 -->
+		<!-- <action name="faqListAction" class="support.faqListAction">
+			<result>/support/faq.jsp</result>
+		</action> -->
 		<!-- 자주묻는질문 상세보기 액션 -->
 		<action name="faqViewAction" class="support.faqViewAction">
 			<result>/support/faqView.jsp</result>
@@ -19,17 +29,38 @@
 		<action name="noticeViewAction" class="support.noticeViewAction">
 			<result>/support/noticeView.jsp</result>
 		</action>
-		<!-- 1:1 문의 작성 액션 -->
-		<!-- <action name="inquiryWriteAction" class="support.inquiryWriteAction">
-			<result>/support/1on1Write.jsp</result>
-		</action> -->
-		
 	</package>
-	
+
+	<package name="inq" extends="struts-default">
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+		<action name="inqListAction" class="mypage.inqListAction">
+			<result type="tiles">inqList</result>
+		</action>
+		<!-- <action name="inqListAction" class="mypage.inqListAction"> <result>/myPage/inqList.jsp</result> 
+			</action> -->
+
+		<action name="inqViewAction" class="mypage.inqViewAction">
+			<result>/myPage/inqView.jsp</result>
+		</action>
+
+		<action name="inqWriteAction" class="mypage.inqWriteAction">
+			<result>/myPage/inqList.jsp</result>
+		</action>
+		<action name="inqFormAction" class="mypage.inqFormAction">
+			<result>/myPage/inqForm.jsp</result>
+		</action>
+
+	</package>
+
+
 	<package name="main" extends="struts-default">
 		<!-- tiles result type 설정 -->
 		<result-types>
-			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
 
 		<!-- main 페이지 보여주기 액션 -->
@@ -41,29 +72,30 @@
 			<result>/test.jsp</result>
 		</action>
 		
+
 		<action name="search" class="common.SearchAction">
 			<interceptor-ref name="params" />
 			<result type="tiles">search</result>
 		</action>
 	</package>
-	<!-- Login-->
+
+	<!-- Login -->
 	<package name="login" namespace="/" extends="struts-default, tiles-default">
 		<action name="login" class="member.loginAction">
-			<result name="success" type="redirectAction" >main</result> 
-			<result name="login">/member/loginForm.jsp</result> 
-	 		<result name="error">/common/loginError.jsp</result>
+			<result name="success" type="redirectAction">main</result>
+			<result name="login">/member/loginForm.jsp</result>
+			<result name="error">/common/loginError.jsp</result>
 		</action>
-		<action name="logout" class="member.loginAction" method="logout"> 
-	 		<result type="redirect-action">
+		<action name="logout" class="member.loginAction" method="logout">
+			<result type="redirect-action">
 				<param name="actionName">main</param>
-			</result> 
+			</result>
 		</action>
 
 	</package>
-		
+
 	<!-- 수경 장바구니 -->
-	<include file="./config/basket.xml"/>
-	
+	<include file="./config/basket.xml" />
 	<!-- 유준 상품/주문 -->
 	<include file="./config/goods.xml" />
 	<include file="./config/order.xml" />
@@ -74,5 +106,50 @@
 	<!-- 은이 마이페이지 -->
 	<include file="/config/mypage.xml" />
 	
+
+
+	<!-- 마이페이지-회원정보수정 -->
+	<package name="mypage.memberModify" extends="struts-default">
+
+		<!-- 마이페이지-회원정보수정 -->
+		<action name="listView_member" class="mypage.memberModify.listViewAction">
+			<result type="chain">checkPW_member</result>
+		</action>
+
+		<action name="checkPW_member" class="mypage.memberModify.checkPWAction">
+			<result name="ERROR" type="chain">/mypage/pwError.jsp</result>
+			<result name="SUCCESS" type="chain">modify</result>
+		</action>
+
+		<action name="modify" class="mypage.memberModify.modifyAction">
+			<result type="chain">/mypage/profile.jsp</result>
+		</action>
+
+		<!-- 마이페이지-비밀번호수정 -->
+		<action name="listView_pw" class="mypage.memberModify.listViewAction">
+			<result type="chain">checkPW_pw</result>
+		</action>
+
+		<action name="checkPW_pw" class="mypage.memberModify.checkPWAction">
+			<result name="ERROR" type="chain">/mypage/pwError.jsp</result>
+			<result name="SUCCESS" type="chain">modifyPW</result>
+		</action>
+
+		<action name="modifyPW" class="mypage.memberModify.modifyPWAction">
+			<result type="chain">/mypage/profile.jsp</result>
+		</action>
+
+		<!-- 마이페이지 회원탈퇴 -->
+		<action name="listView_delete" class="mypage.memberModify.listViewAction">
+			<result type="chain">deleteInfo</result>
+		</action>
+
+		<action name="deleteInfo" class="mypage.memberModify.deleteInfoAction">
+			<result name="SUCCESS">/main/mainbody.jsp</result>
+			<result name="ERROR">/mypage/pwError.jsp</result>
+		</action>
+	</package>
+
+
 </struts>
 

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"
 	trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+
 <head>
 	
 				<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -49,6 +50,7 @@
 </script>
 </head>
 <body>
+
 <div id="content-container">
 	<table width="100%" border="0" style="margin:auto; max-width:1000px;">
 		<tr>			
