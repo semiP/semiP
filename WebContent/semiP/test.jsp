@@ -9,6 +9,9 @@
 </head>
 <body>
 
+
+
+
 ${order_goods_no }<br>
 ${goods_name }<br>
 ${goods_size }<br>
