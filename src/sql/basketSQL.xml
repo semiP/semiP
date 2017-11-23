@@ -18,6 +18,7 @@
 	  	<result property="goods_image" column="goods_image"/>
 	  	<result property="goods_no" column="goods_no"/>
 	  	<result property="category" column="category"/>
+	  	<result property="goods_price" column="goods_price"/>
 	</resultMap>
 	
 	<!-- 공통으로 사용할 select절 정의 -->
@@ -35,8 +36,8 @@
 		SELECT 	a.*, 
 				b.goods_name as goods_name, 
 				b.goods_image as goods_image,
-				b.goods_no as goods_no,
-				b.goods_category as category
+				b.goods_category as category,
+				b.goods_price as goods_price
 		FROM basket a, goods b
 		WHERE a.goods_no = b.goods_no AND a.member_no = #member_no#
 	</select>

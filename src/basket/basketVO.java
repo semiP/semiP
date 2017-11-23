@@ -15,6 +15,7 @@ public class basketVO{
 	private String goods_image;
 	private int goods_no;
 	private int category;
+	private int goods_price;
 	
 	public int getBasket_no(){
 		return basket_no;
@@ -102,6 +103,14 @@ public class basketVO{
 
 	public void setCategory(int category) {
 		this.category = category;
+	}
+
+	public int getGoods_price() {
+		return goods_price;
+	}
+
+	public void setGoods_price(int goods_price) {
+		this.goods_price = goods_price;
 	}
 	
 }

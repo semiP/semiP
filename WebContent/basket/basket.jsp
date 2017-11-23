@@ -47,14 +47,13 @@
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->	
 								<s:iterator value="basketlist" status="stat">
-								<form action="orderWriteForm.action" method="post" >
-								<input type="hidden" id="basket_price_<s:property value = "#stat.index" />" name="basket_price_<s:property value = "#stat.index" />" value="<s:property value='basket_price'/>" />
-								<input type="hidden" name="order_goods_no" value="basketlist.goods_no"/>
-								<input type="hidden" name="goods_name" value="basketlist.goods_name"/>
-								<input type="hidden" name="goods_size" value="basketlist.goods_size"/>
-								<input type="hidden" name="goods_color" value="basketlist.goods_color"/>
-								<input type="hidden" name="goods_price" value="basketlist.goods_price"/>
-								<input type="hidden" name="goods_category" value="basketlist.goods_category"/>
+								<form action="testcount.action" method="get" >
+								<input type="hidden" name="order_goods_no" value="<s:property value='goods_no'/>"/>
+								<input type="hidden" name="goods_name" value="<s:property value='goods_name'/>"/>
+								<input type="hidden" name="goods_size" value="<s:property value='goods_size'/>"/>
+								<input type="hidden" name="goods_color" value="<s:property value='goods_color'/>"/>
+								<input type="hidden" name="goods_price" value="<s:property value='goods_price'/>"/>
+								<input type="hidden" name="goods_category" value="<s:property value='category'/>"/>
 								<tr align="center" id="basket_list_<s:property value = "#stat.index" />">
 									<td width="1%"><input name="chkbox" id="chkbox_<s:property value = "#stat.index" />" type="checkbox" onClick="itemSum(<s:property value = "#stat.index" />);" value="<s:property value='basket_no'/>"/></td>
 									<td width="10%">
@@ -70,7 +69,7 @@
 									</td>
 									<td width="10%">
 										<!-- <input type="button" id="p_btn" value="+" style="background-color:#cccccc;width:80%;"><br> -->
-										<input type="text" name="goods_amount" id="count" value="<s:property value="bgoods_amount"/>"  style="text-align:center; width:80%;" readonly="readonly"><br>
+										<input type="text" name="goods_amount" id="count" value="<s:property value='bgoods_amount'/>"  style="text-align:center; width:80%;" readonly="readonly"><br>
 										<!-- <input type="button" id="m_btn" value="-" style="background-color:#cccccc;width:80%;"> -->
 									</td>
 									<td width="10%">택배</td>

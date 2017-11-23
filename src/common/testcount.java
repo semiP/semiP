@@ -39,8 +39,9 @@ public class testcount extends ActionSupport implements SessionAware {
 	private String goods_size;
 	private String goods_color;
 	private int goods_price;
-	private int goods_amount;
 	private int goods_category;
+	private int goods_amount;
+	
 	
 	public testcount() throws IOException{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); 
