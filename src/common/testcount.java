@@ -119,22 +119,21 @@ public class testcount extends ActionSupport implements SessionAware {
 		this.goods_price = goods_price;
 	}
 
-	public int getBgoods_amount() {
-		return goods_amount;
-	}
-
-	public void setBgoods_amount(int bgoods_amount) {
-		this.goods_amount = bgoods_amount;
-	}
-
-	public int getCategory() {
+	public int getGoods_category() {
 		return goods_category;
 	}
 
-	public void setCategory(int category) {
-		this.goods_category = category;
+	public void setGoods_category(int goods_category) {
+		this.goods_category = goods_category;
 	}
 
+	public int getGoods_amount() {
+		return goods_amount;
+	}
+
+	public void setGoods_amount(int goods_amount) {
+		this.goods_amount = goods_amount;
+	}
 
 
 

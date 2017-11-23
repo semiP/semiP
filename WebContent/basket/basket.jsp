@@ -129,8 +129,7 @@
 									</td>
 								</tr>
 							</table>
-							</form>
-<script type="text/javascript" src="/semiP/assets/js/goodsCount.js"></script>
+							
 <script language="javascript">
 
 
@@ -200,19 +199,15 @@ var basket_price = "";
 
 function itemSum(index)
 {
-	/*
 
-  */
-
-	
   //for(i=0;i<$("input[name=basket_price]").length;i++)
   //{
 	 //alert($("input[name=chkbox_"+index+"]").prop("checked"));
   	if($("input[id=chkbox_"+index+"]").prop("checked") == true) basket_price = Number(basket_price) + Number($("input[name=basket_price_"+index+"]").val());
   	else basket_price = Number(basket_price) - Number($("input[name=basket_price_"+index+"]").val());
   //}  
-  document.frm.total_sum.value = basket_price;
-  document.frm.totalOrder_sum.value = basket_price;
+  document.getElementById('total_sum').value = basket_price; // 여기서 basket_price 가 널 이라는데 왜그러는건지는 이것만으로는 잘 모르겠네요 음... 제가 짠 자바스크립트가 아니라서;;;;
+  document.getElementById('totalOrder_sum').value = basket_price;
   
 }
 
