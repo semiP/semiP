@@ -30,7 +30,7 @@
 							회원정보</a></td>
 						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="./orderList.tiles" >
 							주문/배송현황</a></strong></td>
-						<td class="myPageMenuItem"><a href="./refundList.tiles" >
+						<td class="myPageMenuItem"><a href="/semiP/ReturnChangeCondition.action" >
 							반품/교환</a></td>
 						<td class="myPageMenuItem"><a href="./qnaList.tiles" >
 							문의내역</a></td>

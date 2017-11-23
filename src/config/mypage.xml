@@ -19,7 +19,7 @@
 		
 		<action name="InfoModifyPro" class="mypage.memberModify.InfoModifyAction" method="execute">
 			<result name="login" type="redirectAction">loginac</result>
-			<result name="success" type="redirectAction">InfoView</result>
+			<result name="success" type="redirectAction">InfoModifyForm</result>
 		</action>
 		
 		<action name="InfoModifyPWForm" class="mypage.memberModify.InfoModifyPWAction" method="form">
@@ -29,7 +29,7 @@
 		
 		<action name="InfoModifyPWPro" class="mypage.memberModify.InfoModifyPWAction" method="execute">
 			<result name="login" type="redirectAction">loginac</result>
-			<result name="success" type="redirectAction">InfoView</result>
+			<result name="success" type="redirectAction">InfoModifyPWForm</result>
 		</action>
 		
 		<action name="InfoDeleteForm" class="mypage.memberModify.InfoDeleteAction" method="form">

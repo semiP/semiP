@@ -74,11 +74,11 @@
 					<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 
 					<tr bgcolor="#455b59" align="center">
-						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="../InfoView.action" >
+						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="/semiP/InfoView.action" >
 							회원정보</a></strong></td>
-						<td class="myPageMenuItem" ><a href="/semiP/myPage/orderList.jsp" >
+						<td class="myPageMenuItem" ><a href="/semiP/OrderlistClassify.action" >
 							주문/배송현황</a></td>
-						<td class="myPageMenuItem"><a href="/semiP/myPage/refundList.jsp" >
+						<td class="myPageMenuItem"><a href="/semiP/ReturnChangeCondition.action" >
 							반품/교환</a></td>
 						<td class="myPageMenuItem"><a href="/semiP/myPage/qnaList.jsp" >
 							문의내역</a></td>
@@ -180,7 +180,7 @@
 					
 		</table>
 		</form>
-		<form>
+		<form action="InfoModifyPWPro.action" method="post">
 		<table width="80%" border="0" align="center">
 			<tr>
 				<td align="left" colspan="2">

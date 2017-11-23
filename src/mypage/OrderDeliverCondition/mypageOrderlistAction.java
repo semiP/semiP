@@ -98,9 +98,9 @@ public class mypageOrderlistAction extends ActionSupport implements SessionAware
 		resultClass1 = new orderVO();
 		
 		paramClass1.setOrder_no(getOrder_no());
-		paramClass1.setOrder_status(getOrder_status());
+		/*paramClass1.setOrder_status(getOrder_status());*/
 		
-		resultClass1=(orderVO) sqlMapper.queryForList("mypageOrderDeliverCondition.selectOneGoodsOrder_OrderDeliverCondition",paramClass1);
+		resultClass1=(orderVO) sqlMapper.queryForList("mypageOrderDeliverCondition.selectOneGoodsOrder_OrderDeliverCondition", getOrder_no());
 				
 		return SUCCESS;
 	}
