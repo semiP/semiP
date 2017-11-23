@@ -17,6 +17,7 @@
 		</action>
 		<!-- (수정)아이디/비밀번호 찾기(이동) -->
 		<action name="loginfind" class="member.IdPassInquire">
+			<interceptor-ref name="chain"></interceptor-ref>
 			<result name="success" type="tiles">idPassInquire</result>
 		</action>
 		<!-- (수정)로그인창 (이동) -->
@@ -26,7 +27,9 @@
 		<!-- (수정)아이디 찾기 -->
 		<action name="loginidfind" class="member.memberIdFindAction">
 			<interceptor-ref name="params" />
-			<result name="success" >/member/idfind.jsp</result>
+			<result name="success" type="chain">
+				<param name="actionName">loginfind</param>
+			</result>
 			<result name="error">/member/loginfinderror.jsp</result>
 		</action>
 		<!-- (수정)비밀번호 찾기 -->
