@@ -1,21 +1,20 @@
 package basket;
 
 import java.io.Reader;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
-import java.util.Map;
 
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class basketAddAction extends ActionSupport implements SessionAware {
+
+	private static final long serialVersionUID = 1L;
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
@@ -42,24 +41,30 @@ public class basketAddAction extends ActionSupport implements SessionAware {
 	}
 	
 	public String execute() throws Exception{
-		basketparamClass = new basketVO();
-		/*basketresultClass= new basketVO();*/
+		if(session.get("session_member_id") == null || session.get("session_member_id") == ""){
+			return LOGIN;
+		}else{
+			
+			member_no = (int) session.get("session_member_no");
 		
-		
-		/*basketparamClass.setGoods_image(getGoods_image());// vo에는 있지만, table에 없는 정보
-*/		basketparamClass.setBasket_price(getBasket_price());
-		/*basketparamClass.setGoods_price(getGoods_price());// vo에는 있지만, table에 없는 정보
-*/		basketparamClass.setBgoods_amount(getBgoods_amount());
-		basketparamClass.setGoods_size(getGoods_size());
-		basketparamClass.setGoods_color(getGoods_color());
-		basketparamClass.setBasket_date(getBasket_date());
-		//basketparamClass.setGoods_no(getGoods_no());
-
-		//basketparamClass.setMember_no(session.get(session.get("session_member_id")));
-
-		sqlMapper.insert("insertBasket", basketparamClass);
-
-		return SUCCESS;
+			basketparamClass = new basketVO();
+			/*basketresultClass= new basketVO();*/
+					
+			/*basketparamClass.setGoods_image(getGoods_image());// vo에는 있지만, table에 없는 정보
+	*/		basketparamClass.setBasket_price(getBasket_price());
+			/*basketparamClass.setGoods_price(getGoods_price());// vo에는 있지만, table에 없는 정보
+	*/		basketparamClass.setBgoods_amount(getBgoods_amount());
+			basketparamClass.setGoods_size(getGoods_size());
+			basketparamClass.setGoods_color(getGoods_color());
+			basketparamClass.setBasket_date(getBasket_date());
+			//basketparamClass.setGoods_no(getGoods_no());
+	
+			basketparamClass.setMember_no(member_no);
+	
+			sqlMapper.insert("basketSet.insertBasket", basketparamClass);
+	
+			return SUCCESS;
+		}	
 		
 	}
 

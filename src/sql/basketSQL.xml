@@ -51,7 +51,7 @@
 	</select> -->
 	
 	<!-- insert 쿼리문 정의 -->
-	<!-- <insert id="insertBasket" parameterClass="basket">
+	<insert id="insertBasket" parameterClass="basket">
 	
 	INSERT INTO BASKET(BASKET_NO,
 					GOODS_SIZE,
@@ -71,7 +71,7 @@
 					#goods_no#,
 					#member_no#
 					)
-	</insert> -->
+	</insert>
 	
 	
 	
