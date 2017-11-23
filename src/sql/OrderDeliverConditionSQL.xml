@@ -93,7 +93,7 @@
 			WHERE goods_no = #goods_no#
 		</select>
 		
-		<select id="selectOneGoodsOrder_OrderDeliverCondition" resultMap="goodsOrderRes" parameterClass="int">
+		<select id="selectOneGoodsOrder_OrderDeliverCondition" resultMap="goodsOrderRes">
 			<include refid="select-all-classfy-goodsOrder_OrderDeliverCondition" />
 			WHERE order_no = #order_no# and order_status != 5
 		</select>

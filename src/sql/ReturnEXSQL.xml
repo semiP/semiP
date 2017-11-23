@@ -89,7 +89,7 @@
 			WHERE goods_no = #goods_no#
 		</select>
 		
-		<select id="selectOneGoodsOrderReturnEX" resultMap="goodsOrderRes" parameterClass="int">
+		<select id="selectOneGoodsOrderReturnEX" resultMap="goodsOrderRes" parameterClass="order.orderVO">
 			<include refid="select-all-classify-goodsOrder_returnEX" />
 			WHERE order_no = #order_no# and order_status = 5
 		</select>
@@ -98,7 +98,7 @@
 		- ORDER_STATUS를 4번-> 5번으로 상태 변환
    		 > 교환의 경우 : 주문번호(ORDER_NO)를 달리하여 새로운 제품 주문으로 Admin에 전달
  	-->
- 		<update id="updateORDER_STATUS" parameterClass="goodsOrder">
+ 		<update id="updateORDER_STATUS" parameterClass="order.orderVO">
 			UPDATE goodsOrder SET order_status = 5
 			WHERE order_no = #order_no#
 		</update>

@@ -100,7 +100,7 @@ public class mypageOrderlistAction extends ActionSupport implements SessionAware
 		paramClass1.setOrder_no(getOrder_no());
 		/*paramClass1.setOrder_status(getOrder_status());*/
 		
-		resultClass1=(orderVO) sqlMapper.queryForList("mypageOrderDeliverCondition.selectOneGoodsOrder_OrderDeliverCondition", getOrder_no());
+		resultClass1=(orderVO)sqlMapper.queryForList("mypageOrderDeliverCondition.selectOneGoodsOrder_OrderDeliverCondition", paramClass1);
 				
 		return SUCCESS;
 	}
@@ -118,7 +118,7 @@ public class mypageOrderlistAction extends ActionSupport implements SessionAware
 		paramClass2.setOrder_member_no(getOrder_member_no());
 		paramClass2.setOrder_no(getOrder_no());
 		
-		resultClass2=(orderVO)sqlMapper.queryForObject("mypageOrderDeliverCondition.selectOneGoodsOrder_OrderDeliverCondition",paramClass2);
+		resultClass2=(orderVO) sqlMapper.queryForObject("mypageOrderDeliverCondition.selectOneGoodsOrder_OrderDeliverCondition",paramClass2);
 		
 		goods_no = getOrder_goods_no();
 		paramClass3.setGoods_no(goods_no);
