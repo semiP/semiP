@@ -34,9 +34,9 @@
 	</tr>
 	<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 	<tr>
-		<td colspan="4" align="right">	<!-- 차후 관리자는 수정/삭제 -->
+		<!-- <td colspan="4" align="right">	차후 관리자는 수정/삭제
 			<input type="button" value="글삭제">
-		</td>
+		</td> -->
 	</tr>
 </table>									
 	

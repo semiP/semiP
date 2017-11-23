@@ -11,9 +11,9 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 
-import mypage.goodsBean;
+import goods.goodsVO;
 import mypage.goodsOrderBean;
-import mypage.inquiryBean;
+import mypage.inquiryVO;
 
 public class listAction extends ActionSupport {
 	public static Reader reader;
@@ -22,8 +22,8 @@ public class listAction extends ActionSupport {
 	private goodsOrderBean paramClass1;
 	private goodsOrderBean resultClass1;
 
-	private goodsBean paramClass2;
-	private goodsBean resultClass2;
+	private goodsVO paramClass2;
+	private goodsVO resultClass2;
 
 	private goodsOrderBean paramClass3;
 	private goodsOrderBean resultClass3;
@@ -87,10 +87,10 @@ public class listAction extends ActionSupport {
 		public String execute() throws Exception{
 			//모든 글을 가져와 list에 넣는다.
 			paramClass1 = new goodsOrderBean(); // 파라미터를 저장할 객체
-			paramClass2 = new goodsBean();
+			paramClass2 = new goodsVO();
 			
 			resultClass1 = new goodsOrderBean(); // 쿼리 결과 값을 저장할 객체
-			resultClass2 = new goodsBean();
+			resultClass2 = new goodsVO();
 			/*ActionContext context = ActionContext.getContext();*/
 			
 			paramClass1.setOrder_status(getOrder_status());
@@ -109,7 +109,7 @@ public class listAction extends ActionSupport {
 			sqlMapper.update("updatemember",paramClass2);
 			
 			resultClass1 = (goodsOrderBean)sqlMapper.queryForObject("Order_no",paramClass1);
-			resultClass2 = (goodsBean)sqlMapper.queryForObject("goods_no",paramClass2);
+			resultClass2 = (goodsVO)sqlMapper.queryForObject("goods_no",paramClass2);
 			
 			return SUCCESS;
 		}
@@ -177,19 +177,19 @@ public class listAction extends ActionSupport {
 			this.resultClass1 = resultClass1;
 		}
 
-		public goodsBean getParamClass2() {
+		public goodsVO getParamClass2() {
 			return paramClass2;
 		}
 
-		public void setParamClass2(goodsBean paramClass2) {
+		public void setParamClass2(goodsVO paramClass2) {
 			this.paramClass2 = paramClass2;
 		}
 
-		public goodsBean getResultClass2() {
+		public goodsVO getResultClass2() {
 			return resultClass2;
 		}
 
-		public void setResultClass2(goodsBean resultClass2) {
+		public void setResultClass2(goodsVO resultClass2) {
 			this.resultClass2 = resultClass2;
 		}
 

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+	
+<sqlMap namespace="mainSearch">
+
+	<typeAlias alias="goods" type="goods.goodsVO" />
+	<typeAlias alias="hit" type="common.hitVO" />
+	<typeAlias alias="count" type="common.countVO" />
+	
+	<!-- 상품 테이블 리절트 맵 정의 -->
+	<resultMap id="goodsRes" class="goods">
+		<result property="goods_no" 		column="goods_no"/>
+		<result property="goods_name" 		column="goods_name"/>
+		<result property="goods_category" 	column="goods_category"/>
+		<result property="goods_size" 		column="goods_size"/>
+		<result property="goods_color" 		column="goods_color"/>
+		<result property="goods_content" 	column="goods_content"/>
+		<result property="goods_amount" 	column="goods_amount"/>
+		<result property="goods_price" 		column="goods_price"/>
+		<result property="goods_image"		column="goods_image"/>
+		<result property="goods_regdate" 	column="goods_regdate"/>
+	</resultMap>
+	
+	<!-- 상품 테이블 리절트 맵 정의 -->
+	<resultMap id="hitRes" class="hit">
+		<result property="goods_category" 	column="goods_category"/>
+		<result property="goods_content" 	column="goods_content"/>
+		<result property="name" 				column="name"/>
+	</resultMap>
+	
+	<!-- 상품 카운 맵 정의 -->
+	<resultMap id="countRes" class="count">
+		<result property="category_name" 	column="category_name"/>
+		<result property="category_no" 	column="category_no"/>
+		<result property="cnt" 	column="cnt"/>
+	</resultMap>
+	
+	
+	
+	<sql id="select-all">
+		SELECT * FROM goods
+	</sql>
+	
+	
+	<!-- 히트상품 목록 가져오기 -->
+	<select id="select-hit-list" resultMap="hitRes" parameterClass="int">
+		SELECT * FROM hit
+	</select>
+	
+	<!-- 상품 한개 가져오기 -->
+	<select id="select-single-item" resultMap="goodsRes" parameterClass="int"  remapResults="true">
+		SELECT *
+		FROM goods
+		WHERE goods_no=#goods_no#
+	</select>
+	
+	<!-- 상품 전체 가져오기 -->
+	<select id="select-all-goods" resultMap="goodsRes" parameterClass="int"  remapResults="true">
+		<include refid="select-all"/>
+	</select>
+	<!-- 상품 전체 카테고리별로 -->
+	<select id="select-all-goods-by-category" resultMap="goodsRes" parameterClass="int"  remapResults="true">
+		<include refid="select-all"/>
+		WHERE goods_category = #goods_category#
+	</select>
+	<!-- 상품 전체 가져오면서 카테고리별 숫자세기 -->
+	<select id="count-all-goods" resultMap="countRes" parameterClass="int"  remapResults="true">
+		SELECT b.name AS category_name, b.goods_category AS category_no, a.cnt
+		FROM
+			(SELECT goods_category, COUNT(*) AS cnt
+			FROM goods
+			GROUP BY goods_category) a, hit b
+		WHERE
+			a.goods_category = b.goods_category
+	</select>
+	
+	
+	<!-- 상품 키워드로 검색해 가져오기 -->
+	<select id="select-search-goods" resultMap="goodsRes" parameterClass="String"  remapResults="true">
+		<include refid="select-all"/>
+		WHERE
+			goods_name LIKE '%'||#search_value#||'%' OR
+			goods_content LIKE '%'||#search_value#||'%'
+	</select>
+	<!-- 상품 키워드로 검색해서 숫자세기 -->
+	<select id="count-search-goods" resultMap="countRes" parameterClass="String"  remapResults="true">
+		SELECT b.name AS category_name, b.goods_category AS category_no, a.cnt
+		FROM
+			(SELECT goods_category, COUNT(*) AS cnt
+			FROM goods
+			WHERE
+				goods_name LIKE '%'||#search_value#||'%' OR
+				goods_content LIKE '%'||#search_value#||'%'
+			GROUP BY goods_category) a, hit b
+		WHERE
+			a.goods_category = b.goods_category
+	</select>
+	
+
+</sqlMap>

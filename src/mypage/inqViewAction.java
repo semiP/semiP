@@ -1,4 +1,4 @@
-package test;
+package mypage;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.ibatis.common.resources.Resources;
@@ -12,19 +12,19 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testViewAction extends ActionSupport {
+public class inqViewAction extends ActionSupport {
 
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 
-	private testVO paramClass = new testVO();
-	private testVO resultClass = new testVO();
+	private inquiryVO paramClass = new inquiryVO();
+	private inquiryVO resultClass = new inquiryVO();
 
 	private int currentPage;
 
 	private int inquiry_no;
 
-	public testViewAction() throws IOException {
+	public inqViewAction() throws IOException {
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
@@ -33,7 +33,7 @@ public class testViewAction extends ActionSupport {
 	public String execute() throws Exception {
 
 		paramClass.setInquiry_no(getInquiry_no());
-		resultClass = (testVO) sqlMapper.queryForObject("test.selectOne", getInquiry_no());
+		resultClass = (inquiryVO) sqlMapper.queryForObject("inq.selectOne", getInquiry_no());
 
 		return SUCCESS;
 	}
@@ -48,19 +48,19 @@ public class testViewAction extends ActionSupport {
 		this.currentPage = currentPage;
 	}
 
-	public testVO getParamClass() {
+	public inquiryVO getParamClass() {
 		return paramClass;
 	}
 
-	public void setParamClass(testVO paramClass) {
+	public void setParamClass(inquiryVO paramClass) {
 		this.paramClass = paramClass;
 	}
 
-	public testVO getResultClass() {
+	public inquiryVO getResultClass() {
 		return resultClass;
 	}
 
-	public void setResultClass(testVO resultClass) {
+	public void setResultClass(inquiryVO resultClass) {
 		this.resultClass = resultClass;
 	}
 

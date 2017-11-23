@@ -13,6 +13,7 @@ import java.io.File;
 import org.apache.commons.io.FileUtils;
 
 import goods.goodsVO;
+import order.orderVO;
 
 public class orderWriteAction extends ActionSupport{
 	
@@ -31,17 +32,21 @@ public class orderWriteAction extends ActionSupport{
 	private String order_goods_size;
 	private String order_goods_color;
 	private String order_receive_name;
-	private String order_zipcode;
+	private String order_receive_zipcode;
 	private String order_receive_addr1;
 	private String order_receive_addr2;
 	private String order_receive_phone;
 	private String order_memo;
-	private int order_sum_money;
+	private int order_total_price;
+	private Date order_date;
+	private Date order_trade_date;
 	private int order_status;
 	private int order_list_amount;
+	private String order_goods_image;
 	private int order_pay_type;
 	private String order_pay_name;
 	private int order_total_pay;
+	private int invoice_no;
 	Calendar today = Calendar.getInstance(); //���� ��¥ ���ϱ�.
 
 	private File upload; //���� ��ü
@@ -52,7 +57,7 @@ public class orderWriteAction extends ActionSupport{
 	//생성자
 	public orderWriteAction() throws IOException
 	{
-		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml ������ ���������� �����´�.
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); //sqlMapConfig.xml ������ ���������� �����´�.
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); //sqlMapConfig.xml ������ ������ sqlMapper ��ü ����.
 		reader.close();
 	}
@@ -78,20 +83,28 @@ public class orderWriteAction extends ActionSupport{
 		paramClass.setOrder_goods_color(getOrder_goods_color());
 		paramClass.setOrder_goods_size(getOrder_goods_size());
 		paramClass.setOrder_receive_name(getOrder_receive_name());
-		paramClass.setOrder_zipcode(getOrder_zipcode());
+		paramClass.setOrder_receive_zipcode(getOrder_receive_zipcode());
 		paramClass.setOrder_receive_addr1(getOrder_receive_addr1());
 		paramClass.setOrder_receive_addr2(getOrder_receive_addr2());
 		paramClass.setOrder_receive_phone(getOrder_receive_phone());
 		paramClass.setOrder_memo(getOrder_memo());
+		paramClass.setOrder_total_price(getOrder_total_price());
 		paramClass.setOrder_date(today.getTime());
+		paramClass.setOrder_trade_date(today.getTime());
+		paramClass.setOrder_status(getOrder_status());
+		paramClass.setOrder_list_amount(getOrder_list_amount());
+		paramClass.setOrder_goods_image(getOrder_goods_image());
+		paramClass.setOrder_pay_type(getOrder_pay_type());
 		paramClass.setOrder_pay_name(getOrder_pay_name());
+		paramClass.setOrder_total_pay(getOrder_total_pay());
+		paramClass.setInvoice_no(getInvoice_no());
 		
 		//받은값을 넣는다.
-		sqlMapper.insert("orderInsert", paramClass);
+		sqlMapper.insert("order.orderInsert", paramClass);
 		
 		if(getUpload() != null)
 		{
-			resultClass = (orderVO) sqlMapper.queryForObject("selectLastNo");
+			resultClass = (orderVO) sqlMapper.queryForObject("order.selectLastNo");
 			
 			String file_name = "file_" + resultClass.getOrder_no();
 			String file_ext = getUploadFileName().substring(
@@ -106,7 +119,7 @@ public class orderWriteAction extends ActionSupport{
 //			paramClass.setFile_orgname(getUploadFileName());
 //			paramClass.setFile_savname(file_name + "." +file_ext);
 			
-			sqlMapper.update("updateFile", paramClass);
+			sqlMapper.update("order.updateFile", paramClass);
 		}
 		return SUCCESS;
 	}
@@ -145,8 +158,8 @@ public class orderWriteAction extends ActionSupport{
 	public String getOrder_receive_name() { return order_receive_name; }
 	public void setOrder_receive_name(String order_receive_name) { this.order_receive_name = order_receive_name; }
 	
-	public String getOrder_zipcode() { return order_zipcode; }
-	public void setOrder_zipcode(String order_zipcode) { this.order_zipcode = order_zipcode; }
+	public String getOrder_receive_zipcode() { return order_receive_zipcode; }
+	public void setOrder_receive_zipcode(String order_receive_zipcode) { this.order_receive_zipcode = order_receive_zipcode; }
 	
 	public String getOrder_receive_addr1() { return order_receive_addr1; }
 	public void setOrder_receive_addr1(String order_receive_addr1) { this.order_receive_addr1 = order_receive_addr1; }
@@ -160,14 +173,17 @@ public class orderWriteAction extends ActionSupport{
 	public String getOrder_memo() { return order_memo; }
 	public void setOrder_memo(String order_memo) { this.order_memo = order_memo; }
 	
-	public int getOrder_sum_money() { return order_sum_money; }
-	public void setOrder_sum_money(int order_sum_money) { this.order_sum_money = order_sum_money; }
+	public int getOrder_total_price() { return order_total_price; }
+	public void setOrder_total_price(int order_total_price) { this.order_total_price = order_total_price; }
 	
 	public int getOrder_status() { return order_status; }
 	public void setOrder_status(int order_status) { this.order_status = order_status; }
 	
 	public int getOrder_list_amount() { return order_list_amount; }
 	public void setOrder_list_amount(int order_list_amount) { this.order_list_amount = order_list_amount; }
+	
+	public String getOrder_goods_image() { return order_goods_image; }
+	public void setOrder_goods_image(String order_goods_image) { this.order_goods_image = order_goods_image; }
 	
 	public int getOrder_pay_type() { return order_pay_type; }
 	public void setOrder_pay_type(int order_pay_type) { this.order_pay_type = order_pay_type; }
@@ -177,6 +193,9 @@ public class orderWriteAction extends ActionSupport{
 	
 	public int getOrder_total_pay() { return order_total_pay; }
 	public void setOrder_total_pay(int order_total_pay) { this.order_total_pay = order_total_pay; }
+	
+	public int getInvoice_no() { return invoice_no; }
+	public void setInvoice_no(int invoice_no) { this.invoice_no = invoice_no; }
 	
 	public File getUpload() { return upload; }
 	public void setUpload(File upload) { this.upload = upload; }

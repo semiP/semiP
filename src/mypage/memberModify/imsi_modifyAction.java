@@ -1,5 +1,6 @@
 package mypage.memberModify;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.util.Date;
 import java.util.Map;
@@ -7,19 +8,16 @@ import java.util.Map;
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import mypage.memberBean;
 
-public class existAction extends ActionSupport{
+public class imsi_modifyAction extends ActionSupport{
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
 	private memberBean paramClass;
-	private memberBean paramClass2;
 	private memberBean resultClass;
-	private memberBean resultClass2;
 	
 	private int member_no;
 	private String member_name;
@@ -35,53 +33,34 @@ public class existAction extends ActionSupport{
 	
 	private Map session;
 	
-	//생성자
-	public existAction() throws Exception{
-		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml 파일의 설정내용을 가져옴
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xml의 내용을 적용한 sqlMapper객체 생성
+	//�깮�꽦�옄
+	public imsi_modifyAction() throws IOException{
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml �뙆�씪�쓽 �꽕�젙�궡�슜�쓣 媛��졇�삩�떎.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
 	}
 	
-	// 회원 탈퇴 전 비밀번호 체크 폼 이동
-	public String checkForm() throws Exception{
-		return SUCCESS;
-	}
-	
-	// 비밀번호 확인 후 SUCCESS시 경고문 이동 ERROR시 pwError.jsp이동
-	public String checkAction() throws Exception{
+	// �쉶�썝�젙蹂� �닔�젙
+	public String execute() throws Exception{
+		// �뙆�씪誘명꽣�� 由ъ젅�듃 媛앹껜 �깮�꽦
 		paramClass = new memberBean();
 		resultClass = new memberBean();
 		
-		ActionContext context = ActionContext.getContext();
-		Map session = context.getSession();
+		//수정할 항목 설정
+		paramClass.setMember_no(member_no);
+		paramClass.setMember_name(member_name);
+		paramClass.setMember_email(member_email);
+		paramClass.setMember_zipcode(member_zipcode);
+		paramClass.setMember_address1(member_address1);
+		paramClass.setMember_address2(member_address2);
+		paramClass.setMember_phone(member_phone);
+		paramClass.setMember_pw(member_pw);
 		
-		String session_member_no = (String)session.get("session_member_no");
-		
-		// 비밀번호 입력값 파라미터 설정.
-		paramClass.setMember_pw(getMember_pw());
-		paramClass.setMember_no(getMember_no());
-		
-		// 현재글의 비밀번호 가져오기
-		resultClass = (memberBean)sqlMapper.queryForObject("pwCheck",paramClass);
-		
-		if(resultClass != null) {
-			return SUCCESS;
-		}else {
-			return ERROR;
-		}
-	}
-	
-	// 회원탈퇴 처리 => MEMBER_LEVEL
-	public String execute() throws Exception{
-		// 파라미터와 리절트 객체 생성
-		paramClass2 = new memberBean();
-		resultClass2 = new memberBean();
-		
-		// 수정할 항목 설정
-		paramClass2.setMember_level(getMember_level());
-		
-		// 항목 수정
-		sqlMapper.update("updateMemberDelete");
+		// �씪�떒 �빆紐⑸쭔 �닔�젙�븳�떎.
+		sqlMapper.update("updateMember",paramClass);
+
+		//수정이 끝나면 view페이지로 이동
+		resultClass = (memberBean) sqlMapper.queryForObject("selectOneMember", getMember_no());
 		
 		return SUCCESS;
 	}
@@ -91,7 +70,7 @@ public class existAction extends ActionSupport{
 	}
 
 	public static void setReader(Reader reader) {
-		existAction.reader = reader;
+		imsi_modifyAction.reader = reader;
 	}
 
 	public static SqlMapClient getSqlMapper() {
@@ -99,7 +78,7 @@ public class existAction extends ActionSupport{
 	}
 
 	public static void setSqlMapper(SqlMapClient sqlMapper) {
-		existAction.sqlMapper = sqlMapper;
+		imsi_modifyAction.sqlMapper = sqlMapper;
 	}
 
 	public memberBean getParamClass() {
@@ -213,6 +192,4 @@ public class existAction extends ActionSupport{
 	public void setSession(Map session) {
 		this.session = session;
 	}
-	
-	
 }

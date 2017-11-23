@@ -28,7 +28,7 @@ public class orderListAction extends ActionSupport{
 	//생성자
 	public orderListAction() throws IOException
 	{
-		reader = Resources.getResourceAsReader("sqlMapConfig_for_board2.xml"); //sqlMapConfig.xml 
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); //sqlMapConfig.xml 
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);  //sqlMapConfig.xml
 		reader.close();
 	}

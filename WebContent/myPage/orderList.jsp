@@ -26,7 +26,7 @@
 					<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 
 					<tr bgcolor="#455b59" align="center">
-						<td class="myPageMenuItem"><a href="./profile.tiles" >
+						<td class="myPageMenuItem"><a href="/semiP/listView_member.action" >
 							회원정보</a></td>
 						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="./orderList.tiles" >
 							주문/배송현황</a></strong></td>
@@ -51,8 +51,8 @@
 			</tr>
 			<tr>
 				<td align="right" colspan="7">
-					검색기간:	<input type="date" name="startDate"> ~ <input type="date" name="endDate">&nbsp;&nbsp;
-							<input type="button" name="dateSearchBtn" value="조회">
+					검색기간:	<input type="date" name="startDate" id="startDate"> ~ <input type="date" name="endDate" id="endDate" >&nbsp;&nbsp;
+							<input type="submit" name="dateSearchBtn" value="조회">
 				</td>
 			</tr>
 			<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
@@ -69,17 +69,15 @@
 			<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->
 			<tr align="center">
-				<td width="10%">주문날짜</td>
-				<td width="10%"><img src="/semiP/assets/images/best1.jpg" style="width:100%;"></td>
-				<td width="28%">상품이름이름이름<br><font style="font-size:0.8em; color:777777">상품옵션옵션</font></td>
-				<td width="15%">₩ 100,000</td>
-				<td width="5%">
-					1
-				</td>
+				<td width="10%"><s:property value="order_date"/></td>
+				<td width="10%"><s:property value="order_goods_image"/><img style="width:100%;"></td>
+				<td width="28%"><s:property value="goods_name"/><br><font style="font-size:0.8em; color:777777"><s:property value="goods_size"/><s:property value="goods_color"/></font></td>
+				<td width="15%"><s:property value="goods_price"/></td>
+				<td width="5%"><s:property value="order_goods_amount"/></td>
 				<td width="20%">
-					배송중<br>
+					<s:property value="order_status"/><br>
 					우체국택배<br>
-					[12345679]<br><br>
+					<s:property value="invoice_no"/><br><br>
 					<input type="button" value="구매후기" style="width:60%;">
 				</td>
 				<td width="12%">

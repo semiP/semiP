@@ -5,8 +5,6 @@
 
 <tiles-definitions>
 
-
-
 	<definition name="default" template="/template/layout.jsp">
 		<put-attribute name="title" value="MIGNON COPINE" />
 		<put-attribute name="header" value="/template/header.jsp" />
@@ -14,100 +12,111 @@
 		<put-attribute name="body" value="/main/mainbody.jsp" />
 		<put-attribute name="footer" value="/template/footer.jsp" />
 	</definition>
-	
-	<definition name="main" extends="default"> 
+
+	<definition name="main" extends="default">
 		<put-attribute name="header" value="/template/header_main.jsp" />
 		<put-attribute name="sidebar" value="/template/sidebar.jsp" />
 		<put-attribute name="body" value="/main/mainbody.jsp" />
 		<put-attribute name="footer" value="/template/footer.jsp" />
 	</definition>
-	
-	<definition name="loginForm" extends="default"> 
-        <put-attribute name="body" value="/member/loginForm.jsp" />
-    </definition>
-    
-    <definition name="search" extends="default"> 
-        <put-attribute name="body" value="/main/search.jsp" />
-    </definition>
-    
-    <definition name="idPassInquire" extends="default"> 
-        <put-attribute name="body" value="/member/idPassInquire.jsp" />
-    </definition>
-    
-    <definition name="joinForm" extends="default"> 
-        <put-attribute name="body" value="/member/joinForm.jsp" />
-    </definition>
-    
-    <definition name="goodsList" extends="default"> 
-        <put-attribute name="body" value="/goods/goodsList.jsp" />
-    </definition>
-    
-    <definition name="goodsDetail" extends="default"> 
-        <put-attribute name="body" value="/goods/goodsDetail.jsp" />
-    </definition>
-    
-    <definition name="basket" extends="default"> 
-        <put-attribute name="body" value="/basket/basket.jsp" />
-    </definition>
-    
-    <definition name="order" extends="default"> 
-        <put-attribute name="body" value="/order/order.jsp" />
-    </definition>
-    
-    <definition name="orderComplete" extends="default"> 
-        <put-attribute name="body" value="/order/orderComplete.jsp" />
-    </definition>
-    
-    <definition name="orderResult" extends="default"> 
-        <put-attribute name="body" value="/order/orderResult.jsp" />
-    </definition>
-    
-    <definition name="profile" extends="default"> 
-        <put-attribute name="body" value="/myPage/profile.jsp" />
-    </definition>
-    <definition name="orderList" extends="default"> 
-        <put-attribute name="body" value="/myPage/orderList.jsp" />
-    </definition>
-    <definition name="qnaList" extends="default"> 
-        <put-attribute name="body" value="/myPage/qnaList.jsp" />
-    </definition>
-    <definition name="refundList" extends="default"> 
-        <put-attribute name="body" value="/myPage/refundList.jsp" />
-    </definition>
-    <definition name="terminateForm" extends="default"> 
-        <put-attribute name="body" value="/myPage/terminateForm.jsp" />
-    </definition>
-    
-    <definition name="notice" extends="default"> 
-        <put-attribute name="body" value="/support/notice.jsp" />
-    </definition>
-    <definition name="faq" extends="default"> 
-        <put-attribute name="body" value="/support/faq.jsp" />
-    </definition>
-    
-	<!--
-	<definition name="hello2" template="/tiles/template/layout.jsp">
-		<put-attribute name="title" value="헬로우 월드2" />
-		<put-attribute name="header" value="/tiles/template/header2.jsp" />
-		<put-attribute name="menu" value="/tiles/template/menu.jsp" />
-		<put-attribute name="body" value="/tiles/hello_body.jsp" />
-		<put-attribute name="footer" value="/tiles/template/footer2.jsp" />
-	</definition>	
-	
-	<definition name="home" template="/tiles/template/layout.jsp" preparer="tiles.MenuViewPreparer">
-		<put-attribute name="title" value="헬로우 월드: 홈" />
-		<put-attribute name="header" value="/tiles/template/header.jsp" />
-		<put-attribute name="menu" value="/tiles/template/home_menu.jsp" />
-		<put-attribute name="body" value="/tiles/home_body.jsp" />
-		<put-attribute name="footer" value="/tiles/template/footer.jsp" />
+
+	<definition name="loginForm" extends="default">
+		<put-attribute name="body" value="/member/loginForm.jsp" />
 	</definition>
 
-	
-	<definition name="hello2" extends="hello">
-		<put-attribute name="title" value="헬로우 월드2" />
-		<put-attribute name="header" value="/tiles/template/header2.jsp" />
-		<put-attribute name="footer" value="/tiles/template/footer2.jsp" />
+	<definition name="search" extends="default">
+		<put-attribute name="body" value="/main/search.jsp" />
 	</definition>
-	-->
+
+	<definition name="idPassInquire" extends="default">
+		<put-attribute name="body" value="/member/idPassInquire.jsp" />
+	</definition>
+
+	<definition name="memberfind" extends="default">
+		<put-attribute name="body" value="/member/idPassInquire.jsp" />
+	</definition>
+
+	<definition name="joinForm" extends="default">
+		<put-attribute name="body" value="/member/joinForm.jsp" />
+	</definition>
+
+	<definition name="goodsList" extends="default">
+		<put-attribute name="body" value="/goods/goodsList.jsp" />
+	</definition>
+
+	<definition name="goodsDetail" extends="default">
+		<put-attribute name="body" value="/goods/goodsDetail.jsp" />
+	</definition>
+
+	<definition name="goodsWrite" extends="default">
+		<put-attribute name="body" value="/goods/goodsWrite.jsp" />
+	</definition>
+
+	<definition name="basket" extends="default">
+		<put-attribute name="body" value="/basket/basket.jsp" />
+	</definition>
+
+	<definition name="order" extends="default">
+		<put-attribute name="body" value="/order/order.jsp" />
+	</definition>
+
+	<definition name="orderComplete" extends="default">
+		<put-attribute name="body" value="/order/orderComplete.jsp" />
+	</definition>
+
+	<definition name="orderResult" extends="default">
+		<put-attribute name="body" value="/order/orderResult.jsp" />
+	</definition>
+
+	<definition name="profile" extends="default">
+		<put-attribute name="body" value="/myPage/profile.jsp" />
+	</definition>
+	<definition name="orderList" extends="default">
+		<put-attribute name="body" value="/myPage/orderList.jsp" />
+	</definition>
+	<definition name="qnaList" extends="default">
+		<put-attribute name="body" value="/myPage/qnaList.jsp" />
+	</definition>
+	<definition name="refundList" extends="default">
+		<put-attribute name="body" value="/myPage/refundList.jsp" />
+	</definition>
+	<definition name="terminateForm" extends="default">
+		<put-attribute name="body" value="/myPage/terminateForm.jsp" />
+	</definition>
+
+	<definition name="notice" extends="default">
+		<put-attribute name="body" value="/support/notice.jsp" />
+	</definition>
+	<definition name="faq" extends="default">
+		<put-attribute name="body" value="/support/faq.jsp" />
+	</definition>
+
+	<definition name="inqList" extends="default">
+		<put-attribute name="body" value="/myPage/inqList.jsp" />
+	</definition>
 	
+	<!-- 문의 상세보기 / 작성은 새창보기로 하는걸로 -->
+	<definition name="inqView" extends="default">
+		<put-attribute name="body" value="/myPage/inqView.jsp" />
+	</definition>
+	<definition name="inqWrite" extends="default">
+		<put-attribute name="body" value="/myPage/inqWrite.jsp" />
+	</definition>
+
+
+
+	<!-- <definition name="hello2" template="/tiles/template/layout.jsp"> <put-attribute 
+		name="title" value="헬로우 월드2" /> <put-attribute name="header" value="/tiles/template/header2.jsp" 
+		/> <put-attribute name="menu" value="/tiles/template/menu.jsp" /> <put-attribute 
+		name="body" value="/tiles/hello_body.jsp" /> <put-attribute name="footer" 
+		value="/tiles/template/footer2.jsp" /> </definition> <definition name="home" 
+		template="/tiles/template/layout.jsp" preparer="tiles.MenuViewPreparer"> 
+		<put-attribute name="title" value="헬로우 월드: 홈" /> <put-attribute name="header" 
+		value="/tiles/template/header.jsp" /> <put-attribute name="menu" value="/tiles/template/home_menu.jsp" 
+		/> <put-attribute name="body" value="/tiles/home_body.jsp" /> <put-attribute 
+		name="footer" value="/tiles/template/footer.jsp" /> </definition> <definition 
+		name="hello2" extends="hello"> <put-attribute name="title" value="헬로우 월드2" 
+		/> <put-attribute name="header" value="/tiles/template/header2.jsp" /> <put-attribute 
+		name="footer" value="/tiles/template/footer2.jsp" /> </definition> -->
+
 </tiles-definitions>

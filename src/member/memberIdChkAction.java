@@ -26,9 +26,7 @@ public class memberIdChkAction extends ActionSupport{
 		resultClass = (memberbean)sqlMapper.queryForObject("getMember",getId());
 		
 		if(resultClass == null){
-			chkId = 0;
-		}else{
-			chkId = 1;
+			return ERROR;
 		}
 		return SUCCESS;
 	}

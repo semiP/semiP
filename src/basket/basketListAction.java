@@ -1,74 +1,25 @@
 package basket;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.struts2.interceptor.SessionAware;
+import com.opensymphony.xwork2.ActionSupport;
+//import cmc.noticeVO; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¶ï¿½...
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
-import com.opensymphony.xwork2.ActionSupport;
 
+import support.noticeVO;
 
-/*public class basketListAction extends ActionSupport {
-	public static Reader reader;
-	public static SqlMapClient sqlMapper;
-	
-	private basketVO basketparamClass;
-	private basketVO basketresultClass;
-	
-	private List<basketVO> list = new ArrayList<basketVO>();
-	
-	private int currentPage = 1;
-	private int totalCount;
-	private int blockCount = 10;
-	private int blockPage = 5;
-	private String pagingHtml;
-	private pagingAction page;
-	private Map session;
-	private long basket_Price=0;
-	
-	//»ı¼ºÀÚ
-	public void baksetListAction() throws IOException{
-		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
-		reader.close();
-	}
-	//°Ô½ÃÆÇ List¾×¼Ç
-	public String execute() throws Exception{
-		list = sqlMapper.queryForList("basket.selectAll");
-		totalCount = list.size();
-		page = new pagingAction(currentPage,totalCount,blockCount,blockPage, pagingHtml);
-		pagingHtml = page.getPagingHtml().toString();
-		
-		//ÇöÀç ÆäÀÌÁö¿¡¼­ º¸¿©ÁÙ ¸¶Áö¸· ±ÛÀÇ¹øÈ£ ¼³Á¤
-		int lastCount = totalCount;
-		
-		//ÇöÀç ÆäÀÌÁöÀÇ ¸¶Áö¸· ±ÛÀÇ ¹øÈ£°¡ ÀüÃ¼ÀÇ ¸¶Áö¸· ±Û ¹øÈ£º¸´Ù ÀÛÀ¸¸é
-		//lastCount¸¦ +1¹øÈ£·Î ¼³Á¤
-		if(page.getEndCount() < totalCount)
-			lastCount = page.getBlockCount() + 1;
-		
-		///ÀüÃ¼ ¸®½ºÆ®¿¡¼­ ÇöÀç ÆäÀÌÁö¸¸Å­ÀÇ ¸®½ºÆ®¸¸ °¡Á®¿Â´Ù
-		list = list(page.getStartCount(),lastCount);
-		
-		return SUCCESS;
-		}
-	private List<basketVO> list(int startCount, int lastCount) {
-		// TODO Auto-generated method stub
-		return null;
-	}*/
+import java.util.*;
+import java.io.Reader;
+import java.io.IOException;
 
+import common.pagingAction;
 
+public class basketListAction extends ActionSupport {
 
-public class basketListAction extends ActionSupport implements SessionAware {
-	public static Reader reader;
-	public static SqlMapClient sqlMapper;
-	
+	public static Reader reader; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ reader.
+	public static SqlMapClient sqlMapper; // SqlMapClient APIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼.
+
 	private basketVO basketparamClass;
 	private basketVO basketresultClass;
 	
@@ -80,51 +31,89 @@ public class basketListAction extends ActionSupport implements SessionAware {
 	private int blockPage = 5;
 	private String pagingHtml;
 	private pagingAction page;
-	private Map session;
+	//private Map session;
 	private long basket_Price=0;
-	
-	//»ı¼ºÀÚ
-	public void baksetListAction() throws IOException{
-		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
-		reader.close();
+	private int member_no;
+	private String basket_no_set;
+
+	public String getBasket_no_set() {
+		return basket_no_set;
 	}
-	//°Ô½ÃÆÇ List¾×¼Ç
-	public String execute() throws Exception{
-	basketlist = sqlMapper.queryForList("selectAll");
-	totalCount = basketlist.size();
-	page = new pagingAction(currentPage, totalCount, blockCount, blockPage, pagingHtml);
-	pagingHtml = page.getPagingHtml().toString();
 
-	//ÇöÀç ÆäÀÌÁö¿¡¼­ º¸¿©ÁÙ ¸¶Áö¸·±ÛÀÇ ¹øÈ£ ¼³Á¤
-	int lastCount = totalCount;
-	//ÇöÀçÆäÀÌÁöÀÇ ¸¶Áö¸·±ÛÀÇ ¹øÈ£°¡ ÀüÃ¼ÀÇ ¸¶Áö¸·±Û ¹øÈ£º¸´Ù ÀÛÀ¸¸é
-	//lastCount¸¦ +1¹øÈ£·Î ¼³Á¤
-	if(page.getEndCount() < totalCount)
-		lastCount = page.getEndCount() + 1;
+	public void setBasket_no_set(String basket_no_set) {
+		this.basket_no_set = basket_no_set;
+	}
 
-	//ÀüÃ¼ ¸®½ºÆ®¿¡¼­ ÇöÀç ÆäÀÌÁö¸¸Å­ÀÇ ¸®½ºÆ®¸¸ °¡Á®¿Â´Ù.
-	basketlist = basketlist.subList(page.getStartCount(),lastCount);
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public basketListAction() throws IOException {
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xmlï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sqlMapper ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½.
+		reader.close(); // ï¿½Ğ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½İ±ï¿½
+	}
+
+	public String execute() throws Exception {
+
+		setMember_no(1);
+		
+		basketlist = sqlMapper.queryForList("basketSet.selectAll", getMember_no());
+		
+		totalCount = basketlist.size();
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, pagingHtml);
+		pagingHtml = page.getPageHtml().toString();
+	
+		int lastCount = totalCount;
+	
+	
+		if(page.getEndCount() < totalCount)
+			lastCount = page.getEndCount() + 1;
+	
+		basketlist = basketlist.subList(page.getStartCount(),lastCount);
+
 		return SUCCESS;
 	}
 
+	public String deletebasket() throws Exception {
+		
+		StringTokenizer st = new StringTokenizer(getBasket_no_set(), "||"); 
+				
+		while(st.hasMoreTokens()) 
+		{ 
+			int no_set = Integer.parseInt(st.nextToken());
+			sqlMapper.update("basketSet.deleteBasket", no_set);
+			
+		}
+		
+		return SUCCESS;
+	}
+	
+	public int getMember_no() {
+		return member_no;
+	}
 
-	public static Reader getReader() {
-		return reader;
+	public void setMember_no(int member_no) {
+		this.member_no = member_no;
 	}
-	public static void setReader(Reader reader) {
-		basketListAction.reader = reader;
+
+	public basketVO getBasketparamClass() {
+		return basketparamClass;
 	}
-	public static SqlMapClient getSqlMapper() {
-		return sqlMapper;
+
+	public void setBasketparamClass(basketVO basketparamClass) {
+		this.basketparamClass = basketparamClass;
 	}
-	public static void setSqlMapper(SqlMapClient sqlMapper) {
-		basketListAction.sqlMapper = sqlMapper;
+
+	public basketVO getBasketresultClass() {
+		return basketresultClass;
 	}
-	public List<basketVO> getList() {
+
+	public void setBasketresultClass(basketVO basketresultClass) {
+		this.basketresultClass = basketresultClass;
+	}
+
+	public List<basketVO> getBasketlist() {
 		return basketlist;
 	}
-	public void setList(List<basketVO> list) {
+	public void setBasketlist(List<basketVO> basketlist) {
 		this.basketlist = basketlist;
 	}
 	public int getCurrentPage() {
@@ -163,57 +152,17 @@ public class basketListAction extends ActionSupport implements SessionAware {
 	public void setPage(pagingAction page) {
 		this.page = page;
 	}
-	public Map getSession() {
+	/*public Map getSession() {
 		return session;
 	}
 	public void setSession(Map session) {
 		this.session = session;
-	}
+	}*/
 	public long getBasket_Price() {
 		return basket_Price;
 	}
 	public void setBasket_Price(long basket_Price) {
 		this.basket_Price = basket_Price;
 	}
-	
-	
-	
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

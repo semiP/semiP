@@ -1,4 +1,4 @@
-package test;
+package mypage;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -12,20 +12,21 @@ import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 
 import common.pagingAction;
 
-public class testAction extends ActionSupport {
+public class inqListAction extends ActionSupport {
 	public static Reader reader; // ���� ��Ʈ���� ���� reader.
 	public static SqlMapClient sqlMapper; // SqlMapClient API�� ����ϱ� ���� sqlMapper ��ü.
 
-	private List<testVO> list = new ArrayList<testVO>();
+	private List<inquiryVO> list = new ArrayList<inquiryVO>();
 	private int currentPage = 1; // ���� ������
 	private int totalCount; // �� �Խù��� ��
 	private int blockCount = 3; // �� �������� �Խù� ��
 	private int blockPage = 5; // �� ȭ�鿡 ������ ������ ��
 	private String pagingHtml; // ����¡�� ������ html
 	private pagingAction page; // ����¡ Ŭ����
+	private int lastCount;
 
 	// ������
-	public testAction() throws IOException {
+	public inqListAction() throws IOException {
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml ������ ���������� �����´�.
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xml�� ������ ������ sqlMapper ��ü ����.
 		reader.close(); // �о� ������ �ݱ�
@@ -33,10 +34,10 @@ public class testAction extends ActionSupport {
 
 	public String execute() throws Exception {
 
-		list = sqlMapper.queryForList("inquiry.selectAll"); // list�� ��� �� ������ ����
+		list = sqlMapper.queryForList("inq.selectAll"); // list�� ��� �� ������ ����
 
 		totalCount = list.size(); // ��ü ���� ������ totalcount��
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "testAction");
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "inqListAction");
 		pagingHtml = page.getPageHtml().toString(); // pagingHtml ����
 		int lastCount = totalCount; // ���� ���������� ������ ������ �� ��ȣ ����
 
@@ -47,12 +48,22 @@ public class testAction extends ActionSupport {
 
 		return SUCCESS;
 	}
+	
+	
 
-	public List<testVO> getList() {
+	public int getLastCount() {
+		return lastCount;
+	}
+
+	public void setLastCount(int lastCount) {
+		this.lastCount = lastCount;
+	}
+
+	public List<inquiryVO> getList() {
 		return list;
 	}
 
-	public void setList(List<testVO> list) {
+	public void setList(List<inquiryVO> list) {
 		this.list = list;
 	}
 

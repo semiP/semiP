@@ -11,79 +11,146 @@ public class pagingAction {
 	private int startPage;
 	private int endPage;
 	private StringBuffer pagingHtml;
-	
-	//ÆäÀÌÂ¡»ı¼ºÀÚ
-	public pagingAction(int currentPage, int totalCount, int blockCount, 
-			int blockPage, String actionName) {
+
+	// searchì—†ëŠ” ë©”ì†Œë“œ
+	public pagingAction(int currentPage, int totalCount, int blockCount, int blockPage, String actionName) {
 		this.blockCount = blockCount;
 		this.blockPage = blockPage;
 		this.currentPage = currentPage;
 		this.totalCount = totalCount;
-	
-	
-	//ÀüÃ¼ ÆäÀÌÁö¼ö
-	totalPage = (int)Math.ceil((double) totalCount / blockCount);
-	if(totalPage==0) {
-		totalPage = 1;
-	}
-	
-	//ÇöÀç ÆäÀÌÁö°¡ ÀüÃ¼ ÆäÀÌÁö ¼öº¸´Ù Å©¸é ÀüÃ¼ ÆäÀÌÁö ¼ö·Î ¼³Á¤
-	if(currentPage > totalPage) {
-		currentPage = totalPage;
-	}
-	
-	//ÇöÀç ÆäÀÌÁöÀÇ Ã³À½°ú ¸¶Áö¸· ±ÛÀÇ ¹øÈ£ °¡Á®¿À±â
-	startCount = (currentPage - 1) * blockCount;
-	endCount = startCount + blockCount - 1;
-	
-	//½ÃÀÛ ÆäÀÌÁö¿Í ¸¶Áö¸· ÆäÀÌÁö °ª ±¸ÇÏ±â
-	startPage = (int) ((currentPage -1) / blockPage) * blockPage + 1;
-	endPage = startPage + blockPage - 1;
-	
-	//¸¶Áö¸· ÆäÀÌÁö°¡ ÀüÃ¼ ÆäÀÌÁö ¼öº¸´Ù Å©¸é ÀüÃ¼ ÆäÀÌÁö¼ö·Î ¼³Á¤
-	if(endPage > totalPage) {
-		endPage = totalPage;
-	}
-	
-	//ÀÌÀü blockÆäÀÌÁö
-	pagingHtml = new StringBuffer();
-	if(currentPage > blockPage) {
-		pagingHtml.append("a href="+actionName+".action?currentPage="
-				+ (startPage - 1) + ">");
-		pagingHtml.append("ÀÌÀü");
-		pagingHtml.append("</a>");
-	}
-	pagingHtml.append("&nbsp;|&nbsp;");
-	
-	//ÆäÀÌÁö ¹øÈ£.ÇöÀçÆäÀÌÁö´Â »¡°£»öÀ¸·Î °­Á¶ÇÏ°í ¸µÅ©¸¦ Á¦°Å
-	for(int i = startPage; i <= endPage; i++) {
-		if(i > totalPage) {
-			break;
+
+		// ì „ì²´ í˜ì´ì§€ ìˆ˜
+		totalPage = (int) Math.ceil((double) totalCount / blockCount);
+		if (totalPage == 0) {
+			totalPage = 1;
 		}
-		if(i == currentPage) {
-			pagingHtml.append("&nbsp;<b> <font color='red'>");
-			pagingHtml.append(i);
-			pagingHtml.append("</font><b>");
-		}else {
-			pagingHtml.append("&nbsp;<a href='");
-			pagingHtml.append(actionName);
-			pagingHtml.append(".action?currentPage=");
-			pagingHtml.append(i);
-			pagingHtml.append("'>");
-			pagingHtml.append(i);
+
+		// í˜„ì¬í˜ì´ì§€ê°€ ì „ì²´ í˜ì´ì§€ ìˆ˜ë³´ë‹¤ í¬ë©´ ì „ì²´ í˜ì´ì§€ ìˆ˜ë¡œ ì„¤ì •
+		if (currentPage > totalPage) {
+			currentPage = totalPage;
+		}
+
+		// í˜„ì¬ í˜ì´ì§€ì˜ ì²˜ìŒê³¼ ë§ˆì§€ë§‰ ê¸€ì˜ ë²ˆí˜¸ ê°€ì ¸ì˜¤ê¸°
+		startCount = (currentPage - 1) * blockCount;
+		endCount = startCount + blockCount - 1;
+
+		// ì‹œì‘ í˜ì´ì§€ì™€ ë§ˆì§€ë§‰ í˜ì´ì§€ ê°’ êµ¬í•˜ê¸°
+		startPage = (int) ((currentPage - 1) / blockPage) * blockPage + 1;
+		endPage = startPage + blockPage - 1;
+
+		// ë§ˆì§€ë§‰ í˜ì´ì§€ê°€ ì „ì²´ í˜ì´ì§€ ìˆ˜ë³´ë‹¤ í¬ë©´ ì „ì²´ í˜ì´ì§€ ìˆ˜ë¡œ ì„¤ì •
+		if (endPage > totalPage) {
+			endPage = totalPage;
+		}
+
+		// ì´ì „ block í˜ì´ì§€
+		pagingHtml = new StringBuffer();
+		if (currentPage > blockPage) {
+			pagingHtml.append("a href=" + actionName + ".action?currentPage=" + (startPage - 1) + ">");
+			pagingHtml.append("ï¿½ï¿½ï¿½ï¿½");
 			pagingHtml.append("</a>");
 		}
-		pagingHtml.append("&nbsp");
+		pagingHtml.append("&nbsp;|&nbsp;");
+
+		// í˜ì´ì§€ ë²ˆí˜¸, í˜„ì¬ í˜ì´ì§€ëŠ” ë‹¤ë¥´ê²Œ í‘œì‹œ
+		for (int i = startPage; i <= endPage; i++) {
+			if (i > totalPage) {
+				break;
+			}
+			if (i == currentPage) {
+				pagingHtml.append("&nbsp;<b> <font color='red'>");
+				pagingHtml.append(i);
+				pagingHtml.append("</font><b>");
+			} else {
+				pagingHtml.append("&nbsp;<a href='");
+				pagingHtml.append(actionName);
+				pagingHtml.append(".action?currentPage=");
+				pagingHtml.append(i);
+				pagingHtml.append("'>");
+				pagingHtml.append(i);
+				pagingHtml.append("</a>");
+			}
+			pagingHtml.append("&nbsp");
+		}
+		pagingHtml.append("&nbsp;&nbsp;|&nbsp;&nbsp;");
+
+		// ë‹¤ìŒ block í˜ì´ì§€
+		if (totalPage - startPage >= blockPage) {
+			pagingHtml.append("<a href=" + actionName + ".action?currentPage=" + (endPage + 1) + ">");
+			pagingHtml.append("ï¿½ï¿½ï¿½ï¿½");
+			pagingHtml.append("</a>");
+		}
 	}
-	pagingHtml.append("&nbsp;&nbsp;|&nbsp;&nbsp;");
-	
-	//´ÙÀ½ blockÆäÀÌÁö
-	if(totalPage - startPage >= blockPage) {
-		pagingHtml.append("<a href="+actionName+".action?currentPage="
-				+ (endPage + 1) + ">");
-		pagingHtml.append("´ÙÀ½");
-		pagingHtml.append("</a>");
-	}
+
+	// searchìˆëŠ” ë©”ì†Œë“œ
+	public pagingAction(int currentPage, int totalCount, int blockCount, int blockPage, String actionName,
+			int searchNum, String isSearch) {
+
+		this.blockCount = blockCount;
+		this.blockPage = blockPage;
+		this.currentPage = currentPage;
+		this.totalCount = totalCount;
+
+		totalPage = (int) Math.ceil((double) totalCount / blockCount);
+		if (totalPage == 0) {
+			totalPage = 1;
+		}
+
+		if (currentPage > totalPage) {
+			currentPage = totalPage;
+		}
+
+		startCount = (currentPage - 1) * blockCount;
+		endCount = startCount + blockCount - 1;
+
+		startPage = (int) ((currentPage - 1) / blockPage) * blockPage + 1;
+		endPage = startPage + blockPage - 1;
+
+		if (endPage > totalPage) {
+			endPage = totalPage;
+		}
+
+		// ì´ì „ block í˜ì´ì§€
+		pagingHtml = new StringBuffer();
+		if (currentPage > blockPage) {
+			if (isSearch != "")
+				pagingHtml.append("<a class='page prv' href=" + actionName + ".action?currentPage=" + (startPage - 1)
+						+ "&searchNum=" + searchNum + "&searchKeyword=" + isSearch + ">");
+			else
+				pagingHtml.append(
+						"<a class='page prv' href=" + actionName + ".action?currentPage=" + (startPage - 1) + ">");
+			pagingHtml.append("&lt;");
+			pagingHtml.append("</a>");
+		}
+
+		// í˜ì´ì§€ ë²ˆí˜¸, í˜„ì¬ í˜ì´ì§€ëŠ” ë‹¤ë¥´ê²Œ í‘œì‹œ
+		for (int i = startPage; i <= endPage; i++) {
+			if (i > totalPage) {
+				break;
+			}
+			if (i == currentPage) {
+				pagingHtml.append("<strong>");
+				pagingHtml.append(i);
+				pagingHtml.append("</strong>");
+			} else {
+				pagingHtml.append("<a class='page' href=" + actionName + ".action?currentPage=");
+				pagingHtml.append(i);
+				if (isSearch != "")
+					pagingHtml.append("&searchKeyword=" + isSearch);
+				pagingHtml.append(">");
+				pagingHtml.append(i);
+				pagingHtml.append("</a>");
+			}
+		}
+		// ë‹¤ìŒ block í˜ì´ì§€
+		if (totalPage - startPage >= blockPage) {
+			pagingHtml.append("<a class='page next' href=" + actionName + ".action?currentPage=" + (endPage + 1) + ">");
+			if (isSearch != "")
+				pagingHtml.append("&searchKeyword=" + isSearch);
+			pagingHtml.append("&gt;");
+			pagingHtml.append("</a>");
+		}
+
 	}
 
 	public int getCurrentPage() {
@@ -165,33 +232,5 @@ public class pagingAction {
 	public void setPagingHtml(StringBuffer pagingHtml) {
 		this.pagingHtml = pagingHtml;
 	}
-	
-	
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -32,7 +32,7 @@
 							주문/배송현황</a></td>
 						<td class="myPageMenuItem"><a href="액션명으로 변경" >
 							반품/교환</a></td>
-						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="액션명으로 변경" >
+						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="inqListAction.action" >
 							문의내역</a></strong></td>
 					</tr>
 					<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
@@ -72,25 +72,15 @@
 						<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 			<!-- 게시물 하나씩 iterator 시작 -->
 			<s:iterator value="list" status="stat">
-				<s:url id="viewURL" action="testViewAction" >
-					<s:param name="inquiry_no">
-						<s:property value="inquiry_no" />
-					</s:param>
-					<s:param name="currentPage">
-						<s:property value="currentPage" />
-					</s:param>
-				</s:url>			
      	   		<tr bgcolor="#FFFFFF"  align="center">
 					<td><s:property value="inquiry_regdate" /></td>
 					<td><s:if test="%{inquiry_category.equals(1)}">주문/배송</s:if>
 						<s:else>반품/교환</s:else></td>
-        			<td class="inquiry_subject">
-					<s:a href="%{viewURL}">  <!-- 내용 상세보기를 위한 URL -->
-						<s:property value="inquiry_subject"/>
-					</s:a>
-					</td>
-        		<td>아무개</td>
-        		<%-- <s:property value="member_name" /> --%>
+					<td class="inquiry_subject"><a href="javascript:window.open('inqViewAction.action?inquiry_no=<s:property value="inquiry_no"/>','_blank', 'width=600, height=400');">
+						<s:property value="inquiry_subject"/></a>
+				</td>
+        		<td><s:property value="member_name" /></td>
+        		
       	      	</tr>
       	      	<tr bgcolor="#777777">
         			<td height="1" colspan="5"></td>
@@ -108,22 +98,6 @@
 	    	  	</tr>
 	    		
 		      </s:if>
-	
-	
-					<!-- 	<tr>
-							<td class="board-titlebar" width="15%" height="30">2017/11/10</td>
-							<td class="board-titlebar" width="15%" height="30">[주문/배송]</td>
-							<td class="board-titlebar" width="55%" height="30">이거 배송 하루만에 되나요</td>
-							<td class="board-titlebar" width="15%" height="30">돈쓴사람</td>
-						</tr>
-						<tr><td colspan="4" bgcolor="#f2f2f2" height="1"></td></tr>
-						<tr>
-							<td class="board-titlebar" width="15%" height="30">2017/11/10</td>
-							<td class="board-titlebar" width="15%" height="30"></td>
-							<td class="board-titlebar" width="55%" height="30"><img src="/semiP/assets/images/board-icon/reply.gif">그럴 수도 있겠네요</td>
-							<td class="board-titlebar" width="15%" height="30">관리자</td>
-						</tr> -->
-	<!-- 게시물 하나씩 iterator 끝 -->																
 						<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 						<tr>
 							<td colspan="4" align="center">
@@ -141,7 +115,7 @@
 			</tr>
 			<tr>
 				<td colspan="3" align="center">
-					<input type="submit" class="btn-custom" value="질문하기">
+					<input type="submit" class="btn-custom" value="질문하기" onClick="location.href='inqFormAction.action'">
 				</td>
 			</tr>
 			<tr>

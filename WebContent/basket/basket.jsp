@@ -1,5 +1,10 @@
-<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"
-	trimDirectiveWhitespaces="true"%>
+
+
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ page import = "java.util.List" %> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
 
 <div id="content-container">
 	<table width="100%" border="0" style="margin:auto; max-width:1000px;">
@@ -22,12 +27,14 @@
 		<tr>
 			
 			<td>
-				<form action="#" method="post">
+				<form action="orderWriteForm.action" method="post" id="frm" name="frm">
+				<input type="hidden" id="basket_no_set" name="basket_no_set" />
+
 				<table width="100%" border="0">
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 								
 								<tr bgcolor="#455b59" style="color:#FFFFFF;" align="center">
-									<td width="1%"><input type="checkbox"/></td>
+									<td width="1%"></td>
 									<td width="10%">이미지</td>
 									<td width="19%">상품정보</td>
 									<td width="15%">판매가</td>
@@ -38,41 +45,66 @@
 									<td width="10%">선택</td>
 								</tr>
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
-<!-- 게시물 하나씩 iterator 시작 -->
-								<tr align="center">
-									<td width="1%"><input type="checkbox"/></td>
-									<td width="10%"><img src="/semiP/assets/images/best1.jpg" style="width:100%;"></td>
-									<td width="19%">상품이름이름이름<br><font style="font-size:0.8em; color:777777">상품옵션옵션</font></td>
-									<td width="15%">₩ 100,000</td>
+<!-- 게시물 하나씩 iterator 시작 -->	
+								<s:iterator value="basketlist" status="stat">
+								
+								<input type="hidden" id="basket_price_<s:property value = "#stat.index" />" name="basket_price_<s:property value = "#stat.index" />" value="<s:property value='basket_price'/>" />
+								<tr align="center" id="basket_list_<s:property value = "#stat.index" />">
+									<td width="1%"><input name="chkbox" id="chkbox_<s:property value = "#stat.index" />" type="checkbox" onClick="itemSum(<s:property value = "#stat.index" />);" value="<s:property value='basket_no'/>"/></td>
+									<td width="10%">
+									<img src="<s:property value="goods_image"/>"><br><font style="width:100%;"></td>
+									<td width="19%"><s:property value="goods_name"/><br><font style="font-size:0.8em; color:777777"><s:property value="goods_color"/> / <s:property value="goods_size"/></font></td>
+									<td width="15%">
+									
+									
+										<s:property value="goods_price"/>
+									
+									
+									
+									</td>
 									<td width="10%">
 										<input type="button" id="p_btn" value="+" style="background-color:#cccccc;width:80%;"><br>
-										<input type="text" id="count" value="0" style="text-align:center; width:80%;" readonly="readonly"><br>
+										<input type="text" id="count" value="<s:property value="bgoods_amount"/>"  style="text-align:center; width:80%;" readonly="readonly"><br>
 										<input type="button" id="m_btn" value="-" style="background-color:#cccccc;width:80%;">
 									</td>
 									<td width="10%">택배</td>
-									<td width="10%">₩ 2,500</td>
-									<td width="15%">₩ 102,500</td>
+									<td width="10%">무료</td>
+									<td width="15%">₩ <s:property value="basket_price"/></td>
 									<td width="10%">
 										<input type="submit" value="주문하기" style="width:80%;"><br><br>
-										<input type="button" value="삭제" style="width:80%;">
+										<input type="button" value="삭제하기" style="width:150px;" onClick="alert('삭제되었습니다.'); 
+											location.href='basketDeleteAction.action?basket_no=<s:property value="basket_no"/>'"/>
 									</td>
 								</tr>
+								</s:iterator>
+<!-- 게시물 하나씩 iterator 끝 -->	
 								<tr><td colspan="9" bgcolor="#f2f2f2" height="1"></td></tr>
+								
+
+
+
+
+							
 								<tr bgcolor="#455b59" style="color:#FFFFFF;" align="center">
 									<td colspan="3" width="50%" height="100px" style="font-size:1.5em;">
 										[ 기본배송 ]
 									</td>
+									
 									<td colspan="6" width="50%" height="100px" align="right" style="padding:20px;font-size:1.5em;">
-										상품구매액 100,000 + 배송비 2,500 = 합계 : 102,500원
+									 상품구매액 <input name="total_sum" value="" style="width:100px;text-align:center;background-color:transparent;border:none;color:#FFFFFF;" readonly></font>  +  배송비 무료 = 합계 :  <input name="totalOrder_sum" value="" style="width:100px;text-align:center;background-color:transparent;border:none;color:#FFFFFF;" readonly>   원
 									</td>
 								</tr>
-<!-- 게시물 하나씩 iterator 끝 -->																
+						
+
+
+
+															
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 								<tr>
 									<td colspan="9" align="left" style="font-size:1.5em;">
 										선택상품을&nbsp;
 										<input type="submit" value="주문하기" style="width:150px;">&nbsp;
-										<input type="button" value="삭제하기" style="width:150px;" onclick="locaation:href='main.action'">
+										<input type="button" value="삭제하기" style="width:150px;" onClick="javascript:checked_delete();"/>
 									</td>
 								</tr>
 								<tr>	<td height="50"></td>	</tr>
@@ -93,3 +125,108 @@
 							</table>
 							</form>
 <script type="text/javascript" src="/semiP/assets/js/goodsCount.js"></script>
+<script language="javascript">
+
+
+
+function checked_delete()
+{
+	/*
+   var sum = 0;
+   var count = document.frm.chkbox.length;
+   var checkbox_list = "";
+   
+   for(var i=0; i < count; i++ ){
+       if( document.frm.chkbox[i].checked == true ){
+	    //sum += parseInt(frm.chkbox[i].value);
+    	   checkbox_list = checkbox_list + "||" + parseInt(document.frm.chkbox[i].value);
+    	   $("#basket_list_"+i).remove();
+       }
+      
+      
+   }
+   */
+	var basket_no_list = "";
+   $('input[name=chkbox]:checked').each(function() { 
+	   /*
+	   $("#basket_list_"+$(this).val()).remove();
+	   $("input[name=total_sum]").val($("input[name=total_sum]").val() - $("#basket_price_"+$(this).val()).val());
+	   $("input[name=totalOrder_sum]").val($("input[name=totalOrder_sum]").val() - $("#basket_price_"+$(this).val()).val());
+	   */
+	   basket_no_list = basket_no_list + "||" + $(this).val();
+	   
+   });
+      
+   $("#basket_no_set").val(basket_no_list);
+   
+	document.frm.action="basketDeleteAllAction.action";
+	document.frm.submit();
+   
+   
+   //document.frm.total_sum.value = 0;
+   //document.frm.totalOrder_sum.value = 0;   
+   
+      /*
+   $("#basket_no_set").val(checkbox_list);
+
+   alert($("#basket_no_set").val());
+   
+    var array_set = $("#basket_no_set").val();
+    
+	var array = array_set.split("||");
+   
+	for(var j=0;j<=array.length;j++)
+	{
+		//alert(j);
+		alert(array[j]);
+		//$("#basket_list_")
+		$("#basket_list_"+j).remove();
+	}
+	*/
+}
+
+function alldel()
+{
+
+}
+
+var basket_price = "";
+
+function itemSum(index)
+{
+	/*
+
+  */
+
+	
+  //for(i=0;i<$("input[name=basket_price]").length;i++)
+  //{
+	 //alert($("input[name=chkbox_"+index+"]").prop("checked"));
+  	if($("input[id=chkbox_"+index+"]").prop("checked") == true) basket_price = Number(basket_price) + Number($("input[name=basket_price_"+index+"]").val());
+  	else basket_price = Number(basket_price) - Number($("input[name=basket_price_"+index+"]").val());
+  //}  
+  document.frm.total_sum.value = basket_price;
+  document.frm.totalOrder_sum.value = basket_price;
+  
+}
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

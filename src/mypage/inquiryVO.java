@@ -2,7 +2,7 @@ package mypage;
 
 import java.util.Date;
 
-public class inquiryBean {
+public class inquiryVO {
 	private int inquiry_no;
 	private int MEMBER_NO;
 	private int inquiry_category;
@@ -13,7 +13,16 @@ public class inquiryBean {
 	private int inquiry_ref;
 	private int inquiry_re_step;
 	private int inquiry_level;
+	private String member_name;
   
+	public String getMember_name() {
+		return member_name;
+	}
+
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
+
 	public int getInquiry_no() {
 		return inquiry_no;
 	}

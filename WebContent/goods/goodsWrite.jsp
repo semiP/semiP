@@ -1,181 +1,168 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"
+	trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- ìµìŠ¤ì—ì„œ ë¬¸ì„œë³´ë“œ IE7 ë¡œ ê³ ì •í•˜ëŠ”ê²ƒ ë°©ì§€ -->
+<title>Q&A ë“±ë¡í•˜ê¸°</title>
+	<link rel="stylesheet" href="/semiP/assets/css/common.css" type="text/css">
+	<link rel="stylesheet" href="/semiP/assets/css/board.css" type="text/css">
+</head>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>½ºÆ®·µÃ÷ 2 °Ô½ÃÆÇ</title>
 
-
-<link rel="stylesheet" href="/struts2_board/board/common/css/css.css" type="text/css">
-
-<script type="text/javascript">
+<SCRIPT type="text/javascript">
 	function validation()
 	{
 		var frm = document.forms(0);
-
+				
 		if(frm.subject.value == "")
 		{
-			alert("ÀÔ·ÂÇØÁÖ¼¼¿ä");
+			alert("ì œëª©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 			return false;
 		}
-		else if(frm.name.value == "")
+				
+		else if(frm.goods_name.value == "")
 		{
-			alert("ÀÔ·ÂÇØÁÖ¼¼¿ä");
+			alert("ìƒí’ˆì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 			return false;
 		}
-		else if(frm.password.value == "")
+				
+		else if(frm.goods_size.value == "")
 		{
-			alert("ÀÔ·ÂÇØÁÖ¼¼¿ä");
+			alert("ì‚¬ì´ì¦ˆë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 			return false;
 		}
-		else if(frm.content.value == "")
+				
+		else if(frm.goods_color.value == "")
 		{
-			alert("ÀÔ·ÂÇØÁÖ¼¼¿ä");
+			alert("ì»¬ëŸ¬ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 			return false;
 		}
-
+				
 		return true;
 	}
-	
-	 $(document).ready(function(){
-		 $("#content").cleditor();
-	 });
-</script>
-</head>
-<body>
-	<table width="600" border="0" cellspacing="0" cellpadding="2">
-		<tr>
-			<td align="center"><h2>½ºÆ®·µÃ÷ °Ô½ÃÆÇ</h2></td>
-		</tr>
-	</table>
-	
-	<s:if test="reply">
-		<form action="replyAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
-			<s:hidden name="ref" value="%{resultClass.ref}" />
-			<s:hidden name="re_level" value="%{resultClass.re_level}" />
-			<s:hidden name="re_step" value="%{resultClass.re_step}" />
+</SCRIPT>
+
+	<s:if test="resultClass == NULL">
+		<form action="goodsWriteAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
 	</s:if>
 	
-	<s:elseif test="resultClass == NULL">
-		<form action="writeAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
-	</s:elseif>
-	
-	<s:else>
-		<form action="modifyAction.action" method="post" enctype="multipart/form-data">
-			<s:hidden name="no" value="%{resultClass.no}" />
-			<s:hidden name="currentPage" value="%{currentPage}" />
-			<s:hidden name="old_file" value="%{resultClass.file_savname}" />
-	</s:else>
-	<table width="600" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td align="right" colspan="2"><font color="#FF0000">*</font>´Â ÇÊ¼ö ÀÔ·Â»çÇ×ÀÔ´Ï´Ù.</td>
-        </tr>
-        
-        <tr bgcolor="#777777">
-          <td height="1" colspan="2"></td>
-        </tr>
-				
-        <tr>
-          <td width="100" bgcolor="#F4F4F4"><font color="#FF0000">*</font>  ÀÌ¸§</td>
-          <td width="500" bgcolor="#FFFFFF">
-            <s:textfield name="name" theme="simple" value="%{resultClass.name}" cssStyle="width:370px" maxlength="50"/>
-          </td>
-        </tr>
-        							
-        <tr bgcolor="#777777">
-          <td height="1" colspan="2"></td>
-        </tr>
-        
-        <tr>
-          <td bgcolor="#F4F4F4"><font color="#FF0000">*</font>  Ä«Å×°í¸® </td>
-          <td bgcolor="#FFFFFF">
-            <s:textfield name="category" theme="simple" value="%{resultClass.category}" cssStyle="width:100px" maxlength="20"/>
-          </td>
-        </tr>
-        <tr bgcolor="#777777">
-          <td height="1" colspan="2"></td>	
-        </tr>
- 
-        <tr>
-          <td bgcolor="#F4F4F4"><font color="#FF0000">*</font>  »çÀÌÁî</td>
-          <td bgcolor="#FFFFFF">
-            <s:textfield name="size" theme="simple" value="%{resultClass.size}" cssStyle="width:100px" maxlength="20"/>
-          </td>
-        </tr>
-        <tr bgcolor="#777777">
-          <td height="1" colspan="2"></td>	
-        </tr>
-        
-		<tr>
-          <td bgcolor="#F4F4F4"><font color="#FF0000">*</font>  ÄÃ·¯</td>
-          <td bgcolor="#FFFFFF">
-            <s:textfield name="color" theme="simple" value="%{resultClass.color}" cols="50" rows="10" />
-          </td>
-        </tr>
-        <tr bgcolor="#777777">
-          <td height="1" colspan="2"></td>
-        </tr>
-        
-        <tr>
-          <td bgcolor="#F4F4F4"><font color="#FF0000">*</font>  »óÇ°¼ö·®</td>
-          <td bgcolor="#FFFFFF">
-            <s:textfield name="amount" theme="simple" value="%{resultClass.color}" cols="50" rows="10" />
-          </td>
-        </tr>
-        <tr bgcolor="#777777">
-          <td height="1" colspan="2"></td>
-        </tr>
-        
-        <tr>
-          <td bgcolor="#F4F4F4"><font color="#FF0000">*</font>  »óÇ°°¡°İ</td>
-          <td bgcolor="#FFFFFF">
-            <s:textfield name="price" theme="simple" value="%{resultClass.price}" cols="50" rows="10" />
-          </td>
-        </tr>
-        <tr bgcolor="#777777">
-          <td height="1" colspan="2"></td>
-        </tr>
-        
-        <tr>
-          <td bgcolor="#F4F4F4"><font color="#FF0000">*</font>  »ó¼¼¼³¸í</td>
-          <td bgcolor="#FFFFFF">
-            <s:textarea name="content" theme="simple" value="%{resultClass.content}" cols="50" rows="10" />
-          </td>
-        </tr>
-        <tr bgcolor="#777777">
-          <td height="1" colspan="2"></td>
-        </tr>
-        
-        <tr>
-          <td bgcolor="#F4F4F4">  Ã·ºÎÆÄÀÏ </td>
-          <td bgcolor="#FFFFFF">
-            <s:file name="upload" theme="simple"/>
-            
-            <s:if test="resultClass.goods_image_file!= NULL">
-				&nbsp; * <s:property value="resultClass.goods_image_file" /> ÆÄÀÏÀÌ µî·ÏµÇ¾î ÀÖ½À´Ï´Ù. ´Ù½Ã ¾÷·ÎµåÇÏ¸é ±âÁ¸ÀÇ ÆÄÀÏÀº »èÁ¦µË´Ï´Ù.
-			</s:if>		
-          </td>
-        </tr>
-        <tr bgcolor="#777777">
-          <td height="1" colspan="2"></td>	
-        </tr>
-        
-        <tr>
-          <td height="10" colspan="2"></td>
-        </tr>
-        
-        
-        <tr>
-          <td align="right" colspan="2">
-          	<input name="submit" type="submit" value="ÀÛ¼º¿Ï·á" class="inputb">
-            <input name="list" type="button" value="¸ñ·Ï" class="inputb" onClick="javascript:location.href='listAction.action?currentPage=<s:property value="currentPage" />'">
-          </td>
-        </tr>
+	<s:if test="resultClass == 1">
+		<form action="goodsWriteAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
+	</s:if>
 
-    </table>
-</form>
-</body>
-</html>
+	<s:else>
+		<form action="goodsModifyAction.action" method="post" enctype="multipart/form-data">
+		<s:hidden name="goods_no" value="%{resultClass.goods_no}" />
+		<s:hidden name="currentPage" value="%{currentPage}" />
+		<s:hidden name="old_file" value="%{resultClass.goods_image}" />
+	</s:else>
+
+<div id="content-container">
+	<table width="100%" border="0" style="margin:auto; max-width:1000px;">
+		<tr>			
+			<td height="10">				
+				
+			</td>			
+		</tr>
+
+		<tr>
+			<td align="left">
+				<h2>ìƒí’ˆ ë“±ë¡ í¼ (admin)</h2>
+			</td>
+		</tr>
+	
+	</table>
+
+		<tr>
+			<td colspan="3" height="1" bgcolor="#777777"></td>
+		</tr>
+		
+		<table width="80%" border="0" align="center">
+			<tr>
+				<td align="left" colspan="2">
+					<h2>> ì…ë ¥í•˜ê¸°</h2>
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="3" height="1" bgcolor="#777777"></td>
+			</tr>
+			<tr>
+				<td width="100"><br>&nbsp;&nbsp;ìƒí’ˆì´ë¦„<br><br></td>
+				<td><s:textfield name="goods_name" theme="simple" value="%{resultClass.goods_name}" cssStyle="width:100px" maxlength="20"/></td>
+			</tr>
+			<tr>
+				<td width="100"><br>&nbsp;&nbsp;ì¹´í…Œê³ ë¦¬<br><br></td>
+				<td>
+<!-- 				<input type="text" id="goods_category" style="width:100px; height:30px;"> -->
+					<s:textfield name="goods_category" theme="simple" value="%{resultClass.goods_category}" cssStyle="width:100px" maxlength="20"/>
+					<select name="select" onchange="document.getElementById('goods_category').value=this.value;if(this.value==''){document.getElementById('goods_category').focus();}">
+						<option value="" selected="selected">ì§ì ‘ì…ë ¥</option>										
+						<option value="1">1.outer</option>
+						<option value="2">2.top</option>
+						<option value="3">3.pants</option>
+						<option value="4">4.skirt</option>
+						<option value="5">5.dress</option>
+						<option value="6">6.shoes</option>
+						<option value="7">7.bag</option>
+					</select>					
+				</td>
+			</tr>
+			
+			<tr>
+				<td width="150"><br>&nbsp;&nbsp;ì‚¬ì´ì¦ˆ (,)ë¡œ êµ¬ë¶„<br><br></td>
+				<td><s:textfield name="goods_size" theme="simple" value="%{resultClass.goods_size}" cssStyle="width:100px" maxlength="20"/></td>
+			</tr>
+			
+			<tr>
+				<td width="150"><br>&nbsp;&nbsp;ì»¬ëŸ¬ (,)ë¡œ êµ¬ë¶„<br><br></td>
+				<td><s:textfield name="goods_color" theme="simple" value="%{resultClass.goods_color}" cssStyle="width:100px" maxlength="20"/></td>
+			</tr>
+			
+			<tr>
+				<td width="150" height="40">&nbsp;ìˆ˜ëŸ‰(ì¬ê³ ì…ë ¥)</td>
+				<td>
+					<input type="button" id="m_btn" value="-" style="background-color:#cccccc;">
+<!-- 				<input type="text" id="count" value="0" style="text-align:center; width:50px;" readonly="readonly"> -->	
+					<s:textfield name="goods_amount" theme="simple" value="%{resultClass.goods_amount}" cssStyle="width:100px" maxlength="20"/>
+					<input type="button" id="p_btn" value="+" style="background-color:#cccccc;">
+				</td>
+			</tr>
+			
+			<tr>
+				<td width="100"><br>&nbsp;&nbsp;ê°€ê²©<br><br></td>
+				<td><s:textfield name="goods_price" theme="simple" value="%{resultClass.goods_price}" cssStyle="width:100px" maxlength="20"/></td>
+			</tr>
+			
+			<tr>
+				<td width="200"><br>&nbsp;&nbsp;ë‚´ìš©<br><br></td>
+				<td><s:textarea name="goods_content" theme="simple" value="%{resultClass.goods_content}" cols="50" rows="10"/></td>
+			</tr>
+			
+			<tr>
+				<td bgcolor="#F4F4F4">&nbsp;&nbsp;ì´ë¯¸ì§€ë“±ë¡</td>
+				<td bgcolor="#FFFFFF">
+				<s:file name="upload" theme="simple" />
+				
+				<s:if test="resultClass.goods_image != NULL">
+					&nbsp; * <s:property value="resultClass.goods_image" /> íŒŒì¼ì´ ë“±ë¡ë˜ì–´ ìˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì—…ë¡œë“œí•˜ë©´ ê¸°ì¡´ì˜ íŒŒì¼ì€ ì‚­ì œë©ë‹ˆë‹¤.
+				</s:if>
+				</td>
+			</tr>
+			
+		<tr>
+			<td colspan="3" height="1" bgcolor="#777777"></td>
+		</tr>
+		<tr>
+			<td colspan="3" align="center">
+				<input type="submit" class="btn-custom" value="ë“±ë¡í•˜ê¸°">&nbsp;&nbsp;
+				<input type="button" class="btn-custom" value="ë¦¬ì…‹">&nbsp;&nbsp;
+<!-- 				<form action="goodsListAction.action" method="post"> -->
+				<input type="button" class="btn-custom" value="ëª©ë¡" onClick="javascript:location.href='goodsListAction.action'">
+			</td>
+		</tr>
+		<tr>
+			<td height="30px"/>
+		</tr>
+		</table>
+		
+	</table>

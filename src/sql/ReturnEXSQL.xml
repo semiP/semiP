@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
-<sqlMap namespace="mypage">
-	<typeAlias alias="goods" type="mypage.goodsBean"/>
+<sqlMap namespace="mypage3">
+	<typeAlias alias="goods" type="goods.goodsVO"/>
 	<typeAlias alias="goodsOrder" type="mypage.goodsOrderBean"/>
 	
 	<!-- result map 정의 -->
@@ -42,16 +42,16 @@
 		<result property="order_pay_type" column="order_pay_type"/>
 		<result property="order_pay_name" column="order_pay_name"/>
 		<result property="order_total_pay" column="order_total_pay"/>
-		<result property="invoice" column="invoice"/>
+		<result property="invoice_no" column="invoice_no"/>
 	</resultMap>
 	
 	<!-- select-all -->
 		<sql id="select-all-goods_returnEX">
-			SELECT * FROM GOODS
+			SELECT * FROM goods
 		</sql>
 		
 		<sql id="select-all-goodsOrder_returnEX">
-			SELECT * FROM GOODSORDER
+			SELECT * FROM goodsOrder
 		</sql>
 		
 		<select id="selectAllGoodsReturnEX" resultMap="goodsRes" parameterClass="int">
@@ -78,7 +78,8 @@
    		 > 교환의 경우 : 주문번호(ORDER_NO)를 달리하여 새로운 제품 주문으로 Admin에 전달
  	-->
  		<update id="updateORDER_STATUS" parameterClass="goodsOrder">
-			update order_status = 5 from goodsOrder
+			UPDATE goodsOrder SET order_status = 5
+			WHERE goods_no = #goods_no#
 		</update>
 		
 	<!-- 
@@ -90,8 +91,8 @@
           goods_price를
           select를 이용하여 출력 -->
           
-		<select id="order_status" resultMap="goodsOrderRes">
-			<include refid="select-all-goodsOrder"/>
+<!-- 	<select id="order_status" resultMap="goodsOrderRes">
+			<include refid="select-all-goodsOrder_returnEX"/>
 			select order_status from GOODSORDER
 		</select>
 		
@@ -141,13 +142,12 @@
 		</select>
 	
 		<select id="goods_price" resultMap="goodsRes">
-			<include refid="select-all-goods"/>
 			select goods_price from GOODS
-		</select>
+		</select> -->
 		
 		<!-- 기간조회 -->
 		<select id="order_date" resultMap="goodsOrderRes">
-			<include refid="select-all-goods"/>
-			select order_date from GOODSORDER BETWEEN #searchKeyword1# and #searchKeyword2#
+			<include refid="select-all-goodsOrder_returnEX"/>
+			BETWEEN #searchKeyword1# AND #searchKeyword2#
 		</select>	
 </sqlMap>
