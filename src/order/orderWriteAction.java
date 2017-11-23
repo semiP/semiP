@@ -87,6 +87,9 @@ public class orderWriteAction extends ActionSupport{
 		/*paramClass.setOrder_goods_amount(getOrder_goods_amount());
 		paramClass.setOrder_goods_color(getOrder_goods_color());  
 		paramClass.setOrder_goods_size(getOrder_goods_size());*/
+		paramClass.setOrder_goods_size("a");
+		paramClass.setOrder_goods_color("a");
+		paramClass.setOrder_goods_amount(1);
 		
 		paramClass.setOrder_receive_name(getOrder_receive_name());
 		paramClass.setOrder_receive_zipcode(getOrder_receive_zipcode());
@@ -96,7 +99,8 @@ public class orderWriteAction extends ActionSupport{
 		paramClass.setOrder_memo(getOrder_memo());
 		paramClass.setOrder_total_price(getOrder_total_price());
 		paramClass.setOrder_date(today.getTime());
-		paramClass.setOrder_trade_date(today.getTime());
+		/*paramClass.setOrder_trade_date(today.getTime());*/
+		
 		paramClass.setOrder_status(getOrder_status());
 		paramClass.setOrder_list_amount(getOrder_list_amount());
 		paramClass.setOrder_pay_type(getOrder_pay_type());
@@ -104,18 +108,12 @@ public class orderWriteAction extends ActionSupport{
 		paramClass.setOrder_total_pay(getOrder_total_pay());
 		paramClass.setInvoice_no(getInvoice_no());
 		
-		paramClass.setOrder_goods_size("a");
-		paramClass.setOrder_goods_color("a");
-		paramClass.setOrder_goods_amount(1);
-		
 		/*order_receive_phone = getPhone1().concat(getPhone2());
 		order_receive_phone = order_receive_phone.concat(getPhone3());*/
 		
-		order_receive_phone = getPhone1() + getPhone2() + getPhone3();
+		/*order_receive_phone = getPhone1() + getPhone2() + getPhone3();*/
 		/*order_goods_size = */
 
-		
-		
 		if(getUpload() != null)
 		{
 			resultClass = (orderVO) sqlMapper.queryForObject("order.selectLastNo");
