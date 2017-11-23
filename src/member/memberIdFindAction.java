@@ -40,7 +40,7 @@ public class memberIdFindAction extends ActionSupport {
 		resultClass = new memberbean();
 		
 	
-		resultClass = (memberbean) sqlMapper.queryForObject("select-login-id", paramClass); //쿼리문 수정
+		resultClass = (memberbean) sqlMapper.queryForObject("mypage.select-login-id", paramClass); //쿼리문 수정
 		
 		if(resultClass == null) {
 			return ERROR;

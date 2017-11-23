@@ -56,26 +56,10 @@
  			<result type="tiles">goodsDetail</result>
  		</action>
 
-<!-- 
- 		
- 		<action name="checkForm" class="board.ViewAction" method="checkForm">
- 			<result>/board/checkPassword.jsp</result>
- 		</action>
- 		<action name="checkAction" class="board.ViewAction" method="checkAction">
- 			<result name="error">/board/checkError.jsp</result>
- 			<result>/board/checkSuccess.jsp</result>
- 		</action>
- 		
- 		
- 		<action name="checkForm2" class="board.ViewAction" method="checkForm">
- 			<result>/board/checkPassword2.jsp</result>
- 		</action>
- 		<action name="checkAction2" class="board.ViewAction" method="checkAction2">
- 			<result name="error">/board/checkError.jsp</result>
- 			<result>/board/checkSuccess.jsp</result>
- 		</action>
--->
-
+ 		<!-- 상품 질 글쓰기 액션 -->
+		<action name="goodQaWriteForm" class="goods.goodsCmtWriteAction" method="qaform">
+	 		<result>/goods/qnaWrite.jsp</result>
+		</action>
  		<!-- 상품평 게시판 글쓰기 액션 -->
 		<action name="goodsCmtWriteForm" class="goods.goodsCmtWriteAction" method="form">
 	 		<result>/goods/goodsCmtWrite.jsp</result>
