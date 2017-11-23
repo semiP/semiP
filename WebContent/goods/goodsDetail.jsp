@@ -4,8 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<s:property value="resultClass.goods_name" />
-
 <link rel="stylesheet" href="/semiP/assets/css/board.css" type="text/css">
 <script type="text/javascript">
 	<!--
@@ -41,7 +39,7 @@
 						<td width="50%" style="vertical-align:top;">
 							<table width="100%">
 								<tr>
-									<td><img src="http://cooz.co/semiP/IMG/<s:property value="resultGoods.goods_category" />/<s:property value="goods_no" />/1.jpg" style="width:100%;"></td>
+									<td><img src="http://cooz.co/semiP/IMG/<s:property value="resultGoods.goods_category" />/<s:property value="goods_no" />/1.jpg" style="width:100%;"/></td>
 								</tr>
 								<tr>
 									<td align="center">
@@ -56,6 +54,11 @@
 						</td>
 						<td width="15"></td> <!-- 사진과 옵션 사이 여백는 부분 -->
 						<td style="vertical-align:top;">
+							<form name="orderInfo" action="testcount.action" method="post">
+							<input type="hidden" name="order_goods_no" value="${goods_no }"/>
+							<input type="hidden" name="goods_name" value="<s:property value='resultGoods.goods_name' />"/>
+							<input type="hidden" name="goods_category" value="<s:property value='resultGoods.goods_category' />"/>
+							<input type="hidden" name="goods_Price" value="<s:property value='resultGoods.goods_price' />"/>
 							<table width="100%" border="0">
 								<tr>
 									<td colspan="2" style="font-size:1.5em;">상품이름 : <s:property value="resultGoods.goods_name" /><br><br></td>
@@ -68,7 +71,7 @@
 									<td width="100" height="40">&nbsp;수량</td>
 									<td>
 										<input type="button" id="m_btn" value="-" style="background-color:#cccccc;">
-										<input type="text" id="count" value="0" style="text-align:center; width:50px;" readonly="readonly">
+										<input type="text" name="goods_amount" id="count" value="0" style="text-align:center; width:50px;" readonly="readonly">
 										<input type="button" id="p_btn" value="+" style="background-color:#cccccc;">
 									</td>
 								</tr>
@@ -77,7 +80,7 @@
 									<td width="100" height="40">&nbsp;색상</td>
 									
 									<td>
-										<select>
+										<select name="goods_color">
 											<option value="" selected="selected">선택해 주세요</option>										
 											<c:forTokens var="color" items="${resultGoods.goods_color}" delims=",">
 												<option value=${fn:trim(color)}>
@@ -91,7 +94,7 @@
 									<td width="100" height="40">&nbsp;사이즈</td>
 					
 									<td>
-										<select>
+										<select name="goods_size">
 											<option value="" selected="selected">선택해 주세요</option>										
 											<c:forTokens var="size" items="${resultGoods.goods_size}" delims=",">
 												<option value=${fn:trim(size)}>
@@ -100,14 +103,6 @@
 											</c:forTokens>
 										</select>
 									</td>
-								</tr>
-								<tr>
-									<td width="100" height="40">&nbsp;할인혜택</td>
-									<td></td>
-								</tr>
-								<tr>
-									<td width="100" height="40">&nbsp;할인가</td>
-									<td></td>
 								</tr>
 								<tr>
 									<td width="100" height="40">&nbsp;배송비</td>
@@ -121,13 +116,23 @@
 								</tr>
 								<tr>
 									<td align="center" style="padding:5px;" >
-										<input type="button" class="btn-custom" value="장바구니 담기" style="width:150px;" onClick="javascript:location.href='basketListAction.action?currentPage=<s:property value="currentPage" />'">
+										<input type="button" class="btn-custom" value="장바구니 담기" style="width:150px;" 
+											onClick="javascript:
+														var selectedSize = document.getElementsByName('goods_size')[0].value;
+														var selectedColor = document.getElementsByName('goods_color')[0].value;
+														var selectedAmount = document.getElementById('count').value;
+														
+														console.log(selectedSize);
+														console.log(selectedColor);
+														console.log(selectedAmount);
+														location.href='basketAddAction.action?goods_size='+selectedSize+'&goods_color='+selectedColor+'&goods_price=<s:property value='resultGoods.goods_price' />&bgoods_amount='+selectedAmount+'&goods_name=<s:property value='resultGoods.goods_name' />&goods_no=${goods_no }&category=<s:property value='resultGoods.goods_category' />' ">
 									</td>
 									<td align="left" style="padding:5px;">
-										<input type="button" class="btn-custom1" value="구매하기" style="width:150px;" onClick="javascript:location.href='orderWriteAction.action?currentPage=<s:property value="currentPage" />'">
+										<input type="submit" class="btn-custom1" value="구매하기" style="width:150px;"/>
 									</td>
 								</tr>
 							</table>
+							</form>
 						</td>
 					</tr>
 				</table>
@@ -186,21 +191,15 @@
 								
 								<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->
-								<tr>
-									<td class="board-titlebar" width="8%">15</td>
-									<!-- 글제목을 누르면 팝업으로 표시할까나 싶네요... ajax 를 안배워서 페이지 리로딩을 할 수밖에 없을듯 하네요 -->
-									<td class="board-titlebar" width="67%">이거 배송 하루만에 되나요</td>
-									<td class="board-titlebar" width="12%">돈쓴사람</td>
-									<td class="board-titlebar" width="15%">2017/11/09</td>
-								</tr>
-								<tr><td colspan="4" bgcolor="#f2f2f2" height="1"></td></tr>
-								<tr>
-									<td class="board-titlebar" width="8%">15</td>
-									<!-- 글제목을 누르면 팝업으로 표시할까나 싶네요... ajax 를 안배워서 페이지 리로딩을 할 수밖에 없을듯 하네요 -->
-									<td class="board-titlebar" width="67%"><img src="/semiP/assets/images/board-icon/reply.gif">그럴 수도 있겠네요</td>
-									<td class="board-titlebar" width="12%">관리자</td>
-									<td class="board-titlebar" width="15%">2017/11/10</td>
-								</tr>
+								<s:iterator value="listCmt" status="stat">
+									<tr>
+										<td class="board-titlebar" width="8%"><s:property value="goods_cmt_no"/></td>
+										<td class="board-titlebar" width="67%"><s:property value="goods_cmt_subject"/></td>
+										<td class="board-titlebar" width="12%"><s:property value="comment_author"/></td>
+										<td class="board-titlebar" width="15%"><s:property value="goods_cmt_date"/></td>
+									</tr>
+									<tr><td colspan="4" bgcolor="#f2f2f2" height="1"></td></tr>
+								</s:iterator>
 <!-- 게시물 하나씩 iterator 끝 -->																
 								<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 								<tr>
@@ -227,7 +226,7 @@
 							<p align="center">
 								<h2>Q&A</h2>
 								상품에 대한 문의사항을 남겨주시면, 빠른 답변으로 궁금한 사항을 해결해 드리겠습니다<br>
-								<input type="button" value="질문작성하기">
+								<input type="button" value="질문작성하기" onClick="window.open('goodQaWriteForm.action?goods_no=${goods_no}', '', 'width=600, height=430'); return false;">
 							</p>
 							<table width="100%">
 								<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
@@ -239,48 +238,20 @@
 									<td class="board-titlebar" width="15%">작성일</td>
 								</tr>
 								<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
-<!-- 게시물 하나씩 iterator 시작 -->
 
-						<s:iterator value="list" status="stat">
-						<s:url id = "viewURL" action="goodsQnaViewAction">
-							<s:param name="no">
-								<s:property value="goods_no" />
-							</s:param>
-							<s:param name="currentPage">
-								<s:property value="currentPage" />
-							</s:param>
-						</s:url>
-						
-								<tr>
-									<td class="board-titlebar" width="8%">15</td>
-									<!-- 글제목을 누르면 팝업으로 표시할까나 싶네요... ajax 를 안배워서 페이지 리로딩을 할 수밖에 없을듯 하네요 -->
-									
-									<s:if test="re_level != 0">
-										<c:forEach var="i" begin = "${re_level }" end = "0"></c:forEach>
-											<td class="board-titlebar" width="67%"><img src="/semiP/assets/images/board-icon/reply.gif">그럴 수도 있겠네요<s:property value="goods_subject" /></td>
-											<td class="board-titlebar" width="12%">관리자<s:property value="goods_name" /></td>
-											<td class="board-titlebar" width="15%">2017/11/09<s:property value="goods_date" /></td>
-										
-									</s:if>
-								</tr>
-								<tr><td colspan="4" bgcolor="#f2f2f2" height="1"></td></tr>
-								<tr>
-									<td class="board-titlebar" width="8%">15</td>
-									<!-- 글제목을 누르면 팝업으로 표시할까나 싶네요... ajax 를 안배워서 페이지 리로딩을 할 수밖에 없을듯 하네요 -->
-									<td class="board-titlebar" width="67%"><img src="/semiP/assets/images/board-icon/reply.gif">그럴 수도 있겠네요</td>
-									<td class="board-titlebar" width="12%">관리자</td>
-									<td class="board-titlebar" width="15%">2017/11/10</td>
-								</tr>
-						</s:iterator>
-<!-- 게시물 하나씩 iterator 끝 -->																
-								<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
-								<s:if test="list.size() <= 0">
-								<tr>
-									<td colspan="4" align="center">
-										게시물이 아직 작성되지 않았습니다.
-									</td>
-								</tr>
-								</s:if>
+<!-- 게시물 하나씩 iterator 시작 -->
+								<s:iterator value="listCmt" status="stat">
+									<tr>
+										<td class="board-titlebar" width="8%"><s:property value="goods_cmt_no"/></td>
+										<td class="board-titlebar" width="67%"><s:property value="goods_cmt_subject"/></td>
+										<td class="board-titlebar" width="12%"><s:property value="comment_author"/></td>
+										<td class="board-titlebar" width="15%"><s:property value="goods_cmt_date"/></td>
+									</tr>
+									<tr><td colspan="4" bgcolor="#f2f2f2" height="1"></td></tr>
+								</s:iterator>
+<!-- 게시물 하나씩 iterator 끝 -->			
+
+
 							</table>
 						</td>
 					</tr>

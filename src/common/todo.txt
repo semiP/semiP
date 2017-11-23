@@ -1,3 +1,42 @@
+http://localhost:8080/semiP/testcount.action?
+
+goods_size=undefined
+&goods_color=undefined
+&goods_price=28900
+&bgoods_amount=2
+&goods_name=V%EA%BD%88%EB%B0%B0%EA%B8%B0%ED%8A%B8%EC%9E%84
+&goods_no=7
+&category=2
+
+
+private int basket_no;		// 이건 장바구니 추가하면서 넣고
+private int member_no;		// 이건 세션에서 가져오시고
+private String goods_size;	// 1
+private String goods_color;	// 2
+private int basket_price;	// 3
+private int bgoods_amount;	// 4
+private Date basket_date;	// 이거도 장바구니 추가하면서 넣고
+private String goods_name;	// 5
+private String goods_image;	//category 랑 goods_no 이용해서 받으세요
+private int goods_no;		// 6
+private int category;		// 7
+
+${order_goods_no }<br>
+${goods_name }<br>
+${goods_size }<br>
+${goods_color }<br>
+${goods_Price }<br>
+${goods_amount }<br>
+${goods_category }<br>
+
+
+
+
+
+
+
+
+
 main, search 내가 해야 해서 작업 시작하던 중.
 
 main 작업할 내용
