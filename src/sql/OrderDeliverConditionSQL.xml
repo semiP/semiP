@@ -42,7 +42,6 @@
 		<result property="order_trade_date" column="order_trade_date"/>
 		<result property="order_status" column="order_status"/>
 		<result property="order_list_amount" column="order_list_amount"/>
-		<result property="order_goods_image" column="order_goods_image"/>
 		<result property="order_pay_type" column="order_pay_type"/>
 		<result property="order_pay_name" column="order_pay_name"/>
 		<result property="order_total_pay" column="order_total_pay"/>
