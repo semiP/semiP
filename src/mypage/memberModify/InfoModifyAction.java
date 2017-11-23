@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
+import com.opensymphony.xwork2.ActionContext;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -22,9 +23,6 @@ public class InfoModifyAction extends ActionSupport implements SessionAware{
 	//정보수정
 	private memberbean paramClass2;
 	private memberbean resultClass2;
-	//비밀번호 확인
-	private memberbean paramClass3;
-	private memberbean resultClass3;
 	
 	private int member_no;
 	private String member_name;
@@ -64,6 +62,7 @@ public class InfoModifyAction extends ActionSupport implements SessionAware{
 	}
 	
 	//회원정보 확인 후 맞을시 수정폼 이동 아닐시 에러페이지
+	//이거 현재 안쓰는 액션이네요...
 	public String form() throws Exception{
 		paramClass = new memberbean();
 		resultClass = new memberbean();
@@ -80,25 +79,40 @@ public class InfoModifyAction extends ActionSupport implements SessionAware{
 		if(resultClass != null) {
 			return SUCCESS;
 		}else {
+			checkPW = -1;
 			return ERROR;
 		}
 	}
+	
+	
 	// 정보수정
 	public String execute() throws Exception{
+		
+		ActionContext context = ActionContext.getContext();
+		session = context.getSession();
+
+		// 시작 [비번 틀릴때 처리 form() 에 있던 내용 옮겨오기 - 동민]
+		paramClass = new memberbean();
+		resultClass = new memberbean();
+		
+		paramClass.setMember_no((int)session.get("session_member_no"));
+		paramClass.setMember_pw(getMember_pw());
+		
+		resultClass = (memberbean)sqlMapper.queryForObject("mypageMemberModify.modifyPass", paramClass);
+		
+		if(resultClass == null) {
+			checkPW = -1;
+			return ERROR;
+		}
+		// 끝 [비번 틀릴때 처리 form() 에 있던 내용 옮겨오기 - 동민]
+		
+		
 		
 		paramClass2 = new memberbean();
 		resultClass2 = new memberbean();
 		
-		if(session.get("session_member_id")==null) {
-			return LOGIN;
-		}
-		
-		String session_id = (String)session.get("session_member_id");
-		int session_no = (int)session.get("session_member_no");
-		String session_name = (String)session.get("session_member_name");
-				
 		member_no = (int)session.get("session_member_no");
-		resultClass = (memberbean)sqlMapper.queryForObject("mypageMemberModify.selectOneMember",member_no);	
+		resultClass = (memberbean)sqlMapper.queryForObject("mypageMemberModify.selectOneMember",getMember_no());	
 		
 		/*member_email=getEmail1().concat("@");
 		member_email=member_email.concat (getEmail2 ());*/
@@ -116,15 +130,16 @@ public class InfoModifyAction extends ActionSupport implements SessionAware{
 		paramClass2.setMember_address1(getMember_address1());
 		paramClass2.setMember_address2(getMember_address2());
 		paramClass2.setMember_phone(getMember_phone());
-		paramClass2.setMember_no(session_no);
+		paramClass2.setMember_no(getMember_no());
 		
 		// 일단 항목만 수정한다.
 		System.out.println(getMember_zipcode());
 		sqlMapper.update("mypageMemberModify.updateMember",paramClass2);
 		
 		//수정이 끝나면 view페이지로 이동
-		resultClass2 = (memberbean) sqlMapper.queryForObject("mypageMemberModify.selectOneMember", session_no);
+		resultClass2 = (memberbean) sqlMapper.queryForObject("mypageMemberModify.selectOneMember", getMember_no());
 		
+		checkPW = 1;
 		return SUCCESS;
 	}
 
@@ -318,6 +333,14 @@ public class InfoModifyAction extends ActionSupport implements SessionAware{
 
 	public void setResultClass2(memberbean resultClass2) {
 		this.resultClass2 = resultClass2;
+	}
+
+	public int getCheckPW() {
+		return checkPW;
+	}
+
+	public void setCheckPW(int checkPW) {
+		this.checkPW = checkPW;
 	}
 	
 }

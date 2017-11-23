@@ -2,12 +2,11 @@ package mypage.OrderDeliverCondition;
 
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
+import com.opensymphony.xwork2.ActionContext;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -15,15 +14,16 @@ import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 
 import goods.goodsVO;
-import mypage.goodsOrderBean;
 import order.orderVO;
 
 public class mypageOrderlistAction extends ActionSupport implements SessionAware{
+
+	private static final long serialVersionUID = 1L;
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
 	private Map session;
-	Map param = new HashMap();
+	private List<orderVO> orderList = new ArrayList<orderVO>();
 	
 	private orderVO paramClass1;
 	private orderVO resultClass1;
@@ -49,39 +49,14 @@ public class mypageOrderlistAction extends ActionSupport implements SessionAware
 	private int order_goods_no;
 	private int order_member_no;
 	private int order_status;
-	/*private int order_goods_amount;
-	private String order_goods_size;
-	private String order_goods_color;
-	private String order_receive_name;
-	private String order_receive_zipcode;
-	private String order_receive_addr1;
-	private String order_receive_addr2;
-	private String order_receive_phone;
-	private String order_memo;
-	private int order_total_price;
-	private Date order_date;
-	private Date order_trade_date;
-	private int order_list_amount;
-	private String order_goods_image;
-	private int order_pay_type;
-	private String order_pay_name;
-	private int order_total_pay;
-	private String invoice_no;*/
 	
 	// Goods
 	private int goods_no;
-	/*private String goods_name;
-	private int goods_category;
-	private String goods_size;
-	private String goods_color;
-	private String goods_content;
-	private int goods_amount;
-	private int goods_price;
-	private String goods_image;
-	private Date goods_regdate;*/
 	
 	//member
 	private int member_no;
+	
+	
 	
 	private String searchKeyword1;
 	private String searchKeyword2;
@@ -93,35 +68,18 @@ public class mypageOrderlistAction extends ActionSupport implements SessionAware
 	}
 	
 	// 주문배송현환 목록 불러옴
-	public String classify() throws Exception{
-		paramClass1 = new orderVO();
-		resultClass1 = new orderVO();
-		
-		paramClass1.setOrder_no(getOrder_no());
-		/*paramClass1.setOrder_status(getOrder_status());*/
-		
-		resultClass1=(orderVO)sqlMapper.queryForObject("mypageOrderDeliverCondition.selectOneGoodsOrder_OrderDeliverCondition", getOrder_no());
-				
-		return SUCCESS;
-	}
-	
 	//리스트 출력
 	public String execute() throws Exception{
-	//모든 글을 가져와 list에 넣는다.	
-		paramClass2 = new orderVO();
-		resultClass2 = new orderVO();
 		
-		paramClass3 = new goodsVO();
-		paramClass3 = new goodsVO();
+		ActionContext context = ActionContext.getContext();
+		session = context.getSession();
 		
-		paramClass2.setOrder_member_no((int)session.get("session_member_no"));
-		paramClass2.setOrder_no(getOrder_no());
-		
-		resultClass2=(orderVO) sqlMapper.queryForObject("mypageOrderDeliverCondition.selectOneGoodsOrder_OrderDeliverCondition",paramClass2);
-		
-		paramClass3.setGoods_no(getOrder_goods_no());
-		
-		resultClass3=(goodsVO)sqlMapper.queryForObject("mypageOrderDeliverCondition.selectOneGoods_OrderDeliverCondition",paramClass3);
+		if(session.get("session_member_id") == null){
+			return LOGIN;
+		}
+				
+		orderList=sqlMapper.queryForList("mypageOrderDeliverCondition.selectAll-notRefund", (int) session.get("session_member_no"));
+		System.out.println(orderList.size());
 		
 		return SUCCESS;
 	}
@@ -162,14 +120,6 @@ public class mypageOrderlistAction extends ActionSupport implements SessionAware
 
 	public void setSession(Map session) {
 		this.session = session;
-	}
-
-	public Map getParam() {
-		return param;
-	}
-
-	public void setParam(Map param) {
-		this.param = param;
 	}
 
 	public orderVO getParamClass1() {
@@ -322,6 +272,22 @@ public class mypageOrderlistAction extends ActionSupport implements SessionAware
 
 	public void setSearchKeyword2(String searchKeyword2) {
 		this.searchKeyword2 = searchKeyword2;
+	}
+
+	public List<orderVO> getOrderList() {
+		return orderList;
+	}
+
+	public void setOrderList(List<orderVO> orderList) {
+		this.orderList = orderList;
+	}
+
+	public int getMember_no() {
+		return member_no;
+	}
+
+	public void setMember_no(int member_no) {
+		this.member_no = member_no;
 	}
 
 	

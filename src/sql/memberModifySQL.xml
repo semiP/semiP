@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="mypageMemberModify">
+
 	<typeAlias alias="member" type="member.memberbean"/>
 	
 	<!-- result map 정의 -->
@@ -54,12 +55,13 @@
 		</update>
 	
 	<!-- 회원정보 비밀번호 수정 쿼리문 -->
-		<update id="updatePW" parameterClass="member">
+		<update id="updatePW" parameterClass="member.memberbean">
 			UPDATE member SET member_pw=#member_pw# WHERE member_no=#member_no#
 		</update>
 	
 	 <!-- 회원정보 선택 -->
-  		 <select id="modifyPass" resultMap="memberRes">
+	 <!-- parameterClass 설정이 안돼있었네요 -->
+  		 <select id="modifyPass" resultMap="memberRes" parameterClass="member.memberbean">
       		<include refid="select-all-member"/>
       		 WHERE member_no = #member_no# 
       		 AND member_pw = #member_pw#

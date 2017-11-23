@@ -102,6 +102,9 @@
 	<definition name="inqWrite" extends="default">
 		<put-attribute name="body" value="/myPage/inqWrite.jsp" />
 	</definition>
+	<definition name="terminateForm" extends="default">
+		<put-attribute name="body" value="/myPage/terminateForm.jsp" />
+	</definition>
 
 
 

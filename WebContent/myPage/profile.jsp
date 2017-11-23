@@ -2,9 +2,17 @@
 	trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<head>
-	
-				<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<s:if test="checkPW == -1">
+	<script>alert("비밀번호가 맞지 않습니다");</script>
+</s:if>
+<s:if test="checkPW == 3">
+	<script>alert("기존 비밀번호가 맞지 않습니다");</script>
+</s:if>
+<s:if test="checkPW == 1">
+	<script>alert("성공적으로 변경되었습니다");</script>
+</s:if>
+
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
     function sample6_execDaumPostcode() {
         new daum.Postcode({
@@ -48,7 +56,34 @@
         }).open();
     }
 </script>
-</head>
+<script>
+	function check(){
+		var f = document.passModifyForm;
+				
+		if(f.oldPw.value == ""){
+			alert("기존 비밀번호 입력해주세요.");
+			f.oldPw.focus();
+			return false;
+		}
+		if(f.newPw1.value == ""){
+			alert("새 비밀번호 입력해주세요.");
+			f.newPw1.focus();
+			return false;
+		}
+		if(f.newPw2.value == ""){
+			alert("비밀번호 확인을 입력해주세요.");
+			f.newPw2.focus();
+			return false;
+		}
+		if(f.newPw1.value !== f.newPw2.value){
+			alert("새 비밀번호가 맞지 않습니다");
+			f.newPw1.value = "";	 // 작성했던 값을 비워줌
+			f.newPw2.value = "";	 // 작성했던 값을 비워줌
+			f.newPw1.focus();
+			return false;
+		}
+	}
+</script>
 <body>
 
 <div id="content-container">
@@ -95,7 +130,7 @@
 		
 		
 		
-		<form action="InfoModifyPro.action" method="post">
+		<form action="InfoModifyPro.action" method="post" name="infoModifyForm">
 		<table width="80%" border="0" align="center">
 			<tr>
 				<td align="left" colspan="2">
@@ -113,8 +148,8 @@
 			<tr>
 				<td class="memberinfo1" width="100" id="m_saved_email"><br>&nbsp;&nbsp;이메일<br><br></td>
 				<td>
-					<input type="text" id=email1  style="width:100px; height:30px;" value="<s:property value="email1"/>">&nbsp;@&nbsp;
-					<input type="text" id="email2" style="width:100px; height:30px;" value="<s:property value="email2"/>">
+					<input type="text" name="email1" id="email1"  style="width:100px; height:30px;" value="<s:property value="email1"/>">&nbsp;@&nbsp;
+					<input type="text" name="email2" id="email2" style="width:100px; height:30px;" value="<s:property value="email2"/>">
 					<select name="select" onchange="document.getElementById('email2').value=this.value;if(this.value==''){document.getElementById('email2').focus();}">		
 						<option value="" selected="selected">직접입력</option>										
 						<option value="gmail.com">gmail.com</option>
@@ -147,25 +182,25 @@
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;우편번호<br><br></td>
-				<td><input type="text" id="member_zipcode" style="width:100px; height:30px;" value="<s:property value="resultClass.member_zipcode"/>">&nbsp;&nbsp;<input type="button" onclick="sample6_execDaumPostcode()" value="찾기"></td>
+				<td><input type="text" name="member_zipcode" id="member_zipcode" style="width:100px; height:30px;" value="<s:property value="resultClass.member_zipcode"/>">&nbsp;&nbsp;<input type="button" onclick="sample6_execDaumPostcode()" value="찾기"></td>
 			
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;주소<br><br></td>
-				<td><input type="text" id="member_address1" style="width:90%; height:30px;" value="<s:property value="resultClass.member_address1"/>"></td>
+				<td><input type="text" name="member_address1" id="member_address1" style="width:90%; height:30px;" value="<s:property value="resultClass.member_address1"/>"></td>
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;상세주소<br><br></td>
-				<td><input type="text" id="member_address2" style="width:90%; height:30px;" value="<s:property value="resultClass.member_address2"/>"></td>
+				<td><input type="text" name="member_address2" id="member_address2" style="width:90%; height:30px;" value="<s:property value="resultClass.member_address2"/>"></td>
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;연락처<br><br></td>
-				<td><input type="text" style="width:90px; height:30px;" value="<s:property value="phone1"/>">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;"value="<s:property value="phone2"/>">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;"value="<s:property value="phone3"/>"><br>
+				<td><input type="text" name="phone1" style="width:90px; height:30px;" value="<s:property value="phone1"/>">&nbsp;-&nbsp;<input type="text" name="phone2" style="width:90px; height:30px;"value="<s:property value="phone2"/>">&nbsp;-&nbsp;<input type="text" name="phone3" style="width:90px; height:30px;"value="<s:property value="phone3"/>"><br>
 				</td>
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;기존 비밀번호<br><br></td>
-				<td><input type="member_pw" style="width:90%; height:30px;" value="<s:property value="resultClass.member_pw"/>"></td>
+				<td><input type="password" name="member_pw" style="width:90%; height:30px;" value=""></td>
 			</tr>
 			<tr>
 				<td colspan="3" height="1" bgcolor="#777777"></td>
@@ -182,7 +217,11 @@
 					
 		</table>
 		</form>
-		<form action="InfoModifyPWPro.action" method="post">
+		
+
+		
+		
+		<form action="InfoModifyPWPro.action" method="post" name="passModifyForm" onSubmit="return check();">
 		<table width="80%" border="0" align="center">
 			<tr>
 				<td align="left" colspan="2">
@@ -195,32 +234,29 @@
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;기존 비밀번호<br><br></td>
-				<td><input type="password" style="width:90%; height:30px;" value="<s:property value="resultClass.member_pw"/>"></td>
-				<%-- <s:hidden name="member_pw" value="%{resultClass.member_pw}"/> --%>
+				<td><input name="oldPw" type="password" style="width:90%; height:30px;" value=""></td>
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;새 비밀번호<br><br></td>
-				<td><input type="password" style="width:90%; height:30px;"></td>
+				<td><input name="newPw1" type="password" style="width:90%; height:30px;"></td>
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;비밀번호 확인<br><br></td>
-				<td><input type="password" style="width:90%; height:30px;"></td>
+				<td><input name="newPw2" type="password" style="width:90%; height:30px;"></td>
 			</tr>
 			<tr>
 				<td colspan="3" height="1" bgcolor="#777777"></td>
 			</tr>
 			<tr>
 				<td colspan="3" align="center">
-					<input type="submit" name="submit_pw" class="btn-custom" value="변경하기">&nbsp;&nbsp;
+					<input type="submit" name="submit_pw" class="btn-custom" value="변경하기" >&nbsp;&nbsp;
 					<input type="reset" class="btn-custom" value="리셋">
 				</td>
 			</tr>
 			<tr>
 				<td height="30px"/>
 			</tr>
-			<tr>
-				<td colspan="2" align="right"><a href="/semiP/myPage/terminateForm.jsp">회원탈퇴</a></td>
-			</tr>		
+		
 		</table>
 	</table>
 	</form>

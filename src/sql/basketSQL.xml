@@ -68,7 +68,7 @@
 					#goods_color#,
 					#bgoods_amount#,
 					#basket_price#,
-					#basket_date#,
+					sysdate,
 					#goods_no#,
 					#member_no#
 					)

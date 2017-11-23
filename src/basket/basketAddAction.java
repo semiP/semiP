@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
-
+import com.opensymphony.xwork2.ActionContext;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -23,7 +23,7 @@ public class basketAddAction extends ActionSupport implements SessionAware {
 	
 	
 	private int basket_price;
-	
+	private int goods_price;
 	private int bgoods_amount;
 	private String goods_size;
 	private String goods_color;
@@ -41,10 +41,13 @@ public class basketAddAction extends ActionSupport implements SessionAware {
 	}
 	
 	public String execute() throws Exception{
-		if(session.get("session_member_id") == null || session.get("session_member_id") == ""){
+		ActionContext context = ActionContext.getContext();
+		session = context.getSession();
+		
+		if(session.get("session_member_id") == null){
 			return LOGIN;
 		}else{
-			
+			basket_price = goods_price * bgoods_amount;
 			member_no = (int) session.get("session_member_no");
 		
 			basketparamClass = new basketVO();
@@ -57,6 +60,7 @@ public class basketAddAction extends ActionSupport implements SessionAware {
 			basketparamClass.setGoods_size(getGoods_size());
 			basketparamClass.setGoods_color(getGoods_color());
 			basketparamClass.setBasket_date(getBasket_date());
+			basketparamClass.setGoods_no(getGoods_no());
 			//basketparamClass.setGoods_no(getGoods_no());
 	
 			basketparamClass.setMember_no(member_no);
@@ -148,8 +152,14 @@ public class basketAddAction extends ActionSupport implements SessionAware {
 		this.session = session;
 	}
 
+	public int getGoods_price() {
+		return goods_price;
+	}
 
-	
+	public void setGoods_price(int goods_price) {
+		this.goods_price = goods_price;
+	}
+
 	public int getMember_no() {
 		return member_no;
 	}
@@ -157,10 +167,7 @@ public class basketAddAction extends ActionSupport implements SessionAware {
 		this.member_no = member_no;
 	}
 	
-	
-	
-	
-	
+		
 }
 
 

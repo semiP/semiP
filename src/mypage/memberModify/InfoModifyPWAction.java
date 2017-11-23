@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
+import com.opensymphony.xwork2.ActionContext;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -38,6 +39,10 @@ public class InfoModifyPWAction extends ActionSupport implements SessionAware{
 	private Date member_regdate;
 	private int member_level;
 	private String member_deletereason;
+	
+	private String oldPw;
+	private String newPw1;
+	private String newPw2;
 	
 	//email개별번수
 	private String email1;
@@ -84,25 +89,38 @@ public class InfoModifyPWAction extends ActionSupport implements SessionAware{
 	// 정보수정
 	public String execute() throws Exception{
 		
+		ActionContext context = ActionContext.getContext();
+		session = context.getSession();
+		
+		// 시작 [비번 틀릴때 처리 form() 에 있던 내용 옮겨오기 - 동민]
+		paramClass = new memberbean();
+		resultClass = new memberbean();
+		
+		paramClass.setMember_no((int)session.get("session_member_no"));
+		paramClass.setMember_pw(getOldPw());
+		
+		resultClass = (memberbean)sqlMapper.queryForObject("mypageMemberModify.modifyPass", paramClass);
+		
+		if(resultClass == null) {
+			checkPW = 3;
+			return ERROR;
+		}	
+		// 끝 [비번 틀릴때 처리 form() 에 있던 내용 옮겨오기 - 동민]
+		
+		
 		paramClass2 = new memberbean();
 		resultClass2 = new memberbean();
 		
-		if(session.get("session_member_id")==null) {
-			return LOGIN;
-		}
-		
-		int session_no = (int)session.get("session_member_no");
+		member_no = (int)session.get("session_member_no");
 	
 		//수정할 항목 설정
-		paramClass2.setMember_pw(getMember_pw());
-		paramClass2.setMember_no(session_no);
+		paramClass2.setMember_pw(getNewPw1());
+		paramClass2.setMember_no(getMember_no());
 
 		// 일단 항목만 수정한다.
-		sqlMapper.update("mypageMemberModify.updatePW",paramClass2);
+		int result = sqlMapper.update("mypageMemberModify.updatePW",paramClass2);
 		
-		//수정이 끝나면 view페이지로 이동
-		resultClass2 = (memberbean) sqlMapper.queryForObject("mypageMemberModify.selectOneMember", session_no);
-		
+		checkPW = 1;
 		return SUCCESS;
 	}
 
@@ -320,6 +338,30 @@ public class InfoModifyPWAction extends ActionSupport implements SessionAware{
 
 	public void setSession(Map session) {
 		this.session = session;
+	}
+
+	public String getOldPw() {
+		return oldPw;
+	}
+
+	public void setOldPw(String oldPw) {
+		this.oldPw = oldPw;
+	}
+
+	public String getNewPw1() {
+		return newPw1;
+	}
+
+	public void setNewPw1(String newPw1) {
+		this.newPw1 = newPw1;
+	}
+
+	public String getNewPw2() {
+		return newPw2;
+	}
+
+	public void setNewPw2(String newPw2) {
+		this.newPw2 = newPw2;
 	}
 	
 	

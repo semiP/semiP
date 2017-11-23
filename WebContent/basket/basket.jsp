@@ -100,7 +100,7 @@
 									</td>
 									
 									<td colspan="6" width="50%" height="100px" align="right" style="padding:20px;font-size:1.5em;">
-									 상품구매액 <input id="total_sum" name="total_sum" value="" style="width:100px;text-align:center;background-color:transparent;border:none;color:#FFFFFF;" readonly></font>  +  배송비 무료 = 합계 :  <input id="totalOrder_sum" name="totalOrder_sum" value="" style="width:100px;text-align:center;background-color:transparent;border:none;color:#FFFFFF;" readonly>   원
+									 상품구매액 <input id="total_sum" name="total_sum" value="0" style="font-size:1.3em;width:100px;text-align:center;background-color:transparent;border:none;color:#FFFFFF;" readonly></font>  +  배송비 무료 = 합계 :  <input id="totalOrder_sum" name="totalOrder_sum" value="0" style="width:100px;text-align:center;background-color:transparent;border:none;color:#FFFFFF;font-size:1.3em;" readonly>   원
 									</td>
 								</tr>
 						
@@ -170,7 +170,7 @@ function checked_delete()
 	document.frm.action="basketDeleteAllAction.action";
 	document.frm.submit();
    
-   
+	
    //document.frm.total_sum.value = 0;
    //document.frm.totalOrder_sum.value = 0;   
    

@@ -1,5 +1,9 @@
 package mypage.memberModify;
 
+
+import org.apache.struts2.interceptor.SessionAware;
+import com.opensymphony.xwork2.ActionContext;
+
 import java.io.Reader;
 import java.util.Date;
 import java.util.Map;
@@ -8,7 +12,6 @@ import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import com.opensymphony.xwork2.ActionSupport;
-import org.apache.struts2.interceptor.SessionAware;
 
 import member.memberbean;
 
@@ -43,6 +46,9 @@ public class InfoViewAction extends ActionSupport implements SessionAware{
 	
 	private Map session;
 	
+	private int checkPW = 0;		// 정보 수정시 기존 비번 틀리면 -1 chain 으로 받아온다.
+	
+	
 	//생성자
 	public InfoViewAction() throws Exception{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
@@ -52,19 +58,29 @@ public class InfoViewAction extends ActionSupport implements SessionAware{
 	
 	//화면에 list출력
 	public String execute() throws Exception{
-	
-		if(session.get("session_member_id").equals("") || session.get("session_member_id") == null) {
+		
+		ActionContext context = ActionContext.getContext();
+		session = context.getSession();
+		
+		if(session.get("session_member_id") == null){
 			return LOGIN;
 		}
+		
 		
 		member_no = (int)session.get("session_member_no");
 		resultClass = (memberbean)sqlMapper.queryForObject("mypageMemberModify.selectOneMember",member_no);		
 		
 		member_email = resultClass.getMember_email();
 		
-		email1 = getMember_email().substring(0, getMember_email().indexOf("@"));				// StringIndexOutOfBoundsException 난다. 3/3 으로 로그인 하면 진입이 안됨. 정보가 부족해서인듯.
-		email2 = getMember_email().substring(getMember_email().indexOf("@") + 1);
-		
+		// '@' 이 없는 경우에는 StringIndexOutOfBoundsException 발생하기 때문에 예외적인 처리를 해준다
+		if(member_email.indexOf("@") < 0) {
+			email1 = member_email;
+			email2 = "";
+		}else {		
+			email1 = getMember_email().substring(0, getMember_email().indexOf("@"));
+			email2 = getMember_email().substring(getMember_email().indexOf("@") + 1);
+		}
+			
 		member_phone = resultClass.getMember_phone();
 		
 		phone1 = getMember_phone().substring(0,3);
@@ -215,6 +231,14 @@ public class InfoViewAction extends ActionSupport implements SessionAware{
 
 	public void setSession(Map session) {
 		this.session = session;
+	}
+
+	public int getCheckPW() {
+		return checkPW;
+	}
+
+	public void setCheckPW(int checkPW) {
+		this.checkPW = checkPW;
 	}
 
 
