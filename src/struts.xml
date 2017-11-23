@@ -121,10 +121,10 @@
 	
 
 
-	<!-- 마이페이지-회원정보수정 -->
-	<package name="mypage.memberModify" extends="struts-default">
+	<!-- 마이페이지-회원정보수정 
+	<package name="mypage.memberModify" extends="struts-default">-->
 
-		<!-- 마이페이지-회원정보수정 -->
+		<!-- 마이페이지-회원정보수정 
 		<action name="listView_member" class="mypage.memberModify.listViewAction">
 			<result type="chain">checkPW_member</result>
 		</action>
@@ -136,9 +136,9 @@
 
 		<action name="modify" class="mypage.memberModify.modifyAction">
 			<result type="chain">/mypage/profile.jsp</result>
-		</action>
+		</action>-->
 
-		<!-- 마이페이지-비밀번호수정 -->
+		<!-- 마이페이지-비밀번호수정 
 		<action name="listView_pw" class="mypage.memberModify.listViewAction">
 			<result type="chain">checkPW_pw</result>
 		</action>
@@ -150,9 +150,9 @@
 
 		<action name="modifyPW" class="mypage.memberModify.modifyPWAction">
 			<result type="chain">/mypage/profile.jsp</result>
-		</action>
+		</action>-->
 
-		<!-- 마이페이지 회원탈퇴 -->
+		<!-- 마이페이지 회원탈퇴 
 		<action name="listView_delete" class="mypage.memberModify.listViewAction">
 			<result type="chain">deleteInfo</result>
 		</action>
@@ -161,7 +161,7 @@
 			<result name="SUCCESS">/main/mainbody.jsp</result>
 			<result name="ERROR">/mypage/pwError.jsp</result>
 		</action>
-	</package>
+	</package>-->
 
 
 </struts>

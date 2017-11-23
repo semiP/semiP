@@ -41,7 +41,7 @@
 			<tr>
 				<!--  -->
 				<td>
-					<a href="/semiP/myPage.action">
+					<a href="/semiP/InfoView.action">
 						<img src="/semiP/assets/images/icons/mypage.png" onmouseover="this.src='/semiP/assets/images/icons/mypage_on.png'" onmouseout="this.src='/semiP/assets/images/icons/mypage.png'"><br>
 					</a>
 					<font size="1">MY PAGE</font>
@@ -50,7 +50,7 @@
 			<tr>
 				<!--  -->
 				<td>
-					<a href="/semiP/basket.action">
+					<a href="/semiP/basketListAction.action">
 						<img src="/semiP/assets/images/icons/cart.png" onmouseover="this.src='/semiP/assets/images/icons/cart_on.png'" onmouseout="this.src='/semiP/assets/images/icons/cart.png'"><br>
 					</a>
 					<font size="1">CART</font>
@@ -65,7 +65,7 @@
 			<tr>
 				<!--  -->
 				<td>
-					<a href="/semiP/support.action">
+					<a href="/semiP/noticeAction.action">
 						<img src="/semiP/assets/images/icons/support.png" onmouseover="this.src='/semiP/assets/images/icons/support_on.png'" onmouseout="this.src='/semiP/assets/images/icons/support.png'"><br>
 					</a>
 					<font size="1">SUPPORT</font>

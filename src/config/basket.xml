@@ -6,7 +6,6 @@
 			<result type="tiles">basket</result>
 		</action> -->
 		<action name="basketListAction" class="basket.basketListAction">
-			
 			<result name="login" type="redirectAction">loginac</result>
 			<result type="tiles">basket</result>
 		</action>		
@@ -15,7 +14,7 @@
 			</result>
 		</action>
 		<action name="basketDeleteAllAction" class="basket.basketListAction" method="deletebasket">
-			<result name="success" type="redirect">basketListAction.action</result>
+			<result name="success" type="redirectAction">basketListAction</result>
 		</action>
 		<action name="basketAddAction" class="basket.basketAddAction">
 			<interceptor-ref name="params"></interceptor-ref>

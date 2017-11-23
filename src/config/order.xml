@@ -8,7 +8,7 @@
 	<constant name="struts.multipart.maxSize" value="104857600" />
 	<constant name="struts.multipart.saveDir" value="E:\upload" />
 	
-	<package name="order" extends="struts-default">
+	<package name="order" extends="struts-default, tiles-default">
 <!--  	글로벌 예외처리 화면설정
 		<global-results>
 			<result name="error">/board/pageError.jsp</result>
@@ -35,7 +35,7 @@
 		
 		<!-- 주문 등록 게시판 글쓰기 액션 -->
 		<action name="orderWriteForm" class="order.orderWriteAction" method="form">
-	 		<result>/order/orderWrite.jsp</result>
+	 		<result type="tiles">orderWriteForm</result>
 		</action>
 		<action name="orderWriteAction" class="order.orderWriteAction">
 			<result type="redirect-action">

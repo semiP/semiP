@@ -62,7 +62,7 @@ public class InfoViewAction extends ActionSupport implements SessionAware{
 		
 		member_email = resultClass.getMember_email();
 		
-		email1 = getMember_email().substring(0, getMember_email().indexOf("@"));
+		email1 = getMember_email().substring(0, getMember_email().indexOf("@"));				// StringIndexOutOfBoundsException 난다. 3/3 으로 로그인 하면 진입이 안됨. 정보가 부족해서인듯.
 		email2 = getMember_email().substring(getMember_email().indexOf("@") + 1);
 		
 		member_phone = resultClass.getMember_phone();

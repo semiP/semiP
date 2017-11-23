@@ -56,8 +56,8 @@
 		<put-attribute name="body" value="/basket/basket.jsp" />
 	</definition>
 
-	<definition name="order" extends="default">
-		<put-attribute name="body" value="/order/order.jsp" />
+	<definition name="orderWriteForm" extends="default">
+		<put-attribute name="body" value="/order/orderWrite.jsp" />
 	</definition>
 
 	<definition name="orderComplete" extends="default">

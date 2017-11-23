@@ -100,7 +100,6 @@
 			   g.goods_size, 
 			   g.goods_color, 
 			   g.goods_price, 
-			   g.goods_image,
 		       m.member_no, 
 		       m.member_id,
 		       o.order_no, 
