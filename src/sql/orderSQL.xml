@@ -129,7 +129,7 @@
     <!-- 주문내역 가져오기 -->
 	<select id="select-order-all" resultMap="orderRes" parameterClass="int">
 		<include refid="select-all"/>
-		GOODSORDER BY order_no DESC
+		ORDER BY order_no DESC
 	</select>
 	
 	<!-- 주문내역 하나 보여주기-->
@@ -137,5 +137,4 @@
 		<include refid="select-all"/>
 		WHERE order_no = #order_no#
 	</select>
-
 </sqlMap>

@@ -106,7 +106,7 @@
 									<%-- <td width="15%">₩ <s:property value="goods_price"/></td> --%>
 									<%-- <td width="10%"><s:property value="order_goods_amount"/></td> --%>
 									
-									<input type="hidden" name="order_goods_size" value="${resultClass.order_goods_size}" />
+									<input type="hidden" name="order_goods_size" value='${resultClass.order_goods_size}' />
 									
 								</tr>
 								<tr><td colspan="9" bgcolor="#f2f2f2" height="1"></td></tr>
