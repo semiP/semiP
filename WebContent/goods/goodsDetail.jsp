@@ -116,7 +116,16 @@
 								</tr>
 								<tr>
 									<td align="center" style="padding:5px;" >
-										<input type="button" class="btn-custom" value="장바구니 담기" style="width:150px;" onClick="javascript:location.href='basketListAction.action?currentPage=<s:property value="currentPage" />'">
+										<input type="button" class="btn-custom" value="장바구니 담기" style="width:150px;" 
+											onClick="javascript:
+														var selectedSize = document.getElementsByName('goods_size')[0].value;
+														var selectedColor = document.getElementsByName('goods_color')[0].value;
+														var selectedAmount = document.getElementById('count').value;
+														
+														console.log(selectedSize);
+														console.log(selectedColor);
+														console.log(selectedAmount);
+														location.href='testcount.action?goods_size='+selectedSize+'&goods_color='+selectedColor+'&goods_price=<s:property value='resultGoods.goods_price' />&bgoods_amount='+selectedAmount+'&goods_name=<s:property value='resultGoods.goods_name' />&goods_no=${goods_no }&category=<s:property value='resultGoods.goods_category' />' ">
 									</td>
 									<td align="left" style="padding:5px;">
 										<input type="submit" class="btn-custom1" value="구매하기" style="width:150px;"/>
