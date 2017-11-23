@@ -1,11 +1,12 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"
 	trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+
+
 <div id="content-container">
 	<table width="100%" border="0" style="margin:auto; max-width:1000px;">
 		<tr>			
 			<td height="10">				
-				
 			</td>			
 		</tr>
 
@@ -22,6 +23,7 @@
 		<tr>
 			<td width="15%"/>			
 			<td>
+				 
 				<table width="100%" border="0">
 					<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 
@@ -114,14 +116,15 @@
 				<td colspan="3" height="1" bgcolor="#777777"></td>
 			</tr>
 			<tr>
+					
 				<td colspan="3" align="center">
-					<input type="submit" class="btn-custom" value="질문하기" onClick="location.href='inqFormAction.action'">
+					<input name="button" type="button" class="btn-custom" value="질의하기" onclick="javascript:location.href='inqWriteForm.action'"/>
 				</td>
 			</tr>
 			<tr>
 				<td height="30px"/>
 			</tr>	
-					
 		</table>
+		</form>
 	</table>
 </div>

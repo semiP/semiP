@@ -102,4 +102,5 @@ public class inquiryVO {
 	public void setInquiry_level(int inquiry_level) {
 		this.inquiry_level = inquiry_level;
 	}
+	
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
+<constant name="struts.multipart.maxSize" value="104857600" />
 	<package name="support" extends="struts-default">
 		<result-types>
 			<result-type name="tiles"
@@ -18,9 +19,8 @@
 		<!-- <action name="noticeAction" class="support.noticeAction"> <result>/support/notice.jsp</result> 
 			</action> -->
 		<!-- 자주묻는질문 액션 -->
-		<!-- <action name="faqListAction" class="support.faqListAction">
-			<result>/support/faq.jsp</result>
-		</action> -->
+		<!-- <action name="faqListAction" class="support.faqListAction"> <result>/support/faq.jsp</result> 
+			</action> -->
 		<!-- 자주묻는질문 상세보기 액션 -->
 		<action name="faqViewAction" class="support.faqViewAction">
 			<result>/support/faqView.jsp</result>
@@ -41,17 +41,30 @@
 		</action>
 		<!-- <action name="inqListAction" class="mypage.inqListAction"> <result>/myPage/inqList.jsp</result> 
 			</action> -->
-
 		<action name="inqViewAction" class="mypage.inqViewAction">
 			<result>/myPage/inqView.jsp</result>
 		</action>
 
+		<!-- 문의 작성폼/액션 -->
+		<action name="inqWriteForm" class="mypage.inqWriteAction" method="form">
+			<result type="tiles">inqWrite</result>
+		</action>
 		<action name="inqWriteAction" class="mypage.inqWriteAction">
-			<result>/myPage/inqList.jsp</result>
+			<result type="redirect-action">
+				<param name="actionName">inqListAction</param>
+			</result>
 		</action>
-		<action name="inqFormAction" class="mypage.inqFormAction">
-			<result>/myPage/inqForm.jsp</result>
+
+<!--    게시판 글쓰기 액션 
+		<action name="writeForm" class="board.writeAction" method="form">
+			<result>/board/boardWrite.jsp</result>
 		</action>
+
+		<action name="writeAction" class="board.writeAction">
+			<result type="redirect-action">
+				<param name="actionName">listAction</param>
+			</result>
+		</action> -->
 
 	</package>
 
