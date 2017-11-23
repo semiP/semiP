@@ -14,22 +14,22 @@ import com.opensymphony.xwork2.ActionSupport;
 import goods.goodsVO;
 import member.memberbean;
 import mypage.goodsOrderBean;
-import mypage.inquiryBean;
+import mypage.inquiryVO;
 
 public class listAction extends ActionSupport{
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
-	private inquiryBean paramClass1;
-	private inquiryBean resultClass1;
+	private inquiryVO paramClass1;
+	private inquiryVO resultClass1;
 	
-	private inquiryBean paramClass2;
-	private inquiryBean resultClass2;
+	private inquiryVO paramClass2;
+	private inquiryVO resultClass2;
 	
-	private inquiryBean paramClass3;
-	private inquiryBean resultClass3;
+	private inquiryVO paramClass3;
+	private inquiryVO resultClass3;
 	
-	private List<mypage.inquiryBean> list = new ArrayList<mypage.inquiryBean>();
+	private List<mypage.inquiryVO> list = new ArrayList<mypage.inquiryVO>();
 	
 	// inquiry
 	private int inquiry_no;
@@ -56,8 +56,8 @@ public class listAction extends ActionSupport{
 	//리스트 출력
 	public String execute() throws Exception{
 		//모든 글을 가져와 list에 넣는다.
-		paramClass1 = new inquiryBean(); // 파라미터를 저장할 객체
-		resultClass1 = new inquiryBean(); // 쿼리 결과 값을 저장할 객체
+		paramClass1 = new inquiryVO(); // 파라미터를 저장할 객체
+		resultClass1 = new inquiryVO(); // 쿼리 결과 값을 저장할 객체
 	
 		/*ActionContext context = ActionContext.getContext();*/
 				
@@ -68,21 +68,21 @@ public class listAction extends ActionSupport{
 		paramClass1.setInquiry_regdate(getInquiry_regdate());
 		paramClass1.setInquiry_addfile(getInquiry_addfile());
 		
-		resultClass1 = (inquiryBean)sqlMapper.queryForObject("inquiry_no",paramClass1);
+		resultClass1 = (inquiryVO)sqlMapper.queryForObject("inquiry_no",paramClass1);
 		
 		return SUCCESS;
 	}
 	
 	// 기간조회
 		public String search() throws Exception{
-			paramClass2 = new inquiryBean();
-			paramClass3 = new inquiryBean();
+			paramClass2 = new inquiryVO();
+			paramClass3 = new inquiryVO();
 			
-			resultClass2 = new inquiryBean();
-			resultClass3 = new inquiryBean();
+			resultClass2 = new inquiryVO();
+			resultClass3 = new inquiryVO();
 			
-			paramClass2 = (inquiryBean) sqlMapper.queryForList(getSearchKeyword1());
-			paramClass3 = (inquiryBean) sqlMapper.queryForList(getSearchKeyword2());
+			paramClass2 = (inquiryVO) sqlMapper.queryForList(getSearchKeyword1());
+			paramClass3 = (inquiryVO) sqlMapper.queryForList(getSearchKeyword2());
 			
 			return SUCCESS;
 		}
@@ -108,59 +108,59 @@ public class listAction extends ActionSupport{
 			listAction.sqlMapper = sqlMapper;
 		}
 
-		public inquiryBean getParamClass1() {
+		public inquiryVO getParamClass1() {
 			return paramClass1;
 		}
 
-		public void setParamClass1(inquiryBean paramClass1) {
+		public void setParamClass1(inquiryVO paramClass1) {
 			this.paramClass1 = paramClass1;
 		}
 
-		public inquiryBean getResultClass1() {
+		public inquiryVO getResultClass1() {
 			return resultClass1;
 		}
 
-		public void setResultClass1(inquiryBean resultClass1) {
+		public void setResultClass1(inquiryVO resultClass1) {
 			this.resultClass1 = resultClass1;
 		}
 
-		public inquiryBean getParamClass2() {
+		public inquiryVO getParamClass2() {
 			return paramClass2;
 		}
 
-		public void setParamClass2(inquiryBean paramClass2) {
+		public void setParamClass2(inquiryVO paramClass2) {
 			this.paramClass2 = paramClass2;
 		}
 
-		public inquiryBean getResultClass2() {
+		public inquiryVO getResultClass2() {
 			return resultClass2;
 		}
 
-		public void setResultClass2(inquiryBean resultClass2) {
+		public void setResultClass2(inquiryVO resultClass2) {
 			this.resultClass2 = resultClass2;
 		}
 
-		public inquiryBean getParamClass3() {
+		public inquiryVO getParamClass3() {
 			return paramClass3;
 		}
 
-		public void setParamClass3(inquiryBean paramClass3) {
+		public void setParamClass3(inquiryVO paramClass3) {
 			this.paramClass3 = paramClass3;
 		}
 
-		public inquiryBean getResultClass3() {
+		public inquiryVO getResultClass3() {
 			return resultClass3;
 		}
 
-		public void setResultClass3(inquiryBean resultClass3) {
+		public void setResultClass3(inquiryVO resultClass3) {
 			this.resultClass3 = resultClass3;
 		}
 
-		public List<mypage.inquiryBean> getList() {
+		public List<mypage.inquiryVO> getList() {
 			return list;
 		}
 
-		public void setList(List<mypage.inquiryBean> list) {
+		public void setList(List<mypage.inquiryVO> list) {
 			this.list = list;
 		}
 

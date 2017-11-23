@@ -90,7 +90,7 @@
 								</tr>
 								<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->
-								<%-- <s:iterator value="orderList"> --%>
+								<s:iterator value="orderList">
 
 								<tr align="center">
 									<td width="1%"><input type="checkbox" id="checkbox_<s:property value="#stat.index" /> type="checkbox" onClick="itemSum(<s:property value = "#stat.index" />);" value="<s:property value='goods_no'/>"/></td>
