@@ -62,7 +62,7 @@
   		 <select id="modifyPass" resultMap="memberRes">
       		<include refid="select-all-member"/>
       		 WHERE member_no = #member_no# 
-      		 AND member_pass = #member_pass#
+      		 AND member_pw = #member_pw#
    		</select>
 	
 	<!-- 비밀번호 일치여부 쿼리문 -->

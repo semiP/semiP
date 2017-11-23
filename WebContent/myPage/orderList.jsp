@@ -69,15 +69,15 @@
 			<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->
 			<tr align="center">
-				<td width="10%"><s:property value="order_date"/></td>
-				<td width="10%"><s:property value="order_goods_image"/><img style="width:100%;"></td>
-				<td width="28%"><s:property value="goods_name"/><br><font style="font-size:0.8em; color:777777"><s:property value="goods_size"/><s:property value="goods_color"/></font></td>
-				<td width="15%"><s:property value="goods_price"/></td>
-				<td width="5%"><s:property value="order_goods_amount"/></td>
+				<td width="10%"><s:property value="resultClass.order_date"/></td>
+				<td width="10%"><s:property value="resultClass.order_goods_image"/><img style="width:100%;"></td>
+				<td width="28%"><s:property value="resultClass.goods_name"/><br><font style="font-size:0.8em; color:777777"><s:property value="resultClass.goods_size"/><s:property value="resultClass.goods_color"/></font></td>
+				<td width="15%"><s:property value="resultClass.goods_price"/></td>
+				<td width="5%"><s:property value="resultClass.order_goods_amount"/></td>
 				<td width="20%">
-					<s:property value="order_status"/><br>
+					<s:property value="resultClass.order_status"/><br>
 					우체국택배<br>
-					<s:property value="invoice_no"/><br><br>
+					<s:property value="resultClass.invoice_no"/><br><br>
 					<input type="button" value="구매후기" style="width:60%;">
 				</td>
 				<td width="12%">

@@ -226,6 +226,10 @@
 
 <script type="text/javascript">
 function changModify(){
-	var 
+	document.action="InfoModifyAction.action";
+	document.method="form";
+	docuemtn.submit();
 }
-</script>
+</script> 
+
+<!-- onClick="location='InfoModifyForm.action',session_member_no,resultClass.member_pw" -->

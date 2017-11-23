@@ -43,25 +43,18 @@ public class InfoDeleteAction extends ActionSupport{
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
 	}
-	//회원탈퇴 전 비밀번호 체크
-	public String checkPW() throws Exception{
-		return SUCCESS;
-	}
 	
 	//비밀번호 확인 후 SUCCESS시 회원탈퇴, Error시 passerror.jsp로 이동
 	public String form() throws Exception{
 		paramClass = new memberbean();
 		resultClass = new memberbean();
 		
-		ActionContext context = ActionContext.getContext();
-		Map session = context.getSession();
-		
 		String session_id = (String)session.get("session_member_id");
 		int session_no = (int)session.get("session_member_no");
 		String session_name = (String)session.get("session_member_name");
 		
 		paramClass.setMember_no(session_no);
-		paramClass.setMember_id(session_id);
+		paramClass.setMember_pw(getMember_pw());
 		
 		resultClass = (memberbean)sqlMapper.queryForObject("mypageMemberModify.modifyPass", paramClass);
 		

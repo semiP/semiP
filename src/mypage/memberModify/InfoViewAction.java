@@ -45,9 +45,9 @@ public class InfoViewAction extends ActionSupport implements SessionAware{
 	
 	//생성자
 	public InfoViewAction() throws Exception{
-		 reader = Resources.getResourceAsReader("sqlMapConfig.xml");
-		   sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
-		   reader.close();
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
+		reader.close();
 	}
 	
 	//화면에 list출력

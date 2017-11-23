@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
-<sqlMap namespace="mypage3">
+<sqlMap namespace="mypageReturnEX">
 	<typeAlias alias="goods" type="goods.goodsVO"/>
-	<typeAlias alias="goodsOrder" type="mypage.goodsOrderBean"/>
+	<typeAlias alias="goodsOrder" type="order.orderVO"/>
 	
 	<!-- result map 정의 -->
 	<resultMap id="goodsRes" class="goods">
@@ -20,8 +20,8 @@
 	
 	<!-- result map 정의 -->
 	<resultMap id="goodsOrderRes" class="goodsOrder">
-		<result property="member_no" column="member_no"/>
-		<result property="goods_no" column="goods_no"/>
+		<result property="order_member_no" column="order_member_no"/>
+		<result property="order_goods_no" column="order_goods_no"/>
 		<result property="order_no" column="order_no"/>
 		<result property="order_goods_no" column="order_goods_no"/>
 		<result property="order_goods_amount" column="order_goods_amount"/>
@@ -45,6 +45,21 @@
 		<result property="invoice_no" column="invoice_no"/>
 	</resultMap>
 	
+	<resultMap id="memberRes" class="member">
+		<result property="member_no" column="member_no"/>
+		<result property="member_name" column="member_name"/>
+		<result property="member_id" column="member_id"/>
+		<result property="member_pw" column="member_pw"/>
+		<result property="member_zipcode" column="member_zipcode"/>
+		<result property="member_address1" column="member_address1"/>
+		<result property="member_address2" column="member_address2"/>
+		<result property="member_phone" column="member_phone"/>
+		<result property="member_email" column="member_email"/>
+		<result property="member_regdate" column="member_regdate"/>
+		<result property="member_level" column="member_level"/>
+		<result property="member_deletereason" column="member_deletereason"/> <!-- member table에 reason column추가 -->
+	</resultMap>
+	
 	<!-- select-all -->
 		<sql id="select-all-goods_returnEX">
 			SELECT * FROM goods
@@ -52,6 +67,10 @@
 		
 		<sql id="select-all-goodsOrder_returnEX">
 			SELECT * FROM goodsOrder
+		</sql>
+		
+		<sql id="select-all-classify-goodsOrder_returnEX">
+			SELECT * FROM (SELECT * FROM goodsOrder WHERE order_member_no = #order_member_no#)
 		</sql>
 		
 		<select id="selectAllGoodsReturnEX" resultMap="goodsRes" parameterClass="int">
@@ -67,10 +86,12 @@
 	<!--  select-one -->
 		<select id="selectOneGoodsReturnEX" resultMap="goodsRes" parameterClass="int">
 			<include refid="select-all-goods_returnEX" />
+			WHERE goods_no = #goods_no#
 		</select>
 		
 		<select id="selectOneGoodsOrderReturnEX" resultMap="goodsOrderRes" parameterClass="int">
-			<include refid="select-all-goodsOrder_returnEX" />
+			<include refid="select-all-classify-goodsOrder_returnEX" />
+			WHERE order_no = #order_no# and order_status = 5
 		</select>
 		
 	<!-- 
@@ -79,72 +100,10 @@
  	-->
  		<update id="updateORDER_STATUS" parameterClass="goodsOrder">
 			UPDATE goodsOrder SET order_status = 5
-			WHERE goods_no = #goods_no#
+			WHERE order_no = #order_no#
 		</update>
 		
-	<!-- 
-		- 화면에 반품/교환 list를 가져옴.
-    	> 반품/교환에 해당하는 list를
-      	  goodsOrder table에서 
-          order_status(5번), order_no, order_goods_no, order_goods_amount, order_goods_size, order_goods_color, order_date, order_list_amount, order_goods_image, order_total_pay와
-          goods table에서
-          goods_price를
-          select를 이용하여 출력 -->
-          
-<!-- 	<select id="order_status" resultMap="goodsOrderRes">
-			<include refid="select-all-goodsOrder_returnEX"/>
-			select order_status from GOODSORDER
-		</select>
-		
-		<select id="order_no" resultMap="goodsOrderRes">
-			<include refid="select-all-goodsOrder"/>
-			select order_no from GOODSORDER
-		</select>
-		
-		<select id="order_goods_no" resultMap="goodsOrderRes">
-			<include refid="select-all-goodsOrder"/>
-			select order_goods_no from GOODSORDER
-		</select>
-		
-		<select id="order_goods_amount" resultMap="goodsOrderRes">
-			<include refid="select-all-goodsOrder"/>
-			select order_goods_amount from GOODSORDER
-		</select>
-		
-		<select id="order_goods_size" resultMap="goodsOrderRes">
-			<include refid="select-all-goodsOrder"/>
-			select order_goods_size from GOODSORDER
-		</select>
-		
-		<select id="order_goods_color" resultMap="goodsOrderRes">
-			<include refid="select-all-goodsOrder"/>
-			select order_goods_color from GOODSORDER
-		</select>
-		
-		<select id="order_date" resultMap="goodsOrderRes">
-			<include refid="select-all-goodsOrder"/>
-			select order_date from GOODSORDER
-		</select>
-		
-		<select id="order_list_amount" resultMap="goodsOrderRes">
-			<include refid="select-all-goodsOrder"/>
-			select order_list_amount from GOODSORDER
-		</select>
-		
-		<select id="order_goods_image" resultMap="goodsOrderRes">
-			<include refid="select-all-goodsOrder"/>
-			select order_goods_image from GOODSORDER
-		</select>
-		
-		<select id="order_total_pay" resultMap="goodsOrderRes">
-			<include refid="select-all-goodsOrder"/>
-			select order_total_pay from GOODSORDER
-		</select>
 	
-		<select id="goods_price" resultMap="goodsRes">
-			select goods_price from GOODS
-		</select> -->
-		
 		<!-- 기간조회 -->
 		<select id="order_date" resultMap="goodsOrderRes">
 			<include refid="select-all-goodsOrder_returnEX"/>
