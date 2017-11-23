@@ -46,7 +46,9 @@ public class orderListAction extends ActionSupport{
 		
 		totalCount = list.size(); //list의 크기를 구한다
 */		
-		resultOrder = (orderVO) sqlMapper.queryForObject("order.select-join-order-one", order_no);
+// 		resultOrder = (orderVO) sqlMapper.queryForObject("order.select-join-order-one", order_no);
+		
+		resultOrder= (orderVO) sqlMapper.queryForObject("order.select-order-all");
 		
 		return SUCCESS;
 	}

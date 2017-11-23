@@ -43,7 +43,7 @@
 	</update>
 	
 	<!-- 주문 insert 쿼리문 정의 -->
-	<insert id="orderInsert" parameterClass="order">
+	<insert id="orderInsert" parameterClass="order.orderVO">
 	
 	INSERT INTO GOODSORDER (order_no,
 							order_goods_no,   
@@ -79,14 +79,14 @@
 							#order_receive_phone#,
 							#order_memo#,
 							#order_total_price#,
-							#order_date#,
-							#order_trade_date#,
-							#order_status#,
+							sysdate,
+							sysdate,
+							1,
 							#order_list_amount#,
-							#order_pay_type#,
-							#order_pay_name#,
+							1,
+							'결제자이름',
 							#order_total_pay#,
-							#invoice_no#)
+							0)
 	</insert>
 
 	<!-- 공통으로 사용할 select 절 정의 -->
@@ -100,6 +100,7 @@
 			   g.goods_size, 
 			   g.goods_color, 
 			   g.goods_price, 
+			   g.goods_image,
 		       m.member_no, 
 		       m.member_id,
 		       o.order_no, 
@@ -128,7 +129,7 @@
     <!-- 주문내역 가져오기 -->
 	<select id="select-order-all" resultMap="orderRes" parameterClass="int">
 		<include refid="select-all"/>
-		GOODSORDER BY order_no DESC
+		ORDER BY order_no DESC
 	</select>
 	
 	<!-- 주문내역 하나 보여주기-->

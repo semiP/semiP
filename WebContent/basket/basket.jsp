@@ -45,10 +45,12 @@
 								</tr>
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->	
-								<form name="frm" action="testcount.action" method="get" >
-								<input type="hidden" id="basket_no_set" name="basket_no_set" />
+								
 								
 								<s:iterator value="basketlist" status="stat">
+								<form name="frm" action="orderWriteForm.action" method="post" >
+								<input type="hidden" id="basket_no_set" name="basket_no_set" />
+								
 								<input type="hidden" id="basket_price_<s:property value='#stat.index'/>" name="basket_price_<s:property value='#stat.index'/>" value="<s:property value='goods_price'/>" />
 								<input type="hidden" name="order_goods_no" value="<s:property value='goods_no'/>"/>
 								<input type="hidden" name="goods_name" value="<s:property value='goods_name'/>"/>
@@ -83,8 +85,9 @@
 											location.href='basketDeleteAction.action?basket_no=<s:property value="basket_no"/>'"/> --%>
 									</td>
 								</tr>
-								</s:iterator>
 								</form>
+								</s:iterator>
+								
 
 <!-- 게시물 하나씩 iterator 끝 -->	
 								<tr><td colspan="9" bgcolor="#f2f2f2" height="1"></td></tr>

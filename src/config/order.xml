@@ -35,6 +35,8 @@
 		
 		<!-- 주문 등록 게시판 글쓰기 액션 -->
 		<action name="orderWriteForm" class="order.orderWriteAction" method="form">
+			<interceptor-ref name="params"></interceptor-ref>
+			<result name="login" type="redirectAction">loginac</result>
 	 		<result type="tiles">orderWriteForm</result>
 		</action>
 		<action name="orderWriteAction" class="order.orderWriteAction">
@@ -46,7 +48,8 @@
 		<!-- 주문된 상품 넘기기 액션 -->
 		<action name="orderWriteAction" class="order.orderWriteAction">
 			<interceptor-ref name="params"></interceptor-ref>
-			<result>/order/orderWrite.jsp</result>
+			<result name="login" type="redirectAction">loginac</result>
+			<result type="tiles">orderComplete</result>
 		</action>
  	
  		<!-- 주문 내역 가져오기 (List) 액션 -->

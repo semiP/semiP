@@ -49,10 +49,6 @@
 </script>
 
 
-<s:if test="resultClass == NULL">
-<form action="orderWriteAction.action" method="post" enctype="multipart/form-data" >
-</s:if>
-
 <div id="content-container">
 	<table width="100%" border="0" style="margin:auto; max-width:1000px;">
 		<tr>			
@@ -75,12 +71,20 @@
 			
 			<td>
 			<!-- 데이터 넘겨주기 설정 -->
-			
+			<form action="orderWriteAction.action" method="post" enctype="multipart/form-data" >
+				<input type="hidden" name="order_goods_size" value='${order_goods_size}' />
+				<input type="hidden" name="order_goods_color" value='${order_goods_color}' />
+				<input type="hidden" name="order_goods_no" value='${order_goods_no}' />
+				<input type="hidden" name="order_member_no" value='${session.session_member_no}' />
+				<input type="hidden" name="order_goods_amount" value='${order_goods_amount}' />
+				<input type="hidden" name="order_total_pay" value='${order_total_pay}' />
+				<input type="hidden" name="order_total_price" value='${order_total_price}' />
+								
 				<table width="100%" border="0">
 								<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 								
 								<tr bgcolor="#455b59" style="color:#FFFFFF;" align="center">
-									
+								<!--	<td width="1%"><input type="checkbox"/></td>-->
 									<td width="10%">이미지</td>
 									<td width="19%">상품정보</td>
 									<td width="15%">판매가</td>
@@ -90,10 +94,10 @@
 								</tr>
 								<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->
-								<s:iterator value="orderList">
+								<%-- <s:iterator value="orderList"> --%>
 
 								<tr align="center">
-									<td width="1%"><input type="checkbox" id="checkbox_<s:property value="#stat.index" /> type="checkbox" onClick="itemSum(<s:property value = "#stat.index" />);" value="<s:property value='goods_no'/>"/></td>
+								<!--<td width="1%"><input type="checkbox" id="checkbox_<s:property value="#stat.index" /> type="checkbox" onClick="itemSum(<s:property value = "#stat.index" />);" value="<s:property value='goods_no'/>"/></td>-->
 									<td width="10%"><img src="http://cooz.co/semiP/IMG/${goods_category}/${order_goods_no}/0.jpg" style="width:100%;"></td>
 									<td width="19%">${goods_name}<br><font style="font-size:0.8em; color:777777">${goods_size},${goods_color}</font></td>
 									<td width="15%">₩ ${goods_price}</td>
@@ -106,16 +110,15 @@
 									<%-- <td width="15%">₩ <s:property value="goods_price"/></td> --%>
 									<%-- <td width="10%"><s:property value="order_goods_amount"/></td> --%>
 									
-									<input type="hidden" name="order_goods_size" value="${resultClass.order_goods_size}" />
-
+									
+									
 								</tr>
 								<tr><td colspan="9" bgcolor="#f2f2f2" height="1"></td></tr>
 								<tr bgcolor="#455b59" style="color:#FFFFFF;" align="center">
 									<td colspan="7" height="100px" align="right" style="padding:20px;font-size:1.5em;">
-
 									
 									<!-- 	상품구매액 100,000 + 배송비 2,500 = 합계 : 102,500원 -->
-									상품구매액 ${goods_price} + 배송비 무료 = 합계 : ${order_total_price}  
+									상품구매액 ${order_total_price} + 배송비 무료 = 합계 : ${order_total_price}  
 									
 									</td>
 								</tr>
@@ -123,72 +126,11 @@
 								<%-- </s:iterator>	 --%>										
 								<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 								<tr>	<td height="50"></td>	</tr>
-								</s:iterator>
-				</table>
-				
-				<table width="100%">
-					<tr>
-						<td align="center">
-							<h2>주문자 정보</h2>
-						</td>
-					</tr>
-					
-					<tr>
-						<td height="1" bgcolor="#777777"></td>
-					</tr>
-					<table width="80%" border="0" align="center">
-						<tr>
-							<td width="100"><br>&nbsp;&nbsp;주문자<br><br></td>
-							<!-- <td><input type="text" style="width:90%; height:30px;"></td> -->
-							<%-- <td><s:textfield name="order_receive_name" theme="simple" value="%{resultClass.order_receive_name}" /></td> --%>
-						</tr>
-						<tr>
-							<!-- <td width="100"><br>&nbsp;&nbsp;휴대전화<br><br></td>
-							<td>
-								<input type="text" style="width:90px; height:30px;">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;"><br>
 								
-							</td> -->
-						</tr>
-						<tr>
-							<%-- <td width="100"><br>&nbsp;&nbsp;이메일<br><br></td>
-							<td><input type="text" style="width:100px; height:30px;">&nbsp;@&nbsp;<input type="text" id="email2" style="width:100px; height:30px;">
-							<select name="select" onchange="document.getElementById('email2').value=this.value;if(this.value==''){document.getElementById('email2').focus();}">
-												<option value="" selected="selected">직접입력</option>										
-												<option value="gmail.com">gmail.com</option>
-												<option value="naver.com">naver.com</option>
-												<option value="netian.com">netian.com</option>
-												<option value="paran.com">paran.com</option>
-												<option value="daum.net">daum.net</option>
-												<option value="hanmail.net">hanmail.net</option>
-												<option value="me.com">me.com</option>
-												<option value="lycos.co.kr">lycos.co.kr</option>
-												<option value="yahoo.co.kr">yahoo.co.kr</option>
-												<option value="yahoo.com">yahoo.com</option>
-												<option value="icloud.com">icloud.com</option>
-												<option value="cyworld.com">cyworld.com</option>
-												<option value="dreamwiz.com">dreamwiz.com</option>
-												<option value="nate.com">nate.com</option>
-												<option value="empal.com">empal.com</option>
-												<option value="orgio.net">orgio.net</option>
-												<option value="unitel.co.kr">unitel.co.kr</option>
-												<option value="chol.com">chol.com</option>
-												<option value="kornet.net">kornet.net</option>
-												<option value="korea.com">korea.com</option>
-												<option value="freechal.com">freechal.com</option>
-												<option value="hanafos.com">hanafos.com</option>
-												<option value="hitel.net">hitel.net</option>
-												<option value="hanmir.com">hanmir.com</option>
-												<option value="hotmail.com">hotmail.com</option>
-											</select></td> --%>
-						</tr>
-						<tr>
-							<td height="30px"/>
-						</tr>
-						
-						</table>
-						<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
-						<tr>	<td height="50"></td>	</tr>
 				</table>
+			
+				
+				
 				<table width="100%">
 					<tr>
 						<td align="center">
@@ -272,6 +214,7 @@
 								</tr>
 							</table>
 						</td>
+						<td width="12%"/>
 					</tr>
 					<tr>	<td></td>	</tr>
 					<tr><td colspan="3" bgcolor="#cccccc" height="1"></td></tr>
@@ -282,13 +225,16 @@
 						</td>
 					</tr>
 				</table>
+				</form>
 			</table>
+			
 								
 			<table width="100%">
 				<tr><td height="50"/></tr>
 				<tr>
 					<td width="12%" />
 					<td style="border:1px solid black; padding:20px;">
+<p align="center">시간관계상, "결제하기" 버튼을 통해 주문완료 및 결제까지 이루어졌다고 가정합니다 ㅠ_ㅜ</p><br><br>
 <p><strong>세금계산서 발행 안내</strong></p>
 <ol>
 	<li>부가가치세법 제 54조에 의거하여 세금계산서는 배송완료일로부터 다음달 10일까지만 요청하실 수 있습니다.</li>
@@ -298,6 +244,5 @@
 					</td>
 					<td width="12%"/>
 				</tr>
-			</table>						
+			</table>
 <script type="text/javascript" src="/semiP/assets/js/goodsCount.js"></script>
-
