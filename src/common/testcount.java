@@ -34,13 +34,13 @@ public class testcount extends ActionSupport implements SessionAware {
 	
 	private Map session;
 	
-	private int goods_no;
+	private int order_goods_no;
 	private String goods_name;
 	private String goods_size;
 	private String goods_color;
 	private int goods_price;
-	private int bgoods_amount;
-	private int category;
+	private int goods_amount;
+	private int goods_category;
 	
 	public testcount() throws IOException{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); 
@@ -78,12 +78,12 @@ public class testcount extends ActionSupport implements SessionAware {
 		this.session = session;
 	}
 
-	public int getGoods_no() {
-		return goods_no;
+	public int getOrder_goods_no() {
+		return order_goods_no;
 	}
 
-	public void setGoods_no(int goods_no) {
-		this.goods_no = goods_no;
+	public void setOrder_goods_no(int order_goods_no) {
+		this.order_goods_no = order_goods_no;
 	}
 
 	public String getGoods_name() {
@@ -119,19 +119,19 @@ public class testcount extends ActionSupport implements SessionAware {
 	}
 
 	public int getBgoods_amount() {
-		return bgoods_amount;
+		return goods_amount;
 	}
 
 	public void setBgoods_amount(int bgoods_amount) {
-		this.bgoods_amount = bgoods_amount;
+		this.goods_amount = bgoods_amount;
 	}
 
 	public int getCategory() {
-		return category;
+		return goods_category;
 	}
 
 	public void setCategory(int category) {
-		this.category = category;
+		this.goods_category = category;
 	}
 
 
