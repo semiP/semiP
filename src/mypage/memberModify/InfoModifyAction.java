@@ -94,16 +94,19 @@ public class InfoModifyAction extends ActionSupport implements SessionAware{
 		String session_id = (String)session.get("session_member_id");
 		int session_no = (int)session.get("session_member_no");
 		String session_name = (String)session.get("session_member_name");
+				
+		member_no = (int)session.get("session_member_no");
+		resultClass = (memberbean)sqlMapper.queryForObject("mypageMemberModify.selectOneMember",member_no);	
 		
-		member_email=getEmail1().concat("@");
-		member_email=member_email.concat (getEmail2 ());
+		/*member_email=getEmail1().concat("@");
+		member_email=member_email.concat (getEmail2 ());*/
 		
-		/*member_email = getEmail1() + "@" +getEmail2();*/
+		member_email = getEmail1() + "@" +getEmail2();
 		
-		member_phone=getPhone1().concat(getPhone2());
-		member_phone=member_phone.concat(getPhone3());
+		/*member_phone=getPhone1().concat(getPhone2());
+		member_phone=member_phone.concat(getPhone3());*/
 		
-		/*member_phone=getPhone1() + getPhone2() + getPhone3();*/
+		member_phone=getPhone1() + getPhone2() + getPhone3();
 
 		//수정할 항목 설정
 		paramClass2.setMember_email(getMember_email());

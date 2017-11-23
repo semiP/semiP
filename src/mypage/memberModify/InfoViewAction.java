@@ -76,10 +76,18 @@ public class InfoViewAction extends ActionSupport implements SessionAware{
 		
 	}
 	
-	// 개인정보 폼 보여주는 처리
+/*	// 개인정보 폼 보여주는 처리
 	public String infoView() throws Exception{
+		
+		if(session.get("session_member_id").equals("") || session.get("session_member_id") == null) {
+			return LOGIN;
+		}
+		
+		member_no = (int)session.get("session_member_no");
+		resultClass = (memberbean)sqlMapper.queryForObject("mypageMemberModify.selectOneMember",member_no);	
+		
 		return SUCCESS;
-	}
+	}*/
 	
 	public static Reader getReader() {
 		return reader;

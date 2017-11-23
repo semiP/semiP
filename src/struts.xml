@@ -68,7 +68,7 @@
 	<include file="/config/member.xml" />
 	
 	<!-- 은이 마이페이지 -->
-	<include file="/config/mypageMemberModify.xml" />
+	<include file="/config/mypage.xml" />
 	
 </struts>
 

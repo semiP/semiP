@@ -74,7 +74,7 @@
 					<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 
 					<tr bgcolor="#455b59" align="center">
-						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="/semiP/InfoView.action" >
+						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="../InfoView.action" >
 							회원정보</a></strong></td>
 						<td class="myPageMenuItem" ><a href="/semiP/myPage/orderList.jsp" >
 							주문/배송현황</a></td>
@@ -93,7 +93,7 @@
 		
 		
 		
-		<form>
+		<form action="InfoModifyPro.action" method="post">
 		<table width="80%" border="0" align="center">
 			<tr>
 				<td align="left" colspan="2">
@@ -170,7 +170,7 @@
 			</tr>
 			<tr>
 				<td colspan="3" align="center">
-					<input type="submit" name="submit_member" class="btn-custom" value="변경하기" onClick="changModify()">&nbsp;&nbsp;
+					<input type="submit" name="submit_member" class="btn-custom" value="변경하기" >&nbsp;&nbsp;
 					<input type="reset" class="btn-custom" value="리셋">
 				</td>
 			</tr>

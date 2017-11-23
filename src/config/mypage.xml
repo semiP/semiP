@@ -7,8 +7,7 @@
 	<!-- 마이페이지-회원정보수정 -->
 	<package name="mypageMemberModify" extends="struts-default, tiles-default">
 		
-		<action name="InfoView" class="mypage.memberModify.InfoViewAction" method="infoView">
-			<result name="login" type="redirectAction">loginac</result>
+		<action name="InfoView" class="mypage.memberModify.InfoViewAction">
 			<result name="success" type="tiles">profile</result>
 		</action>
 		

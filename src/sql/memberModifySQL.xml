@@ -45,11 +45,11 @@
 	<!-- 회원정보 수정 쿼리문 -->
 		<update id="updateMember" parameterClass="member">
 			UPDATE member SET
-					member_email=#member_email#
-					member_zipcode=#member_zipcode#
-					member_address1=#member_address1#
-					member_address2=#member_address2#
-					member_phone=#member_phone#
+					member_email=#member_email#,
+ 					member_zipcode=#member_zipcode#,
+					member_address1=#member_address1#,
+					member_address2=#member_address2#,
+					member_phone=#member_phone# 
 			WHERE member_no=#member_no#
 		</update>
 	
