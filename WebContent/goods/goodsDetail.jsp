@@ -54,11 +54,11 @@
 						</td>
 						<td width="15"></td> <!-- 사진과 옵션 사이 여백는 부분 -->
 						<td style="vertical-align:top;">
-							<form name="orderInfo" action="testcount.action" method="post">
+							<form name="orderWriteAction" action="orderWriteForm.action" method="post">
 							<input type="hidden" name="order_goods_no" value="${goods_no }"/>
 							<input type="hidden" name="goods_name" value="<s:property value='resultGoods.goods_name' />"/>
 							<input type="hidden" name="goods_category" value="<s:property value='resultGoods.goods_category' />"/>
-							<input type="hidden" name="goods_Price" value="<s:property value='resultGoods.goods_price' />"/>
+							<input type="hidden" name="goods_price" value="<s:property value='resultGoods.goods_price' />"/>
 							<table width="100%" border="0">
 								<tr>
 									<td colspan="2" style="font-size:1.5em;">상품이름 : <s:property value="resultGoods.goods_name" /><br><br></td>
@@ -80,11 +80,8 @@
 									<td width="100" height="40">&nbsp;색상</td>
 									
 									<td>
-<<<<<<< HEAD
-										<select name="g.color"> 오더 쓰기 액션 넘겨준다
-=======
 										<select name="goods_color">
->>>>>>> master
+
 											<option value="" selected="selected">선택해 주세요</option>										
 											<c:forTokens var="color" items="${resultGoods.goods_color}" delims=",">
 												<option value=${fn:trim(color)}>
@@ -123,12 +120,8 @@
 										<input type="button" class="btn-custom" value="장바구니 담기" style="width:150px;" onClick="javascript:location.href='basketListAction.action?currentPage=<s:property value="currentPage" />'">
 									</td>
 									<td align="left" style="padding:5px;">
-<<<<<<< HEAD
-										<input type="button" class="btn-custom" value="구매하기" style="width:150px;" onClick="javascript:location.href='orderWriteAction.action?currentPage=<s:property value="currentPage" />'">
-										<!-- <input type="button" class="btn-custom1" value="구매하기" style="width:150px;" onClick="javascript:location.href='orderWriteAction.action'"> -->
-=======
 										<input type="submit" class="btn-custom1" value="구매하기" style="width:150px;"/>
->>>>>>> master
+
 									</td>
 								</tr>
 							</table>

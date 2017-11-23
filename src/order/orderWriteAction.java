@@ -15,7 +15,11 @@ import org.apache.commons.io.FileUtils;
 import goods.goodsVO;
 import order.orderVO;
 
-public class orderWriteAction extends ActionSupport{
+import org.apache.struts2.interceptor.SessionAware;
+
+public class orderWriteAction extends ActionSupport implements SessionAware {
+	
+	private static final long serialVersionUID = 1L;
 	
 	public static Reader reader; //���� ��Ʈ���� ���� reader.
 	public static SqlMapClient sqlMapper; //SqlMapClient API�� ����ϱ� ���� sqlMapper ��ü.
@@ -24,6 +28,16 @@ public class orderWriteAction extends ActionSupport{
 	private orderVO resultClass; //���� ��� ���� ������ ��ü
 	
 	private List<orderVO> list = new ArrayList<orderVO>();
+	private LinkedHashMap<String, List<goodsVO>> categoryMap = new LinkedHashMap<String, List<goodsVO>>();
+	
+	private Map session;
+	
+	private String goods_name;
+	private String goods_size;
+	private String goods_color;
+	private int goods_price;
+	private int goods_amount;
+	private int goods_category;
 	
 	private int order_no;
 	private int order_goods_no;
@@ -36,11 +50,6 @@ public class orderWriteAction extends ActionSupport{
 	private String order_receive_addr1;
 	private String order_receive_addr2;
 	private String order_receive_phone;
-	
-	private String phone1;
-	private String phone2;
-	private String phone3;
-	
 	private String order_memo;
 	private int order_total_price;
 	private Date order_date;
@@ -51,8 +60,13 @@ public class orderWriteAction extends ActionSupport{
 	private String order_pay_name;
 	private int order_total_pay;
 	private int invoice_no;
+	private int order_sale;
 	Calendar today = Calendar.getInstance(); //���� ��¥ ���ϱ�.
-
+	
+	private String phone1;
+	private String phone2;
+	private String phone3;
+	
 	private File upload; //���� ��ü
 	private String uploadContentType; //������ Ÿ��
 	private String uploadFileName; //���� �̸�
@@ -69,6 +83,14 @@ public class orderWriteAction extends ActionSupport{
 	public String form() throws Exception
 	{
 		//orderVO <= goodsVO 정보 코딩
+		
+		order_goods_amount = goods_amount;
+		order_total_price = goods_price * goods_amount;
+		order_goods_color = goods_color;
+		order_goods_size = goods_size;
+		order_sale = 10;
+		order_total_pay = order_total_price * (order_sale / 100);
+		
 		return SUCCESS;
 	}
 
@@ -83,14 +105,9 @@ public class orderWriteAction extends ActionSupport{
 		//액션에서 jsp에서 받은 값을 vo에 넣는 과정 
 		paramClass.setOrder_member_no(getOrder_member_no());
 		paramClass.setOrder_goods_no(getOrder_goods_no());
-		
-		/*paramClass.setOrder_goods_amount(getOrder_goods_amount());
+		paramClass.setOrder_goods_amount(getOrder_goods_amount());
 		paramClass.setOrder_goods_color(getOrder_goods_color());  
-		paramClass.setOrder_goods_size(getOrder_goods_size());*/
-		paramClass.setOrder_goods_size("a");
-		paramClass.setOrder_goods_color("a");
-		paramClass.setOrder_goods_amount(1);
-		
+		paramClass.setOrder_goods_size(getOrder_goods_size());
 		paramClass.setOrder_receive_name(getOrder_receive_name());
 		paramClass.setOrder_receive_zipcode(getOrder_receive_zipcode());
 		paramClass.setOrder_receive_addr1(getOrder_receive_addr1());
@@ -99,8 +116,7 @@ public class orderWriteAction extends ActionSupport{
 		paramClass.setOrder_memo(getOrder_memo());
 		paramClass.setOrder_total_price(getOrder_total_price());
 		paramClass.setOrder_date(today.getTime());
-		/*paramClass.setOrder_trade_date(today.getTime());*/
-		
+		paramClass.setOrder_trade_date(today.getTime());
 		paramClass.setOrder_status(getOrder_status());
 		paramClass.setOrder_list_amount(getOrder_list_amount());
 		paramClass.setOrder_pay_type(getOrder_pay_type());
@@ -114,7 +130,7 @@ public class orderWriteAction extends ActionSupport{
 		/*order_receive_phone = getPhone1() + getPhone2() + getPhone3();*/
 		/*order_goods_size = */
 
-		if(getUpload() != null)
+/*		if(getUpload() != null)
 		{
 			resultClass = (orderVO) sqlMapper.queryForObject("order.selectLastNo");
 			
@@ -132,7 +148,7 @@ public class orderWriteAction extends ActionSupport{
 //			paramClass.setFile_savname(file_name + "." +file_ext);
 			
 			sqlMapper.update("order.updateFile", paramClass);
-		}
+		}*/
 		
 		//받은값을 넣는다.
 		sqlMapper.insert("order.orderInsert", paramClass);
@@ -231,4 +247,68 @@ public class orderWriteAction extends ActionSupport{
 	public String getPhone3() { return phone3; }
 	public void setPhone3(String phone3) { this.phone3 = phone3;}
 
+	public LinkedHashMap<String, List<goodsVO>> getCategoryMap() {
+		return categoryMap;
+	}
+
+	public void setCategoryMap(LinkedHashMap<String, List<goodsVO>> categoryMap) {
+		this.categoryMap = categoryMap;
+	}
+
+	public Map getSession() {
+		return session;
+	}
+
+	public void setSession(Map session) {
+		this.session = session;
+	}
+
+	public String getGoods_name() {
+		return goods_name;
+	}
+
+	public void setGoods_name(String goods_name) {
+		this.goods_name = goods_name;
+	}
+
+	public String getGoods_size() {
+		return goods_size;
+	}
+
+	public void setGoods_size(String goods_size) {
+		this.goods_size = goods_size;
+	}
+
+	public String getGoods_color() {
+		return goods_color;
+	}
+
+	public void setGoods_color(String goods_color) {
+		this.goods_color = goods_color;
+	}
+
+	public int getGoods_price() {
+		return goods_price;
+	}
+
+	public void setGoods_price(int goods_price) {
+		this.goods_price = goods_price;
+	}
+
+	public int getGoods_amount() {
+		return goods_amount;
+	}
+
+	public void setGoods_amount(int goods_amount) {
+		this.goods_amount = goods_amount;
+	}
+
+	public int getGoods_category() {
+		return goods_category;
+	}
+
+	public void setGoods_category(int goods_category) {
+		this.goods_category = goods_category;
+	}
+	
 }

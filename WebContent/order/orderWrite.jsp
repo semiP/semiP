@@ -49,9 +49,9 @@
 </script>
 
 
-
+<s:if test="resultClass == NULL">
 <form action="orderWriteAction.action" method="post" enctype="multipart/form-data" >
-
+</s:if>
 
 <div id="content-container">
 	<table width="100%" border="0" style="margin:auto; max-width:1000px;">
@@ -74,9 +74,11 @@
 		<tr>
 			
 			<td>
+			<!-- 데이터 넘겨주기 설정 -->
+			
 				<table width="100%" border="0">
 								<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
-
+								
 								<tr bgcolor="#455b59" style="color:#FFFFFF;" align="center">
 									<td width="1%"><input type="checkbox"/></td>
 									<td width="10%">이미지</td>
@@ -88,21 +90,23 @@
 								</tr>
 								<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->
-							<s:iterator value="orderList" status="stat">
+								<%-- <s:iterator value="orderList"> --%>
+
 								<tr align="center">
-									<td width="1%"><input type="checkbox"/></td>
-									
-									<td width="10%"><img src="/semiP/assets/images/best1.jpg" style="width:100%;"></td>
-									<td width="19%">상품이름이름이름<br><font style="font-size:0.8em; color:777777">상품옵션옵션</font></td>
-									<td width="15%">₩ 100,000</td>
-									<td width="10%">1</td>
+									<td width="1%"><input type="checkbox" id="checkbox_<s:property value="#stat.index" /> type="checkbox" onClick="itemSum(<s:property value = "#stat.index" />);" value="<s:property value='goods_no'/>"/></td>
+									<td width="10%"><img src="http://cooz.co/semiP/IMG/${goods_category}/${order_goods_no}/0.jpg" style="width:100%;"></td>
+									<td width="19%">${goods_name}<br><font style="font-size:0.8em; color:777777">${goods_size},${goods_color}</font></td>
+									<td width="15%">₩ ${goods_price}</td>
+									<td width="10%">${goods_amount}</td>
 									<td width="10%">무료</td>
-									<td width="15%">₩ <s:property value="goods_price"/> * <s:property value="order_goods_amount"/></td>
+									<td width="15%">₩ ${order_total_price}</td>
 									
 									<%-- <td width="10%"><img src="<s:property value="goods_image"/>" style="width:100%;"> --%>
 									<%-- <td width="19%"><s:property value="goods_name"/><br><font style="font-size:0.8em; color:777777"><s:property value="order_goods_size"/>&nbsp;<s:property value="order_goods_color"/></font></td> --%>
 									<%-- <td width="15%">₩ <s:property value="goods_price"/></td> --%>
 									<%-- <td width="10%"><s:property value="order_goods_amount"/></td> --%>
+									
+									<input type="hidden" name="order_goods_size" value="${resultClass.order_goods_size}" />
 									
 								</tr>
 								<tr><td colspan="9" bgcolor="#f2f2f2" height="1"></td></tr>
@@ -110,12 +114,12 @@
 									<td colspan="7" height="100px" align="right" style="padding:20px;font-size:1.5em;">
 									
 									<!-- 	상품구매액 100,000 + 배송비 2,500 = 합계 : 102,500원 -->
-									상품구매액 <s:property value="goods_price"/> + 배송비 무료 = 합계 : <s:property value="order_total_price"/>  
+									상품구매액 ${goods_price} + 배송비 무료 = 합계 : ${order_total_price}  
 									
 									</td>
 								</tr>
 <!-- 게시물 하나씩 iterator 끝 -->
-							</s:iterator>													
+								<%-- </s:iterator>	 --%>										
 								<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 								<tr>	<td height="50"></td>	</tr>
 								
@@ -258,16 +262,15 @@
 									</td>
 								</tr>
 								<tr>
-									<td width="33%" height="100">₩
+									<td width="33%" height="100">₩ ${order_total_price}
 									</td>
-									<td width="34%" height="100">₩
+									<td width="34%" height="100">₩ 10%
 									</td>
-									<td width="33%" height="100">₩
+									<td width="33%" height="100">₩ ${order_total_pay}
 									</td>
 								</tr>
 							</table>
 						</td>
-						<s:hidden name="order_goods_no" value="%{resultClass.goods_no}" />
 					</tr>
 					<tr>	<td></td>	</tr>
 					<tr><td colspan="3" bgcolor="#cccccc" height="1"></td></tr>
@@ -277,12 +280,10 @@
 							<input type="submit" class="btn-custom" value="결제하기">
 						</td>
 					</tr>
-								
 				</table>
-				
 			</table>
 								
-			<table width="100%">					
+			<table width="100%">
 				<tr><td height="50"/></tr>
 				<tr>
 					<td width="12%" />
@@ -296,5 +297,5 @@
 					</td>
 					<td width="12%"/>
 				</tr>
-			</table>						
+			</table>
 <script type="text/javascript" src="/semiP/assets/js/goodsCount.js"></script>

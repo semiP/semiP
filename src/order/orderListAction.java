@@ -27,7 +27,7 @@ public class orderListAction extends ActionSupport{
 	private int totalCount;		 
 	private int blockCount = 10; 
 	private int blockPage = 5;   
-	private String pagingHtml;   
+	private String pagingHtml;
 	private int num = 0;
 	
 	//생성자
