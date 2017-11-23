@@ -4,13 +4,15 @@ import java.io.Reader;
 import java.sql.SQLException;
 import java.util.Map;
 
+import org.apache.struts2.interceptor.SessionAware;
+
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class basketDeleteAction extends ActionSupport {
+public class basketDeleteAction extends ActionSupport implements SessionAware {
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
@@ -21,7 +23,9 @@ public class basketDeleteAction extends ActionSupport {
 	//private int goods_no;
 	private int currentPage;
 	
-	public basketDeleteAction() throws Exception{
+	private Map session;
+	
+	public basketDeleteAction() throws Exception {
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
@@ -100,6 +104,16 @@ public class basketDeleteAction extends ActionSupport {
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
 	}
+
+	public Map getSession() {
+		return session;
+	}
+
+	public void setSession(Map session) {
+		this.session = session;
+	}
+	
+	
 	
 	
 }

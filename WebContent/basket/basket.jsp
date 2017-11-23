@@ -27,7 +27,7 @@
 		<tr>
 			
 			<td>
-				<form action="orderWriteForm.action" method="post" id="frm" name="frm">
+				
 				<input type="hidden" id="basket_no_set" name="basket_no_set" />
 
 				<table width="100%" border="0">
@@ -42,17 +42,22 @@
 									<td width="10%">배송구분</td>
 									<td width="10%">배송비</td>
 									<td width="15%">합계</td>
-									<td width="10%">선택</td>
+									<td width="10%">선택주문</td>
 								</tr>
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->	
 								<s:iterator value="basketlist" status="stat">
-								
-								<input type="hidden" id="basket_price_<s:property value = "#stat.index" />" name="basket_price_<s:property value = "#stat.index" />" value="<s:property value='basket_price'/>" />
+								<form action="testcount.action" method="get" >
+								<input type="hidden" name="order_goods_no" value="<s:property value='goods_no'/>"/>
+								<input type="hidden" name="goods_name" value="<s:property value='goods_name'/>"/>
+								<input type="hidden" name="goods_size" value="<s:property value='goods_size'/>"/>
+								<input type="hidden" name="goods_color" value="<s:property value='goods_color'/>"/>
+								<input type="hidden" name="goods_price" value="<s:property value='goods_price'/>"/>
+								<input type="hidden" name="goods_category" value="<s:property value='category'/>"/>
 								<tr align="center" id="basket_list_<s:property value = "#stat.index" />">
 									<td width="1%"><input name="chkbox" id="chkbox_<s:property value = "#stat.index" />" type="checkbox" onClick="itemSum(<s:property value = "#stat.index" />);" value="<s:property value='basket_no'/>"/></td>
 									<td width="10%">
-									<img src="<s:property value="goods_image"/>"><br><font style="width:100%;"></td>
+									<img width="100%" src="http://cooz.co/semiP/IMG/<s:property value="category"/>/<s:property value="goods_no"/>/0.jpg"><br><font style="width:100%;"></td>
 									<td width="19%"><s:property value="goods_name"/><br><font style="font-size:0.8em; color:777777"><s:property value="goods_color"/> / <s:property value="goods_size"/></font></td>
 									<td width="15%">
 									
@@ -63,19 +68,20 @@
 									
 									</td>
 									<td width="10%">
-										<input type="button" id="p_btn" value="+" style="background-color:#cccccc;width:80%;"><br>
-										<input type="text" id="count" value="<s:property value="bgoods_amount"/>"  style="text-align:center; width:80%;" readonly="readonly"><br>
-										<input type="button" id="m_btn" value="-" style="background-color:#cccccc;width:80%;">
+										<!-- <input type="button" id="p_btn" value="+" style="background-color:#cccccc;width:80%;"><br> -->
+										<input type="text" name="goods_amount" id="count" value="<s:property value='bgoods_amount'/>"  style="text-align:center; width:80%;" readonly="readonly"><br>
+										<!-- <input type="button" id="m_btn" value="-" style="background-color:#cccccc;width:80%;"> -->
 									</td>
 									<td width="10%">택배</td>
 									<td width="10%">무료</td>
 									<td width="15%">₩ <s:property value="basket_price"/></td>
 									<td width="10%">
 										<input type="submit" value="주문하기" style="width:80%;"><br><br>
-										<input type="button" value="삭제하기" style="width:150px;" onClick="alert('삭제되었습니다.'); 
-											location.href='basketDeleteAction.action?basket_no=<s:property value="basket_no"/>'"/>
+										<%-- <input type="button" value="삭제하기" style="width:80%;" onClick="alert('삭제되었습니다.'); 
+											location.href='basketDeleteAction.action?basket_no=<s:property value="basket_no"/>'"/> --%>
 									</td>
 								</tr>
+								</form>
 								</s:iterator>
 <!-- 게시물 하나씩 iterator 끝 -->	
 								<tr><td colspan="9" bgcolor="#f2f2f2" height="1"></td></tr>
@@ -103,7 +109,7 @@
 								<tr>
 									<td colspan="9" align="left" style="font-size:1.5em;">
 										선택상품을&nbsp;
-										<input type="submit" value="주문하기" style="width:150px;">&nbsp;
+										<!-- <input type="submit" value="주문하기" style="width:150px;">&nbsp; -->
 										<input type="button" value="삭제하기" style="width:150px;" onClick="javascript:checked_delete();"/>
 									</td>
 								</tr>

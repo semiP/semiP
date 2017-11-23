@@ -13,6 +13,9 @@ public class basketVO{
 	private Date basket_date;
 	private String goods_name;
 	private String goods_image;
+	private int goods_no;
+	private int category;
+	private int goods_price;
 	
 	public int getBasket_no(){
 		return basket_no;
@@ -82,8 +85,32 @@ public class basketVO{
 		return goods_image;
 	}
 
-	public void setGoods_image(String image){
+	public void setGoods_image(String goods_image){
 		this.goods_image = goods_image;
+	}
+
+	public int getGoods_no() {
+		return goods_no;
+	}
+
+	public void setGoods_no(int goods_no) {
+		this.goods_no = goods_no;
+	}
+
+	public int getCategory() {
+		return category;
+	}
+
+	public void setCategory(int category) {
+		this.category = category;
+	}
+
+	public int getGoods_price() {
+		return goods_price;
+	}
+
+	public void setGoods_price(int goods_price) {
+		this.goods_price = goods_price;
 	}
 	
 }

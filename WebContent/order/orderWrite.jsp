@@ -26,7 +26,7 @@
 								<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 
 								<tr bgcolor="#455b59" style="color:#FFFFFF;" align="center">
-									<td width="1%"><input type="checkbox"/></td>
+									
 									<td width="10%">이미지</td>
 									<td width="19%">상품정보</td>
 									<td width="15%">판매가</td>
@@ -36,9 +36,12 @@
 								</tr>
 								<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->
+
+								<s:iterator value="orderWrite" status="stat">
 								<tr align="center">
-									<td width="1%"><input type="checkbox"/></td>
-									<td width="10%"><img src="/semiP/assets/images/best1.jpg" style="width:100%;"></td>
+									
+									<td width="10%">
+									<img width="100%" src="http://cooz.co/semiP/IMG/<s:property value="category"/>/<s:property value="goods_no"/>/0.jpg"><br><font style="width:100%;"></td>
 									<td width="19%">상품이름이름이름<br><font style="font-size:0.8em; color:777777">상품옵션옵션</font></td>
 									<td width="15%">₩ 100,000</td>
 									<td width="10%">1</td>
@@ -48,13 +51,13 @@
 								<tr><td colspan="9" bgcolor="#f2f2f2" height="1"></td></tr>
 								<tr bgcolor="#455b59" style="color:#FFFFFF;" align="center">
 									<td colspan="7" height="100px" align="right" style="padding:20px;font-size:1.5em;">
-										상품구매액 100,000 + 배송비 2,500 = 합계 : 102,500원
+										상품구매액 <input name="total_sum" value="" style="width:100px;text-align:center;background-color:transparent;border:none;color:#FFFFFF;" readonly></font>  +  배송비 무료 = 합계 :  <input name="totalOrder_sum" value="" style="width:100px;text-align:center;background-color:transparent;border:none;color:#FFFFFF;" readonly>   원
 									</td>
 								</tr>
 <!-- 게시물 하나씩 iterator 끝 -->																
 								<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 								<tr>	<td height="50"></td>	</tr>
-								
+								</s:iterator>
 				</table>
 				
 				<table width="100%">
@@ -244,3 +247,5 @@
 				</tr>
 			</table>						
 <script type="text/javascript" src="/semiP/assets/js/goodsCount.js"></script>
+
+
