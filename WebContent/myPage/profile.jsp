@@ -39,11 +39,11 @@
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
-                document.getElementById('sample6_address').value = fullAddr;
+                document.getElementById('member_zipcode').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('member_address1').value = fullAddr;
 
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById('sample6_address2').focus();
+                document.getElementById('member_address2').focus();
             }
         }).open();
     }
@@ -113,9 +113,9 @@
 			<tr>
 				<td class="memberinfo1" width="100" id="m_saved_email"><br>&nbsp;&nbsp;이메일<br><br></td>
 				<td>
-					<input type="text" id=m_email1  style="width:100px; height:30px;" value="<s:property value="email1"/>">&nbsp;@&nbsp;
-					<input type="text" id="m_email2" style="width:100px; height:30px;" value="<s:property value="email2"/>">
-					<select name="select" onchange="document.getElementById('m_email2').value=this.value;if(this.value==''){document.getElementById('m_email2').focus();}">		
+					<input type="text" id=email1  style="width:100px; height:30px;" value="<s:property value="email1"/>">&nbsp;@&nbsp;
+					<input type="text" id="email2" style="width:100px; height:30px;" value="<s:property value="email2"/>">
+					<select name="select" onchange="document.getElementById('email2').value=this.value;if(this.value==''){document.getElementById('email2').focus();}">		
 						<option value="" selected="selected">직접입력</option>										
 						<option value="gmail.com">gmail.com</option>
 						<option value="naver.com">naver.com</option>
@@ -147,16 +147,16 @@
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;우편번호<br><br></td>
-				<td><input type="text" id="sample6_postcode" style="width:100px; height:30px;" value="<s:property value="resultClass.member_zipcode"/>">&nbsp;&nbsp;<input type="button" onclick="sample6_execDaumPostcode()" value="찾기"></td>
+				<td><input type="text" id="member_zipcode" style="width:100px; height:30px;" value="<s:property value="resultClass.member_zipcode"/>">&nbsp;&nbsp;<input type="button" onclick="sample6_execDaumPostcode()" value="찾기"></td>
 			
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;주소<br><br></td>
-				<td><input type="text" id="sample6_address" style="width:90%; height:30px;" value="<s:property value="resultClass.member_address1"/>"></td>
+				<td><input type="text" id="member_address1" style="width:90%; height:30px;" value="<s:property value="resultClass.member_address1"/>"></td>
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;상세주소<br><br></td>
-				<td><input type="text" id="sample6_address2" style="width:90%; height:30px;" value="<s:property value="resultClass.member_address2"/>"></td>
+				<td><input type="text" id="member_address2" style="width:90%; height:30px;" value="<s:property value="resultClass.member_address2"/>"></td>
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;연락처<br><br></td>
@@ -165,7 +165,7 @@
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;기존 비밀번호<br><br></td>
-				<td><input type="password" style="width:90%; height:30px;" value="<s:property value="resultClass.member_pw"/>"></td>
+				<td><input type="member_pw" style="width:90%; height:30px;" value="<s:property value="resultClass.member_pw"/>"></td>
 			</tr>
 			<tr>
 				<td colspan="3" height="1" bgcolor="#777777"></td>

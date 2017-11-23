@@ -39,6 +39,8 @@ public class InfoModifyAction extends ActionSupport implements SessionAware{
 	private int member_level;
 	private String member_deletereason;
 	
+	
+	
 	//email개별번수
 	private String email1;
 	private String email2;
@@ -117,6 +119,7 @@ public class InfoModifyAction extends ActionSupport implements SessionAware{
 		paramClass2.setMember_no(session_no);
 		
 		// 일단 항목만 수정한다.
+		System.out.println(getMember_zipcode());
 		sqlMapper.update("mypageMemberModify.updateMember",paramClass2);
 		
 		//수정이 끝나면 view페이지로 이동
