@@ -28,7 +28,6 @@
 			
 			<td>
 				
-				<input type="hidden" id="basket_no_set" name="basket_no_set" />
 
 				<table width="100%" border="0">
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
@@ -46,8 +45,11 @@
 								</tr>
 								<tr><td colspan="9" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->	
+								<form name="frm" action="testcount.action" method="get" >
+								<input type="hidden" id="basket_no_set" name="basket_no_set" />
+								
 								<s:iterator value="basketlist" status="stat">
-								<form action="testcount.action" method="get" >
+								<input type="hidden" id="basket_price_<s:property value='#stat.index'/>" name="basket_price_<s:property value='#stat.index'/>" value="<s:property value='goods_price'/>" />
 								<input type="hidden" name="order_goods_no" value="<s:property value='goods_no'/>"/>
 								<input type="hidden" name="goods_name" value="<s:property value='goods_name'/>"/>
 								<input type="hidden" name="goods_size" value="<s:property value='goods_size'/>"/>
@@ -81,8 +83,9 @@
 											location.href='basketDeleteAction.action?basket_no=<s:property value="basket_no"/>'"/> --%>
 									</td>
 								</tr>
-								</form>
 								</s:iterator>
+								</form>
+
 <!-- 게시물 하나씩 iterator 끝 -->	
 								<tr><td colspan="9" bgcolor="#f2f2f2" height="1"></td></tr>
 								
@@ -97,7 +100,7 @@
 									</td>
 									
 									<td colspan="6" width="50%" height="100px" align="right" style="padding:20px;font-size:1.5em;">
-									 상품구매액 <input name="total_sum" value="" style="width:100px;text-align:center;background-color:transparent;border:none;color:#FFFFFF;" readonly></font>  +  배송비 무료 = 합계 :  <input name="totalOrder_sum" value="" style="width:100px;text-align:center;background-color:transparent;border:none;color:#FFFFFF;" readonly>   원
+									 상품구매액 <input id="total_sum" name="total_sum" value="" style="width:100px;text-align:center;background-color:transparent;border:none;color:#FFFFFF;" readonly></font>  +  배송비 무료 = 합계 :  <input id="totalOrder_sum" name="totalOrder_sum" value="" style="width:100px;text-align:center;background-color:transparent;border:none;color:#FFFFFF;" readonly>   원
 									</td>
 								</tr>
 						
