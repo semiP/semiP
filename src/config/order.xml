@@ -42,6 +42,12 @@
 				<param name="actionName">orderListAction</param>
 			</result>
 		</action>
+		
+		<!-- 주문된 상품 넘기기 액션 -->
+		<action name="orderWriteAction" class="order.orderWriteAction">
+			<interceptor-ref name="params"></interceptor-ref>
+			<result>/order/orderWrite.jsp</result>
+		</action>
  	
  		<!-- 주문 내역 가져오기 (List) 액션 -->
 		<action name="orderListAction" class="order.orderListAction">
@@ -67,6 +73,5 @@
 		 	orderListAction
 		 	</result>
 		</action>
-
 	</package>
 </struts>

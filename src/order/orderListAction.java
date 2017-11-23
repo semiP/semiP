@@ -1,6 +1,9 @@
 package order;
 
 import com.opensymphony.xwork2.ActionSupport;
+
+import goods.goodsVO;
+
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
@@ -16,13 +19,15 @@ public class orderListAction extends ActionSupport{
 	public static Reader reader;        //���� ��Ʈ���� ���� reader.
 	public static SqlMapClient sqlMapper;      //SqlMapClinet API�� ����ϱ� ���� sqlMapper ��ü.
 	
+	private orderVO resultOrder = new orderVO();
 	private List<orderVO> list = new ArrayList<orderVO>();
+	private int order_no;
 	
 	private int currentPage = 1; 
 	private int totalCount;		 
 	private int blockCount = 10; 
 	private int blockPage = 5;   
-	private String pagingHtml;   
+	private String pagingHtml;
 	private int num = 0;
 	
 	//생성자
@@ -37,9 +42,11 @@ public class orderListAction extends ActionSupport{
 	public String execute() throws Exception
 	{
 		//모든 글을 가져와 list에 넣는다.
-		list = sqlMapper.queryForList("select-order-all");
+		/*list = sqlMapper.queryForList("select-join-order");
 		
-		totalCount = list.size(); //list의 크기를 구한다.
+		totalCount = list.size(); //list의 크기를 구한다
+*/		
+		resultOrder = (orderVO) sqlMapper.queryForObject("order.select-join-order-one", order_no);
 		
 		return SUCCESS;
 	}
@@ -61,5 +68,8 @@ public class orderListAction extends ActionSupport{
 	
 	public String getPagingHtml() { return pagingHtml; }
 	public void setPagingHtml(String pagingHtml) { this.pagingHtml = pagingHtml; }
+
+	public int getOrder_no() { return order_no; }
+	public void setOrder_no(int order_no) { this.order_no = order_no; }
 	
 }

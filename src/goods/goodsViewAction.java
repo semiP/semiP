@@ -39,15 +39,13 @@ public class goodsViewAction extends ActionSupport implements SessionAware {
 		reader.close();
 	}
 	
-	
 	public String execute() throws Exception
 	{
+
 		resultGoods = (goodsVO) sqlMapper.queryForObject("goods.select-goods-one", goods_no);
 		listCmt = sqlMapper.queryForList("goods.select-cmt-all", goods_no);
-		
 		return SUCCESS;
 	}
-
 
 	public goodsVO getResultGoods() {
 		return resultGoods;

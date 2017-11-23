@@ -74,8 +74,6 @@ public class goodsWriteAction extends ActionSupport{
 		paramClass.setGoods_image(getGoods_image());
 		paramClass.setGoods_regdate(today.getTime());
 		
-		
-			
 		//파일 업로드
 		if(getUpload() != null)
 		{

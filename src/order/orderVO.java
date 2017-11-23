@@ -23,12 +23,10 @@ public class orderVO {
 	private Date order_trade_date;
 	private int order_status;
 	private int order_list_amount;
-	private String order_goods_image;
 	private int order_pay_type;
 	private String order_pay_name;
 	private int order_total_pay;
 	private int invoice_no;		// 171118 디비/SQL 에는 있는데 VO 에 없어서 추가-동민
-
 	
 	//goodsVO goods_vo = new goodsVO();        //goods테이블의 클래스 객체
 	//memeberVO member_vo = new memberVO(); 
@@ -93,10 +91,7 @@ public class orderVO {
 	public int getOrder_total_pay() { return order_total_pay; }
 	public void setOrder_total_pay(int order_total_pay) { this.order_total_pay = order_total_pay; }
 	
-	public int getInvoice_no() {	return invoice_no;	}
+	public int getInvoice_no() { return invoice_no;	}
 	public void setInvoice_no(int invoice_no) {	this.invoice_no = invoice_no;	}
-
-	public String getOrder_goods_image() {return order_goods_image;}
-	public void setOrder_goods_image(String order_goods_image) {this.order_goods_image = order_goods_image;}
 
 }

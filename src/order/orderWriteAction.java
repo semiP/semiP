@@ -15,7 +15,11 @@ import org.apache.commons.io.FileUtils;
 import goods.goodsVO;
 import order.orderVO;
 
-public class orderWriteAction extends ActionSupport{
+import org.apache.struts2.interceptor.SessionAware;
+
+public class orderWriteAction extends ActionSupport implements SessionAware {
+	
+	private static final long serialVersionUID = 1L;
 	
 	public static Reader reader; //���� ��Ʈ���� ���� reader.
 	public static SqlMapClient sqlMapper; //SqlMapClient API�� ����ϱ� ���� sqlMapper ��ü.
@@ -24,6 +28,16 @@ public class orderWriteAction extends ActionSupport{
 	private orderVO resultClass; //���� ��� ���� ������ ��ü
 	
 	private List<orderVO> list = new ArrayList<orderVO>();
+	private LinkedHashMap<String, List<goodsVO>> categoryMap = new LinkedHashMap<String, List<goodsVO>>();
+	
+	private Map session;
+	
+	private String goods_name;
+	private String goods_size;
+	private String goods_color;
+	private int goods_price;
+	private int goods_amount;
+	private int goods_category;
 	
 	private int order_no;
 	private int order_goods_no;
@@ -42,13 +56,17 @@ public class orderWriteAction extends ActionSupport{
 	private Date order_trade_date;
 	private int order_status;
 	private int order_list_amount;
-	private String order_goods_image;
 	private int order_pay_type;
 	private String order_pay_name;
 	private int order_total_pay;
 	private int invoice_no;
+	private int order_sale;
 	Calendar today = Calendar.getInstance(); //���� ��¥ ���ϱ�.
-
+	
+	private String phone1;
+	private String phone2;
+	private String phone3;
+	
 	private File upload; //���� ��ü
 	private String uploadContentType; //������ Ÿ��
 	private String uploadFileName; //���� �̸�
@@ -65,6 +83,14 @@ public class orderWriteAction extends ActionSupport{
 	public String form() throws Exception
 	{
 		//orderVO <= goodsVO 정보 코딩
+		
+		order_goods_amount = goods_amount;
+		order_total_price = goods_price * goods_amount;
+		order_goods_color = goods_color;
+		order_goods_size = goods_size;
+		order_sale = 10;
+		order_total_pay = order_total_price * (order_sale / 100);
+		
 		return SUCCESS;
 	}
 
@@ -80,7 +106,7 @@ public class orderWriteAction extends ActionSupport{
 		paramClass.setOrder_member_no(getOrder_member_no());
 		paramClass.setOrder_goods_no(getOrder_goods_no());
 		paramClass.setOrder_goods_amount(getOrder_goods_amount());
-		paramClass.setOrder_goods_color(getOrder_goods_color());
+		paramClass.setOrder_goods_color(getOrder_goods_color());  
 		paramClass.setOrder_goods_size(getOrder_goods_size());
 		paramClass.setOrder_receive_name(getOrder_receive_name());
 		paramClass.setOrder_receive_zipcode(getOrder_receive_zipcode());
@@ -93,16 +119,18 @@ public class orderWriteAction extends ActionSupport{
 		paramClass.setOrder_trade_date(today.getTime());
 		paramClass.setOrder_status(getOrder_status());
 		paramClass.setOrder_list_amount(getOrder_list_amount());
-		paramClass.setOrder_goods_image(getOrder_goods_image());
 		paramClass.setOrder_pay_type(getOrder_pay_type());
 		paramClass.setOrder_pay_name(getOrder_pay_name());
 		paramClass.setOrder_total_pay(getOrder_total_pay());
 		paramClass.setInvoice_no(getInvoice_no());
 		
-		//받은값을 넣는다.
-		sqlMapper.insert("order.orderInsert", paramClass);
+		/*order_receive_phone = getPhone1().concat(getPhone2());
+		order_receive_phone = order_receive_phone.concat(getPhone3());*/
 		
-		if(getUpload() != null)
+		/*order_receive_phone = getPhone1() + getPhone2() + getPhone3();*/
+		/*order_goods_size = */
+
+/*		if(getUpload() != null)
 		{
 			resultClass = (orderVO) sqlMapper.queryForObject("order.selectLastNo");
 			
@@ -120,7 +148,11 @@ public class orderWriteAction extends ActionSupport{
 //			paramClass.setFile_savname(file_name + "." +file_ext);
 			
 			sqlMapper.update("order.updateFile", paramClass);
-		}
+		}*/
+		
+		//받은값을 넣는다.
+		sqlMapper.insert("order.orderInsert", paramClass);
+		
 		return SUCCESS;
 	}
 	
@@ -182,9 +214,6 @@ public class orderWriteAction extends ActionSupport{
 	public int getOrder_list_amount() { return order_list_amount; }
 	public void setOrder_list_amount(int order_list_amount) { this.order_list_amount = order_list_amount; }
 	
-	public String getOrder_goods_image() { return order_goods_image; }
-	public void setOrder_goods_image(String order_goods_image) { this.order_goods_image = order_goods_image; }
-	
 	public int getOrder_pay_type() { return order_pay_type; }
 	public void setOrder_pay_type(int order_pay_type) { this.order_pay_type = order_pay_type; }
 	
@@ -209,4 +238,77 @@ public class orderWriteAction extends ActionSupport{
 	public String getFileUploadPath() { return fileUploadPath; }
 	public void setFileUploadPath(String fileUploadPath) { this.fileUploadPath = fileUploadPath; }
 
+	public String getPhone1() { return phone1; }
+	public void setPhone1(String phone1) { this.phone1 = phone1; }
+
+	public String getPhone2() { return phone2; }
+	public void setPhone2(String phone2) { this.phone2 = phone2; }
+
+	public String getPhone3() { return phone3; }
+	public void setPhone3(String phone3) { this.phone3 = phone3;}
+
+	public LinkedHashMap<String, List<goodsVO>> getCategoryMap() {
+		return categoryMap;
+	}
+
+	public void setCategoryMap(LinkedHashMap<String, List<goodsVO>> categoryMap) {
+		this.categoryMap = categoryMap;
+	}
+
+	public Map getSession() {
+		return session;
+	}
+
+	public void setSession(Map session) {
+		this.session = session;
+	}
+
+	public String getGoods_name() {
+		return goods_name;
+	}
+
+	public void setGoods_name(String goods_name) {
+		this.goods_name = goods_name;
+	}
+
+	public String getGoods_size() {
+		return goods_size;
+	}
+
+	public void setGoods_size(String goods_size) {
+		this.goods_size = goods_size;
+	}
+
+	public String getGoods_color() {
+		return goods_color;
+	}
+
+	public void setGoods_color(String goods_color) {
+		this.goods_color = goods_color;
+	}
+
+	public int getGoods_price() {
+		return goods_price;
+	}
+
+	public void setGoods_price(int goods_price) {
+		this.goods_price = goods_price;
+	}
+
+	public int getGoods_amount() {
+		return goods_amount;
+	}
+
+	public void setGoods_amount(int goods_amount) {
+		this.goods_amount = goods_amount;
+	}
+
+	public int getGoods_category() {
+		return goods_category;
+	}
+
+	public void setGoods_category(int goods_category) {
+		this.goods_category = goods_category;
+	}
+	
 }

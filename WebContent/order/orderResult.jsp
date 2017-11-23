@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"
 	trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ page import = "java.util.List" %>
 
 <div id="content-container">
 	<table width="100%" border="0" style="margin:auto; max-width:1000px;">
@@ -27,9 +29,14 @@
 						<td style="border:1px solid black; padding:20px;" align="center">
 						
 							<p><strong>
-							주문번호: 3213213213212131321
+							<!-- 주문번호: 3213213213212131321 -->
+							주문번호 : ${order_no}
+							
+							
 							</strong></p>
-							주문날짜: 날짜날짜날짜<br>
+							<!-- 주문날짜: 날짜날짜날짜<br> -->
+							주문날짜 : ${order_date}
+							
 							<br>
 							<p><strong>
 							고객님의 주문이 완료되었습니다
@@ -56,22 +63,26 @@
 					<table width="80%" border="0" align="center">
 						<tr>
 							<td width="100"><br>&nbsp;&nbsp;최종결제금액<br><br></td>
-							<td>₩ 77,800</td>
+							<!-- <td>₩ 77,800</td> -->
+							<td>₩ <s:property value="order_total_price" /></td>
+							
+							
 						</tr>
 						<tr>
 							<td width="100"><br>&nbsp;&nbsp;결제수단<br><br></td>
 							<td>
-								무통장입금<br>
+								<!-- 무통장입금<br>
 								입금자: 나은이,<br>
-								계좌번호: 831209-123-1221321 프랑스은행 (주)미뇽꼬삔느								
+								계좌번호: 831209-123-1221321 프랑스은행 (주)미뇽꼬삔느 -->
+								<s:property value="order_pay_type" /><br>
+								<s:property value="order_pay_name" /><br>
+								계좌번호: ?
 							</td>
 						</tr>						
 					</table>
 					<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 					<tr>	<td height="50"></td>	</tr>
-								
-								
-								
+
 				</table>
 				
 				
@@ -98,37 +109,51 @@
 						</tr>
 						<tr><td colspan="6" bgcolor="#cccccc" height="1"></td></tr>
 	<!-- 게시물 하나씩 iterator 시작 -->
+	
+	
 						<tr align="center">
-							<td width="10%"><img src="/semiP/assets/images/best1.jpg" style="width:100%;"></td>
+							<!-- <td width="10%"><img src="/semiP/assets/images/best1.jpg" style="width:100%;"></td>
 							<td width="19%">상품이름이름이름<br><font style="font-size:0.8em; color:777777">상품옵션옵션</font></td>
 							<td width="15%">₩ 100,000</td>
 							<td width="10%">1</td>
 							<td width="10%">₩ 2,500</td>
-							<td width="15%">₩ 102,500</td>
+							<td width="15%">₩ 102,500</td> -->
+							
+							<td width="10%"><img src="<s:property value="goods_image"/>" style="width:100%;"></td>
+							<td width="19%"><s:property value="goods_name" /><br><font style="font-size:0.8em; color:777777"><s:property value="goods_size" /><s:property value="goods_color" /></font></td>
+							<td width="15%">₩ <s:property value="goods_price" /></td>
+							<td width="10%"><s:property value="order_goods_amount" /></td>
+							<td width="10%">무료</td>
+							<td width="15%">₩ ${goods_price} * ${order_goods_amount}</td> 
+							
+							
 						</tr>
-						<tr><td colspan="6" bgcolor="#f2f2f2" height="1"></td></tr>
+						
+						
+						<!-- <tr><td colspan="6" bgcolor="#f2f2f2" height="1"></td></tr>
 						<tr bgcolor="#455b59" style="color:#FFFFFF;" align="center">
 							<td colspan="6" height="50" align="right" style="padding:20px;font-size:1.5em;">
 								상품구매액 100,000 + 배송비 2,500 = 합계 : 102,500원
 							</td>
+						</tr> -->
+						
+						<tr><td colspan="6" bgcolor="#f2f2f2" height="1"></td></tr>
+						<tr bgcolor="#455b59" style="color:#FFFFFF;" align="center">
+							<td colspan="6" height="50" align="right" style="padding:20px;font-size:1.5em;">
+								상품구매액 ${goods_price} * ${order_goods_amount} + 배송비 무료 = 합계 : ${order_total_price}원
+							</td>
 						</tr>
+						
 	<!-- 게시물 하나씩 iterator 끝 -->																
 						<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 						<tr>	<td height="50"></td>	</tr>
 								
 					</table>
 						
-						
-						
-						
-						
 						<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 						<tr>	<td height="50"></td>	</tr>
 								
-								
-								
 				</table>
-
 
 				<table width="100%">
 					<tr>
@@ -149,7 +174,8 @@
 										받으시는분
 									</td>
 									<td align="center">
-										나은이
+										<!-- 나은이 -->
+										<s:property value="order_receive_name" />
 									</td>
 								</tr>
 								<tr>
@@ -157,7 +183,8 @@
 										우편번호
 									</td>
 									<td align="center">
-										06253
+										<!-- 06253 -->
+										<s:property value="order_receive_zipcode" />
 									</td>
 								</tr>
 								<tr>
@@ -165,7 +192,9 @@
 										주  소
 									</td>
 									<td align="center">
-										서울특별시 영등포구 당산동 국회대로34길
+										<!-- 서울특별시 영등포구 당산동 국회대로34길 -->
+										<s:property value="order_receive_addr1" />
+										<s:property value="order_receive_addr2" />
 									</td>
 								</tr>
 								<tr>
@@ -173,7 +202,8 @@
 										연락처
 									</td>
 									<td align="center">
-										010-8282-8282
+										<!-- 010-8282-8282 -->
+										<s:property value="order_receive_phone" />
 									</td>
 								</tr>	
 								<tr>
@@ -181,7 +211,8 @@
 										배송메세지
 									</td>
 									<td align="center">
-										M이라서 안맞겠지만 꽉끼게입어볼께요 빠른배송
+										<!-- M이라서 안맞겠지만 꽉끼게입어볼께요 빠른배송 -->
+										<s:property value="order_memo" />
 									</td>
 								</tr>								
 							</table>
@@ -192,9 +223,6 @@
 					<tr><td colspan="3" bgcolor="#cccccc" height="1"></td></tr>
 					<tr>	<td height="30"></td>	</tr>
 				</table>
-				
-				
-				
 			</table>
 								
 			<table width="100%">					

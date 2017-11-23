@@ -54,11 +54,11 @@
 						</td>
 						<td width="15"></td> <!-- 사진과 옵션 사이 여백는 부분 -->
 						<td style="vertical-align:top;">
-							<form name="orderInfo" action="testcount.action" method="post">
+							<form name="orderWriteAction" action="orderWriteForm.action" method="post">
 							<input type="hidden" name="order_goods_no" value="${goods_no }"/>
 							<input type="hidden" name="goods_name" value="<s:property value='resultGoods.goods_name' />"/>
 							<input type="hidden" name="goods_category" value="<s:property value='resultGoods.goods_category' />"/>
-							<input type="hidden" name="goods_Price" value="<s:property value='resultGoods.goods_price' />"/>
+							<input type="hidden" name="goods_price" value="<s:property value='resultGoods.goods_price' />"/>
 							<table width="100%" border="0">
 								<tr>
 									<td colspan="2" style="font-size:1.5em;">상품이름 : <s:property value="resultGoods.goods_name" /><br><br></td>
@@ -81,6 +81,7 @@
 									
 									<td>
 										<select name="goods_color">
+
 											<option value="" selected="selected">선택해 주세요</option>										
 											<c:forTokens var="color" items="${resultGoods.goods_color}" delims=",">
 												<option value=${fn:trim(color)}>
@@ -129,6 +130,7 @@
 									</td>
 									<td align="left" style="padding:5px;">
 										<input type="submit" class="btn-custom1" value="구매하기" style="width:150px;"/>
+
 									</td>
 								</tr>
 							</table>
