@@ -74,13 +74,13 @@
 		</select>
 		
 		<select id="selectOneGoodsOrder_OrderDeliverCondition" resultMap="goodsOrderRes" parameterClass="int">
-			<include refid="select-all-goodsOrder_OrderDeliverCondition" />
-			WHERE goods_no = #goods_no#
+			<include refid="select-all-classfy-goodsOrder_OrderDeliverCondition" />
+			WHERE order_no = #order_no# and order_status != 5
 		</select>
 
 	<!-- 기간조회 -->
-		<select id="order_date" resultMap="goodsOrderRes">
-			<include refid="select-all-goodsOrder_OrderDeliverCondition"/>
+		<select id="order_date" resultMap="goodsOrderRes" parameterClass="int">
+			<include refid="select-all-classfy-goodsOrder_OrderDeliverCondition"/>
 			BETWEEN #searchKeyword1# AND #searchKeyword2#
 		</select>	
 </sqlMap>
