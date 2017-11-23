@@ -32,7 +32,9 @@
 							<td width="15"></td>
 						</tr>
 						<tr align="center">
-							<td colspan="3"><input type="submit" value="질의하기" class="btn-custom" ></td>
+							<td colspan="3"><input type="button" value="질의하기" class="btn-custom" 
+							onClick="javascript:open_win_noresizable('loginidfind.action?name='+name+'&email='+email, 'check')">
+							</td>
 						</tr>
 					</table>
 				</form>

@@ -1,5 +1,82 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+<script>
+
+function check()
+{
+    var form = document.joinform;
+
+    if(!form.id.value){
+        alert("아이디를 입력하세요.");
+        return false;
+    }
+    
+    if(form.idDuplication.value != "idCheck"){
+        alert("아이디 중복체크를 해주세요.");
+        return false;
+    }
+    
+    if((!form.passwd.value)||(!form.passwd2.value)){
+        alert("비밀번호를 입력하세요.");
+        return false;
+    }
+    
+    // 비밀번호와 비밀번호 확인에 입력된 값이 동일한지 확인
+    if(form.password.value != form.passwordcheck.value ){
+        alert("비밀번호를 동일하게 입력하세요.");
+        return false;
+    }    
+    
+    if(!form.name.value){
+        alert("이름을 입력하세요.");
+        return false;
+    }
+    
+    if(!form.zipcode.value){
+        alert("우편번호를 입력하세요.");
+        return false;
+    }
+    
+    if((!form.address1.value)||(!form.address2.value)){
+        alert("주소를 입력하세요.");
+        return false;
+    }
+    
+    if(!form.email.value){
+        alert("이메일 주소를 입력하세요.");
+        return false;
+    }
+    
+    if((!form.tel1.value)||(!form.tel2.value)||(!form.tel3.value)){
+        alert("전화번호를 입력하세요.");
+        return false;
+    }
+}
+
+</script>
+<script>
+function openConfirmId(){
+	var url = "memberIdChkAction.action?id="+document.joinform.id.value;
+	var f = document.joinform;			//문서.Form name="";
+	var idPs = /^[a-z0-9_]{4,12}$/;		//아이디 비밀번호 체크표현식
+	cw=screen.availWidth;     //화면 넓이
+	ch=screen.availHeight;    //화면 높이
+
+	sw=450;    //띄울 창의 넓이
+	sh=250;    //띄울 창의 높이
+
+	ml=(cw-sw)/2;
+	mt=(ch-sh)/2; 
+	
+	if(!f.id.value){
+		alert("아이디를 입력해주세요.");
+		f.id.focus();
+		return false;
+	}
+	window.open(url ,"confirm","width="+sw+", height="+sh+",top="+mt+", left="+ml+", toolbar=no, location=no, status=co, menubar=no, scrollbars=no, resizable=no");
+}
+</script>
 <script>
     function execDaumPostcode() {
         new daum.Postcode({
@@ -53,7 +130,7 @@
 				<p align="right">
 					<a href="loginForm.action">로그인</a> 
 					&nbsp;&nbsp; | &nbsp;&nbsp;
-					<a href="#">아이디/비밀번호찾기</a>
+					<a href="loginfind.action">아이디/비밀번호찾기</a>
 				</p>
 			</td>
 			<td width="15%"/>
@@ -68,34 +145,39 @@
 		<tr>
 			<td width="15%"/>
 			<td><br>
+		<form action="memberend.action" method="post" name="joinform" onsubmit="return check(this)">
 			<table width="100%" border="0" >
 				<tr>
 					<td width="100"><br>&nbsp;&nbsp;아이디<br><br></td>
-					<td><input type="text" style="width:90%; height:30px;"></td>
+					<td><input type="text" style="width:90%; height:30px;" name="id"></td>
+					<br><br>
+					<td>
+					<input type="button" value="중복확인" onclick="openConfirmId(this.form)" />
+					</td>
 				</tr>
 				<tr>
 					<td width="100"><br>&nbsp;&nbsp;이  름<br><br></td>
-					<td><input type="text" style="width:90%; height:30px;"></td>
+					<td><input type="text" style="width:90%; height:30px;" name="name"></td>
 				</tr>
 				<tr>
 					<td width="100"><br>&nbsp;&nbsp;비밀번호<br><br></td>
-					<td><input type="password" style="width:90%; height:30px;"></td>
+					<td><input type="password" style="width:90%; height:30px;" name="passwd"></td>
 				</tr>
 				<tr>
 					<td width="100"><br>&nbsp;&nbsp;비밀번호 확인<br><br></td>
-					<td><input type="password" style="width:90%; height:30px;"></td>
+					<td><input type="password" style="width:90%; height:30px;" name="passwd2"></td>
 				</tr>
 				<tr>
 					<td width="100"><br>&nbsp;&nbsp;주  소<br><br></td>
 					<td>
-						<input type="text" style="width:100px; height:30px;" id="postcode">&nbsp;<input type="button" value="우편번호" onclick="execDaumPostcode()"><br>
-						<input type="text" style="width:90%; height:30px;" id="address1" placeholder="주소"><br>
-						<input type="text" style="width:90%; height:30px;" id="address2" placeholder="상세 주소">
+						<input type="text" style="width:100px; height:30px;" id="postcode" name="zipcode">&nbsp;<input type="button" value="우편번호" onclick="execDaumPostcode()"><br>
+						<input type="text" style="width:90%; height:30px;" id="address1" placeholder="주소" name="address1"><br>
+						<input type="text" style="width:90%; height:30px;" id="address2" placeholder="상세 주소" name="address2">
 					</td>
 				</tr>
 				<tr>
 					<td width="100"><br>&nbsp;&nbsp;이메일<br><br></td>
-					<td><input type="text" style="width:100px; height:30px;">&nbsp;@&nbsp;<input type="text" id="email2" style="width:100px; height:30px;">
+					<td><input type="text" style="width:100px; height:30px;">&nbsp;@&nbsp;<input type="text" id="email2" style="width:100px; height:30px;" name="email">
 					<select name="select" onchange="document.getElementById('email2').value=this.value;if(this.value==''){document.getElementById('email2').focus();}">
 										<option value="" selected="selected">직접입력</option>										
 										<option value="gmail.com">gmail.com</option>
@@ -128,8 +210,7 @@
 				<tr>
 					<td width="100"><br>&nbsp;&nbsp;핸드폰 번호<br><br></td>
 					<td>
-						<input type="text" style="width:90px; height:30px;">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;"><br>
-						
+						<input type="text" style="width:90px; height:30px;" name="tel1">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;" name="tel2">&nbsp;-&nbsp;<input type="text" style="width:90px; height:30px;" name="tel3" ><br>				
 					</td>
 				</tr>
 				<tr>
@@ -151,9 +232,10 @@
 				</tr>
 		
 		<tr>			
-			<td colspan="3" align="center" ><input type="submit" class="btn-custom" value="가입하기"></td>
+			<td colspan="3" align="center" ><input type="submit" class="btn-custom" value="가입하기" onSubmit="checkValue()"></td>
 		</tr>
 			</table>
+	</form>
 
 
 		
