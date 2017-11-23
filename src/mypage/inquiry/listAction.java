@@ -12,9 +12,9 @@ import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 
 import goods.goodsVO;
+import member.memberbean;
 import mypage.goodsOrderBean;
 import mypage.inquiryBean;
-import mypage.memberBean;
 
 public class listAction extends ActionSupport{
 	public static Reader reader;

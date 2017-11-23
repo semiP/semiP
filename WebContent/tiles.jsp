@@ -33,7 +33,7 @@
 <br>
 [mypage 폴더 ]<br>    
 <a href="/semiP/orderList.tiles" target="_blank">orderList</a> - 주문/배송현황<br>
-<a href="/semiP/profile.tiles" target="_blank">profile</a> - 회원정보<br>
+<a href="/semiP/profile.tiles" target="_blank" >profile</a> - 회원정보<br>
 <a href="/semiP/qnaList.tiles" target="_blank">qnaList</a> - 반품/교환<br>
 <a href="/semiP/refundList.tiles" target="_blank">refundList</a> - 문의내역<br>
 <a href="/semiP/myPage/reviewWrite.jsp" onClick="window.open(this.href, '', 'width=600, height=430'); return false;">reviewWrite.jsp</a><br>&nbsp;&nbsp; --> 새창으로 띄웁니다(600*430)<br>
