@@ -26,13 +26,13 @@
 					<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 
 					<tr bgcolor="#455b59" align="center"> <!-- a href 링크를 tiles 에서 action 으로 바꿔주기 -->
-						<td class="myPageMenuItem" ><a href="./profile.tiles" >
+						<td class="myPageMenuItem" ><a href="/semiP/InfoView.action" >
 							회원정보</a></td>
-						<td class="myPageMenuItem" ><a href="./orderList.tiles" >
+						<td class="myPageMenuItem" ><a href="/semiP/OrderlistClassify.action" >
 							주문/배송현황</a></td>
-						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="./refundList.tiles">
+						<td class="myPageMenuItem" bgcolor="#591522"><strong><a href="/semiP/ReturnChangeCondition.action">
 							반품/교환</a></strong></td>
-						<td class="myPageMenuItem"><a href="./qnaList.tiles" >
+						<td class="myPageMenuItem"><a href="/semiP/myPage/qnaList.jsp" >
 							문의내역</a></td>
 					</tr>
 					<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
@@ -72,12 +72,12 @@
 			<tr><td colspan="7" bgcolor="#cccccc" height="1"></td></tr>
 <!-- 게시물 하나씩 iterator 시작 -->
 			<tr align="center">
-				<td width="10%">주문날짜</td>
-				<td width="10%"><img src="/semiP/assets/images/best1.jpg" style="width:100%;"></td>
-				<td width="28%">상품이름이름이름<br><font style="font-size:0.8em; color:777777">상품옵션옵션</font></td>
-				<td width="15%">₩ 100,000</td>
+				<td width="10%"><s:property value="resultClass.order_date"/></td>
+				<td width="10%"><s:property value="resultClass.order_goods_image"/><img src="/semiP/assets/images/best1.jpg" style="width:100%;"></td>
+				<td width="28%"><s:property value="resultClass.goods_name"/><br><font style="font-size:0.8em; color:777777"><s:property value="resultClass.goods_size"/><s:property value="resultClass.goods_color"/></font></td>
+				<td width="15%"><s:property value="resultClass.goods_price"/></td>
 				<td width="5%">
-					1
+					<s:property value="resultClass.order_goods_amount"/>
 				</td>
 				<td width="20%">
 					처리대기중. <!-- 상태가 뭐뭐있는지 정의가 필요 -->

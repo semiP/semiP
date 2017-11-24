@@ -39,10 +39,18 @@
 			<tr>
 				<!--  -->
 				<td>
-					<a href="/semiP/myPage.action">
-						<img src="/semiP/assets/images/icons/mypage.png" onmouseover="this.src='/semiP/assets/images/icons/mypage_on.png'" onmouseout="this.src='/semiP/assets/images/icons/mypage.png'"><br>
-					</a>
-					<font size="1">MY PAGE</font>
+					<s:if test="#session.session_member_id != null">	
+						<a href="/semiP/InfoView.action">
+							<img src="/semiP/assets/images/icons/mypage.png" onmouseover="this.src='/semiP/assets/images/icons/mypage_on.png'" onmouseout="this.src='/semiP/assets/images/icons/mypage.png'"><br>
+						</a>
+						<font size="1">MY PAGE</font>
+					</s:if>
+					<s:else>
+						<a href="/semiP/loginac.action">
+							<img src="/semiP/assets/images/icons/mypage.png" onmouseover="this.src='/semiP/assets/images/icons/mypage_on.png'" onmouseout="this.src='/semiP/assets/images/icons/mypage.png'"><br>
+						</a>
+						<font size="1">MY PAGE</font>
+					</s:else>
 				</td>
 			</tr>
 			<tr>

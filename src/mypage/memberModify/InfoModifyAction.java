@@ -74,6 +74,8 @@ public class InfoModifyAction extends ActionSupport implements SessionAware{
 		
 		paramClass.setMember_no(session_no);
 		paramClass.setMember_pw(getMember_pw());
+		System.out.println(getMember_pw());
+		System.out.println(getEmail1());
 		
 		resultClass = (memberbean)sqlMapper.queryForObject("mypageMemberModify.modifyPass", paramClass);
 		

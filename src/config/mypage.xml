@@ -12,14 +12,14 @@
 		</action>
 		
 		<action name="InfoModifyForm" class="mypage.memberModify.InfoModifyAction" method="form">
-			<result type="tiles">profile</result>
+			<result name="success">InfoModifyPro</result>
 			<result name="error">/myPage/pwError.jsp</result>
 			<!-- <result type="chain">InfoModifyPro</result>	 -->
 		</action>
 		
 		<action name="InfoModifyPro" class="mypage.memberModify.InfoModifyAction" method="execute">
 			<result name="login" type="redirectAction">loginac</result>
-			<result name="success" type="redirectAction">InfoModifyForm</result>
+			<result name="success" type="redirectAction">InfoView</result>
 		</action>
 		
 		<action name="InfoModifyPWForm" class="mypage.memberModify.InfoModifyPWAction" method="form">
@@ -33,12 +33,12 @@
 		</action>
 		
 		<action name="InfoDeleteForm" class="mypage.memberModify.InfoDeleteAction" method="form">
-			<result type="tiles">terminateForm</result>
+			<result name="success">InfoDeletePro</result>
 			<result name="error">/myPage/pwError.jsp</result>
 		</action>
 		
 		<action name="InfoDeletePro" class="mypage.memberModify.InfoDeleteAction" method="execute">
-			<result name="tiles">main</result>
+			<result name="success" type="tiles">main</result>
 		</action>
 	</package>
 	

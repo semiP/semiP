@@ -49,9 +49,11 @@ public class InfoDeleteAction extends ActionSupport{
 		paramClass = new memberbean();
 		resultClass = new memberbean();
 		
-		String session_id = (String)session.get("session_member_id");
+		System.out.print((int)session.get("session_member_no"));
+		/*String session_id = (String)session.get("session_member_id");*/
 		int session_no = (int)session.get("session_member_no");
-		String session_name = (String)session.get("session_member_name");
+		System.out.print(session_no);
+		/*String session_name = (String)session.get("session_member_name");*/
 		
 		paramClass.setMember_no(session_no);
 		paramClass.setMember_pw(getMember_pw());

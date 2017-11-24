@@ -93,7 +93,7 @@
 		
 		
 		
-		<form action="InfoModifyPro.action" method="post">
+		<form action="InfoModifyForm.action" method="post">
 		<table width="80%" border="0" align="center">
 			<tr>
 				<td align="left" colspan="2">
@@ -163,7 +163,7 @@
 			</tr>
 			<tr>
 				<td width="100"><br>&nbsp;&nbsp;기존 비밀번호<br><br></td>
-				<td><input type="member_pw" style="width:90%; height:30px;" value="<s:property value="resultClass.member_pw"/>"></td>
+				<td><input type="password" id="member_pw" style="width:90%; height:30px;"></td>
 			</tr>
 			<tr>
 				<td colspan="3" height="1" bgcolor="#777777"></td>
@@ -217,7 +217,7 @@
 				<td height="30px"/>
 			</tr>
 			<tr>
-				<td colspan="2" align="right"><a href="/semiP/myPage/terminateForm.jsp">회원탈퇴</a></td>
+				<td colspan="2" align="right"><a href="/semiP/InfoDeleteForm.action">회원탈퇴</a></td>
 			</tr>		
 		</table>
 	</table>
