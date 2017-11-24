@@ -46,6 +46,8 @@
 		<result property="order_pay_name" column="order_pay_name"/>
 		<result property="order_total_pay" column="order_total_pay"/>
 		<result property="invoice_no" column="invoice_no"/>
+		<result property="goods_name" column="goods_name"/>
+		<result property="category" column="category"/>
 	</resultMap>
 	
 	<resultMap id="memberRes" class="member">
@@ -72,34 +74,45 @@
 			SELECT * FROM goodsOrder
 		</sql>
 		
-		<sql id="select-all-classfy-goodsOrder_OrderDeliverCondition">
-			SELECT * FROM (SELECT * FROM goodsOrder WHERE order_member_no = #order_member_no#)
-		</sql>
-		
+
 		<select id="selectAllGoodsOrderDeliverCondition" resultMap="goodsRes" parameterClass="int">
 			<include refid="select-all-goods_OrderDeliverCondition"/>
 			ORDER BY goods_no DESC
 		</select>
 		
 		<select id="selectAllGoodsOrderOrderDeliverCondition" resultMap="goodsOrderRes" parameterClass="int">
-			<include refid="select-all-classfy-goodsOrder_OrderDeliverCondition"/>
+			SELECT * 
+			FROM goodsOrder 
+			WHERE order_member_no = #order_member_no#
+				AND order_status != 5
 			ORDER BY order_no DESC
 		</select>
 		
 	<!--  select-one -->
-		<select id="selectOneGoods_OrderDeliverCondition" resultMap="goodsRes" parameterClass="int">
+		<select id="selectOneGoods_OrderDeliverCondition" resultMap="goodsRes" parameterClass="goods.goodsVO">
 			<include refid="select-all-goods_OrderDeliverCondition" />
 			WHERE goods_no = #goods_no#
 		</select>
 		
-		<select id="selectOneGoodsOrder_OrderDeliverCondition" resultMap="goodsOrderRes" parameterClass="int">
-			<include refid="select-all-classfy-goodsOrder_OrderDeliverCondition" />
-			WHERE order_no = #order_no# and order_status != 5
+		<select id="selectAll-notRefund" resultMap="goodsOrderRes" parameterClass="int">
+			SELECT * 
+			FROM
+				(SELECT 
+					a.*,
+					b.goods_name,
+					b.goods_category as category
+				FROM goodsOrder a, goods b
+				WHERE a.order_goods_no = b.goods_no )
+			WHERE order_member_no = #order_member_no#
+				AND order_status != 5
 		</select>
 
 	<!-- 기간조회 -->
 		<select id="order_date" resultMap="goodsOrderRes" parameterClass="int">
-			<include refid="select-all-classfy-goodsOrder_OrderDeliverCondition"/>
+			SELECT * 
+			FROM goodsOrder 
+			WHERE order_member_no = #order_member_no#
+				AND order_status != 5
 			BETWEEN #searchKeyword1# AND #searchKeyword2#
 		</select>	
 </sqlMap>
