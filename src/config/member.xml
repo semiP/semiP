@@ -39,10 +39,8 @@
 		</action>
 		<!-- 회원가입 -->
 		<action name="memberend" class="member.memberendAction">
-			<interceptor-ref name="prepare" />
-			
 			<interceptor-ref name="params" />
-			<result name="success" type="tiles">loginForm</result> 
+			<result name="success" type="tiles">loginForm</result>
 		</action>
 		<!-- 아이디 중복확인 -->
 		<action name="memberIdChkAction" class="member.memberIdChkAction">

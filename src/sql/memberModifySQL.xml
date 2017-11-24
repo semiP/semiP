@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
-<sqlMap namespace="mypage1">
-	<typeAlias alias="member" type="mypage.memberBean"/>
+<sqlMap namespace="mypageMemberModify">
+
+	<typeAlias alias="member" type="member.memberbean"/>
 	
 	<!-- result map 정의 -->
 	<resultMap id="memberRes" class="member">
@@ -41,45 +42,37 @@
 			<include refid="select-all-member" />
 			WHERE member_no = #member_no#
 		</select>
-   
-    <!-- 회원정보 수정에 관련된 목록 뽑기(비밀번호 제외) -->
-   		<!-- <select id="memberModifyList" resultMap="memberRes" parameterClass="int">
-   			SELECT membe_name, member_email, member_zipcode, member_address1, member_address2, member_phone FROM member WHERE member_no  = #member_no#
-   		</select> -->
-   
-   <!-- 우편 번호 찾기 -->
-		<!-- <select id="zipCheckAction" resultMap="memberRes" parameterClass="String">
-			select * from member where member_zipcode like #member_zipcode#
-		</select> -->
 		
+	<!-- 회원정보 수정 쿼리문 -->
+		<update id="updateMember" parameterClass="member">
+			UPDATE member SET
+					member_email=#member_email#,
+ 					member_zipcode=#member_zipcode#,
+					member_address1=#member_address1#,
+					member_address2=#member_address2#,
+					member_phone=#member_phone# 
+			WHERE member_no=#member_no#
+		</update>
+	
+	<!-- 회원정보 비밀번호 수정 쿼리문 -->
+		<update id="updatePW" parameterClass="member.memberbean">
+			UPDATE member SET member_pw=#member_pw# WHERE member_no=#member_no#
+		</update>
+	
+	 <!-- 회원정보 선택 -->
+	 <!-- parameterClass 설정이 안돼있었네요 -->
+  		 <select id="modifyPass" resultMap="memberRes" parameterClass="member.memberbean">
+      		<include refid="select-all-member"/>
+      		 WHERE member_no = #member_no# 
+      		 AND member_pw = #member_pw#
+   		</select>
+	
 	<!-- 비밀번호 일치여부 쿼리문 -->
 		<select id="pwCheck" resultMap="memberRes" parameterClass="String">
 			<include refid="select-all-member"/>
 			WHERE member_no=#member_no#
 			AND member_pw = #member_pw#
 		</select>
-	
-	<!-- 회원정보 수정에 관한 목록 뽑기(비밀번호 포함) -->
-		<!-- <select id="memberModifyAllList" resultMap="memberRes" parameterClass="int">
-   			SELECT membe_name, member_email, member_zipcode, member_address1, member_address2, member_phone FROM, member_pw member WHERE member_no  = #member_no#
-   		</select> -->
-	
-	<!-- 비밀번호 출력 쿼리문 -->
-		<select id="showPW" resultMap="memberRes" parameterClass="String">
-			<!-- SELECT member_pw FROM member WHERE member_no = #member_no# -->
-		</select>
-		
-	<!-- 회원정보 수정 쿼리문 -->
-		<update id="updateMember" parameterClass="member">
-			UPDATE member SET
-					member_email=#member_email#
-					member_zipcode=#member_zipcode#
-					member_address1=#member_address1#
-					member_address2=#member_address2#
-					member_phone=#member_phone#
-					member_pw=#member_pw#
-			WHERE member_no=#member_no#
-		</update>
 		
 	<!-- 비밀번호 수정 쿼리문 -->
 		<update id="updateMemberPW" parameterClass="member">
@@ -87,6 +80,11 @@
 				member_pw = #member_pw#
 			WHERE member_no=#member_no#
 		</update>
+		
+   <!-- 로그인 값 얻어오기 -->
+   <select id="UserCheck" resultMap="memberRes" parameterClass="string">
+      SELECT * FROM MEMBER WHERE M_ID = #m_id#
+   </select>
 		
 	<!-- 회원탈퇴 관련 쿼리문 -->
 		<insert id="insertMemberDeleteReason" parameterClass="member">
@@ -98,4 +96,26 @@
 		<update id="updateMemberDelete" parameterClass="member">
 			UPDATE member SET member_level = 2
 		</update>
+		
+		
+	<!-- 회원정보 수정에 관련된 목록 뽑기(비밀번호 제외) -->
+   		<!-- <select id="memberModifyList" resultMap="memberRes" parameterClass="int">
+   			SELECT membe_name, member_email, member_zipcode, member_address1, member_address2, member_phone FROM member WHERE member_no  = #member_no#
+   		</select> -->
+   
+   <!-- 우편 번호 찾기 -->
+		<!-- <select id="zipCheckAction" resultMap="memberRes" parameterClass="String">
+			select * from member where member_zipcode like #member_zipcode#
+		</select> -->
+		
+		
+	<!-- 회원정보 수정에 관한 목록 뽑기(비밀번호 포함) -->
+		<!-- <select id="memberModifyAllList" resultMap="memberRes" parameterClass="int">
+   			SELECT membe_name, member_email, member_zipcode, member_address1, member_address2, member_phone FROM, member_pw member WHERE member_no  = #member_no#
+   		</select> -->
+	
+	<!-- 비밀번호 출력 쿼리문 -->
+		<select id="showPW" resultMap="memberRes" parameterClass="String">
+			<!-- SELECT member_pw FROM member WHERE member_no = #member_no# -->
+		</select>
 </sqlMap>

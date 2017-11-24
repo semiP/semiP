@@ -13,7 +13,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import goods.goodsVO;
 import mypage.goodsOrderBean;
-import mypage.inquiryBean;
+import mypage.inquiryVO;
 
 public class listAction extends ActionSupport {
 	public static Reader reader;

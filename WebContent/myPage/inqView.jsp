@@ -22,22 +22,22 @@
 	<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 	<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 	<tr>
-		<td class="board-titlebar" width="8%"><s:property value="resultClass.faq_no" /></td>
-		<td class="board-titlebar" width="67%"><s:property value="resultClass.faq_subject" /></td>
-		<td class="board-titlebar" width="12%">관리자</td>
-		<td class="board-titlebar" width="15%"><s:property value="resultClass.faq_regdate" /></td>
+		<td class="board-titlebar" width="8%"><s:property value="resultClass.inquiry_no" /></td>
+		<td class="board-titlebar" width="67%"><s:property value="resultClass.inquiry_subject" /></td>
+		<td class="board-titlebar" width="12%"><s:property value="resultClass.member_name" /></td>
+		<td class="board-titlebar" width="15%"><s:property value="resultClass.inquiry_regdate" /></td>
 	</tr>
 	<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
 	<tr>
-		<td colspan="4" bgcolor="#f2f2f2"><s:property value="resultClass.faq_content" />
+		<td colspan="4" bgcolor="#f2f2f2"><s:property value="resultClass.inquiry_content" />
 			<td colspan="4" class="board-titlebar" width="67%"></td>
 	</tr>
 	<tr><td colspan="4" bgcolor="#cccccc" height="1"></td></tr>
-	<tr>
-		<!-- <td colspan="4" align="right">	차후 관리자는 수정/삭제
+	<!-- <tr>
+		<td colspan="4" align="right">	차후 관리자는 수정/삭제
 			<input type="button" value="글삭제">
-		</td> -->
-	</tr>
+		</td>
+	</tr> -->
 </table>									
 	
 </body>

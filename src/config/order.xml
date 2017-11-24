@@ -6,9 +6,9 @@
 <struts>
 	<!-- 용량제한 100MB 로 설정 -->
 	<constant name="struts.multipart.maxSize" value="104857600" />
-	<constant name="struts.multipart.saveDir" value="E:\upload" />
+	<constant name="struts.multipart.saveDir" value="C:\upload" />
 	
-	<package name="order" extends="struts-default">
+	<package name="order" extends="struts-default, tiles-default">
 <!--  	글로벌 예외처리 화면설정
 		<global-results>
 			<result name="error">/board/pageError.jsp</result>
@@ -35,7 +35,9 @@
 		
 		<!-- 주문 등록 게시판 글쓰기 액션 -->
 		<action name="orderWriteForm" class="order.orderWriteAction" method="form">
-	 		<result>/order/orderWrite.jsp</result>
+			<interceptor-ref name="params"></interceptor-ref>
+			<result name="login" type="redirectAction">loginac</result>
+	 		<result type="tiles">orderWriteForm</result>
 		</action>
 		<action name="orderWriteAction" class="order.orderWriteAction">
 			<result type="redirect-action">
@@ -46,7 +48,8 @@
 		<!-- 주문된 상품 넘기기 액션 -->
 		<action name="orderWriteAction" class="order.orderWriteAction">
 			<interceptor-ref name="params"></interceptor-ref>
-			<result>/order/orderWrite.jsp</result>
+			<result name="login" type="redirectAction">loginac</result>
+			<result type="tiles">orderComplete</result>
 		</action>
  	
  		<!-- 주문 내역 가져오기 (List) 액션 -->

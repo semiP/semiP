@@ -66,7 +66,7 @@
 					<tr>	<td colspan="3" height="20"></td>	</tr>
 					<tr>
 						<td colspan="3" align="center">
-							<input type="submit" class="btn-custom" value="돌아가기">
+							<input type="button" class="btn-custom" value="홈으로" onClick="document.location.href='main.action';">
 						</td>
 					</tr>
 					<tr>	<td colspan="3" height="20"></td>	</tr>												

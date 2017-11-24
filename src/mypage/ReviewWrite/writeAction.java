@@ -13,15 +13,15 @@ import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 
 import goods.goodsVO;
+import member.memberbean;
 import mypage.goods_qaBean;
-import mypage.memberBean;
 
 public class writeAction extends ActionSupport{
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
-	private memberBean paramClass1;
-	private memberBean resultClass1;
+	private memberbean paramClass1;
+	private memberbean resultClass1;
 	
 	private goodsVO paramClass2;
 	private goodsVO resultClass2;
@@ -86,8 +86,8 @@ public class writeAction extends ActionSupport{
 	
 	public String execute() throws Exception{
 		//파라미터와 리절트 객체 생성
-		paramClass1 = new memberBean();
-		resultClass1 = new memberBean();
+		paramClass1 = new memberbean();
+		resultClass1 = new memberbean();
 		
 		paramClass2 = new goodsVO();
 		resultClass2 = new goodsVO();
@@ -101,7 +101,7 @@ public class writeAction extends ActionSupport{
 		/*paramClass2.setGoods_color(getGoods_color());
 		paramClass2.setGoods_size(getGoods_size());*/
 		
-		resultClass1 = (memberBean)sqlMapper.queryForObject("Member_no",paramClass1);
+		resultClass1 = (memberbean)sqlMapper.queryForObject("Member_no",paramClass1);
 		resultClass2 = (goodsVO)sqlMapper.queryForObject("goods_no",paramClass2);
 		
 		// 등록할 내용
@@ -153,19 +153,19 @@ public class writeAction extends ActionSupport{
 		writeAction.sqlMapper = sqlMapper;
 	}
 
-	public memberBean getParamClass1() {
+	public memberbean getParamClass1() {
 		return paramClass1;
 	}
 
-	public void setParamClass1(memberBean paramClass1) {
+	public void setParamClass1(memberbean paramClass1) {
 		this.paramClass1 = paramClass1;
 	}
 
-	public memberBean getResultClass1() {
+	public memberbean getResultClass1() {
 		return resultClass1;
 	}
 
-	public void setResultClass1(memberBean resultClass1) {
+	public void setResultClass1(memberbean resultClass1) {
 		this.resultClass1 = resultClass1;
 	}
 

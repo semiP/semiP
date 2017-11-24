@@ -9,13 +9,15 @@ import java.util.*;
 import java.io.Reader;
 import java.io.IOException;
 
+import org.apache.struts2.interceptor.SessionAware;
+import com.opensymphony.xwork2.ActionContext;
+
 import java.io.File;
 import org.apache.commons.io.FileUtils;
 
 import goods.goodsVO;
 import order.orderVO;
 
-import org.apache.struts2.interceptor.SessionAware;
 
 public class orderWriteAction extends ActionSupport implements SessionAware {
 	
@@ -82,6 +84,13 @@ public class orderWriteAction extends ActionSupport implements SessionAware {
 	
 	public String form() throws Exception
 	{
+		ActionContext context = ActionContext.getContext();
+		session = context.getSession();
+		
+		if(session.get("session_member_id") == null){
+			return LOGIN;
+		}
+		
 		//orderVO <= goodsVO 정보 코딩
 		
 		order_goods_amount = goods_amount;
@@ -89,7 +98,12 @@ public class orderWriteAction extends ActionSupport implements SessionAware {
 		order_goods_color = goods_color;
 		order_goods_size = goods_size;
 		order_sale = 10;
-		order_total_pay = order_total_price * (order_sale / 100);
+		order_total_pay = (int)(order_total_price * ((double)(100 - order_sale) / 100));
+		
+		System.out.println("goods_price: "+goods_price);
+		System.out.println("goods_amount: "+goods_amount);
+		System.out.println("order_total_price: "+order_total_price);
+		System.out.println("order_total_pay: "+order_total_pay);
 		
 		return SUCCESS;
 	}
@@ -97,6 +111,13 @@ public class orderWriteAction extends ActionSupport implements SessionAware {
 	//주문내역 작성 액션
 	public String execute() throws Exception
 	{
+		ActionContext context = ActionContext.getContext();
+		session = context.getSession();
+		
+		if(session.get("session_member_id") == null){
+			return LOGIN;
+		}
+		
 		//클래스 생성
 		paramClass = new orderVO();
 		resultClass = new orderVO();

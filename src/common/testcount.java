@@ -38,9 +38,10 @@ public class testcount extends ActionSupport implements SessionAware {
 	private String goods_name;
 	private String goods_size;
 	private String goods_color;
-	private int goods_Price;
-	private int goods_amount;
+	private int goods_price;
 	private int goods_category;
+	private int goods_amount;
+	
 	
 	public testcount() throws IOException{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); 
@@ -53,7 +54,6 @@ public class testcount extends ActionSupport implements SessionAware {
 				
 		return SUCCESS;
 	}
-
 
 	public List<hitVO> getListHit() {
 		return listHit;
@@ -70,7 +70,7 @@ public class testcount extends ActionSupport implements SessionAware {
 	public void setCategoryMap(LinkedHashMap<String, List<goodsVO>> categoryMap) {
 		this.categoryMap = categoryMap;
 	}
-	
+
 	public Map getSession() {
 		return session;
 	}
@@ -111,12 +111,20 @@ public class testcount extends ActionSupport implements SessionAware {
 		this.goods_color = goods_color;
 	}
 
-	public int getGoods_Price() {
-		return goods_Price;
+	public int getGoods_price() {
+		return goods_price;
 	}
 
-	public void setGoods_Price(int goods_Price) {
-		this.goods_Price = goods_Price;
+	public void setGoods_price(int goods_price) {
+		this.goods_price = goods_price;
+	}
+
+	public int getGoods_category() {
+		return goods_category;
+	}
+
+	public void setGoods_category(int goods_category) {
+		this.goods_category = goods_category;
 	}
 
 	public int getGoods_amount() {
@@ -127,13 +135,6 @@ public class testcount extends ActionSupport implements SessionAware {
 		this.goods_amount = goods_amount;
 	}
 
-	public int getGoods_category() {
-		return goods_category;
-	}
-
-	public void setGoods_category(int goods_category) {
-		this.goods_category = goods_category;
-	}
 
 
 }

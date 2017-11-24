@@ -1,35 +1,38 @@
 package basket;
 
 import java.io.Reader;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
+import org.apache.struts2.interceptor.SessionAware;
+import com.opensymphony.xwork2.ActionContext;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class basketAddAction extends ActionSupport {
+public class basketAddAction extends ActionSupport implements SessionAware {
+
+	private static final long serialVersionUID = 1L;
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
 	private basketVO basketparamClass;
 	/*private basketVO basketresultClass;*/
 	
-	/*private String goods_name; // 없애고 goods_no
-	private String goods_image; // 없애고 goods_no
-*/	private int basket_price;
-	/*private int goods_price; // 없애고 goods_no
-*/	private int bgoods_amount;
+	
+	private int basket_price;
+	private int goods_price;
+	private int bgoods_amount;
 	private String goods_size;
 	private String goods_color;
-	/*private String member_id;*/
+	
 	private Date basket_date;
 	private int goods_no;
-	/*private int member_no;*/
+	private int member_no;
+	
+	private Map session;
 	
 	public basketAddAction() throws Exception{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
@@ -38,25 +41,34 @@ public class basketAddAction extends ActionSupport {
 	}
 	
 	public String execute() throws Exception{
-		basketparamClass = new basketVO();
-		/*basketresultClass= new basketVO();*/
+		ActionContext context = ActionContext.getContext();
+		session = context.getSession();
 		
-		/*basketparamClass.setMember_id(getMember_id());*/
-		/*basketparamClass.setGoods_name(getGoods_name()); // vo에는 있지만, table에 없는 정보
-		basketparamClass.setGoods_image(getGoods_image());// vo에는 있지만, table에 없는 정보
-*/		basketparamClass.setBasket_price(getBasket_price());
-		/*basketparamClass.setGoods_price(getGoods_price());// vo에는 있지만, table에 없는 정보
-*/		basketparamClass.setBgoods_amount(getBgoods_amount());
-		basketparamClass.setGoods_size(getGoods_size());
-		basketparamClass.setGoods_color(getGoods_color());
-		basketparamClass.setBasket_date(getBasket_date());
-		//basketparamClass.setGoods_no(getGoods_no());
-
-//		basketparamClass.setMember_no(세션에서 가져오기);
-
-		sqlMapper.insert("insertBasket", basketparamClass);
-
-		return SUCCESS;
+		if(session.get("session_member_id") == null){
+			return LOGIN;
+		}else{
+			basket_price = goods_price * bgoods_amount;
+			member_no = (int) session.get("session_member_no");
+		
+			basketparamClass = new basketVO();
+			/*basketresultClass= new basketVO();*/
+					
+			/*basketparamClass.setGoods_image(getGoods_image());// vo에는 있지만, table에 없는 정보
+	*/		basketparamClass.setBasket_price(getBasket_price());
+			/*basketparamClass.setGoods_price(getGoods_price());// vo에는 있지만, table에 없는 정보
+	*/		basketparamClass.setBgoods_amount(getBgoods_amount());
+			basketparamClass.setGoods_size(getGoods_size());
+			basketparamClass.setGoods_color(getGoods_color());
+			basketparamClass.setBasket_date(getBasket_date());
+			basketparamClass.setGoods_no(getGoods_no());
+			//basketparamClass.setGoods_no(getGoods_no());
+	
+			basketparamClass.setMember_no(member_no);
+	
+			sqlMapper.insert("basketSet.insertBasket", basketparamClass);
+	
+			return SUCCESS;
+		}	
 		
 	}
 
@@ -132,19 +144,30 @@ public class basketAddAction extends ActionSupport {
 		this.goods_no = goods_no;
 	}
 
+	public Map getSession() {
+		return session;
+	}
 
-	
-/*	public int getMember_no() {
+	public void setSession(Map session) {
+		this.session = session;
+	}
+
+	public int getGoods_price() {
+		return goods_price;
+	}
+
+	public void setGoods_price(int goods_price) {
+		this.goods_price = goods_price;
+	}
+
+	public int getMember_no() {
 		return member_no;
 	}
 	public void setMember_no(int member_no) {
 		this.member_no = member_no;
 	}
-	*/
 	
-	
-	
-	
+		
 }
 
 

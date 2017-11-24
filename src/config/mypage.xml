@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+	
+<struts>
+	<!-- 마이페이지-회원정보수정 -->
+	<package name="mypageMemberModify" extends="struts-default, tiles-default">
+		
+		<action name="InfoView" class="mypage.memberModify.InfoViewAction">
+			<interceptor-ref name="chain"/>
+			<interceptor-ref name="params"/>
+			<result name="login" type="redirectAction">loginac</result>
+			<result name="success" type="tiles">profile</result>
+		</action>
+		
+		<!-- 이거 안쓰는 액션이네요... 그냥 Pro 액션에 비번 틀릴때 예외처리 달아두었음. -->
+		<action name="InfoModifyForm" class="mypage.memberModify.InfoModifyAction" method="form">
+			<result type="tiles">profile</result>
+			<result name="error">/myPage/pwError.jsp</result>
+			<!-- <result type="chain">InfoModifyPro</result>	 -->
+		</action>
+		
+		<action name="InfoModifyPro" class="mypage.memberModify.InfoModifyAction" method="execute">
+			<interceptor-ref name="params"/>
+			<result name="login" type="redirectAction">loginac</result>
+			<result name="error" type="chain">InfoView</result>
+			<result name="success" type="chain">InfoView</result>
+		<!--<result name="success" type="redirectAction">InfoModifyForm</result>   비밀번호 체크부터 하고 액션처리를 해야지 업데이트를 다 해버리고 success로 오면 어카나요..   -->
+		</action>
+		
+		<action name="InfoModifyPWForm" class="mypage.memberModify.InfoModifyPWAction" method="form">
+			<result type="tiles">profile</result>
+			<result name="error">/myPage/pwError.jsp/</result>
+		</action>
+		
+		<action name="InfoModifyPWPro" class="mypage.memberModify.InfoModifyPWAction" method="execute">
+			<interceptor-ref name="params"/>
+			<result name="login" type="redirectAction">loginac</result>
+			<result name="error" type="chain">InfoView</result>
+			<result name="success" type="chain">InfoView</result>
+		</action>
+		
+		<action name="InfoDeleteForm" class="mypage.memberModify.InfoDeleteAction" method="form">
+			<result type="tiles">terminateForm</result>
+			<result name="error">/myPage/pwError.jsp</result>
+		</action>
+		
+		<action name="InfoDeletePro" class="mypage.memberModify.InfoDeleteAction" method="execute">
+			<result name="tiles">main</result>
+		</action>
+	</package>
+	
+	<!-- 마이페이지 주문배송 목록 -->
+	<package name="mypageOrderDeliverCondition" extends="struts-default, tiles-default">
+		<!-- jsp 들 다 이름 고치기 싫어서 그냥 Classify 를 액션이름으로 사용함 -->
+		<action name="OrderlistClassify" class="mypage.OrderDeliverCondition.mypageOrderlistAction">
+			<result name="success" type="tiles">orderList</result>
+		</action>
+
+	</package>
+	
+	<!-- 마이페이지 교환반품 목록 -->
+	<package name="mypageReturnEx" extends="struts-default, tiles-default">
+		
+		<action name="ReturnChangeCondition" class="mypage.ReturnEX.mypageReturnlistAction" method="changeCondition">
+			<result type="chain">ReturnClassify</result>
+		</action>
+		
+		<action name="ReturnClassify" class="mypage.ReturnEX.mypageReturnlistAction" method="classify">
+			<result name="success" type="chain">ReturnPro</result>
+		</action>
+		
+		<action name="ReturnPro" class="mypage.ReturnEX.mypageReturnlistAction" method="execute">
+			<result name="success" type="tiles">refundList</result>
+		</action>
+	</package>
+</struts>

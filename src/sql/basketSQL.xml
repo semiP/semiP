@@ -16,6 +16,9 @@
 	  	<result property="basket_date" column="basket_date"/>
 	  	<result property="goods_name" column="goods_name"/>
 	  	<result property="goods_image" column="goods_image"/>
+	  	<result property="goods_no" column="goods_no"/>
+	  	<result property="category" column="category"/>
+	  	<result property="goods_price" column="goods_price"/>
 	</resultMap>
 	
 	<!-- 공통으로 사용할 select절 정의 -->
@@ -30,12 +33,13 @@
 	
 	<!-- select 쿼리문 정의 -->
 	<select id="selectAll" resultMap="basketRes" parameterClass="int">
-		SELECT a.*,
-		(select goods_size from goods where goods_no = a.goods_no) as goods_size,
-		(select goods_color from goods where goods_no = a.goods_no) as goods_color,
-		(select goods_name from goods where goods_no = a.goods_no) as goods_name,	
-		(select goods_image from goods where goods_no = a.goods_no) as goods_image			
-		FROM BASKET a WHERE member_no = #member_no#
+		SELECT 	a.*, 
+				b.goods_name as goods_name, 
+				b.goods_image as goods_image,
+				b.goods_category as category,
+				b.goods_price as goods_price
+		FROM basket a, goods b
+		WHERE a.goods_no = b.goods_no AND a.member_no = #member_no#
 	</select>
 	
 	<select id="selectOne" resultMap="basketRes" parameterClass="int">
@@ -48,7 +52,7 @@
 	</select> -->
 	
 	<!-- insert 쿼리문 정의 -->
-	<!-- <insert id="insertBasket" parameterClass="basket">
+	<insert id="insertBasket" parameterClass="basket">
 	
 	INSERT INTO BASKET(BASKET_NO,
 					GOODS_SIZE,
@@ -64,11 +68,11 @@
 					#goods_color#,
 					#bgoods_amount#,
 					#basket_price#,
-					#basket_date#,
+					sysdate,
 					#goods_no#,
 					#member_no#
 					)
-	</insert> -->
+	</insert>
 	
 	
 	

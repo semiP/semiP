@@ -27,6 +27,8 @@ public class orderVO {
 	private String order_pay_name;
 	private int order_total_pay;
 	private int invoice_no;		// 171118 디비/SQL 에는 있는데 VO 에 없어서 추가-동민
+	private String goods_name;
+	private String category;
 	
 	//goodsVO goods_vo = new goodsVO();        //goods테이블의 클래스 객체
 	//memeberVO member_vo = new memberVO(); 
@@ -93,5 +95,18 @@ public class orderVO {
 	
 	public int getInvoice_no() { return invoice_no;	}
 	public void setInvoice_no(int invoice_no) {	this.invoice_no = invoice_no;	}
+	
+	public String getGoods_name() {
+		return goods_name;
+	}
+	public void setGoods_name(String goods_name) {
+		this.goods_name = goods_name;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
 }

@@ -9,14 +9,12 @@
 </head>
 <body>
 
-${order_goods_no }<br>
-${goods_name }<br>
-${goods_size }<br>
-${goods_color }<br>
-${goods_Price }<br>
-${goods_amount }<br>
-${goods_category }<br>
-
-
+order_goods_no : ${order_goods_no }<br>
+goods_amount : ${goods_amount }<br>
+goods_category : ${goods_category }<br>
+goods_name : ${goods_name }<br>
+goods_size : ${goods_size }<br>
+goods_color : ${goods_color }<br>
+goods_price : ${goods_price }<br>
 </body>
 </html>

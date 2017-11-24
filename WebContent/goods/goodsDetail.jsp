@@ -18,7 +18,25 @@
 	}
 	//--> 
 </script>
-
+<script>
+	function check(){
+		var f = document.orderWriteAction;
+				
+		if(f.goods_amount.value == 0){
+			alert("수량을 입력해 주세요");
+			return false;
+		}
+		if(f.goods_color.value == ""){
+			alert("색상을 선택해 주세요");
+			return false;
+		}
+		if(f.goods_size.value == ""){
+			alert("사이즈를 선택해 주세요.");
+			return false;
+		}
+		return true;
+	}
+</script>
 <div id="content-container">
 	<table width="100%" border="0" style="margin:auto; max-width:1000px;">
 		<tr>			
@@ -54,7 +72,7 @@
 						</td>
 						<td width="15"></td> <!-- 사진과 옵션 사이 여백는 부분 -->
 						<td style="vertical-align:top;">
-							<form name="orderWriteAction" action="orderWriteForm.action" method="post">
+							<form name="orderWriteAction" action="orderWriteForm.action" method="post" onSubmit="return check();">
 							<input type="hidden" name="order_goods_no" value="${goods_no }"/>
 							<input type="hidden" name="goods_name" value="<s:property value='resultGoods.goods_name' />"/>
 							<input type="hidden" name="goods_category" value="<s:property value='resultGoods.goods_category' />"/>
@@ -117,7 +135,17 @@
 								</tr>
 								<tr>
 									<td align="center" style="padding:5px;" >
-										<input type="button" class="btn-custom" value="장바구니 담기" style="width:150px;" onClick="javascript:location.href='basketListAction.action?currentPage=<s:property value="currentPage" />'">
+										<input type="button" class="btn-custom" value="장바구니 담기" style="width:150px;" 
+											onClick="javascript:
+														var selectedSize = document.getElementsByName('goods_size')[0].value;
+														var selectedColor = document.getElementsByName('goods_color')[0].value;
+														var selectedAmount = document.getElementById('count').value;
+														
+														console.log(selectedSize);
+														console.log(selectedColor);
+														console.log(selectedAmount);
+														
+														location.href='basketAddAction.action?goods_size='+selectedSize+'&goods_color='+selectedColor+'&goods_price=<s:property value='resultGoods.goods_price' />&bgoods_amount='+selectedAmount+'&goods_name=<s:property value='resultGoods.goods_name' />&goods_no=${goods_no }&category=<s:property value='resultGoods.goods_category' />' ">
 									</td>
 									<td align="left" style="padding:5px;">
 										<input type="submit" class="btn-custom1" value="구매하기" style="width:150px;"/>

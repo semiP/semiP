@@ -19,7 +19,7 @@
 		<tr> <!-- 폼 테이블 넣기 -->
 			<td width="20%"/>
 			<td>
-				<form method="post" action="loginidfind.action" name="memberFindForm" >
+				<form method="post" action="loginidfind.action" >
 					<table width="100%" height="200" border="0" class="inputForm" style="border:3px solid black;">
 						<tr>
 							<td align="right" width="100">성  명&nbsp;&nbsp;&nbsp;</td>
@@ -32,7 +32,8 @@
 							<td width="15"></td>
 						</tr>
 						<tr align="center">
-							<td colspan="3"><input type="submit" value="질의하기" class="btn-custom" ></td>
+							<td colspan="3"><input type="submit" value="질의하기" class="btn-custom">
+							</td>
 						</tr>
 					</table>
 				</form>
