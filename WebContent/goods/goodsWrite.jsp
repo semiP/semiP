@@ -123,8 +123,10 @@
 				<td>
 					<input type="button" id="m_btn" value="-" style="background-color:#cccccc;">
 <!-- 				<input type="text" id="count" value="0" style="text-align:center; width:50px;" readonly="readonly"> -->	
-					<s:textfield name="goods_amount" theme="simple" value="%{resultClass.goods_amount}" cssStyle="width:100px" maxlength="20"/>
+					<%-- <s:textfield name="goods_amount" theme="simple" value="%{resultClass.goods_amount}" cssStyle="width:100px" maxlength="20"/> --%>
+					<input type="text" name="goods_amount" id="count" value="0" style="text-align:center; width:50px;" readonly="readonly">
 					<input type="button" id="p_btn" value="+" style="background-color:#cccccc;">
+					<input type="hidden" name="goods_amount" value="<s:property value='resultGoods.goods_amount' />"/>
 				</td>
 			</tr>
 			
@@ -166,3 +168,4 @@
 		</table>
 		
 	</table>
+	<script type="text/javascript" src="/semiP/assets/js/goodsCount.js"></script>

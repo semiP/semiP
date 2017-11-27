@@ -94,6 +94,7 @@ public class goodsWriteAction extends ActionSupport{
 		    
 			//sqlMapper.update("goods.updateFile", paramClass);
 		}
+		
 		//��� ���� ����.
 		sqlMapper.insert("goods.goodsInsert", paramClass);
 		
